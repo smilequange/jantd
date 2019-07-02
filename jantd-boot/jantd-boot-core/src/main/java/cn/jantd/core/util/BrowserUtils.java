@@ -15,9 +15,6 @@ import javax.servlet.http.HttpServletRequest;
  * @Date 2019/7/2
  */
 public class BrowserUtils {
-
-	// 判断是否是IE
-
 	/**
 	 * 判断是否是Ie
 	 * @param request
