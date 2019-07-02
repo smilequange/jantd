@@ -1,9 +1,10 @@
 package cn.jantd.modules.system.vo;
 
+import cn.jantd.core.poi.excel.annotation.Excel;
+import cn.jantd.core.poi.excel.annotation.ExcelCollection;
 import cn.jantd.modules.system.entity.SysDictItem;
 import lombok.Data;
-import org.jeecgframework.poi.excel.annotation.Excel;
-import org.jeecgframework.poi.excel.annotation.ExcelCollection;
+
 
 import java.util.List;
 

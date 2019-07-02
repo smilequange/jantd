@@ -1,6 +1,6 @@
 package cn.jantd.config;
 
-import org.jeecgframework.core.util.ApplicationContextUtil;
+import cn.jantd.core.poi.util.ApplicationContextUtil;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -22,7 +22,7 @@ public class AutoPoiConfig {
 	 */
 	@Bean
 	public ApplicationContextUtil applicationContextUtil() {
-		return new org.jeecgframework.core.util.ApplicationContextUtil();
+		return new ApplicationContextUtil();
 	}
 
 }

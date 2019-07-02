@@ -2,10 +2,11 @@ package cn.jantd.modules.demo.test.vo;
 
 import java.util.List;
 
+import cn.jantd.core.poi.excel.annotation.Excel;
+import cn.jantd.core.poi.excel.annotation.ExcelCollection;
 import cn.jantd.modules.demo.test.entity.JeecgOrderCustomer;
 import cn.jantd.modules.demo.test.entity.JeecgOrderTicket;
-import org.jeecgframework.poi.excel.annotation.Excel;
-import org.jeecgframework.poi.excel.annotation.ExcelCollection;
+
 
 import lombok.Data;
 

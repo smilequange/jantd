@@ -1,6 +1,6 @@
 package cn.jantd.core.system.base.entity;
 
-import org.jeecgframework.poi.excel.annotation.Excel;
+import cn.jantd.core.poi.excel.annotation.Excel;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.baomidou.mybatisplus.annotation.IdType;

@@ -2,8 +2,8 @@ package cn.jantd.modules.demo.test.entity;
 
 import java.io.Serializable;
 
+import cn.jantd.core.poi.excel.annotation.Excel;
 import cn.jantd.core.system.base.entity.BaseEntity;
-import org.jeecgframework.poi.excel.annotation.Excel;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.baomidou.mybatisplus.annotation.TableName;

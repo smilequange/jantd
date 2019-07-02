@@ -3,10 +3,10 @@ package cn.jantd.modules.system.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.jantd.core.poi.service.AutoPoiDictServiceI;
 import cn.jantd.core.system.vo.DictModel;
 import cn.jantd.core.util.oConvertUtils;
 import cn.jantd.modules.system.mapper.SysDictMapper;
-import org.jeecgframework.dict.service.AutoPoiDictServiceI;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

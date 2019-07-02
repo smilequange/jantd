@@ -1,10 +1,9 @@
 package cn.jantd.modules.system.entity;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
 import java.util.Date;
 
-import org.jeecgframework.poi.excel.annotation.Excel;
+import cn.jantd.core.poi.excel.annotation.Excel;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.baomidou.mybatisplus.annotation.IdType;

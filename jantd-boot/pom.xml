@@ -1,7 +1,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>org.jeecgframework.boot</groupId>
-  <artifactId>jeecg-boot-parent</artifactId>
+  <groupId>cn.jantd.boot</groupId>
+  <artifactId>jantd-boot-parent</artifactId>
   <version>2.0.1</version>
   <packaging>pom</packaging>
 
@@ -51,13 +51,18 @@
 	</repositories>
 
     <properties>
-        <jeecgboot.common.version>2.0.1</jeecgboot.common.version>
+        <jantd.boot.core.version>1.0</jantd.boot.core.version>
         <java.version>1.8</java.version>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <mybatis-plus.version>3.0.6</mybatis-plus.version>
         <druid.version>1.1.10</druid.version>
         <commons.version>2.6</commons.version>
+
+		<commons-lang.version>3.2.1</commons-lang.version>
+		<poi.version>3.9</poi.version>
+		<xerces.version>2.9.1</xerces.version>
+		<guava.version>20.0</guava.version>
     </properties>
 
 	<dependencies>
@@ -101,6 +106,11 @@
 			<version>${commons.version}</version>
 		</dependency>
 
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>${commons-lang.version}</version>
+		</dependency>
 		<!-- freemarker -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -223,27 +233,76 @@
 			<version>1.0.5</version>
 		</dependency>
 
-        <!-- AutoPoi Excel工具类-->
+        <!--&lt;!&ndash;&lt;!&ndash; AutoPoi Excel工具类&ndash;&gt;&ndash;&gt;-->
+		<!--<dependency>-->
+			<!--<groupId>org.jeecgframework</groupId>-->
+			<!--<artifactId>autopoi-web</artifactId>-->
+			<!--<version>1.0.3</version>-->
+			<!--<exclusions>-->
+				<!--<exclusion>-->
+					<!--<groupId>commons-codec</groupId>-->
+					<!--<artifactId>commons-codec</artifactId>-->
+				<!--</exclusion>-->
+			<!--</exclusions>-->
+		<!--</dependency>-->
+
+		<!-- poi -->
 		<dependency>
-			<groupId>org.jeecgframework</groupId>
-			<artifactId>autopoi-web</artifactId>
-			<version>1.0.3</version>
-			<exclusions>
-				<exclusion>
-					<groupId>commons-codec</groupId>
-					<artifactId>commons-codec</artifactId>
-				</exclusion>
-			</exclusions>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi</artifactId>
+			<version>${poi.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi-ooxml</artifactId>
+			<version>${poi.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi-ooxml-schemas</artifactId>
+			<version>${poi.version}</version>
+		</dependency>
+		<!-- sax 读取时候用到的 -->
+		<dependency>
+			<groupId>xerces</groupId>
+			<artifactId>xercesImpl</artifactId>
+			<version>${xerces.version}</version>
+			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi-scratchpad</artifactId>
+			<version>${poi.version}</version>
+		</dependency>
+
+		<!-- google 工具类 -->
+		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<version>${guava.version}</version>
+		</dependency>
+
+
+
+
+		<!--&lt;!&ndash;servlet &ndash;&gt;-->
+		<!--<dependency>-->
+			<!--<groupId>javax.servlet</groupId>-->
+			<!--<artifactId>servlet-api</artifactId>-->
+			<!--<version>2.5</version>-->
+			<!--<scope>provided</scope>-->
+			<!--<optional>true</optional>-->
+		<!--</dependency>-->
+
 	</dependencies>
 
 	<dependencyManagement>
 		<dependencies>
-			<!-- jeecg-boot-base-core -->
+			<!-- jantd-boot-base-core -->
 			<dependency>
-	    		<groupId>org.jeecgframework.boot</groupId>
-	    		<artifactId>jeecg-boot-base-common</artifactId>
-	    		<version>${jeecgboot.common.version}</version>
+	    		<groupId>cn.jantd.boot</groupId>
+	    		<artifactId>jantd-boot-core</artifactId>
+	    		<version>${jantd.boot.core.version}</version>
 	    	</dependency>
 		</dependencies>
 	</dependencyManagement>
