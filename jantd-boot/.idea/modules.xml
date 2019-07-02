@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/jantd-boot-core/jantd-boot-core.iml" filepath="$PROJECT_DIR$/jantd-boot-core/jantd-boot-core.iml" />
+      <module fileurl="file://$PROJECT_DIR$/jantd-boot-module-system/jantd-boot-module-system.iml" filepath="$PROJECT_DIR$/jantd-boot-module-system/jantd-boot-module-system.iml" />
+      <module fileurl="file://$PROJECT_DIR$/jantd-boot-parent.iml" filepath="$PROJECT_DIR$/jantd-boot-parent.iml" />
+    </modules>
+  </component>
+</project>
