@@ -19,7 +19,7 @@ public class LogRecordAspect {
 private static final Logger logger = LoggerFactory.getLogger(LogRecordAspect.class);
 
     // 定义切点Pointcut
-    @Pointcut("execution(public * org.jeecg.modules.*.*.*Controller.*(..))")
+    @Pointcut("execution(public * cn.jantd.modules.*.*.*Controller.*(..))")
     public void excudeService() {
     }
 

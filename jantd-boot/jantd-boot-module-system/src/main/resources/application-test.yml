@@ -120,4 +120,4 @@ jeecg :
     webapp: D://webapp
 logging:
   level:
-    org.jeecg.modules.system.mapper : debug
+    cn.jantd.modules.system.mapper : debug

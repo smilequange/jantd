@@ -85,9 +85,9 @@ spring:
         connectionProperties: druid.stat.mergeSql\=true;druid.stat.slowSqlMillis\=5000
       datasource:
         master:
-          url: jdbc:mysql://127.0.0.1:3306/jeecg-boot?characterEncoding=UTF-8&useUnicode=true&useSSL=false
-          username: root
-          password: root
+          url: jdbc:mysql://119.57.73.147:3306/jantd-boot?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&useSSL=false&zeroDateTimeBehavior=convertToNull
+          username: evaluation
+          password: lwq@mysql_Eval_123456
           driver-class-name: com.mysql.jdbc.Driver
           # 多数据源配置
           #multi-datasource1:
@@ -98,7 +98,7 @@ spring:
   #redis 配置
   redis:
     database: 0
-    host: 127.0.0.1
+    host: sairendevdb.mksoftapp.com
     lettuce:
       pool:
         max-active: 8   #最大连接数据库连接数,设 0 为没有限制
@@ -106,11 +106,11 @@ spring:
         max-wait: -1ms  #最大建立连接等待时间。如果超过此时间将接到异常。设为-1表示无限制。
         min-idle: 0     #最小等待连接中的数量,设 0 为没有限制
       shutdown-timeout: 100ms
-    password: '123456'
-    port: 6379
+    password: zpyFa669nDUnM4Tx
+    port: 63791
 #mybatis plus 设置
 mybatis-plus:
-  mapper-locations: classpath*:org/jeecg/modules/**/xml/*Mapper.xml
+  mapper-locations: classpath*:cn/jantd/modules/**/xml/*Mapper.xml
 
 #jeecg专用配置
 jeecg :
