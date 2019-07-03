@@ -19,13 +19,13 @@ import lombok.extern.slf4j.Slf4j;
  */
 @RestControllerAdvice
 @Slf4j
-public class JeecgBootExceptionHandler {
+public class JantdBootExceptionHandler {
 
 	/**
 	 * 处理自定义异常
 	 */
-	@ExceptionHandler(JeecgBootException.class)
-	public Result<?> handleRRException(JeecgBootException e){
+	@ExceptionHandler(JantdBootException.class)
+	public Result<?> handleRRException(JantdBootException e){
 		log.error(e.getMessage(), e);
 		return Result.error(e.getMessage());
 	}

@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.sql.DataSource;
 
 import cn.jantd.core.constant.CommonConstant;
-import cn.jantd.core.exception.JeecgBootException;
+import cn.jantd.core.exception.JantdBootException;
 import cn.jantd.core.system.api.SystemBaseApi;
 import cn.jantd.core.system.vo.DictModel;
 import cn.jantd.core.system.vo.LoginUser;
@@ -187,7 +187,7 @@ public class SystemBaseApiImpl implements SystemBaseApi {
 				}else if(dbType.indexOf("postgresql")>=0) {
 					DB_TYPE = DB_TYPE_POSTGRESQL;
 				}else {
-					throw new JeecgBootException("数据库类型:["+dbType+"]不识别!");
+					throw new JantdBootException("数据库类型:["+dbType+"]不识别!");
 				}
 			} catch (Exception e) {
 				log.error(e.getMessage(), e);

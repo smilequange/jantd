@@ -153,21 +153,21 @@ public class DateUtils extends PropertyEditorSupport {
 	 */
 	public static String dateformat(String date, String format) {
 		SimpleDateFormat sformat = new SimpleDateFormat(format);
-		Date _date = null;
+		Date newDate = null;
 		try {
-			_date = sformat.parse(date);
+			newDate = sformat.parse(date);
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return sformat.format(_date);
+		return sformat.format(newDate);
 	}
 
 	/**
 	 * 日期转换为字符串
 	 *
 	 * @param date   日期
-	 * @param format 日期格式
+	 * @param date_sdf 日期格式
 	 * @return 字符串
 	 */
 	public static String date2Str(Date date, SimpleDateFormat date_sdf) {
@@ -180,7 +180,6 @@ public class DateUtils extends PropertyEditorSupport {
 	/**
 	 * 日期转换为字符串
 	 *
-	 * @param date   日期
 	 * @param format 日期格式
 	 * @return 字符串
 	 */
@@ -499,7 +498,6 @@ public class DateUtils extends PropertyEditorSupport {
 	 * @param pattern 转换的匹配格式
 	 * @return 如果转换成功则返回转换后的日期
 	 * @throws ParseException
-	 * @throws AIDateFormatException
 	 */
 	public static Date parseDate(String src, String pattern) throws ParseException {
 		return getSDFormat(pattern).parse(src);
@@ -513,7 +511,6 @@ public class DateUtils extends PropertyEditorSupport {
 	 * @param pattern 转换的匹配格式
 	 * @return 如果转换成功则返回转换后的日期
 	 * @throws ParseException
-	 * @throws AIDateFormatException
 	 */
 	public static Calendar parseCalendar(String src, String pattern) throws ParseException {
 

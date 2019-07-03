@@ -201,14 +201,6 @@ public class oConvertUtils {
 		return (getString(s, ""));
 	}
 
-	/**
-	 * 转义成Unicode编码
-	 * @param s
-	 * @return
-	 */
-	/*public static String escapeJava(Object s) {
-		return StringEscapeUtils.escapeJava(getString(s));
-	}*/
 
 	public static String getString(Object object) {
 		if (isEmpty(object)) {
@@ -373,7 +365,7 @@ public class oConvertUtils {
 	/**
 	 * SET转换MAP
 	 *
-	 * @param str
+	 * @param setobj
 	 * @return
 	 */
 	public static Map<Object, Object> SetToMap(Set<Object> setobj) {
@@ -464,7 +456,7 @@ public class oConvertUtils {
 	 * 如果转换前的下划线大写方式命名的字符串为空，则返回空字符串。</br>
 	 * 例如：hello_world,test_id->helloWorld,testId
 	 *
-	 * @param name
+	 * @param names
 	 *            转换前的下划线大写方式命名的字符串
 	 * @return 转换后的驼峰式命名的字符串
 	 */

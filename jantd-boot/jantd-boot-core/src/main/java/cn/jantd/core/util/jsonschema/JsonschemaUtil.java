@@ -20,7 +20,7 @@ public class JsonschemaUtil {
 	 */
 	public static JSONObject getJsonSchema(JsonSchemaDescrip descrip, List<CommonProperty> propertyList) {
 		JSONObject obj = new JSONObject();
-		obj.put("$schema", descrip.get$schema());
+		obj.put("$schema", descrip.getSchema());
 		obj.put("type", descrip.getType());
 		obj.put("title", descrip.getTitle());
 

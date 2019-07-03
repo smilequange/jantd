@@ -15,7 +15,7 @@ public class JsonSchemaDescrip implements Serializable{
 	private static final long serialVersionUID = 7682073117441544718L;
 
 
-	private String $schema = "http://json-schema.org/draft-07/schema#";
+	private String schema = "http://json-schema.org/draft-07/schema#";
 
 	/**
 	 * 用它给我们的模式提供了标题。
@@ -43,12 +43,12 @@ public class JsonSchemaDescrip implements Serializable{
 		this.required = required;
 	}
 
-	public String get$schema() {
-		return $schema;
+	public String getSchema() {
+		return schema;
 	}
 
-	public void set$schema(String $schema) {
-		this.$schema = $schema;
+	public void setSchema(String schema) {
+		this.schema = schema;
 	}
 
 	public String getTitle() {

@@ -36,11 +36,11 @@ import org.springframework.web.servlet.view.AbstractView;
  */
 @SuppressWarnings("unchecked")
 @Controller(TemplateWordConstants.JEECG_TEMPLATE_WORD_VIEW)
-public class JeecgTemplateWordView extends AbstractView {
+public class JantdTemplateWordView extends AbstractView {
 
 	private static final String CONTENT_TYPE = "application/msword";
 
-	public JeecgTemplateWordView() {
+	public JantdTemplateWordView() {
 		setContentType(CONTENT_TYPE);
 	}
 

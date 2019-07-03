@@ -14,7 +14,7 @@ import cn.jantd.core.poi.def.NormalExcelConstants;
 import cn.jantd.core.poi.excel.ExcelImportUtil;
 import cn.jantd.core.poi.excel.entity.ExportParams;
 import cn.jantd.core.poi.excel.entity.ImportParams;
-import cn.jantd.core.poi.view.JeecgEntityExcelView;
+import cn.jantd.core.poi.view.JantdEntityExcelView;
 import cn.jantd.core.system.query.QueryGenerator;
 import cn.jantd.core.system.vo.DictModel;
 import cn.jantd.core.util.oConvertUtils;
@@ -269,7 +269,7 @@ public class SysDictController {
 		// Step.1 组装查询条件
 		QueryWrapper<SysDict> queryWrapper = QueryGenerator.initQueryWrapper(sysDict, request.getParameterMap());
 		//Step.2 AutoPoi 导出Excel
-		ModelAndView mv = new ModelAndView(new JeecgEntityExcelView());
+		ModelAndView mv = new ModelAndView(new JantdEntityExcelView());
 		List<SysDictPage> pageList = new ArrayList<SysDictPage>();
 
 		List<SysDict> sysDictList = sysDictService.list(queryWrapper);
