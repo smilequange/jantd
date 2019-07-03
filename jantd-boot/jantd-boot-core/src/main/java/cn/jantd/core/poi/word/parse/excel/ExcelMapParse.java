@@ -25,7 +25,7 @@ import org.apache.poi.xwpf.usermodel.XWPFTableRow;
 /**
  * 处理和生成Map 类型的数据变成表格
  *
- * @author JEECG
+ * @author quange
  * @date 2014年8月9日 下午10:28:46
  */
 public final class ExcelMapParse {
@@ -33,7 +33,7 @@ public final class ExcelMapParse {
 	/**
 	 * 解析参数行,获取参数列表
 	 *
-	 * @Author JEECG
+	 * @author quange
 	 * @date 2013-11-18
 	 * @param currentRow
 	 * @return
@@ -61,8 +61,10 @@ public final class ExcelMapParse {
 	public static void parseNextRowAndAddRow(XWPFTable table, int index, List<Object> list) throws Exception {
 		XWPFTableRow currentRow = table.getRow(index);
 		String[] params = parseCurrentRowGetParams(currentRow);
-		table.removeRow(index);// 移除这一行
-		int cellIndex = 0;// 创建完成对象一行好像多了一个cell
+		// 移除这一行
+		table.removeRow(index);
+		// 创建完成对象一行好像多了一个cell
+		int cellIndex = 0;
 		for (Object obj : list) {
 			currentRow = table.createRow();
 			for (cellIndex = 0; cellIndex < currentRow.getTableCells().size(); cellIndex++) {

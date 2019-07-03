@@ -5,12 +5,13 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import cn.jantd.core.constant.CoreConstant;
 import org.apache.poi.ss.usermodel.Sheet;
 
 /**
  * 合并单元格帮助类
  *
- * @author JEECG
+ * @author quange
  * @date 2015年5月9日 下午2:13:35
  */
 public class MergedRegionHelper {
@@ -37,14 +38,14 @@ public class MergedRegionHelper {
 	 */
 	private void handerMergedString(String formatAsString) {
 		String[] strArr = formatAsString.split(":");
-		if (strArr.length == 2) {
+		if (strArr.length == CoreConstant.NUMBER_TWO) {
 			int startCol = strArr[0].charAt(0) - 65;
-			if (strArr[0].charAt(1) >= 65) {
+			if (strArr[0].charAt(1) >= CoreConstant.NUMBER_65) {
 				startCol = (startCol + 1) * 26 + (strArr[0].charAt(1) - 65);
 			}
 			int startRol = Integer.valueOf(strArr[0].substring(strArr[0].charAt(1) >= 65 ? 2 : 1));
 			int endCol = strArr[1].charAt(0) - 65;
-			if (strArr[1].charAt(1) >= 65) {
+			if (strArr[1].charAt(1) >= CoreConstant.NUMBER_65) {
 				endCol = (endCol + 1) * 26 + (strArr[1].charAt(1) - 65);
 			}
 			int endRol = Integer.valueOf(strArr[1].substring(strArr[1].charAt(1) >= 65 ? 2 : 1));

@@ -16,7 +16,7 @@ import org.apache.poi.ss.usermodel.Workbook;
 /**
  * Excel转换成Html 服务
  *
- * @author JEECG
+ * @author quange
  * @date 2015年5月10日 上午11:41:15
  */
 public class ExcelToHtmlServer {
@@ -25,10 +25,14 @@ public class ExcelToHtmlServer {
 	private int sheetNum;
 	private int cssRandom;
 
-	/* 是不是完成界面 */
+	/**
+	 * 是不是完成界面
+	 */
 	private boolean completeHTML;
 	private Formatter out;
-	/* 已经完成范围处理 */
+	/**
+	 * 已经完成范围处理
+	 */
 	private boolean gotBounds;
 	private int firstColumn;
 	private int endColumn;
@@ -65,8 +69,9 @@ public class ExcelToHtmlServer {
 			}
 			return out.toString();
 		} finally {
-			if (out != null)
+			if (out != null) {
 				out.close();
+			}
 		}
 	}
 
@@ -75,8 +80,9 @@ public class ExcelToHtmlServer {
 	}
 
 	private void ensureOut() {
-		if (out == null)
+		if (out == null) {
 			out = new Formatter(new StringBuilder());
+		}
 	}
 
 	private void printSheets() {
@@ -92,7 +98,6 @@ public class ExcelToHtmlServer {
 	}
 
 	private void printCols(Sheet sheet) {
-		// out.format("<col/>%n");
 		ensureColumnBounds(sheet);
 		for (int i = firstColumn; i < endColumn; i++) {
 			out.format("<col style='width:%spx;' />%n", sheet.getColumnWidth(i) / 32);
@@ -109,8 +114,9 @@ public class ExcelToHtmlServer {
 	}
 
 	private void ensureColumnBounds(Sheet sheet) {
-		if (gotBounds)
+		if (gotBounds) {
 			return;
+		}
 
 		Iterator<Row> iter = sheet.rowIterator();
 		firstColumn = (iter.hasNext() ? Integer.MAX_VALUE : 0);
@@ -156,8 +162,6 @@ public class ExcelToHtmlServer {
 		while (rows.hasNext()) {
 			Row row = rows.next();
 			out.format("  <tr style='height:%spx;'>%n", row.getHeight() / 15);
-			// out.format("    <td class='%s'>%d</td>%n", ROW_HEAD_CLASS,
-			// row.getRowNum() + 1);
 			for (int i = firstColumn; i < endColumn; i++) {
 				if (mergedRegionHelper.isNeedCreate(rowIndex, i)) {
 					String content = "&nbsp;";
@@ -185,8 +189,9 @@ public class ExcelToHtmlServer {
 	}
 
 	private String styleName(CellStyle style) {
-		if (style == null)
+		if (style == null) {
 			return "";
+		}
 		return String.format("style_%02x_%s font_%s_%s", style.getIndex(), cssRandom, style.getFontIndex(), cssRandom);
 	}
 }

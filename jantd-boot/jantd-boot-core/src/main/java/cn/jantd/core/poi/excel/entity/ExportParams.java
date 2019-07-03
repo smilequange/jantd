@@ -9,7 +9,7 @@ import org.apache.poi.hssf.util.HSSFColor;
 /**
  * Excel 导出参数
  *
- * @author JEECG
+ * @author quange
  * @version 1.0 2013年8月24日
  */
 public class ExportParams extends ExcelBaseParams {

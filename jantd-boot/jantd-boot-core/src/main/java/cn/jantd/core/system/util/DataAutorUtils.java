@@ -33,7 +33,8 @@ public class DataAutorUtils {
 	 */
 	public static synchronized void installDataSearchConditon(HttpServletRequest request, List<SysPermissionDataRule> dataRules) {
 		@SuppressWarnings("unchecked")
-		List<SysPermissionDataRule> list = (List<SysPermissionDataRule>)loadDataSearchConditon();// 1.先从request获取MENU_DATA_AUTHOR_RULES，如果存则获取到LIST
+		// 1.先从request获取MENU_DATA_AUTHOR_RULES，如果存则获取到LIST
+		List<SysPermissionDataRule> list = (List<SysPermissionDataRule>)loadDataSearchConditon();
 		if (list==null) {
 			// 2.如果不存在，则new一个list
 			list = new ArrayList<SysPermissionDataRule>();
@@ -41,7 +42,8 @@ public class DataAutorUtils {
 		for (SysPermissionDataRule tsDataRule : dataRules) {
 			list.add(tsDataRule);
 		}
-		request.setAttribute(MENU_DATA_AUTHOR_RULES, list); // 3.往list里面增量存指
+		// 3.往list里面增量存指
+		request.setAttribute(MENU_DATA_AUTHOR_RULES, list);
 	}
 
 	/**

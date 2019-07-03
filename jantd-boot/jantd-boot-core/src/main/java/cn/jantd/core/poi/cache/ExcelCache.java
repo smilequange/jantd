@@ -29,7 +29,7 @@ import org.slf4j.LoggerFactory;
 /**
  * Excel类型的缓存
  *
- * @author JEECG
+ * @author quange
  * @date 2014年2月11日
  * @version 1.0
  */

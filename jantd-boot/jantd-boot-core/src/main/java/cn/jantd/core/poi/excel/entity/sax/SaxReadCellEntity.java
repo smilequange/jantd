@@ -7,7 +7,7 @@ import cn.jantd.core.poi.excel.entity.enmus.CellValueType;
 /**
  * Cell 对象
  *
- * @author JEECG
+ * @author quange
  * @date 2014年12月29日 下午10:12:57
  */
 public class SaxReadCellEntity {

@@ -15,7 +15,7 @@ import cn.jantd.core.poi.def.NormalExcelConstants;
 import cn.jantd.core.poi.excel.ExcelImportUtil;
 import cn.jantd.core.poi.excel.entity.ExportParams;
 import cn.jantd.core.poi.excel.entity.ImportParams;
-import cn.jantd.core.poi.view.JantdEntityExcelView;
+import cn.jantd.core.poi.view.JantdEntityExcelViewBase;
 import cn.jantd.core.system.query.QueryGenerator;
 import cn.jantd.core.util.oConvertUtils;
 import cn.jantd.modules.demo.test.entity.JoaDemo;
@@ -195,7 +195,7 @@ public class JoaDemoController {
       }
 
       //Step.2 AutoPoi 导出Excel
-      ModelAndView mv = new ModelAndView(new JantdEntityExcelView());
+      ModelAndView mv = new ModelAndView(new JantdEntityExcelViewBase());
       List<JoaDemo> pageList = joaDemoService.list(queryWrapper);
       //导出文件名称
       mv.addObject(NormalExcelConstants.FILE_NAME, "流程测试列表");

@@ -23,7 +23,7 @@ import java.lang.annotation.Target;
 /**
  * Excel 导出基本注释
  *
- * @author JEECG
+ * @author quange
  * @date 2014年6月20日 下午10:25:12
  */
 @Retention(RetentionPolicy.RUNTIME)

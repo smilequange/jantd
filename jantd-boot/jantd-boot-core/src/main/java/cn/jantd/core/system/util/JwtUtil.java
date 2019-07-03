@@ -1,5 +1,6 @@
 package cn.jantd.core.system.util;
 
+import cn.jantd.core.constant.CoreConstant;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
@@ -24,7 +25,9 @@ import cn.jantd.core.util.oConvertUtils;
  **/
 public class JwtUtil {
 
-	// 过期时间30分钟
+	/**
+	 * 过期时间30分钟
+	 */
 	public static final long EXPIRE_TIME = 30 * 60 * 1000;
 
 	/**
@@ -101,11 +104,11 @@ public class JwtUtil {
 		//${myVar}%
 		//得到${} 后面的值
 		String moshi = "";
-		if(key.indexOf("}")!=-1){
+		if(key.indexOf(CoreConstant.RIGHT_BRACE)!=-1){
 			 moshi = key.substring(key.indexOf("}")+1);
 		}
 		String returnValue = null;
-		if (key.contains("#{")) {
+		if (key.contains(CoreConstant.POUND_LEFT_BRACE)) {
 			key = key.substring(2,key.indexOf("}"));
 		}
 		if (oConvertUtils.isNotEmpty(key)) {
@@ -129,12 +132,12 @@ public class JwtUtil {
 		}
 		//#{sys_user_code}%
 		String moshi = "";
-		if(key.indexOf("}")!=-1){
+		if(key.indexOf(CoreConstant.RIGHT_BRACE)!=-1){
 			 moshi = key.substring(key.indexOf("}")+1);
 		}
 		String returnValue = null;
 		//针对特殊标示处理#{sysOrgCode}，判断替换
-		if (key.contains("#{")) {
+		if (key.contains(CoreConstant.POUND_LEFT_BRACE)) {
 			key = key.substring(2,key.indexOf("}"));
 		} else {
 			key = key;

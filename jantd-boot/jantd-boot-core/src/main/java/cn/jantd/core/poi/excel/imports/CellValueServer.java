@@ -26,6 +26,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import cn.jantd.core.constant.CoreConstant;
 import cn.jantd.core.poi.excel.entity.params.ExcelImportEntity;
 import cn.jantd.core.poi.excel.entity.sax.SaxReadCellEntity;
 import cn.jantd.core.poi.exception.excel.ExcelImportException;
@@ -42,7 +43,7 @@ import org.slf4j.LoggerFactory;
 /**
  * Cell 取值服务 判断类型处理数据 1.判断Excel中的类型 2.根据replace替换值 3.handler处理数据 4.判断返回类型转化数据返回
  *
- * @author JEECG
+ * @author quange
  * @date 2014年6月26日 下午10:42:28
  */
 public class CellValueServer {
@@ -65,7 +66,7 @@ public class CellValueServer {
 		}
 		Object result = null;
 		// 日期格式比较特殊,和cell格式不一致
-		if ("class java.util.Date".equals(xclass) || ("class java.sql.Time").equals(xclass)) {
+		if (CoreConstant.JAVA_UTIL_DATE.equals(xclass) || (CoreConstant.JAVA_SQL_TIME).equals(xclass)) {
 			if (Cell.CELL_TYPE_NUMERIC == cell.getCellType()) {
 				// 日期格式
 				result = cell.getDateCellValue();
@@ -73,7 +74,7 @@ public class CellValueServer {
 				cell.setCellType(Cell.CELL_TYPE_STRING);
 				result = getDateData(entity, cell.getStringCellValue());
 			}
-			if (("class java.sql.Time").equals(xclass)) {
+			if ((CoreConstant.JAVA_SQL_TIME).equals(xclass)) {
 				result = new Time(((Date) result).getTime());
 			}
 		} else if (Cell.CELL_TYPE_NUMERIC == cell.getCellType()) {
@@ -89,7 +90,7 @@ public class CellValueServer {
 	/**
 	 * 获取日期类型数据
 	 *
-	 * @Author JEECG
+	 * @author quange
 	 * @date 2013年11月26日
 	 * @param entity
 	 * @param value
@@ -189,28 +190,28 @@ public class CellValueServer {
 				return null;
 			}
 			//update-end-author:scott date:20180711 for:TASK #2950 【bug】excel 导入报错，空指针问题
-			if ("class java.util.Date".equals(xclass)) {
+			if (CoreConstant.JAVA_UTIL_DATE.equals(xclass)) {
 				return result;
 			}
-			if ("class java.lang.Boolean".equals(xclass) || "boolean".equals(xclass)) {
+			if (CoreConstant.JAVA_LANG_BOOLEAN.equals(xclass) || CoreConstant.BOOLEAN.equals(xclass)) {
 				return Boolean.valueOf(String.valueOf(result));
 			}
-			if ("class java.lang.Double".equals(xclass) || "double".equals(xclass)) {
+			if (CoreConstant.JAVA_LANG_DOUBLE.equals(xclass) || CoreConstant.DOUBLE.equals(xclass)) {
 				return Double.valueOf(String.valueOf(result));
 			}
-			if ("class java.lang.Long".equals(xclass) || "long".equals(xclass)) {
+			if (CoreConstant.JAVA_LANG_LONG.equals(xclass) || CoreConstant.LONG.equals(xclass)) {
 				return Long.valueOf(ExcelUtil.remove0Suffix(String.valueOf(result)));
 			}
-			if ("class java.lang.Float".equals(xclass) || "float".equals(xclass)) {
+			if (CoreConstant.JAVA_LANG_FLOAT.equals(xclass) || CoreConstant.FLOAT.equals(xclass)) {
 				return Float.valueOf(String.valueOf(result));
 			}
-			if ("class java.lang.Integer".equals(xclass) || "int".equals(xclass)) {
+			if (CoreConstant.JAVA_LANG_INTEGER.equals(xclass) || CoreConstant.INTEGER.equals(xclass)) {
 				return Integer.valueOf(ExcelUtil.remove0Suffix(String.valueOf(result)));
 			}
-			if ("class java.math.BigDecimal".equals(xclass)) {
+			if (CoreConstant.JAVA_MATH_BIGDECIMAL.equals(xclass)) {
 				return new BigDecimal(String.valueOf(result));
 			}
-			if ("class java.lang.String".equals(xclass)) {
+			if (CoreConstant.JAVA_LANG_STRING.equals(xclass)) {
 				// 针对String 类型,但是Excel获取的数据却不是String,比如Double类型,防止科学计数法
 				if (result instanceof String) {
 					return result;
@@ -268,13 +269,13 @@ public class CellValueServer {
 		}
 		String temp = String.valueOf(result);
 		String backValue = "";
-		if(temp.indexOf(",")>0 && multiReplace){
+		if(temp.indexOf(CoreConstant.COMMA)>0 && multiReplace){
 			//原值中带有逗号，认为他是多值的
-			String multiReplaces[] = temp.split(",");
+			String[] multiReplaces = temp.split(",");
 			for (String str : multiReplaces) {
 				backValue = backValue.concat(replaceSingleValue(replace, str)+",");
 			}
-			if(backValue.equals("")){
+			if("".equals(backValue)){
 				backValue = temp;
 			}else{
 				backValue = backValue.substring(0, backValue.length()-1);

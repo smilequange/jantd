@@ -6,7 +6,7 @@ import cn.jantd.core.poi.handler.inter.IExcelVerifyHandler;
 /**
  * 导入参数设置
  *
- * @author JEECG
+ * @author quange
  * @date 2013-9-24
  * @version 1.0
  */

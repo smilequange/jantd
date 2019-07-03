@@ -23,7 +23,7 @@ import cn.jantd.core.poi.handler.inter.IExcelDataHandler;
 /**
  * Excel 导出对象
  *
- * @author JEECG
+ * @author quange
  * @date 2014年8月9日 下午10:21:13
  */
 public class ExcelListEntity extends ExcelBaseParams {

@@ -32,7 +32,7 @@ import cn.jantd.core.poi.excel.entity.TemplateExportParams;
 import cn.jantd.core.poi.excel.entity.enmus.ExcelType;
 import cn.jantd.core.poi.excel.entity.params.ExcelExportEntity;
 import cn.jantd.core.poi.excel.entity.params.ExcelTemplateParams;
-import cn.jantd.core.poi.excel.export.base.ExcelExportBase;
+import cn.jantd.core.poi.excel.export.base.BaseExcelExport;
 import cn.jantd.core.poi.excel.export.styler.IExcelExportStyler;
 import cn.jantd.core.poi.exception.excel.ExcelExportException;
 import cn.jantd.core.poi.exception.excel.enums.ExcelExportEnum;
@@ -55,13 +55,13 @@ import static cn.jantd.core.poi.util.PoiElUtil.*;
 /**
  * Excel 导出根据模板导出
  *
- * @author JEECG
+ * @author quange
  * @date 2013-10-17
  * @version 1.0
  */
-public final class ExcelExportOfTemplateUtil extends ExcelExportBase {
+public final class ExcelExportOfTemplateUtilExcelExport extends BaseExcelExport {
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(ExcelExportOfTemplateUtil.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(ExcelExportOfTemplateUtilExcelExport.class);
 
 	/**
 	 * 缓存TEMP 的for each创建的cell ,跳过这个cell的模板语法查找,提高效率
@@ -196,7 +196,7 @@ public final class ExcelExportOfTemplateUtil extends ExcelExportBase {
 	 *
 	 * @param teplateParams
 	 * @throws Exception
-	 * @Author JEECG
+	 * @author quange
 	 * @date 2013-11-11
 	 */
 	private Workbook getCloneWorkBook() throws Exception {
@@ -374,8 +374,9 @@ public final class ExcelExportOfTemplateUtil extends ExcelExportBase {
 
 	private void setForEeachCellValue(boolean isCreate, Row row, int columnIndex, Object t, List<ExcelTemplateParams> columns, Map<String, Object> map) throws Exception {
 		for (int i = 0, max = columnIndex + columns.size(); i < max; i++) {
-			if (row.getCell(i) == null)
+			if (row.getCell(i) == null) {
 				row.createCell(i);
+			}
 		}
 		for (int i = 0, max = columns.size(); i < max; i++) {
 			boolean isNumber = false;

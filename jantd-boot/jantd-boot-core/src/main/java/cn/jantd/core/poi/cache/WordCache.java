@@ -25,7 +25,7 @@ import org.slf4j.LoggerFactory;
 /**
  * word 缓存中心
  *
- * @author JEECG
+ * @author quange
  * @date 2014年7月24日 下午10:54:31
  */
 public class WordCache {

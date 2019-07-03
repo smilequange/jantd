@@ -18,13 +18,13 @@ package cn.jantd.core.poi.def;
 /**
  * 正常导出Excel
  *
- * @Author JEECG on 14-3-8. 静态常量
+ * @author quange on 14-3-8. 静态常量
  */
 public interface NormalExcelConstants extends BasePOIConstants {
 	/**
 	 * 单Sheet导出
 	 */
-	public final static String JEECG_ENTITY_EXCEL_VIEW = "jeecgEntityExcelView";
+	public final static String JANTD_ENTITY_EXCEL_VIEW = "jeecgEntityExcelView";
 	/**
 	 * 数据列表
 	 */

@@ -8,14 +8,31 @@ import cn.jantd.core.poi.excel.export.styler.ExcelExportStylerDefaultImpl;
 /**
  * 插件提供的几个默认样式
  *
- * @author JEECG
+ * @author quange
  * @date 2015年1月9日 下午9:02:24
  */
 public enum ExcelStyleType {
 
-	NONE("默认样式", ExcelExportStylerDefaultImpl.class), BORDER("边框样式", ExcelExportStylerBorderImpl.class), COLOR("间隔行样式", ExcelExportStylerColorImpl.class);
+	/**
+	 * 默认样式
+	 */
+	NONE("默认样式", ExcelExportStylerDefaultImpl.class),
+	/**
+	 * 边框样式
+	 */
+	BORDER("边框样式", ExcelExportStylerBorderImpl.class),
+	/**
+	 * 间隔行样式
+	 */
+	COLOR("间隔行样式", ExcelExportStylerColorImpl.class);
 
+	/**
+	 * 名称
+	 */
 	private String name;
+	/**
+	 * clazz
+	 */
 	private Class<?> clazz;
 
 	ExcelStyleType(String name, Class<?> clazz) {

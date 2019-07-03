@@ -23,7 +23,7 @@ import java.util.regex.Pattern;
 /**
  * 基础校验工具类
  *
- * @author JEECG
+ * @author quange
  * @date 2014年6月23日 下午11:10:12
  */
 public class BaseVerifyHandler {
@@ -120,7 +120,7 @@ public class BaseVerifyHandler {
 	 * @return
 	 */
 	public static ExcelVerifyHanlderResult notNull(String name, Object val) {
-		if (val == null || val.toString().equals("")) {
+		if (val == null || "".equals(val.toString())) {
 			return new ExcelVerifyHanlderResult(false, name + NOT_NULL);
 		}
 		return new ExcelVerifyHanlderResult(true);

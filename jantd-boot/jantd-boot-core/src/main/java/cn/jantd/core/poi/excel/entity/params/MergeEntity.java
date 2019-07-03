@@ -18,9 +18,11 @@ package cn.jantd.core.poi.excel.entity.params;
 import java.util.List;
 
 /**
- * 合并单元格使用对象
- *
- * Created by jue on 14-6-11.
+ * @Description 合并单元格使用对象
+ * @Author 圈哥
+ * @Version V1.0.0
+ * @Since 1.0
+ * @Date 2019/7/2
  */
 public class MergeEntity {
 	/**

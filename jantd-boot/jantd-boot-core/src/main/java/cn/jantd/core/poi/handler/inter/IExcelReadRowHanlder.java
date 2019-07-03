@@ -18,7 +18,7 @@ package cn.jantd.core.poi.handler.inter;
 /**
  * 接口自定义处理类
  *
- * @author JEECG
+ * @author quange
  * @date 2015年1月16日 下午8:06:26
  * @param <T>
  */

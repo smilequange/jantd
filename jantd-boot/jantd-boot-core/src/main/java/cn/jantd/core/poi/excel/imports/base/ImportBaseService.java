@@ -29,6 +29,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import cn.jantd.core.constant.CoreConstant;
 import cn.jantd.core.poi.excel.annotation.Excel;
 import cn.jantd.core.poi.excel.annotation.ExcelCollection;
 import cn.jantd.core.poi.excel.annotation.ExcelVerify;
@@ -46,7 +47,7 @@ import org.apache.poi.ss.usermodel.Workbook;
 /**
  * 导入基础和,普通方法和Sax共用
  *
- * @author JEECG
+ * @author quange
  * @date 2015年1月9日 下午10:25:53
  */
 public class ImportBaseService {
@@ -223,7 +224,7 @@ public class ImportBaseService {
 	 * @return
 	 */
 	public String getExcelName(String exportName, String targetId) {
-		if (exportName.indexOf("_") < 0) {
+		if (exportName.indexOf(CoreConstant.CROSS_BAR) < 0) {
 			return exportName;
 		}
 		String[] arr = exportName.split(",");
@@ -266,7 +267,7 @@ public class ImportBaseService {
 	 */
 	public String getSaveExcelUrl(ImportParams params, Class<?> pojoClass) throws Exception {
 		String url = "";
-		if (params.getSaveUrl().equals("upload/excelUpload")) {
+		if (CoreConstant.EXCEL_UPLOAD.equals(params.getSaveUrl())) {
 			url = pojoClass.getName().split("\\.")[pojoClass.getName().split("\\.").length - 1];
 			return params.getSaveUrl() + "/" + url;
 		}

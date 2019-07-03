@@ -1,6 +1,8 @@
 package cn.jantd.core.util;
 
 
+import cn.jantd.core.constant.CoreConstant;
+
 import java.net.InetAddress;
 
 /**
@@ -86,7 +88,7 @@ public class UUIDGenerator {
 
 	private final static int toInt(byte[] bytes) {
 		int result = 0;
-		for (int i = 0; i < 4; i++) {
+		for (int i = 0; i < CoreConstant.NUMBER_FOUR; i++) {
 			result = (result << 8) - Byte.MIN_VALUE + (int) bytes[i];
 		}
 		return result;

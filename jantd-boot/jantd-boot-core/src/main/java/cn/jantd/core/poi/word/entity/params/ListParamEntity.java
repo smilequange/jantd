@@ -18,13 +18,17 @@ package cn.jantd.core.poi.word.entity.params;
 /**
  * Excel 对象导出结构
  *
- * @author JEECG
+ * @author quange
  * @date 2014年7月26日 下午11:14:48
  */
 public class ListParamEntity {
-	// 唯一值,在遍历中重复使用
+	/**
+	 * 唯一值,在遍历中重复使用
+	 */
 	public static final String SINGLE = "single";
-	// 属于数组类型
+	/**
+	 * 属于数组类型
+	 */
 	public static final String LIST = "list";
 	/**
 	 * 属性名称

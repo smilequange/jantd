@@ -2,6 +2,9 @@ package cn.jantd.core.system.query;
 
 import java.io.Serializable;
 
+/**
+ * @author xiagf 2019-07-03
+ */
 public class QueryCondition implements Serializable {
 
 	private static final long serialVersionUID = 4740166316629191651L;

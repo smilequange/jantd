@@ -18,7 +18,7 @@ package cn.jantd.core.poi.excel.entity.params;
 /**
  * Excel 校验对象
  *
- * @author JEECG
+ * @author quange
  * @date 2014年6月29日 下午4:24:59
  */
 public class ExcelVerifyEntity {

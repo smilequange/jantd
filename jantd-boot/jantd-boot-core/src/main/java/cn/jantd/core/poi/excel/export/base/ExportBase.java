@@ -13,6 +13,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import cn.jantd.core.constant.CoreConstant;
 import cn.jantd.core.poi.excel.annotation.Excel;
 import cn.jantd.core.poi.excel.annotation.ExcelCollection;
 import cn.jantd.core.poi.excel.annotation.ExcelEntity;
@@ -27,7 +28,7 @@ import org.apache.commons.lang3.StringUtils;
 /**
  * 导出基础处理,不设计POI,只设计对象,保证复用性
  *
- * @author JEECG
+ * @author quange
  * @date 2014年8月9日 下午11:01:32
  */
 public class ExportBase {
@@ -162,16 +163,17 @@ public class ExportBase {
 			value = formatValue(value, entity);
 		}
 		if (entity.getReplace() != null && entity.getReplace().length > 0) {
-			//update-begin-author:taoyan date：20180731 for:TASK #3038 【bug】Excel 导出多个值（逗号隔开的情况下，导出字典值是ID值）
+			// update-begin-author:taoyan date：20180731 for:TASK #3038 【bug】Excel 导出多个值（逗号隔开的情况下，导出字典值是ID值）
 			if(value == null){
-				value = "";//String.valueOf(value) 如果value为null 则返回"null"
+				//String.valueOf(value) 如果value为null 则返回"null"
+				value = "";
 			}
 			if(entity.isMultiReplace()){
 				value = multiReplaceValue(entity.getReplace(), String.valueOf(value));
 			}else{
 				value = replaceValue(entity.getReplace(), String.valueOf(value));
 			}
-			//update-end-author:taoyan date：20180731 for:TASK #3038 【bug】Excel 导出多个值（逗号隔开的情况下，导出字典值是ID值）
+			// update-end-author:taoyan date：20180731 for:TASK #3038 【bug】Excel 导出多个值（逗号隔开的情况下，导出字典值是ID值）
 		}
 		if (needHanlderList != null && needHanlderList.contains(entity.getName())) {
 			value = dataHanlder.exportHandler(obj, entity.getName(), value);
@@ -255,7 +257,7 @@ public class ExportBase {
 	 * @return
 	 */
 	public String getExcelName(String exportName, String targetId) {
-		if (exportName.indexOf(",") < 0 || targetId==null) {
+		if (exportName.indexOf(CoreConstant.COMMA) < 0 || targetId==null) {
 			return exportName;
 		}
 		String[] arr = exportName.split(",");
@@ -336,7 +338,7 @@ public class ExportBase {
 	 * @since 2018年7月31日
 	 */
 	private Object multiReplaceValue(String[] replace, String value) {
-		if(value.indexOf(",")>0){
+		if(value.indexOf(CoreConstant.COMMA)>0){
 			String[] radioVals = value.split(",");
 			String[] temp;
 			String result = "";
@@ -350,7 +352,7 @@ public class ExportBase {
 					}
 				}
 			}
-			if(result.equals("")){
+			if("".equals(result)){
 				result = value;
 			}else{
 				result = result.substring(0, result.length()-1);

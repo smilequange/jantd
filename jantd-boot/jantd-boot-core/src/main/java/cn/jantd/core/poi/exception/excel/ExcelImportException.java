@@ -21,7 +21,7 @@ import cn.jantd.core.poi.exception.excel.enums.ExcelImportEnum;
 /**
  * 导入异常
  *
- * @author JEECG
+ * @author quange
  * @date 2014年6月29日 下午2:23:43
  */
 public class ExcelImportException extends RuntimeException {

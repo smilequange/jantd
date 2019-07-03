@@ -17,7 +17,7 @@ import com.google.common.xml.XmlEscapers;
 /**
  * Cell值帮助类
  *
- * @author JEECG
+ * @author quange
  * @date 2015年5月9日 下午10:31:32
  */
 public class CellValueHelper {
@@ -32,13 +32,14 @@ public class CellValueHelper {
 
 	public CellValueHelper(Workbook wb, int cssRandom) {
 		this.cssRandom = cssRandom;
-		if (wb instanceof HSSFWorkbook)
+		if (wb instanceof HSSFWorkbook) {
 			is07 = false;
-		else if (wb instanceof XSSFWorkbook) {
+		}else if (wb instanceof XSSFWorkbook) {
 			is07 = true;
 			cacheFontInfo(wb);
-		} else
+		} else {
 			throw new IllegalArgumentException("unknown workbook type: " + wb.getClass().getSimpleName());
+		}
 	}
 
 	/**

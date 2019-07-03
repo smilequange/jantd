@@ -41,7 +41,7 @@ import org.slf4j.LoggerFactory;
 /**
  * 解析实体类对象 复用注解
  *
- * @author JEECG
+ * @author quange
  * @date 2014年8月9日 下午10:30:57
  */
 public class ExcelEntityParse extends ExportBase {
@@ -156,7 +156,7 @@ public class ExcelEntityParse extends ExportBase {
 		Map<String, Integer> titlemap = getTitleMap(table, index, entity.getHeadRows());
 		try {
 			// 得到所有字段
-			Field fileds[] = PoiPublicUtil.getClassFields(entity.getClazz());
+			Field[] fileds = PoiPublicUtil.getClassFields(entity.getClazz());
 			ExcelTarget etarget = entity.getClazz().getAnnotation(ExcelTarget.class);
 			String targetId = null;
 			if (etarget != null) {

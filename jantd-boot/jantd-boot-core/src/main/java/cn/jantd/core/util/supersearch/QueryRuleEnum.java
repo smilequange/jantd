@@ -1,4 +1,4 @@
-package cn.jantd.core.util.superSearch;
+package cn.jantd.core.util.supersearch;
 
 import cn.jantd.core.util.oConvertUtils;
 
@@ -9,16 +9,49 @@ import cn.jantd.core.util.oConvertUtils;
  */
 public enum QueryRuleEnum {
 
+    /**
+     * 大于
+     */
     GT(">","大于"),
+    /**
+     * 大于等于
+     */
     GE(">=","大于等于"),
+    /**
+     * 小于
+     */
     LT("<","小于"),
+    /**
+     * 小于等于
+     */
     LE("<=","小于等于"),
+    /**
+     * 等于
+     */
     EQ("=","等于"),
+    /**
+     * 不等于
+     */
     NE("!=","不等于"),
+    /**
+     * 包含
+     */
     IN("IN","包含"),
+    /**
+     * 全模糊
+     */
     LIKE("LIKE","全模糊"),
+    /**
+     * 左模糊
+     */
     LEFT_LIKE("LEFT_LIKE","左模糊"),
+    /**
+     * 右模糊
+     */
     RIGHT_LIKE("RIGHT_LIKE","右模糊"),
+    /**
+     * 自定义SQL片段
+     */
     SQL_RULES("EXTEND_SQL","自定义SQL片段");
 
     private String value;

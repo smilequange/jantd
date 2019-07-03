@@ -13,12 +13,14 @@ import static org.apache.poi.ss.usermodel.CellStyle.VERTICAL_TOP;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.nio.charset.CoderResult;
 import java.util.Formatter;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
+import cn.jantd.core.constant.CoreConstant;
 import cn.jantd.core.poi.util.PoiPublicUtil;
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;
 import org.apache.poi.hssf.usermodel.HSSFPalette;
@@ -39,7 +41,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 /**
  * 样式帮助类
  *
- * @author JEECG
+ * @author quange
  * @date 2015年5月9日 下午4:04:24
  */
 public class StylerHelper {
@@ -66,12 +68,11 @@ public class StylerHelper {
 		this.out = out;
 		this.sheetNum = sheetNum;
 		this.cssRandom = cssRandom;
-		if (wb instanceof HSSFWorkbook)
+		if (wb instanceof HSSFWorkbook) {
 			helper = new HSSFHtmlHelper((HSSFWorkbook) wb);
-		else if (wb instanceof XSSFWorkbook){
+		}else if (wb instanceof XSSFWorkbook){
 			helper = new XSSFHtmlHelper((XSSFWorkbook) wb);
-		}
-		else{
+		} else{
 			throw new IllegalArgumentException("unknown workbook type: " + wb.getClass().getSimpleName());
 		}
 		printInlineStyle(wb);
@@ -146,7 +147,7 @@ public class StylerHelper {
 	}
 
 	private void styleContents(CellStyle style) {
-		if (style.getAlignment() != 2) {
+		if (style.getAlignment() != CoreConstant.NUMBER_TWO) {
 			styleOut("text-align", style.getAlignment(), ALIGN);
 			styleOut("vertical-align", style.getAlignment(), VERTICAL_ALIGN);
 		}
@@ -164,7 +165,7 @@ public class StylerHelper {
 		out.format("  font-family: %s;%n", font.getFontName());
 
 		int fontheight = font.getFontHeightInPoints();
-		if (fontheight == 9) {
+		if (fontheight == CoreConstant.NUMBER_NINE) {
 			fontheight = 10;
 		}
 		out.format("  font-size: %dpt;%n", fontheight);
@@ -180,8 +181,9 @@ public class StylerHelper {
 	}
 
 	private String styleName(CellStyle style) {
-		if (style == null)
+		if (style == null) {
 			return "";
+		}
 		return String.format("style_%02x_%s", style.getIndex(), cssRandom);
 	}
 
@@ -203,6 +205,12 @@ public class StylerHelper {
 		 */
 		void colorStyles(CellStyle style, Formatter out);
 
+		/**
+		 * 样式颜色设置
+		 * @param out
+		 * @param attr
+		 * @param color
+		 */
 		void styleColor(Formatter out, String attr, Color color);
 	}
 
@@ -210,13 +218,14 @@ public class StylerHelper {
 		private final HSSFWorkbook wb;
 		private final HSSFPalette colors;
 
-		private HSSFColor HSSF_AUTO = new HSSFColor.AUTOMATIC();
+		private HSSFColor hssfAuto = new HSSFColor.AUTOMATIC();
 
 		public HSSFHtmlHelper(HSSFWorkbook wb) {
 			this.wb = wb;
 			colors = wb.getCustomPalette();
 		}
 
+		@Override
 		public void colorStyles(CellStyle style, Formatter out) {
 			HSSFCellStyle cs = (HSSFCellStyle) style;
 			out.format("  /* fill pattern = %d */%n", cs.getFillPattern());
@@ -226,7 +235,7 @@ public class StylerHelper {
 
 		private void styleColor(Formatter out, String attr, short index) {
 			HSSFColor color = colors.getColor(index);
-			if (index == HSSF_AUTO.getIndex() || color == null) {
+			if (index == hssfAuto.getIndex() || color == null) {
 				out.format("  /* %s: index = %d */%n", attr, index);
 			} else {
 				short[] rgb = color.getTriplet();
@@ -234,6 +243,7 @@ public class StylerHelper {
 			}
 		}
 
+		@Override
 		public void styleColor(Formatter out, String attr, Color color) {
 			if (color == null) {
 				return;
@@ -254,17 +264,19 @@ public class StylerHelper {
 		public XSSFHtmlHelper(XSSFWorkbook wb) {
 		}
 
+		@Override
 		public void colorStyles(CellStyle style, Formatter out) {
 			XSSFCellStyle cs = (XSSFCellStyle) style;
 			styleColor(out, "background-color", cs.getFillForegroundXSSFColor());
 			styleColor(out, "color", cs.getFont().getXSSFColor());
 		}
 
+		@Override
 		public void styleColor(Formatter out, String attr, Color color) {
 			XSSFColor xSSFColor = (XSSFColor) color;
-			if (color == null || xSSFColor.isAuto())
+			if (color == null || xSSFColor.isAuto()) {
 				return;
-
+			}
 			byte[] rgb = xSSFColor.getRgb();
 			if (rgb == null) {
 				return;

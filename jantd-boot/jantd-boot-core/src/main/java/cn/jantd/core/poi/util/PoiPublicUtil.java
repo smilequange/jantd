@@ -30,6 +30,7 @@ import java.util.Map;
 
 import javax.imageio.ImageIO;
 
+import cn.jantd.core.constant.CoreConstant;
 import cn.jantd.core.poi.excel.annotation.Excel;
 import cn.jantd.core.poi.excel.annotation.ExcelCollection;
 import cn.jantd.core.poi.excel.annotation.ExcelEntity;
@@ -57,11 +58,12 @@ import org.openxmlformats.schemas.drawingml.x2006.spreadsheetDrawing.CTMarker;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.ClassUtils;
+import springfox.documentation.spring.web.scanners.CachingOperationReader;
 
 /**
  * EASYPOI 的公共基础类
  *
- * @author JEECG
+ * @author quange
  * @date 2015年4月5日 上午12:59:22
  */
 public final class PoiPublicUtil {
@@ -75,7 +77,7 @@ public final class PoiPublicUtil {
 	@SuppressWarnings({ "unchecked" })
 	public static <K, V> Map<K, V> mapFor(Object... mapping) {
 		Map<K, V> map = new HashMap<K, V>();
-		for (int i = 0; i < mapping.length; i += 2) {
+		for (int i = 0; i < mapping.length; i += CoreConstant.NUMBER_TWO) {
 			map.put((K) mapping[i], (V) mapping[i + 1]);
 		}
 		return map;
@@ -143,13 +145,13 @@ public final class PoiPublicUtil {
 	 */
 	public static String getFileExtendName(byte[] photoByte) {
 		String strFileExtendName = "JPG";
-		if ((photoByte[0] == 71) && (photoByte[1] == 73) && (photoByte[2] == 70) && (photoByte[3] == 56) && ((photoByte[4] == 55) || (photoByte[4] == 57)) && (photoByte[5] == 97)) {
+		if ((photoByte[0] == CoreConstant.NUMBER_71) && (photoByte[1] == CoreConstant.NUMBER_73) && (photoByte[CoreConstant.NUMBER_TWO] == CoreConstant.NUMBER_70) && (photoByte[CoreConstant.NUMBER_THREE] == CoreConstant.NUMBER_56) && ((photoByte[CoreConstant.NUMBER_FOUR] == CoreConstant.NUMBER_55) || (photoByte[CoreConstant.NUMBER_FOUR] == CoreConstant.NUMBER_57)) && (photoByte[CoreConstant.NUMBER_FIVE] == CoreConstant.NUMBER_97)) {
 			strFileExtendName = "GIF";
-		} else if ((photoByte[6] == 74) && (photoByte[7] == 70) && (photoByte[8] == 73) && (photoByte[9] == 70)) {
+		} else if ((photoByte[CoreConstant.NUMBER_SIX] == CoreConstant.NUMBER_74) && (photoByte[CoreConstant.NUMBER_SEVEN] == CoreConstant.NUMBER_70) && (photoByte[CoreConstant.NUMBER_EIGHT] == CoreConstant.NUMBER_73) && (photoByte[CoreConstant.NUMBER_NINE] == CoreConstant.NUMBER_70)) {
 			strFileExtendName = "JPG";
-		} else if ((photoByte[0] == 66) && (photoByte[1] == 77)) {
+		} else if ((photoByte[CoreConstant.NUMBER_ZERO] == CoreConstant.NUMBER_66) && (photoByte[CoreConstant.NUMBER_ONE] == CoreConstant.NUMBER_77)) {
 			strFileExtendName = "BMP";
-		} else if ((photoByte[1] == 80) && (photoByte[2] == 78) && (photoByte[3] == 71)) {
+		} else if ((photoByte[CoreConstant.NUMBER_ONE] == CoreConstant.NUMBER_80) && (photoByte[CoreConstant.NUMBER_TWO] == CoreConstant.NUMBER_78) && (photoByte[CoreConstant.NUMBER_THREE] == CoreConstant.NUMBER_71)) {
 			strFileExtendName = "PNG";
 		}
 		return strFileExtendName;
@@ -336,7 +338,7 @@ public final class PoiPublicUtil {
 		boolean isBaseClass = false;
 		if (fieldType.isArray()) {
 			isBaseClass = false;
-		} else if (fieldType.isPrimitive() || fieldType.getPackage() == null || fieldType.getPackage().getName().equals("java.lang") || fieldType.getPackage().getName().equals("java.math") || fieldType.getPackage().getName().equals("java.sql") || fieldType.getPackage().getName().equals("java.util")) {
+		} else if (fieldType.isPrimitive() || fieldType.getPackage() == null || CoreConstant.JAVA_LANG.equals(fieldType.getPackage().getName()) || CoreConstant.JAVA_MATH.equals(fieldType.getPackage().getName()) || CoreConstant.JAVA_SQL.equals(fieldType.getPackage().getName()) || CoreConstant.JAVA_UTIL.equals(fieldType.getPackage().getName())) {
 			isBaseClass = true;
 		}
 		return isBaseClass;
@@ -372,20 +374,20 @@ public final class PoiPublicUtil {
 	 * @return
 	 */
 	private static boolean isUseInThis(String exportName, String targetId) {
-		return targetId == null || exportName.equals("") || exportName.indexOf("_") < 0 || exportName.indexOf(targetId) != -1;
+		return targetId == null || "".equals(exportName) || exportName.indexOf("_") < 0 || exportName.indexOf(targetId) != -1;
 	}
 
 	private static Integer getImageType(String type) {
-		if (type.equalsIgnoreCase("JPG") || type.equalsIgnoreCase("JPEG")) {
+		if (CoreConstant.PICTURE_TYPE_PNG.equalsIgnoreCase(type) || CoreConstant.PICTURE_TYPE_JPEG.equalsIgnoreCase(type)) {
 			return XWPFDocument.PICTURE_TYPE_JPEG;
 		}
-		if (type.equalsIgnoreCase("GIF")) {
+		if (CoreConstant.PICTURE_TYPE_GIF.equalsIgnoreCase(type)) {
 			return XWPFDocument.PICTURE_TYPE_GIF;
 		}
-		if (type.equalsIgnoreCase("BMP")) {
+		if (CoreConstant.PICTURE_TYPE_BMP.equalsIgnoreCase(type)) {
 			return XWPFDocument.PICTURE_TYPE_GIF;
 		}
-		if (type.equalsIgnoreCase("PNG")) {
+		if (CoreConstant.PICTURE_TYPE_PNG.equalsIgnoreCase(type)) {
 			return XWPFDocument.PICTURE_TYPE_PNG;
 		}
 		return XWPFDocument.PICTURE_TYPE_JPEG;
@@ -394,7 +396,7 @@ public final class PoiPublicUtil {
 	/**
 	 * 返回流和图片类型
 	 *
-	 * @Author JEECG
+	 * @author quange
 	 * @date 2013-11-20
 	 * @param entity
 	 * @return (byte[]) isAndType[0],(Integer)isAndType[1]
@@ -431,7 +433,7 @@ public final class PoiPublicUtil {
 	 */
 	@SuppressWarnings("rawtypes")
 	public static Object getParamsValue(String params, Object object) throws Exception {
-		if (params.indexOf(".") != -1) {
+		if (params.indexOf(CoreConstant.DOT) != -1) {
 			String[] paramsArr = params.split("\\.");
 			return getValueDoWhile(object, paramsArr, 0);
 		}
@@ -444,7 +446,7 @@ public final class PoiPublicUtil {
 	/**
 	 * 解析数据
 	 *
-	 * @Author JEECG
+	 * @author quange
 	 * @date 2013-11-16
 	 * @return
 	 */

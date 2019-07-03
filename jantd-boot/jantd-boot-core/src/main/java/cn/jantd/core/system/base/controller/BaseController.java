@@ -11,7 +11,7 @@ import cn.jantd.core.poi.def.NormalExcelConstants;
 import cn.jantd.core.poi.excel.ExcelImportUtil;
 import cn.jantd.core.poi.excel.entity.ExportParams;
 import cn.jantd.core.poi.excel.entity.ImportParams;
-import cn.jantd.core.poi.view.JantdEntityExcelView;
+import cn.jantd.core.poi.view.JantdEntityExcelViewBase;
 import org.apache.shiro.SecurityUtils;
 import cn.jantd.core.api.vo.Result;
 import cn.jantd.core.system.base.entity.BaseEntity;
@@ -53,7 +53,7 @@ public class BaseController<T extends BaseEntity, S extends BaseService<T>> {
 		// 组装查询条件
 		QueryWrapper<T> queryWrapper = QueryGenerator.initQueryWrapper(object, request.getParameterMap());
 		//AutoPoi 导出Excel
-		ModelAndView mv = new ModelAndView(new JantdEntityExcelView());
+		ModelAndView mv = new ModelAndView(new JantdEntityExcelViewBase());
 		List<T> pageList = service.list(queryWrapper);
 		//注意：此处设置的filename无效 ,前端会重更新设置一下
 		mv.addObject(NormalExcelConstants.FILE_NAME, title);

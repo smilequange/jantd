@@ -24,7 +24,7 @@ import org.apache.commons.lang3.StringUtils;
 /**
  * 校验服务
  *
- * @author JEECG
+ * @author quange
  * @date 2014年6月29日 下午4:37:56
  */
 public class VerifyHandlerServer {

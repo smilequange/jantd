@@ -18,7 +18,7 @@ package cn.jantd.core.poi.word.entity;
 /**
  * word导出,图片设置和图片信息
  *
- * @author JEECG
+ * @author quange
  * @date 2013-11-17
  * @version 1.0
  */
@@ -34,11 +34,17 @@ public class WordImageEntity {
 	 * 图片宽度
 	 */
 	private int width;
-	// 图片高度
+	/**
+	 * 图片高度
+	 */
 	private int height;
-	// 图片地址
+	/**
+	 * 图片地址
+	 */
 	private String url;
-	// 图片信息
+	/**
+	 * 图片信息
+	 */
 	private byte[] data;
 
 	public WordImageEntity() {

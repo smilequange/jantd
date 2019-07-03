@@ -1,6 +1,10 @@
 package cn.jantd.core.constant;
 /**
- * 数据库上下文常量
+ * @Description 数据库上下文常量
+ * @Author 圈哥
+ * @Version V1.0.0
+ * @Since 1.0
+ * @Date 2019/7/2
  */
 public interface DataBaseConstant {
 

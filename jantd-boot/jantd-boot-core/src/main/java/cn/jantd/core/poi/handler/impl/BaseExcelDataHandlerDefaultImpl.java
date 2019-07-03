@@ -23,10 +23,10 @@ import java.util.Map;
 /**
  * 数据处理默认实现,返回空
  *
- * @author JEECG
+ * @author quange
  * @date 2014年6月20日 上午12:11:52
  */
-public abstract class ExcelDataHandlerDefaultImpl implements IExcelDataHandler {
+public abstract class BaseExcelDataHandlerDefaultImpl implements IExcelDataHandler {
 	/**
 	 * 需要处理的字段
 	 */

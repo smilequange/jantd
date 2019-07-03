@@ -20,7 +20,7 @@ import cn.jantd.core.poi.excel.export.styler.ExcelExportStylerDefaultImpl;
 /**
  * 模板导出参数设置
  *
- * @author JEECG
+ * @author quange
  * @date 2013-10-17
  * @version 1.0
  */

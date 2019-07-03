@@ -17,7 +17,7 @@ import cn.jantd.core.poi.def.NormalExcelConstants;
 import cn.jantd.core.poi.excel.ExcelImportUtil;
 import cn.jantd.core.poi.excel.entity.ExportParams;
 import cn.jantd.core.poi.excel.entity.ImportParams;
-import cn.jantd.core.poi.view.JantdEntityExcelView;
+import cn.jantd.core.poi.view.JantdEntityExcelViewBase;
 import cn.jantd.core.system.query.QueryGenerator;
 import cn.jantd.core.system.util.JwtUtil;
 import cn.jantd.core.system.vo.LoginUser;
@@ -304,7 +304,7 @@ public class SysAnnouncementController {
         // Step.1 组装查询条件
         QueryWrapper<SysAnnouncement> queryWrapper = QueryGenerator.initQueryWrapper(sysAnnouncement, request.getParameterMap());
         //Step.2 AutoPoi 导出Excel
-        ModelAndView mv = new ModelAndView(new JantdEntityExcelView());
+        ModelAndView mv = new ModelAndView(new JantdEntityExcelViewBase());
         List<SysAnnouncement> pageList = sysAnnouncementService.list(queryWrapper);
         //导出文件名称
         mv.addObject(NormalExcelConstants.FILE_NAME, "系统通告列表");

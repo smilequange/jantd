@@ -23,12 +23,13 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import cn.jantd.core.constant.CoreConstant;
 import cn.jantd.core.poi.excel.annotation.ExcelTarget;
 import cn.jantd.core.poi.excel.entity.ExportParams;
 import cn.jantd.core.poi.excel.entity.enmus.ExcelType;
 import cn.jantd.core.poi.excel.entity.params.ExcelExportEntity;
 import cn.jantd.core.poi.excel.entity.vo.PoiBaseConstants;
-import cn.jantd.core.poi.excel.export.base.ExcelExportBase;
+import cn.jantd.core.poi.excel.export.base.BaseExcelExport;
 import cn.jantd.core.poi.excel.export.styler.IExcelExportStyler;
 import cn.jantd.core.poi.exception.excel.ExcelExportException;
 import cn.jantd.core.poi.exception.excel.enums.ExcelExportEnum;
@@ -47,15 +48,17 @@ import org.slf4j.LoggerFactory;
 /**
  * Excel导出服务
  *
- * @author JEECG
+ * @author quange
  * @date 2014年6月17日 下午5:30:54
  */
-public class ExcelExportServer extends ExcelExportBase {
+public class ExcelExportServerExcelExport extends BaseExcelExport {
 
-	private final static Logger LOGGER = LoggerFactory.getLogger(ExcelExportServer.class);
+	private final static Logger LOGGER = LoggerFactory.getLogger(ExcelExportServerExcelExport.class);
 
-	// 最大行数,超过自动多Sheet
-	private int MAX_NUM = 60000;
+	/**
+	 * 最大行数,超过自动多Sheet
+	 */
+	private int maxNum = 60000;
 
 	private int createHeaderAndTitle(ExportParams entity, Sheet sheet, Workbook workbook, List<ExcelExportEntity> excelParams) {
 		int rows = 0, feildWidth = getFieldWidth(excelParams);
@@ -108,7 +111,7 @@ public class ExcelExportServer extends ExcelExportBase {
 		}
 		super.type = entity.getType();
 		if (type.equals(ExcelType.XSSF)) {
-			MAX_NUM = 1000000;
+            maxNum = 1000000;
 		}
 		Sheet sheet = null;
 		try {
@@ -130,7 +133,7 @@ public class ExcelExportServer extends ExcelExportBase {
 				excelParams.add(indexExcelEntity(entity));
 			}
 			// 得到所有字段
-			Field fileds[] = PoiPublicUtil.getClassFields(pojoClass);
+			Field[] fileds = PoiPublicUtil.getClassFields(pojoClass);
 			ExcelTarget etarget = pojoClass.getAnnotation(ExcelTarget.class);
 			String targetId = etarget == null ? null : etarget.value();
 			getAllExcelField(entity.getExclusions(), targetId, fileds, excelParams, pojoClass, null);
@@ -146,8 +149,9 @@ public class ExcelExportServer extends ExcelExportBase {
 				Object t = its.next();
 				index += createCells(patriarch, index, t, excelParams, sheet, workbook, rowHeight);
 				tempList.add(t);
-				if (index >= MAX_NUM)
+				if (index >= maxNum) {
 					break;
+				}
 			}
 			mergeCells(sheet, excelParams, titleHeight);
 
@@ -184,7 +188,7 @@ public class ExcelExportServer extends ExcelExportBase {
 		}
 		super.type = entity.getType();
 		if (type.equals(ExcelType.XSSF)) {
-			MAX_NUM = 1000000;
+            maxNum = 1000000;
 		}
 		Sheet sheet = null;
 		try {
@@ -218,8 +222,9 @@ public class ExcelExportServer extends ExcelExportBase {
 				Object t = its.next();
 				index += createCells(patriarch, index, t, excelParams, sheet, workbook, rowHeight);
 				tempList.add(t);
-				if (index >= MAX_NUM)
+				if (index >= maxNum) {
 					break;
+				}
 			}
 			if (entity.getFreezeCol() != 0) {
 				sheet.createFreezePane(entity.getFreezeCol(), 0, entity.getFreezeCol(), 0);
@@ -254,7 +259,7 @@ public class ExcelExportServer extends ExcelExportBase {
 		int rows = getRowNums(excelParams);
 		row.setHeight((short) 450);
 		Row listRow = null;
-		if (rows == 2) {
+		if (rows == CoreConstant.NUMBER_TWO) {
 			listRow = sheet.createRow(index + 1);
 			listRow.setHeight((short) 450);
 		}

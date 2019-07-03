@@ -18,11 +18,18 @@ package cn.jantd.core.poi.excel.entity.enmus;
 /**
  * Excel Type
  *
- * @author JEECG
+ * @author quange
  * @date 2014年12月29日 下午9:08:21
  */
 public enum ExcelType {
 
-	HSSF, XSSF;
+	/**
+	 * HSSF是指2007年以前的
+	 */
+	HSSF,
+	/**
+	 * XSSF是指2007年版本以上的
+	 */
+	XSSF;
 
 }

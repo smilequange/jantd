@@ -19,6 +19,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
+import cn.jantd.core.constant.CoreConstant;
 import cn.jantd.core.poi.excel.entity.enmus.CellValueType;
 import cn.jantd.core.poi.excel.entity.sax.SaxReadCellEntity;
 import cn.jantd.core.poi.excel.imports.sax.parse.ISaxRowRead;
@@ -35,7 +36,7 @@ import com.google.common.collect.Lists;
 /**
  * 回调接口
  *
- * @author JEECG
+ * @author quange
  * @date 2014年12月29日 下午9:50:09
  */
 public class SheetHandler extends DefaultHandler {
@@ -43,16 +44,22 @@ public class SheetHandler extends DefaultHandler {
 	private SharedStringsTable sst;
 	private String lastContents;
 
-	// 当前行
+	/**
+	 * 当前行
+	 */
 	private int curRow = 0;
-	// 当前列
+	/**
+	 * 当前列
+	 */
 	private int curCol = 0;
 
 	private CellValueType type;
 
 	private ISaxRowRead read;
 
-	// 存储行记录的容器
+	/**
+	 * 存储行记录的容器
+	 */
 	private List<SaxReadCellEntity> rowlist = Lists.newArrayList();
 
 	public SheetHandler(SharedStringsTable sst, ISaxRowRead rowRead) {
@@ -65,21 +72,22 @@ public class SheetHandler extends DefaultHandler {
 		// 置空
 		lastContents = "";
 		// c => 单元格
-		if ("c".equals(name)) {
+		if (CoreConstant.LETTER_C.equals(name)) {
 			// 如果下一个元素是 SST 的索引，则将nextIsString标记为true
 			String cellType = attributes.getValue("t");
-			if ("s".equals(cellType)) {
+			if (CoreConstant.LETTER_S.equals(cellType)) {
 				type = CellValueType.String;
 				return;
 			}
 			// 日期格式
 			cellType = attributes.getValue("s");
-			if ("1".equals(cellType)) {
+			if (CoreConstant.NUMBER_ONE.equals(cellType)) {
 				type = CellValueType.Date;
-			} else if ("2".equals(cellType)) {
+			} else if (CoreConstant.NUMBER_TWO.equals(cellType)) {
 				type = CellValueType.Number;
 			}
-		} else if ("t".equals(name)) {// 当元素为t时
+		} else if (CoreConstant.LETTER_T.equals(name)) {
+			// 当元素为t时
 			type = CellValueType.TElement;
 		}
 
@@ -106,9 +114,9 @@ public class SheetHandler extends DefaultHandler {
 			type = CellValueType.None;
 			// v => 单元格的值，如果单元格是字符串则v标签的值为该字符串在SST中的索引
 			// 将单元格内容加入rowlist中，在这之前先去掉字符串前后的空白符
-		} else if ("v".equals(name)) {
+		} else if (CoreConstant.LETTER_V.equals(name)) {
 			String value = lastContents.trim();
-			value = value.equals("") ? " " : value;
+			value = "".equals(value) ? " " : value;
 			if (CellValueType.Date.equals(type)) {
 				Date date = HSSFDateUtil.getJavaDate(Double.valueOf(value));
 				rowlist.add(curCol, new SaxReadCellEntity(CellValueType.Date, date));
@@ -119,7 +127,8 @@ public class SheetHandler extends DefaultHandler {
 				rowlist.add(curCol, new SaxReadCellEntity(CellValueType.String, value));
 			}
 			curCol++;
-		} else if (name.equals("row")) {// 如果标签名称为 row ，这说明已到行尾，调用 optRows() 方法
+		} else if (CoreConstant.EXCEL_ROW.equals(name)) {
+			// 如果标签名称为 row ，这说明已到行尾，调用 optRows() 方法
 			read.parse(curRow, rowlist);
 			rowlist.clear();
 			curRow++;

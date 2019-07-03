@@ -15,6 +15,7 @@
  */
 package cn.jantd.core.poi.util;
 
+import cn.jantd.core.constant.CoreConstant;
 import cn.jantd.core.poi.exception.excel.ExcelExportException;
 
 import java.util.Map;
@@ -24,7 +25,7 @@ import java.util.Map;
 /**
  * EasyPoi的el 表达式支持工具类
  *
- * @author JEECG
+ * @author quange
  * @date 2015年4月25日 下午12:13:21
  */
 public final class PoiElUtil {
@@ -58,7 +59,7 @@ public final class PoiElUtil {
 		String tempText = new String(text);
 		Object obj = innerEval(text, map);
 		// 如果没有被处理而且这个值找map中存在就处理这个值
-		if (tempText.equals(obj.toString()) && map.containsKey(tempText.split("\\.")[0])) {
+		if (tempText.equals(obj.toString()) && map.containsKey(tempText.split(CoreConstant.ESCAPE_CHARACTER)[0])) {
 			return PoiPublicUtil.getParamsValue(tempText, map);
 		}
 		return obj;
@@ -73,7 +74,7 @@ public final class PoiElUtil {
 	 * @throws Exception
 	 */
 	public static Object innerEval(String text, Map<String, Object> map) throws Exception {
-		if (text.indexOf("?") != -1 && text.indexOf(":") != -1) {
+		if (text.indexOf(CoreConstant.QUESTION_MARK) != -1 && text.indexOf(CoreConstant.COLON) != -1) {
 			return trinocular(text, map);
 		}
 		if (text.indexOf(LENGTH) != -1) {
@@ -88,7 +89,7 @@ public final class PoiElUtil {
 		if (text.indexOf(IF_DELETE) != -1) {
 			return ifDelete(text, map);
 		}
-		if (text.startsWith("'")) {
+		if (text.startsWith(CoreConstant.SINGLE_QUOTES)) {
 			return text.replace("'", "");
 		}
 		return text;
@@ -126,7 +127,7 @@ public final class PoiElUtil {
 			}
 			return Boolean.valueOf(PoiPublicUtil.getParamsValue(keys[0], map).toString());
 		}
-		if (keys.length == 3) {
+		if (keys.length == CoreConstant.NUMBER_THREE) {
 			Object first = eval(keys[0], map);
 			Object second = eval(keys[2], map);
 			return PoiFunctionUtil.isTrue(first, keys[1], second);
@@ -141,7 +142,7 @@ public final class PoiElUtil {
 	 * @return
 	 */
 	private static String isConstant(String param) {
-		if (param.indexOf("'") != -1) {
+		if (param.indexOf(CoreConstant.SINGLE_QUOTES) != -1) {
 			return param.replace("'", "");
 		}
 		return null;
@@ -202,7 +203,7 @@ public final class PoiElUtil {
 	private static String getKey(String prefix, String text) {
 		int leftBracket = 1, rigthBracket = 0, position = 0;
 		int index = text.indexOf(prefix) + prefix.length();
-		while (text.charAt(index) == " ".charAt(0)) {
+		while (text.charAt(index) == CoreConstant.SPACE_SYMBOL.charAt(0)) {
 			text = text.substring(0, index) + text.substring(index + 1, text.length());
 		}
 		for (int i = text.indexOf(prefix + LEFT_BRACKET) + prefix.length() + 1; i < text.length(); i++) {

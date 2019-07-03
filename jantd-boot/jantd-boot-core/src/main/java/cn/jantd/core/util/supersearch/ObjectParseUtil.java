@@ -1,4 +1,4 @@
-package cn.jantd.core.util.superSearch;
+package cn.jantd.core.util.supersearch;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 

@@ -4,22 +4,56 @@ import cn.jantd.core.util.oConvertUtils;
 
 /**
  * Query 规则 常量
+ *
  * @Author Scott
  * @Date 2019年02月14日
  */
 public enum QueryRuleEnum {
 
-    GT(">","gt","大于"),
-    GE(">=","ge","大于等于"),
-    LT("<","lt","小于"),
-    LE("<=","le","小于等于"),
-    EQ("=","eq","等于"),
-    NE("!=","ne","不等于"),
-    IN("IN","in","包含"),
-    LIKE("LIKE","like","全模糊"),
-    LEFT_LIKE("LEFT_LIKE","left_like","左模糊"),
-    RIGHT_LIKE("RIGHT_LIKE","right_like","右模糊"),
-    SQL_RULES("USE_SQL_RULES","ext","自定义SQL片段");
+    /**
+     * 大于
+     */
+    GT(">", "gt", "大于"),
+    /**
+     * 大于等于
+     */
+    GE(">=", "ge", "大于等于"),
+    /**
+     * 小于
+     */
+    LT("<", "lt", "小于"),
+    /**
+     * 小于等于
+     */
+    LE("<=", "le", "小于等于"),
+    /**
+     * 等于
+     */
+    EQ("=", "eq", "等于"),
+    /**
+     * 不等于
+     */
+    NE("!=", "ne", "不等于"),
+    /**
+     * 包含
+     */
+    IN("IN", "in", "包含"),
+    /**
+     * 全模糊
+     */
+    LIKE("LIKE", "like", "全模糊"),
+    /**
+     * 左模糊
+     */
+    LEFT_LIKE("LEFT_LIKE", "left_like", "左模糊"),
+    /**
+     * 右模糊
+     */
+    RIGHT_LIKE("RIGHT_LIKE", "right_like", "右模糊"),
+    /**
+     * 自定义SQL片段
+     */
+    SQL_RULES("USE_SQL_RULES", "ext", "自定义SQL片段");
 
     private String value;
 
@@ -27,7 +61,7 @@ public enum QueryRuleEnum {
 
     private String msg;
 
-    QueryRuleEnum(String value, String condition, String msg){
+    QueryRuleEnum(String value, String condition, String msg) {
         this.value = value;
         this.condition = condition;
         this.msg = msg;
@@ -50,22 +84,22 @@ public enum QueryRuleEnum {
     }
 
     public String getCondition() {
-		return condition;
-	}
+        return condition;
+    }
 
-	public void setCondition(String condition) {
-		this.condition = condition;
-	}
+    public void setCondition(String condition) {
+        this.condition = condition;
+    }
 
-	public static QueryRuleEnum getByValue(String value){
-    	if(oConvertUtils.isEmpty(value)) {
-    		return null;
-    	}
-        for(QueryRuleEnum val :values()){
-            if (val.getValue().equals(value) || val.getCondition().equals(value)){
+    public static QueryRuleEnum getByValue(String value) {
+        if (oConvertUtils.isEmpty(value)) {
+            return null;
+        }
+        for (QueryRuleEnum val : values()) {
+            if (val.getValue().equals(value) || val.getCondition().equals(value)) {
                 return val;
             }
         }
-        return  null;
+        return null;
     }
 }

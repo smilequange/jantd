@@ -12,10 +12,11 @@ import org.springframework.web.servlet.NoHandlerFoundException;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * 异常处理器
- *
- * @Author scott
- * @Date 2019
+ * @Description
+ * @Author 圈哥
+ * @Version V1.0.0
+ * @Since 1.0
+ * @Date 2019/7/2
  */
 @RestControllerAdvice
 @Slf4j
@@ -56,7 +57,7 @@ public class JantdBootExceptionHandler {
 
 
 	@ExceptionHandler(HttpRequestMethodNotSupportedException.class)
-	public Result<?> HttpRequestMethodNotSupportedException(Exception e){
+	public Result<?> httpRequestMethodNotSupportedException(Exception e){
 		log.error(e.getMessage(), e);
 		return Result.error("没有权限，请联系管理员授权");
 	}

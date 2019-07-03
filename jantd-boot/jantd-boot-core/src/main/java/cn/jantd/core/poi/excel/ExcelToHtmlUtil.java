@@ -6,7 +6,7 @@ import org.apache.poi.ss.usermodel.Workbook;
 /**
  * Excel 变成界面
  *
- * @author JEECG
+ * @author quange
  * @date 2015年5月10日 上午11:51:48
  */
 public final class ExcelToHtmlUtil {

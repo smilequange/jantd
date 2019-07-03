@@ -48,8 +48,8 @@ public interface CommonConstant {
      String LOGIN_USER_CACHERULES_ROLE = "loginUser_cacheRules::Roles_";
     /** 登录用户拥有权限缓存KEY前缀 */
      String LOGIN_USER_CACHERULES_PERMISSION  = "loginUser_cacheRules::Permissions_";
-    /** 登录用户令牌缓存KEY前缀 */
-     int  TOKEN_EXPIRE_TIME  = 3600; //3600秒即是一小时
+    /** 登录用户令牌缓存KEY前缀 3600秒即是一小时*/
+     int  TOKEN_EXPIRE_TIME  = 3600;
 
      String PREFIX_USER_TOKEN  = "PREFIX_USER_TOKEN_";
 

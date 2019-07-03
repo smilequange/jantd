@@ -28,7 +28,7 @@ import com.google.common.collect.Lists;
 /**
  * 当行读取数据
  *
- * @author JEECG
+ * @author quange
  * @param <T>
  * @date 2015年1月1日 下午7:59:39
  */
@@ -69,7 +69,7 @@ public class SaxRowRead extends ImportBaseService implements ISaxRowRead {
 	private void initParams(Class<?> pojoClass, ImportParams params) {
 		try {
 
-			Field fileds[] = PoiPublicUtil.getClassFields(pojoClass);
+			Field[] fileds = PoiPublicUtil.getClassFields(pojoClass);
 			ExcelTarget etarget = pojoClass.getAnnotation(ExcelTarget.class);
 			if (etarget != null) {
 				targetId = etarget.value();
@@ -158,7 +158,8 @@ public class SaxRowRead extends ImportBaseService implements ISaxRowRead {
 	private void addListContinue(Object object, ExcelCollectionParams param, List<SaxReadCellEntity> datas, Map<Integer, String> titlemap, String targetId, ImportParams params) throws Exception {
 		Collection collection = (Collection) PoiPublicUtil.getMethod(param.getName(), object.getClass()).invoke(object, new Object[] {});
 		Object entity = PoiPublicUtil.createObject(param.getType(), targetId);
-		boolean isUsed = false;// 是否需要加上这个对象
+		// 是否需要加上这个对象
+		boolean isUsed = false;
 		for (int i = 0; i < datas.size(); i++) {
 			String titleString = (String) titlemap.get(i);
 			if (param.getExcelParams().containsKey(titleString)) {

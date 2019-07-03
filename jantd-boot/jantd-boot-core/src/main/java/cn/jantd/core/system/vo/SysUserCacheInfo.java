@@ -3,7 +3,9 @@ package cn.jantd.core.system.vo;
 import java.util.List;
 
 import cn.jantd.core.util.DateUtils;
-
+/**
+ * @author xiagf 2019-07-03
+ */
 public class SysUserCacheInfo {
 
 	private String sysUserCode;

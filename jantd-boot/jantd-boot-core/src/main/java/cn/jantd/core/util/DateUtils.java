@@ -9,6 +9,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
+import cn.jantd.core.constant.CoreConstant;
 import org.springframework.util.StringUtils;
 
 /**
@@ -133,15 +134,15 @@ public class DateUtils extends PropertyEditorSupport {
 
 	/**
 	 * 获取指定格式的格式的当前日期
-	 * @param date_sdf
+	 * @param dateSdf
 	 * @return
 	 */
-	public static String date2Str(SimpleDateFormat date_sdf) {
+	public static String date2Str(SimpleDateFormat dateSdf) {
 		Date date = getDate();
 		if (null == date) {
 			return null;
 		}
-		return date_sdf.format(date);
+		return dateSdf.format(date);
 	}
 
 	/**
@@ -167,14 +168,14 @@ public class DateUtils extends PropertyEditorSupport {
 	 * 日期转换为字符串
 	 *
 	 * @param date   日期
-	 * @param date_sdf 日期格式
+	 * @param dateSdf 日期格式
 	 * @return 字符串
 	 */
-	public static String date2Str(Date date, SimpleDateFormat date_sdf) {
+	public static String date2Str(Date date, SimpleDateFormat dateSdf) {
 		if (null == date) {
 			return null;
 		}
-		return date_sdf.format(date);
+		return dateSdf.format(date);
 	}
 
 	/**
@@ -247,7 +248,6 @@ public class DateUtils extends PropertyEditorSupport {
 	 * @return 指定日历的时间戳
 	 */
 	public static Timestamp getCalendarTimestamp(Calendar cal) {
-		// ---------------------return new Timestamp(cal.getTimeInMillis());
 		return new Timestamp(cal.getTime().getTime());
 	}
 
@@ -280,7 +280,6 @@ public class DateUtils extends PropertyEditorSupport {
 	 * @return 指定日历的毫秒数
 	 */
 	public static long getMillis(Calendar cal) {
-		// --------------------return cal.getTimeInMillis();
 		return cal.getTime().getTime();
 	}
 
@@ -557,23 +556,23 @@ public class DateUtils extends PropertyEditorSupport {
 
 		long millisDiff = getMillis(calSrc) - getMillis(calDes);
 
-		if (flag == 'y') {
+		if (flag == CoreConstant.CHAR_Y) {
 			return (calSrc.get(Calendar.YEAR) - calDes.get(Calendar.YEAR));
 		}
 
-		if (flag == 'd') {
+		if (flag == CoreConstant.CHAR_D) {
 			return (int) (millisDiff / DAY_IN_MILLIS);
 		}
 
-		if (flag == 'h') {
+		if (flag == CoreConstant.CHAR_H) {
 			return (int) (millisDiff / HOUR_IN_MILLIS);
 		}
 
-		if (flag == 'm') {
+		if (flag == CoreConstant.CHAR_M) {
 			return (int) (millisDiff / MINUTE_IN_MILLIS);
 		}
 
-		if (flag == 's') {
+		if (flag == CoreConstant.CHAR_S) {
 			return (int) (millisDiff / SECOND_IN_MILLIS);
 		}
 
@@ -588,9 +587,9 @@ public class DateUtils extends PropertyEditorSupport {
 	public void setAsText(String text) throws IllegalArgumentException {
 		if (StringUtils.hasText(text)) {
 			try {
-				if (text.indexOf(":") == -1 && text.length() == 10) {
+				if (text.indexOf(CoreConstant.COLON) == -1 && text.length() == CoreConstant.NUMBER_TEN) {
 					setValue(SDF_YYYY_MM_DD.parse(text));
-				} else if (text.indexOf(":") > 0 && text.length() == 19) {
+				} else if (text.indexOf(CoreConstant.COLON) > 0 && text.length() == CoreConstant.NUMBER_19) {
 					setValue(SDF_YYYY_MM_DD_BLANK_HH_MM_SS.parse(text));
 				} else {
 					throw new IllegalArgumentException("Could not parse date, date format is error ");

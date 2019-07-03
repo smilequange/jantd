@@ -27,7 +27,7 @@ import org.slf4j.LoggerFactory;
 /**
  * 文件加载类,根据路径加载指定文件
  *
- * @author JEECG
+ * @author quange
  * @date 2014年2月10日
  * @version 1.0
  */

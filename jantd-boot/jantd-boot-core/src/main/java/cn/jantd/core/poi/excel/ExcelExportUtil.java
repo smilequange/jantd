@@ -19,12 +19,13 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
+import cn.jantd.core.constant.CoreConstant;
 import cn.jantd.core.poi.excel.entity.ExportParams;
 import cn.jantd.core.poi.excel.entity.TemplateExportParams;
 import cn.jantd.core.poi.excel.entity.enmus.ExcelType;
 import cn.jantd.core.poi.excel.entity.params.ExcelExportEntity;
-import cn.jantd.core.poi.excel.export.ExcelExportServer;
-import cn.jantd.core.poi.excel.export.template.ExcelExportOfTemplateUtil;
+import cn.jantd.core.poi.excel.export.ExcelExportServerExcelExport;
+import cn.jantd.core.poi.excel.export.template.ExcelExportOfTemplateUtilExcelExport;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.streaming.SXSSFWorkbook;
@@ -34,7 +35,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 /**
  * excel 导出工具类
  *
- * @author JEECG
+ * @author quange
  * @version 1.0
  * @date 2013-10-17
  */
@@ -57,12 +58,12 @@ public final class ExcelExportUtil {
 		Workbook workbook;
 		if (ExcelType.HSSF.equals(entity.getType())) {
 			workbook = new HSSFWorkbook();
-		} else if (dataSet.size() < 1000) {
+		} else if (dataSet.size() < CoreConstant.NUMBER_THOUSAND) {
 			workbook = new XSSFWorkbook();
 		} else {
 			workbook = new SXSSFWorkbook();
 		}
-		new ExcelExportServer().createSheet(workbook, entity, pojoClass, dataSet);
+		new ExcelExportServerExcelExport().createSheet(workbook, entity, pojoClass, dataSet);
 		return workbook;
 	}
 
@@ -80,12 +81,12 @@ public final class ExcelExportUtil {
 		Workbook workbook;
 		if (ExcelType.HSSF.equals(entity.getType())) {
 			workbook = new HSSFWorkbook();
-		} else if (dataSet.size() < 1000) {
+		} else if (dataSet.size() < CoreConstant.NUMBER_THOUSAND) {
 			workbook = new XSSFWorkbook();
 		} else {
 			workbook = new SXSSFWorkbook();
 		}
-		new ExcelExportServer().createSheetForMap(workbook, entity, entityList, dataSet);
+		new ExcelExportServerExcelExport().createSheetForMap(workbook, entity, entityList, dataSet);
 		return workbook;
 	}
 
@@ -105,7 +106,7 @@ public final class ExcelExportUtil {
 			workbook = new XSSFWorkbook();
 		}
 		for (Map<String, Object> map : list) {
-			ExcelExportServer server = new ExcelExportServer();
+			ExcelExportServerExcelExport server = new ExcelExportServerExcelExport();
 			server.createSheet(workbook, (ExportParams) map.get("title"), (Class<?>) map.get("entity"), (Collection<?>) map.get("data"));
 		}
 		return workbook;
@@ -126,7 +127,7 @@ public final class ExcelExportUtil {
 	 * @return
 	 */
 	public static Workbook exportExcel(TemplateExportParams params, Class<?> pojoClass, Collection<?> dataSet, Map<String, Object> map) {
-		return new ExcelExportOfTemplateUtil().createExcleByTemplate(params, pojoClass, dataSet, map);
+		return new ExcelExportOfTemplateUtilExcelExport().createExcleByTemplate(params, pojoClass, dataSet, map);
 	}
 
 	/**
@@ -139,7 +140,7 @@ public final class ExcelExportUtil {
 	 * @return
 	 */
 	public static Workbook exportExcel(TemplateExportParams params, Map<String, Object> map) {
-		return new ExcelExportOfTemplateUtil().createExcleByTemplate(params, null, null, map);
+		return new ExcelExportOfTemplateUtilExcelExport().createExcleByTemplate(params, null, null, map);
 	}
 
 }

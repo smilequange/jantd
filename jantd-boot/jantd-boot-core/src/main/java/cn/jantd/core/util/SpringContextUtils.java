@@ -1,7 +1,5 @@
 package cn.jantd.core.util;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
@@ -9,6 +7,11 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
+import javax.servlet.http.HttpServletRequest;
+
+/**
+ * @author xiagf 2019-07-03
+ */
 @Component
 public class SpringContextUtils implements ApplicationContextAware {
 

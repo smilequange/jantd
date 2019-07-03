@@ -21,7 +21,7 @@ import org.apache.poi.ss.usermodel.CellStyle;
 /**
  * Excel导出样式接口
  *
- * @author JEECG
+ * @author quange
  * @date 2015年1月9日 下午5:32:30
  */
 public interface IExcelExportStyler {

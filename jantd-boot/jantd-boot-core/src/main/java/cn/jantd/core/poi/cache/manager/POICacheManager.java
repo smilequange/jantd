@@ -31,7 +31,7 @@ import com.google.common.cache.LoadingCache;
 /**
  * 缓存管理
  *
- * @author JEECG
+ * @author quange
  * @date 2014年2月10日
  * @version 1.0
  */

@@ -21,7 +21,7 @@ import cn.jantd.core.poi.exception.excel.enums.ExcelExportEnum;
 /**
  * 导出异常
  *
- * @author JEECG
+ * @author quange
  * @date 2014年6月19日 下午10:56:18
  */
 public class ExcelExportException extends RuntimeException {

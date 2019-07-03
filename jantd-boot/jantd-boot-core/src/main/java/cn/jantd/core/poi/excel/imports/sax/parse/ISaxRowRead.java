@@ -19,7 +19,13 @@ import cn.jantd.core.poi.excel.entity.sax.SaxReadCellEntity;
 
 import java.util.List;
 
-
+/**
+ * @Description
+ * @Author 圈哥
+ * @Version V1.0.0
+ * @Since 1.0
+ * @Date 2019/7/2
+ */
 public interface ISaxRowRead {
 	/**
 	 * 获取返回数据

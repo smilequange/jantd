@@ -15,6 +15,7 @@
  */
 package cn.jantd.core.poi.view;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
@@ -22,35 +23,35 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import cn.jantd.core.poi.def.NormalExcelConstants;
-import cn.jantd.core.poi.def.TemplateExcelConstants;
+import cn.jantd.core.poi.def.MapExcelConstants;
 import cn.jantd.core.poi.excel.ExcelExportUtil;
-import cn.jantd.core.poi.excel.entity.TemplateExportParams;
+import cn.jantd.core.poi.excel.entity.ExportParams;
+import cn.jantd.core.poi.excel.entity.params.ExcelExportEntity;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Workbook;
 
 import org.springframework.stereotype.Controller;
 
 /**
- * Excel 模板导出
+ * Map 数据对象接口导出
  *
- * @author JEECG
- * @date 2014年6月30日 下午9:15:49
+ * @author quange
+ * @date 2014年11月25日 下午3:26:32
  */
 @SuppressWarnings("unchecked")
-@Controller(TemplateExcelConstants.JEECG_TEMPLATE_EXCEL_VIEW)
-public class JantdTemplateExcelView extends MiniAbstractExcelView {
+@Controller(MapExcelConstants.JEECG_MAP_EXCEL_VIEW)
+public class JantdMapExcelViewBase extends BaseMiniAbstractExcelView {
 
-	public JantdTemplateExcelView() {
+	public JantdMapExcelViewBase() {
 		super();
 	}
 
 	@Override
 	protected void renderMergedOutputModel(Map<String, Object> model, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String codedFileName = "临时文件";
-		Workbook workbook = ExcelExportUtil.exportExcel((TemplateExportParams) model.get(TemplateExcelConstants.PARAMS), (Class<?>) model.get(TemplateExcelConstants.CLASS), (List<?>) model.get(TemplateExcelConstants.LIST_DATA), (Map<String, Object>) model.get(TemplateExcelConstants.MAP_DATA));
-		if (model.containsKey(NormalExcelConstants.FILE_NAME)) {
-			codedFileName = (String) model.get(NormalExcelConstants.FILE_NAME);
+		Workbook workbook = ExcelExportUtil.exportExcel((ExportParams) model.get(MapExcelConstants.PARAMS), (List<ExcelExportEntity>) model.get(MapExcelConstants.ENTITY_LIST), (Collection<? extends Map<?, ?>>) model.get(MapExcelConstants.MAP_LIST));
+		if (model.containsKey(MapExcelConstants.FILE_NAME)) {
+			codedFileName = (String) model.get(MapExcelConstants.FILE_NAME);
 		}
 		if (workbook instanceof HSSFWorkbook) {
 			codedFileName += HSSF;
@@ -67,4 +68,5 @@ public class JantdTemplateExcelView extends MiniAbstractExcelView {
 		workbook.write(out);
 		out.flush();
 	}
+
 }

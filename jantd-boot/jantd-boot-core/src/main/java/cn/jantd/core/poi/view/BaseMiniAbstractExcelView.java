@@ -22,17 +22,17 @@ import org.springframework.web.servlet.view.AbstractView;
 /**
  * 基础抽象Excel View
  *
- * @author JEECG
+ * @author quange
  * @date 2015年2月28日 下午1:41:05
  */
-public abstract class MiniAbstractExcelView extends AbstractView {
+public abstract class BaseMiniAbstractExcelView extends AbstractView {
 
 	private static final String CONTENT_TYPE = "application/vnd.ms-excel";
 
 	protected static final String HSSF = ".xls";
 	protected static final String XSSF = ".xlsx";
 
-	public MiniAbstractExcelView() {
+	public BaseMiniAbstractExcelView() {
 		setContentType(CONTENT_TYPE);
 	}
 

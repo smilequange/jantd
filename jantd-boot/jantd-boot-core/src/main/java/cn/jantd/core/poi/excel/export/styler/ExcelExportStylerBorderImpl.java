@@ -22,7 +22,7 @@ import org.apache.poi.ss.usermodel.Workbook;
 /**
  * 带有边框的Excel样式
  *
- * @author JEECG
+ * @author quange
  * @date 2015年1月9日 下午5:55:29
  */
 public class ExcelExportStylerBorderImpl extends AbstractExcelExportStyler implements IExcelExportStyler {
@@ -37,8 +37,10 @@ public class ExcelExportStylerBorderImpl extends AbstractExcelExportStyler imple
 		Font font = workbook.createFont();
 		font.setFontHeightInPoints((short) 12);
 		titleStyle.setFont(font);
-		titleStyle.setBorderLeft((short) 1); // 左边框
-		titleStyle.setBorderRight((short) 1); // 右边框
+		// 左边框
+		titleStyle.setBorderLeft((short) 1);
+		// 右边框
+		titleStyle.setBorderRight((short) 1);
 		titleStyle.setBorderBottom((short) 1);
 		titleStyle.setBorderTop((short) 1);
 		titleStyle.setAlignment(CellStyle.ALIGN_CENTER);
@@ -49,8 +51,10 @@ public class ExcelExportStylerBorderImpl extends AbstractExcelExportStyler imple
 	@Override
 	public CellStyle stringNoneStyle(Workbook workbook, boolean isWarp) {
 		CellStyle style = workbook.createCellStyle();
-		style.setBorderLeft((short) 1); // 左边框
-		style.setBorderRight((short) 1); // 右边框
+		// 左边框
+		style.setBorderLeft((short) 1);
+		// 右边框
+		style.setBorderRight((short) 1);
 		style.setBorderBottom((short) 1);
 		style.setBorderTop((short) 1);
 		style.setAlignment(CellStyle.ALIGN_CENTER);
@@ -65,8 +69,10 @@ public class ExcelExportStylerBorderImpl extends AbstractExcelExportStyler imple
 	@Override
 	public CellStyle getTitleStyle(short color) {
 		CellStyle titleStyle = workbook.createCellStyle();
-		titleStyle.setBorderLeft((short) 1); // 左边框
-		titleStyle.setBorderRight((short) 1); // 右边框
+		// 左边框
+		titleStyle.setBorderLeft((short) 1);
+		// 右边框
+		titleStyle.setBorderRight((short) 1);
 		titleStyle.setBorderBottom((short) 1);
 		titleStyle.setBorderTop((short) 1);
 		titleStyle.setAlignment(CellStyle.ALIGN_CENTER);

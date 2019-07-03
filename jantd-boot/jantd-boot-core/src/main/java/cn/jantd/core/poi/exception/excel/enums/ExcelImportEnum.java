@@ -18,12 +18,19 @@ package cn.jantd.core.poi.exception.excel.enums;
 /**
  * 导出异常类型枚举
  *
- * @author JEECG
+ * @author quange
  * @date 2014年6月19日 下午10:59:51
  */
 public enum ExcelImportEnum {
 
-	GET_VALUE_ERROR("Excel 值获取失败"), VERIFY_ERROR("值校验失败");
+	/**
+	 * Excel 值获取失败
+	 */
+	GET_VALUE_ERROR("Excel 值获取失败"),
+	/**
+	 * 值校验失败
+	 */
+	VERIFY_ERROR("值校验失败");
 
 	private String msg;
 

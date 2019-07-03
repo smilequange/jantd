@@ -7,12 +7,13 @@ import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.Map;
 
+import cn.jantd.core.constant.CoreConstant;
 import cn.jantd.core.poi.exception.excel.ExcelExportException;
 
 /**
  * if else,length,for each,fromatNumber,formatDate 满足模板的 el 表达式支持
  *
- * @author JEECG
+ * @author quange
  * @date 2015年4月24日 下午8:04:02
  */
 public final class PoiFunctionUtil {
@@ -112,16 +113,16 @@ public final class PoiFunctionUtil {
 	 * @return
 	 */
 	public static boolean isTrue(Object first, String operator, Object second) {
-		if (">".endsWith(operator)) {
+		if (CoreConstant.GREATER_THAN.endsWith(operator)) {
 			return isGt(first, second);
-		} else if ("<".endsWith(operator)) {
+		} else if (CoreConstant.LESS_THAN.endsWith(operator)) {
 			return isGt(second, first);
-		} else if ("==".endsWith(operator)) {
+		} else if (CoreConstant.EQUAL.endsWith(operator)) {
 			if (first != null && second != null) {
 				return first.equals(second);
 			}
 			return first == second;
-		} else if ("!=".endsWith(operator)) {
+		} else if (CoreConstant.NOT_EQUAL.endsWith(operator)) {
 			if (first != null && second != null) {
 				return !first.equals(second);
 			}

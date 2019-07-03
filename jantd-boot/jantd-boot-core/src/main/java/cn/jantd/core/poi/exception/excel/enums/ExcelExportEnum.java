@@ -18,12 +18,19 @@ package cn.jantd.core.poi.exception.excel.enums;
 /**
  * 导出异常类型枚举
  *
- * @author JEECG
+ * @author quange
  * @date 2014年6月19日 下午10:59:51
  */
 public enum ExcelExportEnum {
 
-	PARAMETER_ERROR("Excel 导出   参数错误"), EXPORT_ERROR("Excel导出错误");
+	/**
+	 * Excel 导出   参数错误
+	 */
+	PARAMETER_ERROR("Excel 导出   参数错误"),
+	/**
+	 * Excel导出错误
+	 */
+	EXPORT_ERROR("Excel导出错误");
 
 	private String msg;
 

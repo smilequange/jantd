@@ -17,7 +17,7 @@ import cn.jantd.core.poi.def.NormalExcelConstants;
 import cn.jantd.core.poi.excel.ExcelImportUtil;
 import cn.jantd.core.poi.excel.entity.ExportParams;
 import cn.jantd.core.poi.excel.entity.ImportParams;
-import cn.jantd.core.poi.view.JantdEntityExcelView;
+import cn.jantd.core.poi.view.JantdEntityExcelViewBase;
 import cn.jantd.core.system.query.QueryGenerator;
 import cn.jantd.core.util.oConvertUtils;
 import cn.jantd.modules.system.entity.SysPermissionDataRule;
@@ -259,7 +259,7 @@ public class SysRoleController {
 		// Step.1 组装查询条件
 		QueryWrapper<SysRole> queryWrapper = QueryGenerator.initQueryWrapper(sysRole, request.getParameterMap());
 		//Step.2 AutoPoi 导出Excel
-		ModelAndView mv = new ModelAndView(new JantdEntityExcelView());
+		ModelAndView mv = new ModelAndView(new JantdEntityExcelViewBase());
 		List<SysRole> pageList = sysRoleService.list(queryWrapper);
 		//导出文件名称
 		mv.addObject(NormalExcelConstants.FILE_NAME,"角色列表");

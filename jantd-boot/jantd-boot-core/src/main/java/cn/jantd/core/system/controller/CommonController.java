@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import cn.jantd.core.api.vo.Result;
+import cn.jantd.core.constant.CoreConstant;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.util.AntPathMatcher;
 import org.springframework.util.FileCopyUtils;
@@ -65,14 +66,16 @@ public class CommonController {
 				file.mkdirs();// 创建文件根目录
 			}
 			MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
-			MultipartFile mf = multipartRequest.getFile("file");// 获取上传文件对象
-			String orgName = mf.getOriginalFilename();// 获取文件名
+			// 获取上传文件对象
+			MultipartFile mf = multipartRequest.getFile("file");
+			// 获取文件名
+			String orgName = mf.getOriginalFilename();
 			fileName = orgName.substring(0, orgName.lastIndexOf(".")) + "_" + System.currentTimeMillis() + orgName.substring(orgName.indexOf("."));
 			String savePath = file.getPath() + File.separator + fileName;
 			File savefile = new File(savePath);
 			FileCopyUtils.copy(mf.getBytes(), savefile);
 			String dbpath = bizPath + File.separator + nowday + File.separator + fileName;
-			if (dbpath.contains("\\")) {
+			if (dbpath.contains(CoreConstant.DOUBLE_SLASH)) {
 				dbpath = dbpath.replace("\\", "/");
 			}
 			result.setMessage(dbpath);
@@ -101,7 +104,7 @@ public class CommonController {
 		OutputStream outputStream = null;
 		try {
 			imgPath = imgPath.replace("..", "");
-			if (imgPath.endsWith(",")) {
+			if (imgPath.endsWith(CoreConstant.COMMA)) {
 				imgPath = imgPath.substring(0, imgPath.length() - 1);
 			}
 			response.setContentType("image/jpeg;charset=utf-8");
@@ -117,7 +120,6 @@ public class CommonController {
 			response.flushBuffer();
 		} catch (IOException e) {
 			log.error("预览图片失败" + e.getMessage());
-			// e.printStackTrace();
 		} finally {
 			if (inputStream != null) {
 				try {
@@ -154,14 +156,15 @@ public class CommonController {
 		OutputStream outputStream = null;
 		try {
 			filePath = filePath.replace("..", "");
-			if (filePath.endsWith(",")) {
+			if (filePath.endsWith(CoreConstant.COMMA)) {
 				filePath = filePath.substring(0, filePath.length() - 1);
 			}
 			String localPath = uploadpath;
 			String downloadFilePath = localPath + File.separator + filePath;
 			File file = new File(downloadFilePath);
 	         if (file.exists()) {
-	        	 response.setContentType("application/force-download");// 设置强制下载不打开            
+				 // 设置强制下载不打开
+	        	 response.setContentType("application/force-download");
 	 			response.addHeader("Content-Disposition", "attachment;fileName=" + new String(file.getName().getBytes("UTF-8"),"iso-8859-1"));
 	 			inputStream = new BufferedInputStream(new FileInputStream(file));
 	 			outputStream = response.getOutputStream();
@@ -175,7 +178,6 @@ public class CommonController {
 
 		} catch (Exception e) {
 			log.info("文件下载失败" + e.getMessage());
-			// e.printStackTrace();
 		} finally {
 			if (inputStream != null) {
 				try {

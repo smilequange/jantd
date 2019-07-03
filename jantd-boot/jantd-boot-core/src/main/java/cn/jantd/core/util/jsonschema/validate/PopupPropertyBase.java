@@ -1,13 +1,15 @@
 package cn.jantd.core.util.jsonschema.validate;
 
+import cn.jantd.core.util.jsonschema.BaseCommonProperty;
+import com.alibaba.fastjson.JSONObject;
+
 import java.util.HashMap;
 import java.util.Map;
 
-import cn.jantd.core.util.jsonschema.CommonProperty;
-
-import com.alibaba.fastjson.JSONObject;
-
-public class PopupProperty extends CommonProperty {
+/**
+ * @author xiagf 2019-07-03
+ */
+public class PopupPropertyBase extends BaseCommonProperty {
 
 	private static final long serialVersionUID = -3200493311633999539L;
 
@@ -41,9 +43,9 @@ public class PopupProperty extends CommonProperty {
 		this.orgFields = orgFields;
 	}
 
-	public PopupProperty() {}
+	public PopupPropertyBase() {}
 
-	public PopupProperty(String key,String title,String code,String destFields,String orgFields) {
+	public PopupPropertyBase(String key, String title, String code, String destFields, String orgFields) {
 		this.view = "popup";
 		this.type = "string";
 		this.key = key;

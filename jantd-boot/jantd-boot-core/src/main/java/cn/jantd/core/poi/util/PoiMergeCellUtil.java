@@ -17,7 +17,7 @@ import org.apache.poi.ss.util.CellRangeAddress;
 /**
  * 纵向合并单元格工具类
  *
- * @author JEECG
+ * @author quange
  * @date 2015年6月21日 上午11:21:40
  */
 public final class PoiMergeCellUtil {

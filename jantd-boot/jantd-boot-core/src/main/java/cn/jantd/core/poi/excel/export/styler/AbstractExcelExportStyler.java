@@ -16,24 +16,21 @@
 package cn.jantd.core.poi.excel.export.styler;
 
 import cn.jantd.core.poi.excel.entity.params.ExcelExportEntity;
-import cn.jantd.core.poi.excel.export.styler.IExcelExportStyler;
 import org.apache.poi.ss.usermodel.BuiltinFormats;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.Workbook;
-//import org.jeecgframework.poi.excel.entity.params.ExcelExportEntity;
-//import org.jeecgframework.poi.excel.export.styler.IExcelExportStyler;
 
 /**
  * 抽象接口提供两个公共方法
  *
- * @author JEECG
+ * @author quange
  * @date 2015年1月9日 下午5:48:55
  */
 public abstract class AbstractExcelExportStyler implements IExcelExportStyler {
-	// 单行
+
+
 	protected CellStyle stringNoneStyle;
 	protected CellStyle stringNoneWrapStyle;
-	// 间隔行
 	protected CellStyle stringSeptailStyle;
 	protected CellStyle stringSeptailWrapStyle;
 
