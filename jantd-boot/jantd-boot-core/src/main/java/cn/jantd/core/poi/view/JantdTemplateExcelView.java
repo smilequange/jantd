@@ -15,7 +15,6 @@
  */
 package cn.jantd.core.poi.view;
 
-import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
@@ -24,43 +23,32 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import cn.jantd.core.poi.def.NormalExcelConstants;
+import cn.jantd.core.poi.def.TemplateExcelConstants;
 import cn.jantd.core.poi.excel.ExcelExportUtil;
-import cn.jantd.core.poi.excel.entity.ExportParams;
-import cn.jantd.core.poi.excel.export.ExcelExportServer;
+import cn.jantd.core.poi.excel.entity.TemplateExportParams;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Workbook;
 
 import org.springframework.stereotype.Controller;
 
 /**
- * Entity 实体数据对象导出
- * @Author JEECG
+ * Excel 模板导出
  *
+ * @author JEECG
+ * @date 2014年6月30日 下午9:15:49
  */
 @SuppressWarnings("unchecked")
-@Controller(NormalExcelConstants.JEECG_ENTITY_EXCEL_VIEW)
-public class JeecgEntityExcelView extends MiniAbstractExcelView {
+@Controller(TemplateExcelConstants.JEECG_TEMPLATE_EXCEL_VIEW)
+public class JantdTemplateExcelView extends MiniAbstractExcelView {
 
-	public JeecgEntityExcelView() {
+	public JantdTemplateExcelView() {
 		super();
 	}
 
 	@Override
 	protected void renderMergedOutputModel(Map<String, Object> model, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String codedFileName = "临时文件";
-		Workbook workbook = null;
-		if (model.containsKey(NormalExcelConstants.MAP_LIST)) {
-			List<Map<String, Object>> list = (List<Map<String, Object>>) model.get(NormalExcelConstants.MAP_LIST);
-			if (list.size() == 0) {
-				throw new RuntimeException("MAP_LIST IS NULL");
-			}
-			workbook = ExcelExportUtil.exportExcel((ExportParams) list.get(0).get(NormalExcelConstants.PARAMS), (Class<?>) list.get(0).get(NormalExcelConstants.CLASS), (Collection<?>) list.get(0).get(NormalExcelConstants.DATA_LIST));
-			for (int i = 1; i < list.size(); i++) {
-				new ExcelExportServer().createSheet(workbook, (ExportParams) list.get(i).get(NormalExcelConstants.PARAMS), (Class<?>) list.get(i).get(NormalExcelConstants.CLASS), (Collection<?>) list.get(i).get(NormalExcelConstants.DATA_LIST));
-			}
-		} else {
-			workbook = ExcelExportUtil.exportExcel((ExportParams) model.get(NormalExcelConstants.PARAMS), (Class<?>) model.get(NormalExcelConstants.CLASS), (Collection<?>) model.get(NormalExcelConstants.DATA_LIST));
-		}
+		Workbook workbook = ExcelExportUtil.exportExcel((TemplateExportParams) model.get(TemplateExcelConstants.PARAMS), (Class<?>) model.get(TemplateExcelConstants.CLASS), (List<?>) model.get(TemplateExcelConstants.LIST_DATA), (Map<String, Object>) model.get(TemplateExcelConstants.MAP_DATA));
 		if (model.containsKey(NormalExcelConstants.FILE_NAME)) {
 			codedFileName = (String) model.get(NormalExcelConstants.FILE_NAME);
 		}

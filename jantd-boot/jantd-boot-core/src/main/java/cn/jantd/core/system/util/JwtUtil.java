@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import cn.jantd.core.constant.DataBaseConstant;
-import cn.jantd.core.exception.JeecgBootException;
+import cn.jantd.core.exception.JantdBootException;
 import cn.jantd.core.system.vo.SysUserCacheInfo;
 import cn.jantd.core.util.SpringContextUtils;
 import cn.jantd.core.util.oConvertUtils;
@@ -81,13 +81,13 @@ public class JwtUtil {
 	 *
 	 * @param request
 	 * @return
-	 * @throws JeecgBootException
+	 * @throws JantdBootException
 	 */
-	public static String getUserNameByToken(HttpServletRequest request) throws JeecgBootException {
+	public static String getUserNameByToken(HttpServletRequest request) throws JantdBootException {
 		String accessToken = request.getHeader("X-Access-Token");
 		String username = getUsername(accessToken);
 		if (oConvertUtils.isEmpty(username)) {
-			throw new JeecgBootException("未获取到用户");
+			throw new JantdBootException("未获取到用户");
 		}
 		return username;
 	}

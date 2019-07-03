@@ -10,12 +10,12 @@ import javax.servlet.http.HttpServletResponse;
 
 import cn.jantd.core.api.vo.Result;
 import cn.jantd.core.constant.CommonConstant;
-import cn.jantd.core.exception.JeecgBootException;
+import cn.jantd.core.exception.JantdBootException;
 import cn.jantd.core.poi.def.NormalExcelConstants;
 import cn.jantd.core.poi.excel.ExcelImportUtil;
 import cn.jantd.core.poi.excel.entity.ExportParams;
 import cn.jantd.core.poi.excel.entity.ImportParams;
-import cn.jantd.core.poi.view.JeecgEntityExcelView;
+import cn.jantd.core.poi.view.JantdEntityExcelView;
 import cn.jantd.core.system.query.QueryGenerator;
 import cn.jantd.modules.quartz.service.IQuartzJobService;
 import cn.jantd.modules.quartz.entity.QuartzJob;
@@ -193,7 +193,7 @@ public class QuartzJobController {
 			}
 			scheduler.pauseJob(JobKey.jobKey(jobClassName.trim()));
 		} catch (SchedulerException e) {
-			throw new JeecgBootException("暂停定时任务失败");
+			throw new JantdBootException("暂停定时任务失败");
 		}
 		job.setStatus(CommonConstant.STATUS_DISABLE);
 		quartzJobService.updateById(job);
@@ -248,7 +248,7 @@ public class QuartzJobController {
 		// Step.1 组装查询条件
 		QueryWrapper<QuartzJob> queryWrapper = QueryGenerator.initQueryWrapper(quartzJob, request.getParameterMap());
 		// Step.2 AutoPoi 导出Excel
-		ModelAndView mv = new ModelAndView(new JeecgEntityExcelView());
+		ModelAndView mv = new ModelAndView(new JantdEntityExcelView());
 		List<QuartzJob> pageList = quartzJobService.list(queryWrapper);
 		// 导出文件名称
 		mv.addObject(NormalExcelConstants.FILE_NAME, "定时任务列表");

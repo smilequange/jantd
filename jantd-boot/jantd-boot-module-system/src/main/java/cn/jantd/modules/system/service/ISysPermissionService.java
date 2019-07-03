@@ -2,7 +2,7 @@ package cn.jantd.modules.system.service;
 
 import java.util.List;
 
-import cn.jantd.core.exception.JeecgBootException;
+import cn.jantd.core.exception.JantdBootException;
 import cn.jantd.modules.system.entity.SysPermission;
 import cn.jantd.modules.system.model.TreeModel;
 
@@ -21,13 +21,13 @@ public interface ISysPermissionService extends IService<SysPermission> {
 	public List<TreeModel> queryListByParentId(String parentId);
 
 	/**真实删除*/
-	public void deletePermission(String id) throws JeecgBootException;
+	public void deletePermission(String id) throws JantdBootException;
 	/**逻辑删除*/
-	public void deletePermissionLogical(String id) throws JeecgBootException;
+	public void deletePermissionLogical(String id) throws JantdBootException;
 
-	public void addPermission(SysPermission sysPermission) throws JeecgBootException;
+	public void addPermission(SysPermission sysPermission) throws JantdBootException;
 
-	public void editPermission(SysPermission sysPermission) throws JeecgBootException;
+	public void editPermission(SysPermission sysPermission) throws JantdBootException;
 
 	public List<SysPermission> queryByUser(String username);
 

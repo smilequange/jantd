@@ -6,7 +6,7 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import cn.jantd.core.constant.CommonConstant;
-import cn.jantd.core.exception.JeecgBootException;
+import cn.jantd.core.exception.JantdBootException;
 import cn.jantd.core.util.oConvertUtils;
 import cn.jantd.modules.system.entity.SysPermissionDataRule;
 import cn.jantd.modules.system.service.ISysPermissionDataRuleService;
@@ -51,10 +51,10 @@ public class SysPermissionServiceImpl extends ServiceImpl<SysPermissionMapper, S
 	@Override
 	@Transactional
 	@CacheEvict(value = "permission",allEntries=true)
-	public void deletePermission(String id) throws JeecgBootException {
+	public void deletePermission(String id) throws JantdBootException {
 		SysPermission sysPermission = this.getById(id);
 		if(sysPermission==null) {
-			throw new JeecgBootException("未找到菜单信息");
+			throw new JantdBootException("未找到菜单信息");
 		}
 		String pid = sysPermission.getParentId();
 		int count = this.count(new QueryWrapper<SysPermission>().lambda().eq(SysPermission::getParentId, pid));
@@ -101,10 +101,10 @@ public class SysPermissionServiceImpl extends ServiceImpl<SysPermissionMapper, S
 	@Override
 	@CacheEvict(value = "permission",allEntries=true)
 	//@CacheEvict(value = "permission",allEntries=true,condition="#sysPermission.menuType==2")
-	public void deletePermissionLogical(String id) throws JeecgBootException {
+	public void deletePermissionLogical(String id) throws JantdBootException {
 		SysPermission sysPermission = this.getById(id);
 		if(sysPermission==null) {
-			throw new JeecgBootException("未找到菜单信息");
+			throw new JantdBootException("未找到菜单信息");
 		}
 		String pid = sysPermission.getParentId();
 		int count = this.count(new QueryWrapper<SysPermission>().lambda().eq(SysPermission::getParentId, pid));
@@ -118,7 +118,7 @@ public class SysPermissionServiceImpl extends ServiceImpl<SysPermissionMapper, S
 
 	@Override
 	@CacheEvict(value = "permission",allEntries=true)
-	public void addPermission(SysPermission sysPermission) throws JeecgBootException {
+	public void addPermission(SysPermission sysPermission) throws JantdBootException {
 		//----------------------------------------------------------------------
 		//判断是否是一级菜单，是的话清空父菜单
 		if(CommonConstant.MENU_TYPE_0.equals(sysPermission.getMenuType())) {
@@ -138,11 +138,11 @@ public class SysPermissionServiceImpl extends ServiceImpl<SysPermissionMapper, S
 
 	@Override
 	@CacheEvict(value = "permission",allEntries=true)
-	public void editPermission(SysPermission sysPermission) throws JeecgBootException {
+	public void editPermission(SysPermission sysPermission) throws JantdBootException {
 		SysPermission p = this.getById(sysPermission.getId());
 		//TODO 该节点判断是否还有子节点
 		if(p==null) {
-			throw new JeecgBootException("未找到菜单信息");
+			throw new JantdBootException("未找到菜单信息");
 		}else {
 			sysPermission.setUpdateTime(new Date());
 			//----------------------------------------------------------------------

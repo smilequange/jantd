@@ -3,7 +3,7 @@ package cn.jantd.modules.quartz.service.impl;
 import java.util.List;
 
 import cn.jantd.core.constant.CommonConstant;
-import cn.jantd.core.exception.JeecgBootException;
+import cn.jantd.core.exception.JantdBootException;
 import cn.jantd.modules.quartz.service.IQuartzJobService;
 import cn.jantd.modules.quartz.entity.QuartzJob;
 import cn.jantd.modules.quartz.mapper.QuartzJobMapper;
@@ -116,9 +116,9 @@ public class QuartzJobServiceImpl extends ServiceImpl<QuartzJobMapper, QuartzJob
 
 			scheduler.scheduleJob(jobDetail, trigger);
 		} catch (SchedulerException e) {
-			throw new JeecgBootException("创建定时任务失败", e);
+			throw new JantdBootException("创建定时任务失败", e);
 		} catch (Exception e) {
-			throw new JeecgBootException("后台找不到该类名：" + jobClassName, e);
+			throw new JantdBootException("后台找不到该类名：" + jobClassName, e);
 		}
 	}
 
@@ -134,7 +134,7 @@ public class QuartzJobServiceImpl extends ServiceImpl<QuartzJobMapper, QuartzJob
 			scheduler.deleteJob(JobKey.jobKey(jobClassName));
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);
-			throw new JeecgBootException("删除定时任务失败");
+			throw new JantdBootException("删除定时任务失败");
 		}
 	}
 

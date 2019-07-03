@@ -40,9 +40,9 @@ import org.springframework.stereotype.Controller;
  */
 @SuppressWarnings("unchecked")
 @Controller(MapExcelConstants.JEECG_MAP_EXCEL_VIEW)
-public class JeecgMapExcelView extends MiniAbstractExcelView {
+public class JantdMapExcelView extends MiniAbstractExcelView {
 
-	public JeecgMapExcelView() {
+	public JantdMapExcelView() {
 		super();
 	}
 

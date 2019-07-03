@@ -13,7 +13,7 @@ import cn.jantd.core.poi.def.NormalExcelConstants;
 import cn.jantd.core.poi.excel.ExcelImportUtil;
 import cn.jantd.core.poi.excel.entity.ExportParams;
 import cn.jantd.core.poi.excel.entity.ImportParams;
-import cn.jantd.core.poi.view.JeecgEntityExcelView;
+import cn.jantd.core.poi.view.JantdEntityExcelView;
 import cn.jantd.core.system.query.QueryGenerator;
 import cn.jantd.modules.system.entity.SysUserAgent;
 import cn.jantd.modules.system.service.ISysUserAgentService;
@@ -202,7 +202,7 @@ public class SysUserAgentController {
       // Step.1 组装查询条件
       QueryWrapper<SysUserAgent> queryWrapper = QueryGenerator.initQueryWrapper(sysUserAgent, request.getParameterMap());
       //Step.2 AutoPoi 导出Excel
-      ModelAndView mv = new ModelAndView(new JeecgEntityExcelView());
+      ModelAndView mv = new ModelAndView(new JantdEntityExcelView());
       List<SysUserAgent> pageList = sysUserAgentService.list(queryWrapper);
       //导出文件名称
       mv.addObject(NormalExcelConstants.FILE_NAME, "用户代理人设置列表");
