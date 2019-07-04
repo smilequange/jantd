@@ -14,8 +14,8 @@ import java.util.List;
  * 服务实现类
  * </p>
  *
- * @Author zhangweijian
- * @since 2018-12-28
+ * @Author xiagf
+ * @date 2019-07-04
  */
 @Service
 public class SysDictItemServiceImpl extends ServiceImpl<SysDictItemMapper, SysDictItem> implements ISysDictItemService {

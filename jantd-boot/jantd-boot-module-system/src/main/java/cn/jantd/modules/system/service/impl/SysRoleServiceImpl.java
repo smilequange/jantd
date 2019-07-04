@@ -12,8 +12,8 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
  * 角色表 服务实现类
  * </p>
  *
- * @Author scott
- * @since 2018-12-19
+ * @Author xiagf
+ * @date 2019-07-04
  */
 @Service
 public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> implements ISysRoleService {

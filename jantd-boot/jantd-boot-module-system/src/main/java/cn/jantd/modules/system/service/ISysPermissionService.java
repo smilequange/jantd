@@ -13,35 +13,71 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * 菜单权限表 服务类
  * </p>
  *
- * @Author scott
- * @since 2018-12-21
+ * @Author xiagf
+ * @date 2019-07-04
  */
 public interface ISysPermissionService extends IService<SysPermission> {
 
-	public List<TreeModel> queryListByParentId(String parentId);
+    /**
+     * 通过父id查询菜单
+     *
+     * @param parentId
+     * @return
+     */
+    List<TreeModel> queryListByParentId(String parentId);
 
-	/**真实删除*/
-	public void deletePermission(String id) throws JantdBootException;
-	/**逻辑删除*/
-	public void deletePermissionLogical(String id) throws JantdBootException;
+    /**
+     * 真实删除
+     *
+     * @param id
+     * @throws JantdBootException
+     */
+    void deletePermission(String id) throws JantdBootException;
 
-	public void addPermission(SysPermission sysPermission) throws JantdBootException;
+    /**
+     * 逻辑删除
+     *
+     * @param id
+     * @throws JantdBootException
+     */
+    void deletePermissionLogical(String id) throws JantdBootException;
 
-	public void editPermission(SysPermission sysPermission) throws JantdBootException;
+    /**
+     * 添加菜单
+     *
+     * @param sysPermission
+     * @throws JantdBootException
+     */
+    void addPermission(SysPermission sysPermission) throws JantdBootException;
 
-	public List<SysPermission> queryByUser(String username);
+    /**
+     * 编辑菜单
+     *
+     * @param sysPermission
+     * @throws JantdBootException
+     */
+    void editPermission(SysPermission sysPermission) throws JantdBootException;
 
-	/**
-	 * 根据permissionId删除其关联的SysPermissionDataRule表中的数据
-	 *
-	 * @param id
-	 * @return
-	 */
-	public void deletePermRuleByPermId(String id);
+    /**
+     * 通过用户名查询菜单
+     *
+     * @param username
+     * @return
+     */
+    List<SysPermission> queryByUser(String username);
 
-	/**
-	  * 查询出带有特殊符号的菜单地址的集合
-	 * @return
-	 */
-	public List<String> queryPermissionUrlWithStar();
+    /**
+     * 根据permissionId删除其关联的SysPermissionDataRule表中的数据
+     *
+     * @param id
+     * @return
+     */
+    void deletePermRuleByPermId(String id);
+
+    /**
+     * 查询出带有特殊符号的菜单地址的集合
+     *
+     * @return
+     */
+    List<String> queryPermissionUrlWithStar();
 }

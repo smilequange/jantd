@@ -7,12 +7,18 @@ import java.util.List;
 
 /**
  * <p>
- *  服务类
+ * 服务类
  * </p>
  *
- * @Author zhangweijian
- * @since 2018-12-28
+ * @Author xiagf
+ * @date 2019-07-04
  */
 public interface ISysDictItemService extends IService<SysDictItem> {
-    public List<SysDictItem> selectItemsByMainId(String mainId);
+    /**
+     * 查询字典属性
+     *
+     * @param mainId
+     * @return
+     */
+    List<SysDictItem> selectItemsByMainId(String mainId);
 }

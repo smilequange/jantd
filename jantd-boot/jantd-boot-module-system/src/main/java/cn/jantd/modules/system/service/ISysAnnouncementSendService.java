@@ -10,19 +10,27 @@ import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
  * @Description: 用户通告阅读标记表
- * @Author: jeecg-boot
- * @Date:  2019-02-21
+ * @Author xiagf
+ * @date 2019-07-04
  * @Version: V1.0
  */
 public interface ISysAnnouncementSendService extends IService<SysAnnouncementSend> {
 
-	public List<String> queryByUserId(String userId);
+    /**
+     * 通过userID查询用户的通知公告
+     *
+     * @param userId
+     * @return List<String>
+     */
+    List<String> queryByUserId(String userId);
 
-	/**
-	 * @功能：获取我的消息
-	 * @param announcementSendModel
-	 * @return
-	 */
-	public Page<AnnouncementSendModel> getMyAnnouncementSendPage(Page<AnnouncementSendModel> page,AnnouncementSendModel announcementSendModel);
+    /**
+     * 获取我的消息
+     *
+     * @param page
+     * @param announcementSendModel
+     * @return
+     */
+    Page<AnnouncementSendModel> getMyAnnouncementSendPage(Page<AnnouncementSendModel> page, AnnouncementSendModel announcementSendModel);
 
 }

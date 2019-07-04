@@ -16,37 +16,36 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
  * 系统日志表 服务实现类
  * </p>
  *
- * @Author zhangweijian
- * @since 2018-12-26
+ * @Author xiagf
+ * @date 2019-07-04
  */
 @Service
 public class SysLogServiceImpl extends ServiceImpl<SysLogMapper, SysLog> implements ISysLogService {
 
-	@Resource
-	private SysLogMapper sysLogMapper;
+    @Resource
+    private SysLogMapper sysLogMapper;
 
-	/**
-	 * @功能：清空所有日志记录
-	 */
-	@Override
-	public void removeAll() {
-		sysLogMapper.removeAll();
-	}
+    /**
+     * @功能：清空所有日志记录
+     */
+    @Override
+    public void removeAll() {
+        sysLogMapper.removeAll();
+    }
 
-	@Override
-	public Long findTotalVisitCount() {
-		return sysLogMapper.findTotalVisitCount();
-	}
+    @Override
+    public Long findTotalVisitCount() {
+        return sysLogMapper.findTotalVisitCount();
+    }
 
-	//update-begin--Author:zhangweijian  Date:20190428 for：传入开始时间，结束时间参数
-	@Override
-	public Long findTodayVisitCount(Date dayStart, Date dayEnd) {
-		return sysLogMapper.findTodayVisitCount(dayStart,dayEnd);
-	}
+    @Override
+    public Long findTodayVisitCount(Date dayStart, Date dayEnd) {
+        return sysLogMapper.findTodayVisitCount(dayStart, dayEnd);
+    }
 
-	@Override
-	public Long findTodayIp(Date dayStart, Date dayEnd) {
-		return sysLogMapper.findTodayIp(dayStart,dayEnd);
-	}
-	//update-end--Author:zhangweijian  Date:20190428 for：传入开始时间，结束时间参数
+    @Override
+    public Long findTodayIp(Date dayStart, Date dayEnd) {
+        return sysLogMapper.findTodayIp(dayStart, dayEnd);
+    }
+
 }

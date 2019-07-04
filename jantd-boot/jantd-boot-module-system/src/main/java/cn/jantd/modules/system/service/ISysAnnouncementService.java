@@ -7,19 +7,44 @@ import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
  * @Description: 系统通告表
- * @Author: jeecg-boot
- * @Date:  2019-01-02
+ * @Author xiagf
+ * @date 2019-07-04
  * @Version: V1.0
  */
 public interface ISysAnnouncementService extends IService<SysAnnouncement> {
 
-	public void saveAnnouncement(SysAnnouncement sysAnnouncement);
+    /**
+     * 保存通知公告
+     *
+     * @param sysAnnouncement
+     */
+    void saveAnnouncement(SysAnnouncement sysAnnouncement);
 
-	public boolean upDateAnnouncement(SysAnnouncement sysAnnouncement);
+    /**
+     * 更新通知通告
+     *
+     * @param sysAnnouncement
+     * @return boolean
+     */
+    boolean upDateAnnouncement(SysAnnouncement sysAnnouncement);
 
-	public void saveSysAnnouncement(String title, String msgContent);
+    /**
+     * 流程执行完成保存消息通知
+     *
+     * @param title
+     * @param msgContent
+     */
+    void saveSysAnnouncement(String title, String msgContent);
 
-	public Page<SysAnnouncement> querySysCementPageByUserId(Page<SysAnnouncement> page,String userId,String msgCategory);
+    /**
+     * 通过userID查询
+     *
+     * @param page
+     * @param userId
+     * @param msgCategory
+     * @return
+     */
+    Page<SysAnnouncement> querySysCementPageByUserId(Page<SysAnnouncement> page, String userId, String msgCategory);
 
 
 }

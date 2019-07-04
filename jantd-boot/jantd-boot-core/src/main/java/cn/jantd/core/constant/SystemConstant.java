@@ -32,4 +32,10 @@ public interface SystemConstant {
      */
     String LEFT_SLASH = "/";
 
+    String DB_TYPE_MYSQL = "mysql";
+    String DB_TYPE_ORACLE = "oracle";
+    String DB_TYPE_SQLSERVER = "sqlserver";
+    String DB_TYPE_SQL_SERVER = "sql server";
+    String DB_TYPE_POSTGRESQL = "postgresql";
+
 }

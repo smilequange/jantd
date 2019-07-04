@@ -11,14 +11,15 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * 用户角色表 服务类
  * </p>
  *
- * @Author scott
- * @since 2018-12-21
+ * @Author xiagf
+ * @date 2019-07-04
  */
 public interface ISysUserRoleService extends IService<SysUserRole> {
 
-	/**
-	 * 查询所有的用户角色信息
-	 * @return
-	 */
-	Map<String,String> queryUserRole();
+    /**
+     * 查询所有的用户角色信息
+     *
+     * @return
+     */
+    Map<String, String> queryUserRole();
 }
