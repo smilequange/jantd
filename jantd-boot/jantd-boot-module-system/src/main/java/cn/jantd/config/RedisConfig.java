@@ -24,8 +24,14 @@ import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectMapper.DefaultTyping;
 
+
+/**
+ * @Description redis配置 开启缓存
+ * @author xiagf
+ * @date 2019-07-04
+ */
+@EnableCaching
 @Configuration
-@EnableCaching // 开启缓存支持
 public class RedisConfig extends CachingConfigurerSupport {
 
 	@Resource
@@ -36,6 +42,7 @@ public class RedisConfig extends CachingConfigurerSupport {
 	 *              只需要讲注解上keyGenerator的值设置为keyGenerator即可</br>
 	 * @return 自定义策略生成的key
 	 */
+	@Override
 	@Bean
 	public KeyGenerator keyGenerator() {
 		return new KeyGenerator() {
@@ -67,10 +74,14 @@ public class RedisConfig extends CachingConfigurerSupport {
 		RedisTemplate<String, Object> redisTemplate = new RedisTemplate<String, Object>();
 		redisTemplate.setConnectionFactory(lettuceConnectionFactory);
 		RedisSerializer<?> stringSerializer = new StringRedisSerializer();
-		redisTemplate.setKeySerializer(stringSerializer);// key序列化
-		redisTemplate.setValueSerializer(jackson2JsonRedisSerializer);// value序列化
-		redisTemplate.setHashKeySerializer(stringSerializer);// Hash key序列化
-		redisTemplate.setHashValueSerializer(jackson2JsonRedisSerializer);// Hash value序列化
+		// key序列化
+		redisTemplate.setKeySerializer(stringSerializer);
+		// value序列化
+		redisTemplate.setValueSerializer(jackson2JsonRedisSerializer);
+		// Hash key序列化
+		redisTemplate.setHashKeySerializer(stringSerializer);
+		// Hash value序列化
+		redisTemplate.setHashValueSerializer(jackson2JsonRedisSerializer);
 		redisTemplate.afterPropertiesSet();
 		return redisTemplate;
 	}
@@ -87,13 +98,8 @@ public class RedisConfig extends CachingConfigurerSupport {
 		 * 但其实RedisCacheConfiguration默认就是使用 StringRedisSerializer序列化key，
 		 * JdkSerializationRedisSerializer序列化value, 所以以下注释代码就是默认实现，没必要写，直接注释掉
 		 */
-		// RedisSerializationContext.SerializationPair pair =
-		// RedisSerializationContext.SerializationPair.fromSerializer(new
-		// JdkSerializationRedisSerializer(this.getClass().getClassLoader()));
-		// RedisCacheConfiguration config =
-		// RedisCacheConfiguration.defaultCacheConfig().serializeValuesWith(pair);
-		// 创建默认缓存配置对象
-		RedisCacheConfiguration config = RedisCacheConfiguration.defaultCacheConfig().entryTtl(Duration.ofHours(1)); // 设置缓存有效期一小时;
+		// 创建默认缓存配置对象,设置缓存有效期一小时
+		RedisCacheConfiguration config = RedisCacheConfiguration.defaultCacheConfig().entryTtl(Duration.ofHours(1));
 		RedisCacheManager cacheManager = new RedisCacheManager(writer, config);
 		return cacheManager;
 	}

@@ -13,50 +13,50 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 /**
  * Spring Boot 2.0 解决跨域问题
  *
- * @Author qinfeng
- *
+ * @Author 圈哥
+ * @date 2019-07-04
  */
 @Configuration
 public class WebMvcConfiguration implements WebMvcConfigurer {
 
-	@Value("${jeecg.path.upload}")
-	private String upLoadPath;
-	@Value("${jeecg.path.webapp}")
-	private String webAppPath;
-	@Value("${spring.resource.static-locations}")
-	private String staticLocations;
+    @Value("${jeecg.path.upload}")
+    private String upLoadPath;
+    @Value("${jeecg.path.webapp}")
+    private String webAppPath;
+    @Value("${spring.resource.static-locations}")
+    private String staticLocations;
 
-	@Bean
-	public CorsFilter corsFilter() {
-		final UrlBasedCorsConfigurationSource urlBasedCorsConfigurationSource = new UrlBasedCorsConfigurationSource();
-		final CorsConfiguration corsConfiguration = new CorsConfiguration();
-		/* 是否允许请求带有验证信息 */
-		corsConfiguration.setAllowCredentials(true);
-		/* 允许访问的客户端域名 */
-		corsConfiguration.addAllowedOrigin("*");
-		/* 允许服务端访问的客户端请求头 */
-		corsConfiguration.addAllowedHeader("*");
-		/* 允许访问的方法名,GET POST等 */
-		corsConfiguration.addAllowedMethod("*");
-		urlBasedCorsConfigurationSource.registerCorsConfiguration("/**", corsConfiguration);
-		return new CorsFilter(urlBasedCorsConfigurationSource);
-	}
+    @Bean
+    public CorsFilter corsFilter() {
+        final UrlBasedCorsConfigurationSource urlBasedCorsConfigurationSource = new UrlBasedCorsConfigurationSource();
+        final CorsConfiguration corsConfiguration = new CorsConfiguration();
+        /* 是否允许请求带有验证信息 */
+        corsConfiguration.setAllowCredentials(true);
+        /* 允许访问的客户端域名 */
+        corsConfiguration.addAllowedOrigin("*");
+        /* 允许服务端访问的客户端请求头 */
+        corsConfiguration.addAllowedHeader("*");
+        /* 允许访问的方法名,GET POST等 */
+        corsConfiguration.addAllowedMethod("*");
+        urlBasedCorsConfigurationSource.registerCorsConfiguration("/**", corsConfiguration);
+        return new CorsFilter(urlBasedCorsConfigurationSource);
+    }
 
-	/**
-	 * 静态资源的配置 - 使得可以从磁盘中读取 Html、图片、视频、音频等
-	 */
-	@Override
-	public void addResourceHandlers(ResourceHandlerRegistry registry) {
-		registry.addResourceHandler("/**")
-		.addResourceLocations("file:" + upLoadPath + "//", "file:" + webAppPath + "//")
-		.addResourceLocations(staticLocations.split(","));
-	}
+    /**
+     * 静态资源的配置 - 使得可以从磁盘中读取 Html、图片、视频、音频等
+     */
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("/**")
+                .addResourceLocations("file:" + upLoadPath + "//", "file:" + webAppPath + "//")
+                .addResourceLocations(staticLocations.split(","));
+    }
 
-	/**
-	 * 访问根路径默认跳转 index.html页面 （简化部署方案： 可以把前端打包直接放到项目的 webapp，上面的配置）
-	 */
-	@Override
-	public void addViewControllers(ViewControllerRegistry registry) {
-		registry.addViewController("/").setViewName("index.html");
-	}
+    /**
+     * 访问根路径默认跳转 index.html页面 （简化部署方案： 可以把前端打包直接放到项目的 webapp，上面的配置）
+     */
+    @Override
+    public void addViewControllers(ViewControllerRegistry registry) {
+        registry.addViewController("/").setViewName("index.html");
+    }
 }
