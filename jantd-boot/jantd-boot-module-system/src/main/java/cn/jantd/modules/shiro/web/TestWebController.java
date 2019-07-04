@@ -14,13 +14,12 @@ import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+/**
+ * @author xiagf
+ * @date 2019-07-04
+ */
 @RestController
 public class TestWebController {
 
@@ -34,11 +33,11 @@ public class TestWebController {
     @PostMapping("/login")
     public ResponseBean login(@RequestParam("username") String username,
                               @RequestParam("password") String password) {
-    	SysUser user = userService.getUserByName(username);
-    	if(user==null) {
-    		return new ResponseBean(200, "用户不存在！", JwtUtil.sign(username, user.getPassword()));
-    	}
-    	String passwordEncode = PasswordUtil.encrypt(username, password, user.getSalt());
+        SysUser user = userService.getUserByName(username);
+        if (user == null) {
+            return new ResponseBean(200, "用户不存在！", JwtUtil.sign(username, user.getPassword()));
+        }
+        String passwordEncode = PasswordUtil.encrypt(username, password, user.getSalt());
         if (passwordEncode.equals(user.getPassword())) {
             return new ResponseBean(200, "Login success", JwtUtil.sign(username, user.getPassword()));
         } else {
