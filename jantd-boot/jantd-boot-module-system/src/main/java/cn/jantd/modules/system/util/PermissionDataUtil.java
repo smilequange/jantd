@@ -2,6 +2,7 @@ package cn.jantd.modules.system.util;
 
 import java.util.List;
 
+import cn.jantd.core.constant.SystemConstant;
 import cn.jantd.core.util.oConvertUtils;
 import cn.jantd.modules.system.entity.SysPermission;
 
@@ -24,16 +25,16 @@ public class PermissionDataUtil {
 		// 组件
 		if (oConvertUtils.isNotEmpty(permission.getComponent())) {
 			String component = permission.getComponent();
-			if (component.startsWith("/")) {
+			if (component.startsWith(SystemConstant.LEFT_SLASH)) {
 				component = component.substring(1);
 			}
-			if (component.startsWith("views/")) {
+			if (component.startsWith(SystemConstant.PATH_VIEWS)) {
 				component = component.replaceFirst("views/", "");
 			}
-			if (component.startsWith("src/views/")) {
+			if (component.startsWith(SystemConstant.PATH_SRC_VIEWS)) {
 				component = component.replaceFirst("src/views/", "");
 			}
-			if (component.endsWith(".vue")) {
+			if (component.endsWith(SystemConstant.FILE_NAME_END_WITH_VUE)) {
 				component = component.replace(".vue", "");
 			}
 			permission.setComponent(component);
@@ -42,10 +43,10 @@ public class PermissionDataUtil {
 		// 请求URL
 		if (oConvertUtils.isNotEmpty(permission.getUrl())) {
 			String url = permission.getUrl();
-			if (url.endsWith(".vue")) {
+			if (url.endsWith(SystemConstant.FILE_NAME_END_WITH_VUE)) {
 				url = url.replace(".vue", "");
 			}
-			if (!url.startsWith("http") && !url.startsWith("/")&&!url.trim().startsWith("{{")) {
+			if (!url.startsWith(SystemConstant.WEB_PREFIX) && !url.startsWith(SystemConstant.LEFT_SLASH)&&!url.trim().startsWith("{{")) {
 				url = "/" + url;
 			}
 			permission.setUrl(url);

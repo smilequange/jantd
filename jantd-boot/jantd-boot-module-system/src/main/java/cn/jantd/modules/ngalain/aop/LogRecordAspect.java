@@ -12,12 +12,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;;
 
 /**
+ * // 暂时注释掉，提高系统性能
+ * //@Aspect   //定义一个切面
+ * //@Configuration
+ */
+
+/**
  * @author xiagf
  * @date 2019-07-04
  */
-// 暂时注释掉，提高系统性能
-//@Aspect   //定义一个切面
-//@Configuration
 public class LogRecordAspect {
     private static final Logger logger = LoggerFactory.getLogger(LogRecordAspect.class);
 

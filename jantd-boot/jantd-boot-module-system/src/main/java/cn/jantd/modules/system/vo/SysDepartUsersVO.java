@@ -5,6 +5,10 @@ import java.util.List;
 
 import lombok.Data;
 
+/**
+ * @Author xiagf
+ * @date 2019-07-04
+ */
 @Data
 public class SysDepartUsersVO implements Serializable{
 	private static final long serialVersionUID = 1L;

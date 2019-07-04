@@ -8,6 +8,10 @@ import lombok.Data;
 
 import java.util.List;
 
+/**
+ * @Author xiagf
+ * @date 2019-07-04
+ */
 @Data
 public class SysDictPage {
 

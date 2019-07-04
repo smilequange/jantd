@@ -24,6 +24,10 @@ public interface SystemConstant {
      */
     String HTTP_PREFIX = "http://";
     /**
+     * web前缀
+     */
+    String WEB_PREFIX = "http";
+    /**
      * https url前缀
      */
     String HTTPS_PREFIX = "http://";
@@ -37,5 +41,8 @@ public interface SystemConstant {
     String DB_TYPE_SQLSERVER = "sqlserver";
     String DB_TYPE_SQL_SERVER = "sql server";
     String DB_TYPE_POSTGRESQL = "postgresql";
+    String PATH_VIEWS = "views/";
+    String PATH_SRC_VIEWS = "src/views/";
+    String FILE_NAME_END_WITH_VUE = ".vue";
 
 }
