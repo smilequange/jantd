@@ -376,8 +376,7 @@ public class SysPermissionController {
      * 获取权限JSON数组
      *
      * @param jsonArray
-     * @param metaList
-     * @param parentJson
+     * @param allList
      */
     private void getAllAuthJsonArray(JSONArray jsonArray, List<SysPermission> allList) {
         JSONObject json = null;
@@ -396,7 +395,6 @@ public class SysPermissionController {
      *
      * @param jsonArray
      * @param metaList
-     * @param parentJson
      */
     private void getAuthJsonArray(JSONArray jsonArray, List<SysPermission> metaList) {
         for (SysPermission permission : metaList) {
@@ -534,7 +532,8 @@ public class SysPermissionController {
      * @return
      */
     private boolean isWWWHttpUrl(String url) {
-        if (url != null && (url.startsWith(SystemConstant.HTTP_PREFIX) || url.startsWith(SystemConstant.HTTPS_PREFIX) || url.startsWith("{{"))) {
+        Boolean flag = url != null && (url.startsWith(SystemConstant.HTTP_PREFIX) || url.startsWith(SystemConstant.HTTPS_PREFIX) || url.startsWith("{{"));
+        if (flag) {
             return true;
         }
         return false;
@@ -612,7 +611,7 @@ public class SysPermissionController {
     /**
      * 删除菜单权限数据
      *
-     * @param sysPermissionDataRule
+     * @param id
      * @return
      */
     @RequestMapping(value = "/deletePermissionRule", method = RequestMethod.DELETE)

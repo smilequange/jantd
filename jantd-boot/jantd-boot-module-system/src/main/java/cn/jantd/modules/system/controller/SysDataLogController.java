@@ -23,8 +23,8 @@ import lombok.extern.slf4j.Slf4j;
 
 /**
  * @Description: 系统日志
- * @Author: xiagf
- * @Date: 2019-07-04
+ * @Author xiagf
+ * @date 2019-07-04
  * @Version: 1.0
  */
 @RestController

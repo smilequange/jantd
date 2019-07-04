@@ -51,8 +51,8 @@ import org.springframework.web.servlet.ModelAndView;
  * 字典表 前端控制器
  * </p>
  *
- * @Author zhangweijian
- * @since 2018-12-28
+ * @Author xiagf
+ * @date 2019-07-04
  */
 @RestController
 @RequestMapping("/sys/dict")
@@ -264,8 +264,9 @@ public class SysDictController {
     /**
      * 导出excel
      *
+     * @param sysDict
      * @param request
-     * @param response
+     * @return
      */
     @RequestMapping(value = "/exportXls")
     public ModelAndView exportXls(SysDict sysDict, HttpServletRequest request) {
