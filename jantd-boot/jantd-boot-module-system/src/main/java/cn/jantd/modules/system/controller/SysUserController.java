@@ -96,7 +96,8 @@ public class SysUserController {
 		String selectedRoles = jsonObject.getString("selectedroles");
 		try {
 			SysUser user = JSON.parseObject(jsonObject.toJSONString(), SysUser.class);
-			user.setCreateTime(new Date());//设置创建时间
+            // 设置创建时间
+			user.setCreateTime(new Date());
 			String salt = oConvertUtils.randomGen(8);
 			user.setSalt(salt);
 			String passwordEncode = PasswordUtil.encrypt(user.getUsername(), user.getPassword(), salt);
@@ -122,7 +123,6 @@ public class SysUserController {
 			}else {
 				SysUser user = JSON.parseObject(jsonObject.toJSONString(), SysUser.class);
 				user.setUpdateTime(new Date());
-				//String passwordEncode = PasswordUtil.encrypt(user.getUsername(), user.getPassword(), sysUser.getSalt());
 				user.setPassword(sysUser.getPassword());
 				String roles = jsonObject.getString("selectedroles");
 				sysUserService.editUserWithRole(user, roles);
@@ -250,7 +250,8 @@ public class SysUserController {
     @RequestMapping(value = "/checkOnlyUser", method = RequestMethod.GET)
     public Result<Boolean> checkUsername(SysUser sysUser) {
         Result<Boolean> result = new Result<>();
-        result.setResult(true);//如果此参数为false则程序发生异常
+        // 如果此参数为false则程序发生异常
+        result.setResult(true);
         String id = sysUser.getId();
         log.info("--验证用户信息是否唯一---id:" + id);
         try {
@@ -468,7 +469,8 @@ public class SysUserController {
         MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
         Map<String, MultipartFile> fileMap = multipartRequest.getFileMap();
         for (Map.Entry<String, MultipartFile> entity : fileMap.entrySet()) {
-            MultipartFile file = entity.getValue();// 获取上传文件对象
+            // 获取上传文件对象
+            MultipartFile file = entity.getValue();
             ImportParams params = new ImportParams();
             params.setTitleRows(2);
             params.setHeadRows(1);

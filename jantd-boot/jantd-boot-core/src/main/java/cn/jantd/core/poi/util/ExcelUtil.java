@@ -69,7 +69,7 @@ public class ExcelUtil {
         for (int i = startReadLine; i < sheet.getLastRowNum() - tailLine + 1; i++) {
 
             row = sheet.getRow(i);
-            Map<String, String> map = new HashMap<String, String>();
+            Map<String, String> map = new HashMap<String, String>(16);
             for (Cell c : row) {
                 String returnStr = "";
 

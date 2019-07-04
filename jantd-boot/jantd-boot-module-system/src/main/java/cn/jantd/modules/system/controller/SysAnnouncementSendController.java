@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import cn.jantd.core.api.vo.Result;
 import cn.jantd.core.constant.CommonConstant;
+import cn.jantd.core.constant.SystemConstant;
 import cn.jantd.core.system.vo.LoginUser;
 import cn.jantd.core.util.oConvertUtils;
 import org.apache.shiro.SecurityUtils;
@@ -66,17 +67,13 @@ public class SysAnnouncementSendController {
 		String column = req.getParameter("column");
 		String order = req.getParameter("order");
 		if(oConvertUtils.isNotEmpty(column) && oConvertUtils.isNotEmpty(order)) {
-			if("asc".equals(order)) {
+			if(SystemConstant.SORT_ASC.equals(order)) {
 				queryWrapper.orderByAsc(oConvertUtils.camelToUnderline(column));
 			}else {
 				queryWrapper.orderByDesc(oConvertUtils.camelToUnderline(column));
 			}
 		}
 		IPage<SysAnnouncementSend> pageList = sysAnnouncementSendService.page(page, queryWrapper);
-		//log.info("查询当前页："+pageList.getCurrent());
-		//log.info("查询当前页数量："+pageList.getSize());
-		//log.info("查询结果数量："+pageList.getRecords().size());
-		//log.info("数据总数："+pageList.getTotal());
 		result.setSuccess(true);
 		result.setResult(pageList);
 		return result;

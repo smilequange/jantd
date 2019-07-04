@@ -134,7 +134,7 @@ public class NgAlainServiceImpl implements NgAlainService {
             json.put("describe", permission.getName());
         } else if (permission.getMenuType() == 0 || permission.getMenuType() == 1) {
             json.put("id", permission.getId());
-            if (permission.getUrl() != null && (permission.getUrl().startsWith(NgalainConstant.HTTPS) || permission.getUrl().startsWith(NgalainConstant.HTTPS))) {
+            if (permission.getUrl() != null && (permission.getUrl().startsWith(NgalainConstant.HTTP_PREFIX) || permission.getUrl().startsWith(NgalainConstant.HTTP_PREFIX))) {
                 String url = new String(Base64.getUrlEncoder().encode(permission.getUrl().getBytes()));
                 json.put("path", "/sys/link/" + url.replaceAll("=", ""));
             } else {
@@ -162,7 +162,7 @@ public class NgAlainServiceImpl implements NgAlainService {
             } else {
                 meta.put("icon", oConvertUtils.getString(permission.getIcon(), ""));
             }
-            if (permission.getUrl() != null && (permission.getUrl().startsWith(NgalainConstant.HTTPS) || permission.getUrl().startsWith(NgalainConstant.HTTPS))) {
+            if (permission.getUrl() != null && (permission.getUrl().startsWith(NgalainConstant.HTTP_PREFIX) || permission.getUrl().startsWith(NgalainConstant.HTTP_PREFIX))) {
                 meta.put("url", permission.getUrl());
             }
             json.put("meta", meta);

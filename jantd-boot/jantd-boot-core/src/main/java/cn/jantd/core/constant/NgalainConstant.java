@@ -18,7 +18,7 @@ public interface NgalainConstant {
     /**
      * url前缀
      */
-    String HTTPS = "http://";
+    String HTTP_PREFIX = "http://";
     /**
      * 左斜杠
      */

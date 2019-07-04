@@ -18,7 +18,7 @@ import lombok.extern.slf4j.Slf4j;
 /**
  * @Title: DuplicateCheckAction
  * @Description: 重复校验工具
- * @Author 张代浩
+ * @Author xigf
  * @Date 2019-03-25
  * @Version V1.0
  */

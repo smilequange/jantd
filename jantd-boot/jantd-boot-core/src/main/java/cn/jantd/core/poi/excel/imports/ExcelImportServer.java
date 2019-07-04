@@ -185,7 +185,7 @@ public class ExcelImportServer extends ImportBaseService {
      */
     private <T> List<T> importExcel(Collection<T> result, Sheet sheet, Class<?> pojoClass, ImportParams params, Map<String, PictureData> pictures) throws Exception {
         List collection = new ArrayList();
-        Map<String, ExcelImportEntity> excelParams = new HashMap<String, ExcelImportEntity>();
+        Map<String, ExcelImportEntity> excelParams = new HashMap<String, ExcelImportEntity>(16);
         List<ExcelCollectionParams> excelCollection = new ArrayList<ExcelCollectionParams>();
         String targetId = null;
         if (!Map.class.equals(pojoClass)) {
@@ -257,7 +257,7 @@ public class ExcelImportServer extends ImportBaseService {
      * @return
      */
     private Map<Integer, String> getTitleMap(Sheet sheet, Iterator<Row> rows, ImportParams params, List<ExcelCollectionParams> excelCollection) {
-        Map<Integer, String> titlemap = new HashMap<Integer, String>();
+        Map<Integer, String> titlemap = new HashMap<Integer, String>(16);
         Iterator<Cell> cellTitle = null;
         String collectionName = null;
         ExcelCollectionParams collectionParams = null;

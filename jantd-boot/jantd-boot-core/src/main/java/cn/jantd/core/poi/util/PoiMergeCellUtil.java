@@ -38,7 +38,7 @@ public final class PoiMergeCellUtil {
 		if (columns == null) {
 			throw new ExcelExportException("至少需要处理1列");
 		}
-		Map<Integer, int[]> mergeMap = new HashMap<Integer, int[]>();
+		Map<Integer, int[]> mergeMap = new HashMap<Integer, int[]>(16);
 		for (int i = 0; i < columns.length; i++) {
 			mergeMap.put(columns[i], null);
 		}
@@ -70,7 +70,7 @@ public final class PoiMergeCellUtil {
 	 *            结束行
 	 */
 	public static void mergeCells(Sheet sheet, Map<Integer, int[]> mergeMap, int startRow, int endRow) {
-		Map<Integer, MergeEntity> mergeDataMap = new HashMap<Integer, MergeEntity>();
+		Map<Integer, MergeEntity> mergeDataMap = new HashMap<Integer, MergeEntity>(16);
 		if (mergeMap.size() == 0) {
 			return;
 		}

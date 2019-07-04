@@ -147,7 +147,7 @@ public class ImportBaseService {
 				// 集合对象设置属性
 				ExcelCollectionParams collection = new ExcelCollectionParams();
 				collection.setName(field.getName());
-				Map<String, ExcelImportEntity> temp = new HashMap<String, ExcelImportEntity>();
+				Map<String, ExcelImportEntity> temp = new HashMap<String, ExcelImportEntity>(16);
 				ParameterizedType pt = (ParameterizedType) field.getGenericType();
 				Class<?> clz = (Class<?>) pt.getActualTypeArguments()[0];
 				collection.setType(clz);

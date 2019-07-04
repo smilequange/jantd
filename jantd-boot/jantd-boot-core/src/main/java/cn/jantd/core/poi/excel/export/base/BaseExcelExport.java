@@ -362,7 +362,7 @@ public abstract class BaseExcelExport extends ExportBase {
     }
 
     private Map<Integer, int[]> getMergeDataMap(List<ExcelExportEntity> excelParams) {
-        Map<Integer, int[]> mergeMap = new HashMap<Integer, int[]>();
+        Map<Integer, int[]> mergeMap = new HashMap<Integer, int[]>(16);
         // 设置参数顺序,为之后合并单元格做准备
         int i = 0;
         for (ExcelExportEntity entity : excelParams) {

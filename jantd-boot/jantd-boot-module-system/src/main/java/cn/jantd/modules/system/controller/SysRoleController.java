@@ -217,7 +217,8 @@ public class SysRoleController {
 	@RequestMapping(value = "/checkRoleCode", method = RequestMethod.GET)
 	public Result<Boolean> checkUsername(String id,String roleCode) {
 		Result<Boolean> result = new Result<>();
-		result.setResult(true);//如果此参数为false则程序发生异常
+		// 如果此参数为false则程序发生异常
+		result.setResult(true);
 		log.info("--验证角色编码是否唯一---id:"+id+"--roleCode:"+roleCode);
 		try {
 			SysRole role = null;
@@ -280,7 +281,8 @@ public class SysRoleController {
 		MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
 		Map<String, MultipartFile> fileMap = multipartRequest.getFileMap();
 		for (Map.Entry<String, MultipartFile> entity : fileMap.entrySet()) {
-			MultipartFile file = entity.getValue();// 获取上传文件对象
+			// 获取上传文件对象
+			MultipartFile file = entity.getValue();
 			ImportParams params = new ImportParams();
 			params.setTitleRows(2);
 			params.setHeadRows(1);
@@ -314,14 +316,13 @@ public class SysRoleController {
 		if(list==null || list.size()==0) {
 			return Result.error("未找到权限配置信息");
 		}else {
-			Map<String,Object> map = new HashMap<>();
+			Map<String,Object> map = new HashMap<>(16);
 			map.put("datarule", list);
 			LambdaQueryWrapper<SysRolePermission> query = new LambdaQueryWrapper<SysRolePermission>()
 					.eq(SysRolePermission::getPermissionId, permissionId)
 					.eq(SysRolePermission::getRoleId,roleId);
 			SysRolePermission sysRolePermission = sysRolePermissionService.getOne(query);
 			if(sysRolePermission==null) {
-				//return Result.error("未找到角色菜单配置信息");
 			}else {
 				String drChecked = sysRolePermission.getDataRuleIds();
 				if(oConvertUtils.isNotEmpty(drChecked)) {
@@ -381,9 +382,11 @@ public class SysRoleController {
 			}
 			List<TreeModel> treeList = new ArrayList<>();
 			getTreeModelList(treeList, list, null);
-			Map<String,Object> resMap = new HashMap<String,Object>();
-			resMap.put("treeList", treeList); //全部树节点数据
-			resMap.put("ids", ids);//全部树ids
+			Map<String,Object> resMap = new HashMap<String,Object>(16);
+			// 全部树节点数据
+			resMap.put("treeList", treeList);
+			// 全部树ids
+			resMap.put("ids", ids);
 			result.setResult(resMap);
 			result.setSuccess(true);
 		} catch (Exception e) {

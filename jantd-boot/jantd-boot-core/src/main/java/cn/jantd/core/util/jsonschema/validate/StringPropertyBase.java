@@ -88,7 +88,7 @@ public class StringPropertyBase extends BaseCommonProperty {
 
     @Override
     public Map<String, Object> getPropertyJson() {
-        Map<String, Object> map = new HashMap<>();
+        Map<String, Object> map = new HashMap<>(16);
         map.put("key", getKey());
         JSONObject prop = getCommonJson();
         if (maxLength != null) {

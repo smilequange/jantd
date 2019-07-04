@@ -128,7 +128,7 @@ public class ExcelEntityParse extends ExportBase {
 		if (index < headRows) {
 			throw new WordExportException(WordExportEnum.EXCEL_NO_HEAD);
 		}
-		Map<String, Integer> map = new HashMap<String, Integer>();
+		Map<String, Integer> map = new HashMap<String, Integer>(16);
 		String text;
 		for (int j = 0; j < headRows; j++) {
 			List<XWPFTableCell> cells = table.getRow(index - j - 1).getTableCells();

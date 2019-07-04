@@ -26,9 +26,7 @@ import com.alibaba.fastjson.JSONObject;
 /**
  * 系统日志，切面处理类
  *
- * @Author scott
- * @email jeecgos@163.com
- * @Date 2018年1月14日
+ * @Author xiagf
  */
 @Aspect
 @Component

@@ -435,7 +435,7 @@ public class QueryGenerator {
      * @return
      */
     public static Map<String, SysPermissionDataRule> getRuleMap() {
-        Map<String, SysPermissionDataRule> ruleMap = new HashMap<String, SysPermissionDataRule>();
+        Map<String, SysPermissionDataRule> ruleMap = new HashMap<String, SysPermissionDataRule>(16);
         List<SysPermissionDataRule> list = DataAutorUtils.loadDataSearchConditon();
         if (list != null && list.size() > 0) {
             if (list.get(0) == null) {

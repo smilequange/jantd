@@ -76,7 +76,7 @@ public final class PoiPublicUtil {
 
 	@SuppressWarnings({ "unchecked" })
 	public static <K, V> Map<K, V> mapFor(Object... mapping) {
-		Map<K, V> map = new HashMap<K, V>();
+		Map<K, V> map = new HashMap<K, V>(16);
 		for (int i = 0; i < mapping.length; i += CoreConstant.NUMBER_TWO) {
 			map.put((K) mapping[i], (V) mapping[i + 1]);
 		}
@@ -94,7 +94,7 @@ public final class PoiPublicUtil {
 		Method setMethod;
 		try {
 			if (clazz.equals(Map.class)) {
-				return new HashMap<String, Object>();
+				return new HashMap<String, Object>(16);
 			}
 			obj = clazz.newInstance();
 			Field[] fields = getClassFields(clazz);
@@ -251,7 +251,7 @@ public final class PoiPublicUtil {
 	 * @return Map key:图片单元格索引（1_1）String，value:图片流PictureData
 	 */
 	public static Map<String, PictureData> getSheetPictrues03(HSSFSheet sheet, HSSFWorkbook workbook) {
-		Map<String, PictureData> sheetIndexPicMap = new HashMap<String, PictureData>();
+		Map<String, PictureData> sheetIndexPicMap = new HashMap<String, PictureData>(16);
 		List<HSSFPictureData> pictures = workbook.getAllPictures();
 		if (!pictures.isEmpty()) {
 			for (HSSFShape shape : sheet.getDrawingPatriarch().getChildren()) {
@@ -280,7 +280,7 @@ public final class PoiPublicUtil {
 	 * @return Map key:图片单元格索引（1_1）String，value:图片流PictureData
 	 */
 	public static Map<String, PictureData> getSheetPictrues07(XSSFSheet sheet, XSSFWorkbook workbook) {
-		Map<String, PictureData> sheetIndexPicMap = new HashMap<String, PictureData>();
+		Map<String, PictureData> sheetIndexPicMap = new HashMap<String, PictureData>(16);
 		for (POIXMLDocumentPart dr : sheet.getRelations()) {
 			if (dr instanceof XSSFDrawing) {
 				XSSFDrawing drawing = (XSSFDrawing) dr;

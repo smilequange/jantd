@@ -9,12 +9,23 @@ package cn.jantd.core.constant;
  * @Date 2019/7/4
  */
 public interface SystemConstant {
-    /**
-     * 左斜杠
-     */
+
     String DOUBLE_LEFT_SLASH = "//";
     String AND_SYMBOL = "&";
     String EQUAL = "=";
     String DOT_DO = ".do";
+    String SORT_ASC = "asc";
+    String COMMA = ",";
+    Integer NUMBER_THREE = 3;
+    Integer NUMBER_TWO = 2;
+    String ALL_CLEAR = "allclear";
+    /**
+     * http url前缀
+     */
+    String HTTP_PREFIX = "http://";
+    /**
+     * https url前缀
+     */
+    String HTTPS_PREFIX = "http://";
 
 }

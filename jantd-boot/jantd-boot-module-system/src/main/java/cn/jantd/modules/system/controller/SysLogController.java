@@ -6,6 +6,7 @@ import java.util.Arrays;
 import javax.servlet.http.HttpServletRequest;
 
 import cn.jantd.core.api.vo.Result;
+import cn.jantd.core.constant.SystemConstant;
 import cn.jantd.core.system.query.QueryGenerator;
 import cn.jantd.core.util.oConvertUtils;
 import cn.jantd.modules.system.entity.SysLog;
@@ -103,7 +104,7 @@ public class SysLogController {
 		if(ids==null || "".equals(ids.trim())) {
 			result.error500("参数不识别！");
 		}else {
-			if("allclear".equals(ids)) {
+			if(SystemConstant.ALL_CLEAR.equals(ids)) {
 				this.sysLogService.removeAll();
 				result.success("清除成功!");
 			}

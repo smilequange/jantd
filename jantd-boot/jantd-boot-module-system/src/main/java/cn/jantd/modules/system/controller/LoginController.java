@@ -142,7 +142,7 @@ public class LoginController {
         calendar.set(Calendar.SECOND,0);
         calendar.set(Calendar.MILLISECOND,0);
         Date dayStart = calendar.getTime();
-        calendar.add(calendar.DATE, 1);
+        calendar.add(Calendar.DATE, 1);
         Date dayEnd = calendar.getTime();
 		// 获取系统访问记录
 		Long totalVisitCount = logService.findTotalVisitCount();

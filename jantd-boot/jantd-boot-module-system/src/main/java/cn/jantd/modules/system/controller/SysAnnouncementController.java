@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import cn.jantd.core.api.vo.Result;
 import cn.jantd.core.constant.CommonConstant;
 import cn.jantd.core.constant.CommonSendStatus;
+import cn.jantd.core.constant.SystemConstant;
 import cn.jantd.core.poi.def.NormalExcelConstants;
 import cn.jantd.core.poi.excel.ExcelImportUtil;
 import cn.jantd.core.poi.excel.entity.ExportParams;
@@ -82,7 +83,7 @@ public class SysAnnouncementController {
 		String column = req.getParameter("column");
 		String order = req.getParameter("order");
 		if(oConvertUtils.isNotEmpty(column) && oConvertUtils.isNotEmpty(order)) {
-			if("asc".equals(order)) {
+			if(SystemConstant.SORT_ASC.equals(order)) {
 				queryWrapper.orderByAsc(oConvertUtils.camelToUnderline(column));
 			}else {
 				queryWrapper.orderByDesc(oConvertUtils.camelToUnderline(column));
@@ -108,7 +109,8 @@ public class SysAnnouncementController {
 		Result<SysAnnouncement> result = new Result<SysAnnouncement>();
 		try {
 			sysAnnouncement.setDelFlag(CommonConstant.DEL_FLAG_NO.toString());
-			sysAnnouncement.setSendStatus(CommonSendStatus.UNPUBLISHED_STATUS_0);//未发布
+			// 未发布
+			sysAnnouncement.setSendStatus(CommonSendStatus.UNPUBLISHED_STATUS_0);
 			sysAnnouncementService.saveAnnouncement(sysAnnouncement);
 			result.success("添加成功！");
 		} catch (Exception e) {
@@ -214,7 +216,8 @@ public class SysAnnouncementController {
 		if(sysAnnouncement==null) {
 			result.error500("未找到对应实体");
 		}else {
-			sysAnnouncement.setSendStatus(CommonSendStatus.PUBLISHED_STATUS_1);//发布中
+			// 发布中
+			sysAnnouncement.setSendStatus(CommonSendStatus.PUBLISHED_STATUS_1);
 			sysAnnouncement.setSendTime(new Date());
 			String currentUserName = JwtUtil.getUserNameByToken(request);
 			sysAnnouncement.setSender(currentUserName);
@@ -239,7 +242,8 @@ public class SysAnnouncementController {
 		if(sysAnnouncement==null) {
 			result.error500("未找到对应实体");
 		}else {
-			sysAnnouncement.setSendStatus(CommonSendStatus.REVOKE_STATUS_2);//撤销发布
+			// 撤销发布
+			sysAnnouncement.setSendStatus(CommonSendStatus.REVOKE_STATUS_2);
 			sysAnnouncement.setCancelTime(new Date());
 			boolean ok = sysAnnouncementService.updateById(sysAnnouncement);
 			if(ok) {
@@ -263,9 +267,12 @@ public class SysAnnouncementController {
 		// 1.将系统消息补充到用户通告阅读标记表中
 		Collection<String> anntIds = sysAnnouncementSendService.queryByUserId(userId);
 		LambdaQueryWrapper<SysAnnouncement> querySaWrapper = new LambdaQueryWrapper<SysAnnouncement>();
-		querySaWrapper.eq(SysAnnouncement::getMsgType,CommonConstant.MSG_TYPE_ALL); // 全部人员
-		querySaWrapper.eq(SysAnnouncement::getDelFlag,CommonConstant.DEL_FLAG_NO);  // 未删除
-		querySaWrapper.eq(SysAnnouncement::getSendStatus, CommonConstant.HAS_SEND); //已发布
+		// 全部人员
+		querySaWrapper.eq(SysAnnouncement::getMsgType,CommonConstant.MSG_TYPE_ALL);
+		// 未删除
+		querySaWrapper.eq(SysAnnouncement::getDelFlag,CommonConstant.DEL_FLAG_NO);
+		// 已发布
+		querySaWrapper.eq(SysAnnouncement::getSendStatus, CommonConstant.HAS_SEND);
 		querySaWrapper.notIn(SysAnnouncement::getId, anntIds);
 		List<SysAnnouncement> announcements = sysAnnouncementService.list(querySaWrapper);
 		if(announcements.size()>0) {
@@ -279,10 +286,12 @@ public class SysAnnouncementController {
 		}
 		// 2.查询用户未读的系统消息
 		Page<SysAnnouncement> anntMsgList = new Page<SysAnnouncement>(0,5);
-		anntMsgList = sysAnnouncementService.querySysCementPageByUserId(anntMsgList,userId,"1");//通知公告消息
+		// 通知公告消息
+		anntMsgList = sysAnnouncementService.querySysCementPageByUserId(anntMsgList,userId,"1");
 		Page<SysAnnouncement> sysMsgList = new Page<SysAnnouncement>(0,5);
-		sysMsgList = sysAnnouncementService.querySysCementPageByUserId(sysMsgList,userId,"2");//系统消息
-		Map<String,Object> sysMsgMap = new HashMap<String, Object>();
+		// 系统消息
+		sysMsgList = sysAnnouncementService.querySysCementPageByUserId(sysMsgList,userId,"2");
+		Map<String,Object> sysMsgMap = new HashMap<String, Object>(16);
 		sysMsgMap.put("sysMsgList", sysMsgList.getRecords());
 		sysMsgMap.put("sysMsgTotal", sysMsgList.getTotal());
 		sysMsgMap.put("anntMsgList", anntMsgList.getRecords());
@@ -326,7 +335,8 @@ public class SysAnnouncementController {
         MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
         Map<String, MultipartFile> fileMap = multipartRequest.getFileMap();
         for (Map.Entry<String, MultipartFile> entity : fileMap.entrySet()) {
-            MultipartFile file = entity.getValue();// 获取上传文件对象
+			// 获取上传文件对象
+            MultipartFile file = entity.getValue();
             ImportParams params = new ImportParams();
             params.setTitleRows(2);
             params.setHeadRows(1);
