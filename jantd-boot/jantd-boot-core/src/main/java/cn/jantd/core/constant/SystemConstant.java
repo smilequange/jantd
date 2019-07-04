@@ -27,5 +27,9 @@ public interface SystemConstant {
      * https url前缀
      */
     String HTTPS_PREFIX = "http://";
+    /**
+     * 左斜杠
+     */
+    String LEFT_SLASH = "/";
 
 }

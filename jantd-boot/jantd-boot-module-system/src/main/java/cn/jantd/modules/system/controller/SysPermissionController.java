@@ -547,7 +547,7 @@ public class SysPermissionController {
      */
     private String urlToRouteName(String url) {
         if (oConvertUtils.isNotEmpty(url)) {
-            if (url.startsWith("/")) {
+            if (url.startsWith(SystemConstant.LEFT_SLASH)) {
                 url = url.substring(1);
             }
             url = url.replace("/", "-");

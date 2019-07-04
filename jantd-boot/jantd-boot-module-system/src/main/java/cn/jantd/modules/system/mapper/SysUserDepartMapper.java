@@ -8,7 +8,16 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 import io.lettuce.core.dynamic.annotation.Param;
 
-public interface SysUserDepartMapper extends BaseMapper<SysUserDepart>{
+/**
+ * @Author xiagf
+ * @date 2019-07-04
+ */
+public interface SysUserDepartMapper extends BaseMapper<SysUserDepart> {
 
-	List<SysUserDepart> getUserDepartByUid(@Param("userId") String userId);
+    /**
+     * 通过userId查询用户部门信息
+     * @param userId
+     * @return
+     */
+    List<SysUserDepart> getUserDepartByUid(@Param("userId") String userId);
 }

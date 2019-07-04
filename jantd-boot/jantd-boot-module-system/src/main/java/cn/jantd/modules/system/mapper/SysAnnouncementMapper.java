@@ -10,13 +10,20 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 
 /**
  * @Description: 系统通告表
- * @Author: jeecg-boot
- * @Date:  2019-01-02
+ * @Author xiagf
+ * @date 2019-07-04
  * @Version: V1.0
  */
 public interface SysAnnouncementMapper extends BaseMapper<SysAnnouncement> {
 
-
-	List<SysAnnouncement> querySysCementListByUserId(Page<SysAnnouncement> page, @Param("userId")String userId,@Param("msgCategory")String msgCategory);
+    /**
+     * 查询系统消息通过用户Id
+     *
+     * @param page
+     * @param userId
+     * @param msgCategory
+     * @return
+     */
+    List<SysAnnouncement> querySysCementListByUserId(Page<SysAnnouncement> page, @Param("userId") String userId, @Param("msgCategory") String msgCategory);
 
 }

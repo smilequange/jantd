@@ -11,10 +11,16 @@ import java.util.List;
  * Mapper 接口
  * </p>
  *
- * @Author zhangweijian
- * @since 2018-12-28
+ * @Author xiagf
+ * @date 2019-07-04
  */
 public interface SysDictItemMapper extends BaseMapper<SysDictItem> {
+    /**
+     * 查询字典属相
+     *
+     * @param mainId
+     * @return
+     */
     @Select("SELECT * FROM SYS_DICT_ITEM WHERE DICT_ID = #{mainId}")
     public List<SysDictItem> selectItemsByMainId(String mainId);
 }

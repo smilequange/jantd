@@ -11,13 +11,16 @@ import java.util.List;
  * 部门 Mapper 接口
  * <p>
  *
- * @Author: Steve
- * @Since：   2019-01-22
+ * @Author xiagf
+ * @date 2019-07-04
  */
 public interface SysDepartMapper extends BaseMapper<SysDepart> {
 
-	/**
-	 * 根据用户ID查询部门集合
-	 */
-	public List<SysDepart> queryUserDeparts(@Param("userId") String userId);
+    /**
+     * 根据用户ID查询部门集合
+     *
+     * @param userId
+     * @return
+     */
+    public List<SysDepart> queryUserDeparts(@Param("userId") String userId);
 }
