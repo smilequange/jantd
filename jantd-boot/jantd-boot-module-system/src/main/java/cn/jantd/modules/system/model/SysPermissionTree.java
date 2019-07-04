@@ -7,6 +7,10 @@ import java.util.List;
 
 import cn.jantd.modules.system.entity.SysPermission;
 
+/**
+ * @Author xiagf
+ * @date 2019-07-04
+ */
 public class SysPermissionTree implements Serializable {
 
 	private static final long serialVersionUID = 1L;

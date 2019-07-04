@@ -11,21 +11,27 @@ import cn.jantd.modules.system.entity.SysDepart;
  * 部门表 封装树结构的部门的名称的实体类
  * <p>
  *
- * @Author Steve
- * @Since 2019-01-22
+ * @Author xiagf
+ * @date 2019-07-04
  *
  */
 public class DepartIdModel implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    // 主键ID
+    /**
+     * 主键ID
+     */
     private String key;
 
-    // 主键ID
+    /**
+     * value
+     */
     private String value;
 
-    // 部门名称
+    /**
+     * 部门名称
+     */
     private String title;
 
     List<DepartIdModel> children = new ArrayList<>();

@@ -2,71 +2,74 @@ package cn.jantd.modules.system.model;
 
 import java.io.Serializable;
 
+/**
+ * @Author xiagf
+ * @date 2019-07-04
+ */
 public class TreeSelectModel implements Serializable {
 
 
-	private static final long serialVersionUID = 9016390975325574747L;
+    private static final long serialVersionUID = 9016390975325574747L;
 
-	private String key;
+    private String key;
 
-	private String title;
+    private String title;
 
-	private boolean isLeaf;
+    private boolean isLeaf;
 
-	private String icon;
+    private String icon;
 
-	private String parentId;
+    private String parentId;
 
-	private String value;
+    private String value;
 
-	public String getValue() {
-		return value;
-	}
+    public String getValue() {
+        return value;
+    }
 
-	public void setValue(String value) {
-		this.value = value;
-	}
+    public void setValue(String value) {
+        this.value = value;
+    }
 
-	public String getParentId() {
-		return parentId;
-	}
+    public String getParentId() {
+        return parentId;
+    }
 
-	public void setParentId(String parentId) {
-		this.parentId = parentId;
-	}
+    public void setParentId(String parentId) {
+        this.parentId = parentId;
+    }
 
-	public String getKey() {
-		return key;
-	}
+    public String getKey() {
+        return key;
+    }
 
-	public void setKey(String key) {
-		this.key = key;
-	}
+    public void setKey(String key) {
+        this.key = key;
+    }
 
-	public String getTitle() {
-		return title;
-	}
+    public String getTitle() {
+        return title;
+    }
 
-	public void setTitle(String title) {
-		this.title = title;
-	}
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
-	public boolean isLeaf() {
-		return isLeaf;
-	}
+    public boolean isLeaf() {
+        return isLeaf;
+    }
 
-	public void setLeaf(boolean isLeaf) {
-		this.isLeaf = isLeaf;
-	}
+    public void setLeaf(boolean isLeaf) {
+        this.isLeaf = isLeaf;
+    }
 
-	public String getIcon() {
-		return icon;
-	}
+    public String getIcon() {
+        return icon;
+    }
 
-	public void setIcon(String icon) {
-		this.icon = icon;
-	}
-
+    public void setIcon(String icon) {
+        this.icon = icon;
+    }
 
 
 }

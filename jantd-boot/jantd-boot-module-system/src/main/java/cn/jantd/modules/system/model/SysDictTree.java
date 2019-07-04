@@ -17,8 +17,8 @@ import lombok.experimental.Accessors;
  * 字典表
  * </p>
  *
- * @Author zhangweijian
- * @since 2018-12-28
+ * @Author xiagf
+ * @date 2019-07-04
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -29,7 +29,7 @@ public class SysDictTree implements Serializable {
 
     private String key;
 
-	private String title;
+    private String title;
 
     /**
      * id
@@ -84,13 +84,13 @@ public class SysDictTree implements Serializable {
     private Date updateTime;
 
     public SysDictTree(SysDict node) {
-    	this.id = node.getId();
-		this.key = node.getId();
-		this.title = node.getDictName();
-		this.dictCode = node.getDictCode();
-		this.description = node.getDescription();
-		this.delFlag = node.getDelFlag();
-		this.type = node.getType();
-	}
+        this.id = node.getId();
+        this.key = node.getId();
+        this.title = node.getDictName();
+        this.dictCode = node.getDictCode();
+        this.description = node.getDescription();
+        this.delFlag = node.getDelFlag();
+        this.type = node.getType();
+    }
 
 }
