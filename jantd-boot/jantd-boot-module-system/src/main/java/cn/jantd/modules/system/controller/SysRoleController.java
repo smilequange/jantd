@@ -12,6 +12,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import cn.jantd.core.annotation.PermissionData;
 import cn.jantd.core.api.vo.Result;
 import cn.jantd.core.poi.def.NormalExcelConstants;
 import cn.jantd.core.poi.excel.ExcelImportUtil;
@@ -85,6 +86,7 @@ public class SysRoleController {
      * @param req
      * @return
      */
+    @PermissionData(pageComponent = "system/RoleList")
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public Result<IPage<SysRole>> queryPageList(SysRole role,
                                                 @RequestParam(name = "pageNo", defaultValue = "1") Integer pageNo,

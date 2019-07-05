@@ -1,15 +1,5 @@
 package cn.jantd.modules.system.service.impl;
 
-import java.sql.Connection;
-import java.sql.DatabaseMetaData;
-import java.sql.SQLException;
-import java.util.Date;
-import java.util.List;
-
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import javax.sql.DataSource;
-
 import cn.jantd.core.constant.CommonConstant;
 import cn.jantd.core.constant.SystemConstant;
 import cn.jantd.core.exception.JantdBootException;
@@ -19,22 +9,25 @@ import cn.jantd.core.system.vo.LoginUser;
 import cn.jantd.core.util.IPUtils;
 import cn.jantd.core.util.SpringContextUtils;
 import cn.jantd.core.util.oConvertUtils;
-import cn.jantd.modules.system.service.ISysDictService;
-import org.apache.shiro.SecurityUtils;
 import cn.jantd.modules.system.entity.SysAnnouncement;
 import cn.jantd.modules.system.entity.SysAnnouncementSend;
 import cn.jantd.modules.system.entity.SysLog;
 import cn.jantd.modules.system.entity.SysUser;
-import cn.jantd.modules.system.mapper.SysAnnouncementMapper;
-import cn.jantd.modules.system.mapper.SysAnnouncementSendMapper;
-import cn.jantd.modules.system.mapper.SysLogMapper;
-import cn.jantd.modules.system.mapper.SysUserMapper;
-import cn.jantd.modules.system.mapper.SysUserRoleMapper;
+import cn.jantd.modules.system.mapper.*;
+import cn.jantd.modules.system.service.ISysDictService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import lombok.extern.slf4j.Slf4j;
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.sql.DataSource;
+import java.sql.Connection;
+import java.sql.DatabaseMetaData;
+import java.sql.SQLException;
+import java.util.Date;
+import java.util.List;
 
 /**
  * @Description: 底层共通业务API，提供其他独立模块调用
@@ -65,12 +58,12 @@ public class SystemBaseApiImpl implements SystemBaseApi {
     private SysAnnouncementSendMapper sysAnnouncementSendMapper;
 
     @Override
-    public void addLog(String logContent, Integer logType, Integer operatetype) {
+    public void addLog(String logContent, Integer logType, Integer operateType, String username, String realName) {
         SysLog sysLog = new SysLog();
         //注解上的描述,操作日志内容
         sysLog.setLogContent(logContent);
         sysLog.setLogType(logType);
-        sysLog.setOperateType(operatetype);
+        sysLog.setOperateType(operateType);
 
         //请求的方法名
         //请求的参数
@@ -87,11 +80,9 @@ public class SystemBaseApiImpl implements SystemBaseApi {
         }
 
         //获取登录用户信息
-        LoginUser sysUser = (LoginUser) SecurityUtils.getSubject().getPrincipal();
-        if (sysUser != null) {
-            sysLog.setUserid(sysUser.getUsername());
-            sysLog.setUsername(sysUser.getRealname());
-        }
+        sysLog.setUserid(username);
+        sysLog.setUsername(realName);
+
         sysLog.setCreateTime(new Date());
         //保存系统日志
         sysLogMapper.insert(sysLog);

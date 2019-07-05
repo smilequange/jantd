@@ -1,13 +1,5 @@
 package cn.jantd.modules.system.controller;
 
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import cn.jantd.core.api.vo.Result;
 import cn.jantd.core.constant.CommonConstant;
 import cn.jantd.core.system.api.SystemBaseApi;
@@ -15,8 +7,6 @@ import cn.jantd.core.system.util.JwtUtil;
 import cn.jantd.core.system.vo.LoginUser;
 import cn.jantd.core.util.PasswordUtil;
 import cn.jantd.core.util.RedisUtil;
-import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.subject.Subject;
 import cn.jantd.modules.shiro.vo.DefContants;
 import cn.jantd.modules.system.entity.SysDepart;
 import cn.jantd.modules.system.entity.SysUser;
@@ -24,18 +14,21 @@ import cn.jantd.modules.system.model.SysLoginModel;
 import cn.jantd.modules.system.service.ISysDepartService;
 import cn.jantd.modules.system.service.ISysLogService;
 import cn.jantd.modules.system.service.ISysUserService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
-
 import com.alibaba.fastjson.JSONObject;
-
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.List;
 
 /**
  * @Author xiagf
@@ -66,7 +59,7 @@ public class LoginController {
         SysUser sysUser = sysUserService.getUserByName(username);
         if (sysUser == null) {
             result.error500("该用户不存在");
-            systemBaseAPI.addLog("登录失败，用户名:" + username + "不存在！", CommonConstant.LOG_TYPE_LOGIN, null);
+            systemBaseAPI.addLog("登录失败，用户名:" + username + "不存在！", CommonConstant.LOG_TYPE_LOGIN, null, username, null);
             return result;
         } else {
             //密码验证
@@ -98,7 +91,7 @@ public class LoginController {
             obj.put("userInfo", sysUser);
             result.setResult(obj);
             result.success("登录成功");
-            systemBaseAPI.addLog("用户名: " + username + ",登录成功！", CommonConstant.LOG_TYPE_LOGIN, null);
+            systemBaseAPI.addLog("用户名: " + username + ",登录成功！", CommonConstant.LOG_TYPE_LOGIN, null, sysUser.getUsername(), sysUser.getRealname());
         }
         return result;
     }
@@ -115,7 +108,7 @@ public class LoginController {
         //用户退出逻辑
         Subject subject = SecurityUtils.getSubject();
         LoginUser sysUser = (LoginUser) subject.getPrincipal();
-        systemBaseAPI.addLog("用户名: " + sysUser.getRealname() + ",退出成功！", CommonConstant.LOG_TYPE_LOGIN, null);
+        systemBaseAPI.addLog("用户名: " + sysUser.getRealname() + ",退出成功！", CommonConstant.LOG_TYPE_LOGIN, null, sysUser.getUsername(), sysUser.getRealname());
         log.info(" 用户名:  " + sysUser.getRealname() + ",退出成功！ ");
         subject.logout();
 

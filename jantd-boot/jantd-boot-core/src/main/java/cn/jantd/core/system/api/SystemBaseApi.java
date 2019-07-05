@@ -20,9 +20,11 @@ public interface SystemBaseApi {
      *
      * @param logContent  内容
      * @param logType     日志类型(0:操作日志;1:登录日志;2:定时任务)
-     * @param operatetype 操作类型(1:添加;2:修改;3:删除;)
+     * @param operateType 操作类型(1:添加;2:修改;3:删除;)
+     * @param userName 登录用户名
+     * @param realNamae 用户名称
      */
-    void addLog(String logContent, Integer logType, Integer operatetype);
+    void addLog(String logContent, Integer logType, Integer operateType, String userName, String realNamae);
 
     /**
      * 根据用户账号查询登录用户信息

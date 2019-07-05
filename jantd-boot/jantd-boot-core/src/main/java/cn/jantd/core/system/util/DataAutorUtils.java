@@ -11,9 +11,9 @@ import cn.jantd.modules.system.entity.SysPermissionDataRule;
 import org.springframework.util.StringUtils;
 
 /**
+ * @author 圈哥
  * @ClassName: JeecgDataAutorUtils
  * @Description: 数据权限查询规则容器工具类
- * @author  圈哥
  * @Date: 2012-12-15 下午11:27:39
  */
 public class DataAutorUtils {
@@ -48,7 +48,6 @@ public class DataAutorUtils {
     /**
      * 获取请求对应的数据权限规则
      *
-     * @param request
      * @return
      */
     @SuppressWarnings("unchecked")
@@ -60,7 +59,6 @@ public class DataAutorUtils {
     /**
      * 获取请求对应的数据权限SQL
      *
-     * @param request
      * @return
      */
     public static synchronized String loadDataSearchConditonSQLString() {
@@ -71,7 +69,7 @@ public class DataAutorUtils {
      * 往链接请求里面，传入数据查询条件
      *
      * @param request
-     * @param MENU_DATA_AUTHOR_RULE_SQL
+     * @param sql
      */
     public static synchronized void installDataSearchConditon(HttpServletRequest request, String sql) {
         String ruleSql = (String) loadDataSearchConditonSQLString();
