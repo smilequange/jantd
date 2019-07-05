@@ -3,14 +3,14 @@ package cn.jantd.modules.shiro.authc;
 import org.apache.shiro.authc.AuthenticationToken;
 
 /**
- * @Author Scott
- * @create 2018-07-12 15:19
+ * @author xiagf
+ * @date 2019-07-04
  * @desc
  **/
 public class JwtToken implements AuthenticationToken {
 
-	private static final long serialVersionUID = 1L;
-	private String token;
+    private static final long serialVersionUID = 1L;
+    private String token;
 
     public JwtToken(String token) {
         this.token = token;
