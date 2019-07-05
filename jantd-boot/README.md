@@ -101,7 +101,7 @@ QueryWrapper<?> queryWrapper = QueryGenerator.initQueryWrapper(?, req.getParamet
 **jeecg_database.properties:** 用来配置数据库相关配置.  
          
          
-**2.**配置好这些配置之后，我们需要找到**jeecg-boot/src/main/java/org/jeecg/JeecgOneGUI.java**类，也就是启动一对一代码生成器的入口；
+**2.**配置好这些配置之后，我们需要找到**jeecg-boot/src/main/java/cn/jantd/JeecgOneGUI.java**类，也就是启动一对一代码生成器的入口；
   
     
 **3.**右键运行该类，紧接着会弹出一个窗口，如下图:  
@@ -123,7 +123,7 @@ QueryWrapper<?> queryWrapper = QueryGenerator.initQueryWrapper(?, req.getParamet
 **jeecg_database.properties:** 是配置数据库相关配置的文件。  
        
        
-**2.**接着我们需要找到**jeecg-boot/src/main/java/org/jeecg/JeecgOneToMainUtil.java**这个类。
+**2.**接着我们需要找到**jeecg-boot/src/main/java/cn/jantd/JeecgOneToMainUtil.java**这个类。
      该类是生成一对多模板的启动入口。  
        
        

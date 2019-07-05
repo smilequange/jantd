@@ -110,7 +110,7 @@ spring:
     port: 6379
 #mybatis plus 设置
 mybatis-plus:
-  mapper-locations: classpath*:org/jeecg/modules/**/xml/*Mapper.xml
+  mapper-locations: classpath*:cn/jantd/modules/**/xml/*Mapper.xml
 
 #jeecg专用配置
 jeecg :

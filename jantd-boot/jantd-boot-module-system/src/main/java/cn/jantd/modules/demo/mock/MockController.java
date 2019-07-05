@@ -27,7 +27,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class MockController {
 
-	private final String JSON_PATH = "classpath:org/jeecg/modules/demo/mock/json";
+	private final String JSON_PATH = "classpath:cn/jantd/modules/demo/mock/json";
 
 	/**
 	 * 通用json访问接口
@@ -37,7 +37,7 @@ public class MockController {
 	 */
 	@RequestMapping(value = "/json/{filename}", method = RequestMethod.GET)
 	public String getJsonData(@PathVariable String filename) {
-		String jsonpath = "classpath:org/jeecg/modules/demo/mock/json/"+filename+".json";
+		String jsonpath = "classpath:cn/jantd/modules/demo/mock/json/"+filename+".json";
 		return readJson(jsonpath);
 	}
 
@@ -48,7 +48,7 @@ public class MockController {
 
 	@GetMapping(value = "/user")
 	public String user() {
-		return readJson("classpath:org/jeecg/modules/demo/mock/json/user.json");
+		return readJson("classpath:cn/jantd/modules/demo/mock/json/user.json");
 	}
 
 	/**
@@ -57,27 +57,27 @@ public class MockController {
 	 */
 	@GetMapping(value = "/user/info")
 	public String userInfo() {
-		return readJson("classpath:org/jeecg/modules/demo/mock/json/user_info.json");
+		return readJson("classpath:cn/jantd/modules/demo/mock/json/user_info.json");
 	}
 
 	@GetMapping(value = "/role")
 	public String role() {
-		return readJson("classpath:org/jeecg/modules/demo/mock/json/role.json");
+		return readJson("classpath:cn/jantd/modules/demo/mock/json/role.json");
 	}
 
 	@GetMapping(value = "/service")
 	public String service() {
-		return readJson("classpath:org/jeecg/modules/demo/mock/json/service.json");
+		return readJson("classpath:cn/jantd/modules/demo/mock/json/service.json");
 	}
 
 	@GetMapping(value = "/permission")
 	public String permission() {
-		return readJson("classpath:org/jeecg/modules/demo/mock/json/permission.json");
+		return readJson("classpath:cn/jantd/modules/demo/mock/json/permission.json");
 	}
 
 	@GetMapping(value = "/permission/no-pager")
 	public String permission_no_page() {
-		return readJson("classpath:org/jeecg/modules/demo/mock/json/permission_no_page.json");
+		return readJson("classpath:cn/jantd/modules/demo/mock/json/permission_no_page.json");
 	}
 
 	/**
@@ -85,7 +85,7 @@ public class MockController {
 	 */
 	@GetMapping(value = "/area")
 	public String area() {
-		return readJson("classpath:org/jeecg/modules/demo/mock/json/area.json");
+		return readJson("classpath:cn/jantd/modules/demo/mock/json/area.json");
 	}
 
 	/**
@@ -93,19 +93,19 @@ public class MockController {
 	 */
 	@GetMapping(value = "/report/getYearCountInfo")
 	public String getYearCountInfo() {
-		return readJson("classpath:org/jeecg/modules/demo/mock/json/getCntrNoCountInfo.json");
+		return readJson("classpath:cn/jantd/modules/demo/mock/json/getCntrNoCountInfo.json");
 	}
 	@GetMapping(value = "/report/getMonthCountInfo")
 	public String getMonthCountInfo() {
-		return readJson("classpath:org/jeecg/modules/demo/mock/json/getCntrNoCountInfo.json");
+		return readJson("classpath:cn/jantd/modules/demo/mock/json/getCntrNoCountInfo.json");
 	}
 	@GetMapping(value = "/report/getCntrNoCountInfo")
 	public String getCntrNoCountInfo() {
-		return readJson("classpath:org/jeecg/modules/demo/mock/json/getCntrNoCountInfo.json");
+		return readJson("classpath:cn/jantd/modules/demo/mock/json/getCntrNoCountInfo.json");
 	}
 	@GetMapping(value = "/report/getCabinetCountInfo")
 	public String getCabinetCountInfo() {
-		return readJson("classpath:org/jeecg/modules/demo/mock/json/getCntrNoCountInfo.json");
+		return readJson("classpath:cn/jantd/modules/demo/mock/json/getCntrNoCountInfo.json");
 	}
 
 	/**
@@ -152,33 +152,33 @@ public class MockController {
 	 */
 	@GetMapping(value = "/list/search/projects")
 	public String projects() {
-		return readJson("classpath:org/jeecg/modules/demo/mock/json/workplace_projects.json");
+		return readJson("classpath:cn/jantd/modules/demo/mock/json/workplace_projects.json");
 	}
 
 	@GetMapping(value = "/workplace/activity")
 	public String activity() {
-		return readJson("classpath:org/jeecg/modules/demo/mock/json/workplace_activity.json");
+		return readJson("classpath:cn/jantd/modules/demo/mock/json/workplace_activity.json");
 	}
 
 	@GetMapping(value = "/workplace/teams")
 	public String teams() {
-		return readJson("classpath:org/jeecg/modules/demo/mock/json/workplace_teams.json");
+		return readJson("classpath:cn/jantd/modules/demo/mock/json/workplace_teams.json");
 	}
 
 	@GetMapping(value = "/workplace/radar")
 	public String radar() {
-		return readJson("classpath:org/jeecg/modules/demo/mock/json/workplace_radar.json");
+		return readJson("classpath:cn/jantd/modules/demo/mock/json/workplace_radar.json");
 	}
 
 	@GetMapping(value = "/task/process")
 	public String taskProcess() {
-		return readJson("classpath:org/jeecg/modules/demo/mock/json/task_process.json");
+		return readJson("classpath:cn/jantd/modules/demo/mock/json/task_process.json");
 	}
 	//-------------------------------------------------------------------------------------------
 
 	//author:lvdandan-----date：20190315---for:添加数据日志json----
 	public String sysDataLogJson() {
-		return readJson("classpath:org/jeecg/modules/demo/mock/json/sysdatalog.json");
+		return readJson("classpath:cn/jantd/modules/demo/mock/json/sysdatalog.json");
 	}
 	//author:lvdandan-----date：20190315---for:添加数据日志json----
 
