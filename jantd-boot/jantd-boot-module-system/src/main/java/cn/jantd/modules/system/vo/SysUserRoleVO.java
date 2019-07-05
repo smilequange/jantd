@@ -1,5 +1,6 @@
 package cn.jantd.modules.system.vo;
 
+
 import lombok.Data;
 
 import java.io.Serializable;
@@ -11,7 +12,7 @@ import java.util.List;
  */
 @Data
 public class SysUserRoleVO implements Serializable {
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 3368937857346949270L;
 
     /**
      * 部门id
@@ -26,6 +27,10 @@ public class SysUserRoleVO implements Serializable {
         super();
         this.roleId = roleId;
         this.userIdList = userIdList;
+    }
+
+    public SysUserRoleVO() {
+
     }
 
 
