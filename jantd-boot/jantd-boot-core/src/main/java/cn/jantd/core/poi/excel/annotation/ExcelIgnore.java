@@ -23,8 +23,8 @@ import java.lang.annotation.Target;
 /**
  * 标记为excel 创建实体忽略,放置死循环的造成
  *
- * @author quange
- * @date 2013-9-24
+ * @Author 圈哥
+ * @date 2019-07-05
  * @version 1.0
  */
 @Retention(RetentionPolicy.RUNTIME)

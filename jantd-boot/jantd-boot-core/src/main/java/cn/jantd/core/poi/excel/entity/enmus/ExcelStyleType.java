@@ -8,7 +8,7 @@ import cn.jantd.core.poi.excel.export.styler.ExcelExportStylerDefaultImpl;
 /**
  * 插件提供的几个默认样式
  *
- * @author quange
+ * @author  圈哥
  * @date 2015年1月9日 下午9:02:24
  */
 public enum ExcelStyleType {

@@ -11,9 +11,8 @@ import cn.jantd.core.constant.CommonConstant;
 /**
  * 系统日志注解
  *
- * @Author scott
- * @email jeecgos@163.com
- * @Date 2019年1月14日
+ * @Author 圈哥
+ * @date 2019-07-05
  */
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)

@@ -25,7 +25,7 @@ import org.apache.poi.xwpf.usermodel.XWPFTableRow;
 /**
  * 处理和生成Map 类型的数据变成表格
  *
- * @author quange
+ * @author  圈哥
  * @date 2014年8月9日 下午10:28:46
  */
 public final class ExcelMapParse {
@@ -33,7 +33,7 @@ public final class ExcelMapParse {
 	/**
 	 * 解析参数行,获取参数列表
 	 *
-	 * @author quange
+	 * @author  圈哥
 	 * @date 2013-11-18
 	 * @param currentRow
 	 * @return

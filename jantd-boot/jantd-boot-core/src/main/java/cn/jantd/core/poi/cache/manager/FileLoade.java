@@ -27,8 +27,8 @@ import org.slf4j.LoggerFactory;
 /**
  * 文件加载类,根据路径加载指定文件
  *
- * @author quange
- * @date 2014年2月10日
+ * @Author 圈哥
+ * @date 2019-07-05
  * @version 1.0
  */
 class FileLoade {

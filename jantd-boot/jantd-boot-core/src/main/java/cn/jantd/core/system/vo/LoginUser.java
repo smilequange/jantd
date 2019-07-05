@@ -15,7 +15,7 @@ import lombok.experimental.Accessors;
  * 在线用户信息
  * </p>
  *
- * @Author scott
+ * @author  圈哥
  * @since 2018-12-20
  */
 @Data

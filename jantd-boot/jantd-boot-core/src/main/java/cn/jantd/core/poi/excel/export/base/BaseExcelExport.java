@@ -58,7 +58,7 @@ import org.slf4j.LoggerFactory;
 /**
  * 提供POI基础操作服务
  *
- * @author quange
+ * @author  圈哥
  * @date 2014年6月17日 下午6:15:13
  */
 public abstract class BaseExcelExport extends ExportBase {
@@ -348,7 +348,7 @@ public abstract class BaseExcelExport extends ExportBase {
      *
      * @param value
      * @return
-     * @author quange
+     * @author  圈哥
      * @date 2013年11月25日
      */
     public int getImageType(byte[] value) {

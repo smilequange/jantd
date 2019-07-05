@@ -13,7 +13,7 @@ import cn.jantd.core.poi.exception.excel.ExcelExportException;
 /**
  * if else,length,for each,fromatNumber,formatDate 满足模板的 el 表达式支持
  *
- * @author quange
+ * @author  圈哥
  * @date 2015年4月24日 下午8:04:02
  */
 public final class PoiFunctionUtil {

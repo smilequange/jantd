@@ -41,7 +41,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 /**
  * 样式帮助类
  *
- * @author quange
+ * @author  圈哥
  * @date 2015年5月9日 下午4:04:24
  */
 public class StylerHelper {
@@ -257,7 +257,7 @@ public class StylerHelper {
 	/**
 	 * Implementation of {@link HtmlHelper} for XSSF files.
 	 *
-	 * @author Ken Arnold, Industrious Media LLC
+	 * @author 圈哥
 	 */
 	private class XSSFHtmlHelper implements HtmlHelper {
 

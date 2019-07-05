@@ -7,7 +7,7 @@ import java.net.InetAddress;
 
 /**
  *
- * @Author  张代浩
+ * @author  圈哥
  *
  */
 public class UUIDGenerator {

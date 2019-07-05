@@ -18,7 +18,7 @@ package cn.jantd.core.poi.exception.excel.enums;
 /**
  * 导出异常类型枚举
  *
- * @author quange
+ * @author  圈哥
  * @date 2014年6月19日 下午10:59:51
  */
 public enum ExcelImportEnum {

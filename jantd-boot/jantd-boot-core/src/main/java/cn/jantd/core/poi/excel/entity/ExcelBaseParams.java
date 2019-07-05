@@ -7,7 +7,7 @@ import cn.jantd.core.poi.handler.inter.IExcelDataHandler;
 /**
  * 基础参数
  *
- * @author quange
+ * @author  圈哥
  * @date 2014年6月20日 下午1:56:52
  */
 public class ExcelBaseParams {

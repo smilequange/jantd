@@ -1,6 +1,6 @@
 package cn.jantd.core.poi.util;
 /**
- * @author Link Xue
+ * @author 圈哥
  * @version 20171025
  * POI对EXCEL操作工具
  */

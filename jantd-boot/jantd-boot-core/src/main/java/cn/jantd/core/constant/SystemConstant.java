@@ -3,7 +3,7 @@ package cn.jantd.core.constant;
 
 /**
  * @Description 系统模块使用的常量
- * @Author xiagf
+ * @author  圈哥
  * @Version V1.0.0
  * @Since 1.0
  * @Date 2019/7/4

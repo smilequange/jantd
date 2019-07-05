@@ -55,7 +55,7 @@ import static cn.jantd.core.poi.util.PoiElUtil.*;
 /**
  * Excel 导出根据模板导出
  *
- * @author quange
+ * @author  圈哥
  * @version 1.0
  * @date 2013-10-17
  */
@@ -196,7 +196,7 @@ public final class ExcelExportOfTemplateUtilExcelExport extends BaseExcelExport 
      * 克隆excel防止操作原对象,workbook无法克隆,只能对excel进行克隆
      *
      * @throws Exception
-     * @author quange
+     * @author  圈哥
      * @date 2013-11-11
      */
     private Workbook getCloneWorkBook() throws Exception {

@@ -3,7 +3,7 @@ package cn.jantd.core.system.query;
 import java.io.Serializable;
 
 /**
- * @author xiagf 2019-07-03
+ * @author  圈哥 2019-07-03
  */
 public class QueryCondition implements Serializable {
 

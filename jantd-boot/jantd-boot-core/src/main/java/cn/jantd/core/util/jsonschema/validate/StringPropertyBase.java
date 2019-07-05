@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * @author xiagf 2019-07-03
+ * @author  圈哥 2019-07-03
  */
 public class StringPropertyBase extends BaseCommonProperty {
 

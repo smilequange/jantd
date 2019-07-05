@@ -11,7 +11,7 @@ import com.alibaba.fastjson.JSONObject;
 /**
  * 验证通用属性
  *
- * @author xiagf 2019-07-03
+ * @author  圈哥 2019-07-03
  */
 public abstract class BaseCommonProperty implements Serializable {
 

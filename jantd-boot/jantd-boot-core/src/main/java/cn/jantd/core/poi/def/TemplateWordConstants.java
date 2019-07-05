@@ -18,7 +18,7 @@ package cn.jantd.core.poi.def;
 /**
  * Word 导出模板常量
  *
- * @author quange
+ * @author  圈哥
  * @date 2014年7月24日 下午11:26:46
  */
 public interface TemplateWordConstants extends BasePOIConstants {

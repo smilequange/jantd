@@ -18,8 +18,8 @@ package cn.jantd.core.poi.def;
 /**
  * 基础POI常量
  *
- * @author quange
- * @date 2014年6月30日 下午9:23:37
+ * @Author 圈哥
+ * @date 2019-07-05
  */
 interface BasePOIConstants {
 

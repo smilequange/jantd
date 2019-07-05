@@ -21,7 +21,7 @@ import cn.jantd.core.poi.exception.word.enmus.WordExportEnum;
 /**
  * word导出异常
  *
- * @author quange
+ * @author  圈哥
  * @date 2014年8月9日 下午10:32:51
  */
 public class WordExportException extends RuntimeException {

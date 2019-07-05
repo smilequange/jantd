@@ -31,8 +31,8 @@ import com.google.common.cache.LoadingCache;
 /**
  * 缓存管理
  *
- * @author quange
- * @date 2014年2月10日
+ * @Author 圈哥
+ * @date 2019-07-05
  * @version 1.0
  */
 public final class POICacheManager {

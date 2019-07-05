@@ -10,7 +10,7 @@ import cn.jantd.core.util.jsonschema.BaseCommonProperty;
 import com.alibaba.fastjson.JSONObject;
 
 /**
- * @author xiagf 2019-07-03
+ * @author  圈哥 2019-07-03
  */
 public class NumberPropertyBase extends BaseCommonProperty {
 

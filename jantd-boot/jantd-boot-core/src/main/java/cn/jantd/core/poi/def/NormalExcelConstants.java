@@ -18,7 +18,7 @@ package cn.jantd.core.poi.def;
 /**
  * 正常导出Excel
  *
- * @author quange on 14-3-8. 静态常量
+ * @author  圈哥
  */
 public interface NormalExcelConstants extends BasePOIConstants {
 	/**

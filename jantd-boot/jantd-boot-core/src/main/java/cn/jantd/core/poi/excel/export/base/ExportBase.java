@@ -28,7 +28,7 @@ import org.apache.commons.lang3.StringUtils;
 /**
  * 导出基础处理,不设计POI,只设计对象,保证复用性
  *
- * @author quange
+ * @author  圈哥
  * @date 2014年8月9日 下午11:01:32
  */
 public class ExportBase {
@@ -334,7 +334,7 @@ public class ExportBase {
 	//update-begin-author:taoyan date：20180731 for:TASK #3038 【bug】Excel 导出多个值（逗号隔开的情况下，导出字典值是ID值）
 	/**
 	 * 如果需要被替换的值是多选项，则每一项之间有逗号隔开，走以下方法
-	 * @author taoYan
+	 * @author  圈哥
 	 * @since 2018年7月31日
 	 */
 	private Object multiReplaceValue(String[] replace, String value) {

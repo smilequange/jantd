@@ -7,7 +7,7 @@ import org.apache.poi.ss.usermodel.CellStyle;
 /**
  * 模板便利是的参数
  *
- * @author quange
+ * @author  圈哥
  * @date 2015年4月29日 下午9:22:48
  */
 public class ExcelTemplateParams implements Serializable {

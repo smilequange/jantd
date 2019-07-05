@@ -64,7 +64,7 @@ import org.slf4j.LoggerFactory;
 /**
  * Excel 导入服务
  *
- * @author quange
+ * @author  圈哥
  * @date 2014年6月26日 下午9:20:51
  */
 @SuppressWarnings({"rawtypes", "unchecked", "hiding"})
@@ -128,7 +128,7 @@ public class ExcelImportServer extends ImportBaseService {
      *
      * @param cell
      * @return
-     * @author quange
+     * @author  圈哥
      * @date 2013-11-21
      */
     private String getKeyValue(Cell cell) {

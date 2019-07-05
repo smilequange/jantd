@@ -3,7 +3,7 @@ package cn.jantd.core.util.supersearch;
 import lombok.Data;
 
 /**
- * @author xiagf 2019-07-03
+ * @author  圈哥 2019-07-03
  */
 @Data
 public class QueryRuleVo {

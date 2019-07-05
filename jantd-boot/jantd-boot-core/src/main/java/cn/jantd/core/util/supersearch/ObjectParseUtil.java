@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 /**
  *   判断类型，追加查询规则
  *
- * @Author Scott
+ * @author  圈哥
  * @Date 2019年02月14日
  */
 public class ObjectParseUtil {

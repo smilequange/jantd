@@ -23,7 +23,7 @@ import java.util.regex.Pattern;
 /**
  * 基础校验工具类
  *
- * @author quange
+ * @author  圈哥
  * @date 2014年6月23日 下午11:10:12
  */
 public class BaseVerifyHandler {

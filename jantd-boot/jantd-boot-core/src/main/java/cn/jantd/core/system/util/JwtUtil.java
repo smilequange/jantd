@@ -19,7 +19,7 @@ import cn.jantd.core.util.SpringContextUtils;
 import cn.jantd.core.util.oConvertUtils;
 
 /**
- * @Author Scott
+ * @author  圈哥
  * @Date 2018-07-12 14:23
  * @Desc JWT工具类
  **/

@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * @author xiagf 2019-07-03
+ * @author  圈哥 2019-07-03
  */
 public class PopupPropertyBase extends BaseCommonProperty {
 

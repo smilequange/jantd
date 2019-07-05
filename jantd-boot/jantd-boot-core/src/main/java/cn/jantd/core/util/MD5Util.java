@@ -3,7 +3,7 @@ package cn.jantd.core.util;
 import java.security.MessageDigest;
 
 /**
- * @author xiagf 2019-07-03
+ * @author  圈哥 2019-07-03
  */
 public class MD5Util {
 

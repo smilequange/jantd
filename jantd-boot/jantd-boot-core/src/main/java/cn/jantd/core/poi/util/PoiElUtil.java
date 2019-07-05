@@ -25,7 +25,7 @@ import java.util.Map;
 /**
  * EasyPoi的el 表达式支持工具类
  *
- * @author quange
+ * @author  圈哥
  * @date 2015年4月25日 下午12:13:21
  */
 public final class PoiElUtil {

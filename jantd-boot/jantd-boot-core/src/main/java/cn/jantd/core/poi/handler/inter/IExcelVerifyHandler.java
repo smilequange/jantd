@@ -21,7 +21,7 @@ import cn.jantd.core.poi.excel.entity.result.ExcelVerifyHanlderResult;
 /**
  * 导入校验接口
  *
- * @author quange
+ * @author  圈哥
  * @date 2014年6月23日 下午11:08:21
  */
 public interface IExcelVerifyHandler {

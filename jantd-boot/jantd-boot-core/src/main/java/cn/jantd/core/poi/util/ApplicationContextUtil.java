@@ -6,7 +6,7 @@ import org.springframework.context.ApplicationContextAware;
 
 /**
  *
- * @author  张代浩
+ * @author  圈哥
  *
  */
 public class ApplicationContextUtil implements ApplicationContextAware {

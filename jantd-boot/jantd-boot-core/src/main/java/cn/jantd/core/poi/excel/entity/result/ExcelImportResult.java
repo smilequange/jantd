@@ -22,7 +22,7 @@ import org.apache.poi.ss.usermodel.Workbook;
 /**
  * 导入返回类
  *
- * @author quange
+ * @author  圈哥
  * @date 2014年6月29日 下午5:12:10
  */
 public class ExcelImportResult<T> {

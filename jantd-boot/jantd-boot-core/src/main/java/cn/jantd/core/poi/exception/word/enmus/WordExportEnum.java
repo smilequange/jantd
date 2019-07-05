@@ -18,7 +18,7 @@ package cn.jantd.core.poi.exception.word.enmus;
 /**
  * 导出异常枚举
  *
- * @author quange
+ * @author  圈哥
  * @date 2014年8月9日 下午10:34:58
  */
 public enum WordExportEnum {

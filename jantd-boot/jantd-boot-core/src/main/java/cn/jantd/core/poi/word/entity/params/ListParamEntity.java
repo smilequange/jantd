@@ -18,7 +18,7 @@ package cn.jantd.core.poi.word.entity.params;
 /**
  * Excel 对象导出结构
  *
- * @author quange
+ * @author  圈哥
  * @date 2014年7月26日 下午11:14:48
  */
 public class ListParamEntity {

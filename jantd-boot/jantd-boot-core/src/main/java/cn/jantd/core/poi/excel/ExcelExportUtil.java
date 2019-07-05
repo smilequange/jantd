@@ -35,7 +35,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 /**
  * excel 导出工具类
  *
- * @author quange
+ * @author  圈哥
  * @version 1.0
  * @date 2013-10-17
  */

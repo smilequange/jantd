@@ -18,7 +18,7 @@ package cn.jantd.core.poi.def;
 /**
  * 模板Excel导出常量
  *
- * @author quange
+ * @author  圈哥
  * @date 2014年6月30日 下午9:26:52
  */
 public interface TemplateExcelConstants extends BasePOIConstants {
