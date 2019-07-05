@@ -1,10 +1,10 @@
 <template>
   <div class="user-wrapper" :class="theme">
-    <span class="action">
+    <!-- <span class="action">
       <a class="logout_title" target="_blank" href="http://jeecg-boot.mydoc.io">
         <a-icon type="question-circle-o"></a-icon>
       </a>
-    </span>
+    </span> -->
     <header-notice class="action"/>
     <a-dropdown>
       <span class="action action-full ant-dropdown-link user-dropdown-menu">
