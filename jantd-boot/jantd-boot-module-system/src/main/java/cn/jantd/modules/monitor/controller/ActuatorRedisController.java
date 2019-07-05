@@ -10,9 +10,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.swing.filechooser.FileSystemView;
 
+import cn.jantd.core.annotation.AutoLog;
 import cn.jantd.core.api.vo.Result;
 import cn.jantd.modules.monitor.service.RedisService;
 import cn.jantd.modules.monitor.domain.RedisInfo;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -38,6 +40,8 @@ public class ActuatorRedisController {
      * @return
      * @throws Exception
      */
+    @AutoLog(value = "获取redis信息")
+    @ApiOperation(value = "获取redis信息", httpMethod = "GET")
     @GetMapping("/info")
     public Result<?> getRedisInfo() throws Exception {
         List<RedisInfo> infoList = this.redisService.getRedisInfo();
@@ -45,17 +49,19 @@ public class ActuatorRedisController {
         return Result.ok(infoList);
     }
 
+    @AutoLog(value = "查看Radis Key 实时数量")
+    @ApiOperation(value = "查看Radis Key 实时数量", httpMethod = "GET")
     @GetMapping("/keysSize")
     public Map<String, Object> getKeysSize() throws Exception {
         return redisService.getKeysSize();
     }
 
+    @AutoLog(value = "查看redis内存信息")
+    @ApiOperation(value = "查看redis内存信息", httpMethod = "GET")
     @GetMapping("/memoryInfo")
     public Map<String, Object> getMemoryInfo() throws Exception {
         return redisService.getMemoryInfo();
     }
-
-    // update-begin--Author:zhangweijian  Date:20190425 for：获取磁盘信息
 
     /**
      * @param request
@@ -63,6 +69,8 @@ public class ActuatorRedisController {
      * @return
      * @功能：获取磁盘信息
      */
+    @AutoLog(value = "查看磁盘信息")
+    @ApiOperation(value = "查看磁盘信息", httpMethod = "GET")
     @GetMapping("/queryDiskInfo")
     public Result<List<Map<String, Object>>> queryDiskInfo(HttpServletRequest request, HttpServletResponse response) {
         Result<List<Map<String, Object>>> res = new Result<>();
@@ -93,5 +101,4 @@ public class ActuatorRedisController {
         }
         return res;
     }
-    // update-end--Author:zhangweijian  Date:20190425 for：获取磁盘信息
 }

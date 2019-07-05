@@ -2,6 +2,7 @@ package cn.jantd.modules.system.controller;
 
 import javax.servlet.http.HttpServletRequest;
 
+import cn.jantd.core.annotation.AutoLog;
 import cn.jantd.core.api.vo.Result;
 import org.apache.commons.lang.StringUtils;
 import cn.jantd.modules.system.mapper.SysDictMapper;
@@ -36,6 +37,7 @@ public class DuplicateCheckController {
 	 *
 	 * @return
 	 */
+	@AutoLog(value = "校验数据在系统中是否存在")
 	@RequestMapping(value = "/check", method = RequestMethod.GET)
 	@ApiOperation("重复校验接口")
 	public Result<Object> doDuplicateCheck(DuplicateCheckVo duplicateCheckVo, HttpServletRequest request) {

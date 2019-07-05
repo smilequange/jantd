@@ -1,5 +1,6 @@
 package cn.jantd.modules.system.controller;
 
+import cn.jantd.core.annotation.AutoLog;
 import cn.jantd.core.api.vo.Result;
 import cn.jantd.core.constant.CommonConstant;
 import cn.jantd.core.system.api.SystemBaseApi;
@@ -103,6 +104,7 @@ public class LoginController {
      * @param response
      * @return
      */
+    @ApiOperation(value = "退出登录")
     @RequestMapping(value = "/logout")
     public Result<Object> logout(HttpServletRequest request, HttpServletResponse response) {
         //用户退出逻辑
@@ -126,6 +128,8 @@ public class LoginController {
      *
      * @return
      */
+    @AutoLog(value = "获取访问量")
+    @ApiOperation(value = "获取访问量")
     @GetMapping("loginfo")
     public Result<JSONObject> loginfo() {
         Result<JSONObject> result = new Result<JSONObject>();
@@ -159,6 +163,8 @@ public class LoginController {
      * @param user
      * @return
      */
+    @AutoLog(value = "登陆成功选择用户当前部门")
+    @ApiOperation(value = "登陆成功选择用户当前部门")
     @RequestMapping(value = "/selectDepart", method = RequestMethod.PUT)
     public Result<?> selectDepart(@RequestBody SysUser user) {
         String username = user.getUsername();

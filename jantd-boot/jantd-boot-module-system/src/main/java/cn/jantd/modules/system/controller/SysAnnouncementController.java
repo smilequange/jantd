@@ -10,6 +10,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import cn.jantd.core.annotation.AutoLog;
 import cn.jantd.core.api.vo.Result;
 import cn.jantd.core.constant.CommonConstant;
 import cn.jantd.core.constant.CommonSendStatus;
@@ -23,6 +24,7 @@ import cn.jantd.core.system.query.QueryGenerator;
 import cn.jantd.core.system.util.JwtUtil;
 import cn.jantd.core.system.vo.LoginUser;
 import cn.jantd.core.util.oConvertUtils;
+import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.SecurityUtils;
 import cn.jantd.modules.system.entity.SysAnnouncement;
 import cn.jantd.modules.system.entity.SysAnnouncementSend;
@@ -71,6 +73,8 @@ public class SysAnnouncementController {
      * @param req
      * @return
      */
+    @AutoLog(value = "系统通告-分页列表查询")
+    @ApiOperation(value = "系统通告-分页列表查询")
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public Result<IPage<SysAnnouncement>> queryPageList(SysAnnouncement sysAnnouncement,
                                                         @RequestParam(name = "pageNo", defaultValue = "1") Integer pageNo,
@@ -106,6 +110,8 @@ public class SysAnnouncementController {
      * @param sysAnnouncement
      * @return
      */
+    @AutoLog(value = "系统通告-添加")
+    @ApiOperation(value = "系统通告-添加")
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public Result<SysAnnouncement> add(@RequestBody SysAnnouncement sysAnnouncement) {
         Result<SysAnnouncement> result = new Result<SysAnnouncement>();
@@ -128,6 +134,8 @@ public class SysAnnouncementController {
      * @param sysAnnouncement
      * @return
      */
+    @AutoLog(value = "系统通告-编辑")
+    @ApiOperation(value = "系统通告-编辑")
     @RequestMapping(value = "/edit", method = RequestMethod.PUT)
     public Result<SysAnnouncement> eidt(@RequestBody SysAnnouncement sysAnnouncement) {
         Result<SysAnnouncement> result = new Result<SysAnnouncement>();
@@ -151,6 +159,8 @@ public class SysAnnouncementController {
      * @param id
      * @return
      */
+    @AutoLog(value = "系统通告-通过id删除")
+    @ApiOperation(value = "系统通告-通过id删除")
     @RequestMapping(value = "/delete", method = RequestMethod.DELETE)
     public Result<SysAnnouncement> delete(@RequestParam(name = "id", required = true) String id) {
         Result<SysAnnouncement> result = new Result<SysAnnouncement>();
@@ -174,6 +184,8 @@ public class SysAnnouncementController {
      * @param ids
      * @return
      */
+    @AutoLog(value = "系统通告-批量删除")
+    @ApiOperation(value = "系统通告-批量删除")
     @RequestMapping(value = "/deleteBatch", method = RequestMethod.DELETE)
     public Result<SysAnnouncement> deleteBatch(@RequestParam(name = "ids", required = true) String ids) {
         Result<SysAnnouncement> result = new Result<SysAnnouncement>();
@@ -197,6 +209,8 @@ public class SysAnnouncementController {
      * @param id
      * @return
      */
+    @AutoLog(value = "系统通告-通过id查询")
+    @ApiOperation(value = "系统通告-通过id查询")
     @RequestMapping(value = "/queryById", method = RequestMethod.GET)
     public Result<SysAnnouncement> queryById(@RequestParam(name = "id", required = true) String id) {
         Result<SysAnnouncement> result = new Result<SysAnnouncement>();
@@ -216,6 +230,8 @@ public class SysAnnouncementController {
      * @param id
      * @return
      */
+    @AutoLog(value = "系统通告-更新发布操作")
+    @ApiOperation(value = "系统通告-更新发布操作")
     @RequestMapping(value = "/doReleaseData", method = RequestMethod.GET)
     public Result<SysAnnouncement> doReleaseData(@RequestParam(name = "id", required = true) String id, HttpServletRequest request) {
         Result<SysAnnouncement> result = new Result<SysAnnouncement>();
@@ -243,6 +259,8 @@ public class SysAnnouncementController {
      * @param id
      * @return
      */
+    @AutoLog(value = "系统通告-更新撤销操作")
+    @ApiOperation(value = "系统通告-更新撤销操作")
     @RequestMapping(value = "/doReovkeData", method = RequestMethod.GET)
     public Result<SysAnnouncement> doReovkeData(@RequestParam(name = "id", required = true) String id, HttpServletRequest request) {
         Result<SysAnnouncement> result = new Result<SysAnnouncement>();
@@ -266,6 +284,7 @@ public class SysAnnouncementController {
      * @return
      * @功能：补充用户数据，并返回系统消息
      */
+    @ApiOperation(value = "系统通告-补充用户数据，并返回系统消息")
     @RequestMapping(value = "/listByUser", method = RequestMethod.GET)
     public Result<Map<String, Object>> listByUser() {
         Result<Map<String, Object>> result = new Result<Map<String, Object>>();
@@ -316,6 +335,8 @@ public class SysAnnouncementController {
      * @param request
      * @return
      */
+    @AutoLog(value = "系统通告-导出excel")
+    @ApiOperation(value = "系统通告-导出excel")
     @RequestMapping(value = "/exportXls")
     public ModelAndView exportXls(SysAnnouncement sysAnnouncement, HttpServletRequest request) {
         // Step.1 组装查询条件
@@ -338,6 +359,8 @@ public class SysAnnouncementController {
      * @param response
      * @return
      */
+    @AutoLog(value = "系统通告-通过excel导入数据")
+    @ApiOperation(value = "系统通告-通过excel导入数据")
     @RequestMapping(value = "/importExcel", method = RequestMethod.POST)
     public Result<?> importExcel(HttpServletRequest request, HttpServletResponse response) {
         MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
