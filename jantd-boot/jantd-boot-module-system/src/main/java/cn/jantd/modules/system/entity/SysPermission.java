@@ -16,7 +16,7 @@ import lombok.experimental.Accessors;
  * 菜单权限表
  * </p>
  *
- * @Author scott
+ * @Author xiagf
  * @since 2018-12-21
  */
 @Data

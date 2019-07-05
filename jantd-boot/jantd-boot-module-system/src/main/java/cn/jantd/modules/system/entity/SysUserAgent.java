@@ -13,7 +13,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 /**
  * @Description: 用户代理人设置
- * @Author: jeecg-boot
+ * @Author xiagf
  * @Date:  2019-04-17
  * @Version: V1.0
  */

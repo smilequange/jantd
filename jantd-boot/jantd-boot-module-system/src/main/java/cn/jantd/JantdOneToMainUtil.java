@@ -9,7 +9,7 @@ import org.jeecgframework.codegenerate.generate.pojo.onetomany.SubTableVo;
 
 /**
  * 代码生成器入口【一对多】
- * @Author 张代浩
+ * @Author xiagf
  * @site www.jeecg.org
  *
  */

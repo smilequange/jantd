@@ -42,7 +42,7 @@ import lombok.extern.slf4j.Slf4j;
  * 菜单权限表 前端控制器
  * </p>
  *
- * @Author scott
+ * @Author xiagf
  * @since 2018-12-21
  */
 @Slf4j

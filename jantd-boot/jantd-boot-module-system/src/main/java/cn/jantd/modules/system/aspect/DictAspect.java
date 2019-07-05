@@ -28,7 +28,7 @@ import lombok.extern.slf4j.Slf4j;
 
 /**
  * @Description: 字典aop类
- * @Author: xiagf
+ * @Author xiagf
  * @Date: 2019-07-04
  * @Version: 1.0
  */

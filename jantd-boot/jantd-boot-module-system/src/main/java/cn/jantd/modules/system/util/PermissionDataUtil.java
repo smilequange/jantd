@@ -7,7 +7,7 @@ import cn.jantd.core.util.oConvertUtils;
 import cn.jantd.modules.system.entity.SysPermission;
 
 /**
- * @Author: scott
+ * @Author xiagf
  * @Date: 2019-04-03
  */
 public class PermissionDataUtil {

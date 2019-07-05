@@ -21,7 +21,7 @@ import lombok.experimental.Accessors;
  * 用户表
  * </p>
  *
- * @Author scott
+ * @Author xiagf
  * @since 2018-12-20
  */
 @Data

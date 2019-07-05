@@ -5,7 +5,7 @@ import cn.jantd.core.system.base.service.BaseService;
 
 /**
  * @Description: jeecg 测试demo
- * @Author: jeecg-boot
+ * @Author xiagf
  * @Date:  2018-12-29
  * @Version: V1.0
  */
