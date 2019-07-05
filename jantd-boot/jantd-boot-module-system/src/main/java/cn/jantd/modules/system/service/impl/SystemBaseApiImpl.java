@@ -80,6 +80,8 @@ public class SystemBaseApiImpl implements SystemBaseApi {
             HttpServletRequest request = SpringContextUtils.getHttpServletRequest();
             //设置IP地址
             sysLog.setIp(IPUtils.getIpAddr(request));
+            // 设置请求url
+            sysLog.setRequestUrl(request.getRequestURI());
         } catch (Exception e) {
             sysLog.setIp("127.0.0.1");
         }
@@ -89,7 +91,6 @@ public class SystemBaseApiImpl implements SystemBaseApi {
         if (sysUser != null) {
             sysLog.setUserid(sysUser.getUsername());
             sysLog.setUsername(sysUser.getRealname());
-
         }
         sysLog.setCreateTime(new Date());
         //保存系统日志

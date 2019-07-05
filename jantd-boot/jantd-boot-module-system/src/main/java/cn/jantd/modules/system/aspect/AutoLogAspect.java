@@ -83,6 +83,8 @@ public class AutoLogAspect {
 		HttpServletRequest request = SpringContextUtils.getHttpServletRequest();
 		//设置IP地址
 		sysLog.setIp(IPUtils.getIpAddr(request));
+		// 设置请求url
+		sysLog.setRequestUrl(request.getRequestURI());
 
 		//获取登录用户信息
 		LoginUser sysUser = (LoginUser)SecurityUtils.getSubject().getPrincipal();
