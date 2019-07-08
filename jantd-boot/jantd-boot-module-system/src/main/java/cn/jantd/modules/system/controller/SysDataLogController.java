@@ -5,10 +5,12 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import cn.jantd.core.annotation.AutoLog;
 import cn.jantd.core.api.vo.Result;
 import cn.jantd.core.system.query.QueryGenerator;
 import cn.jantd.modules.system.entity.SysDataLog;
 import cn.jantd.modules.system.service.ISysDataLogService;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -34,6 +36,8 @@ public class SysDataLogController {
     @Autowired
     private ISysDataLogService service;
 
+    @AutoLog(value = "数据日志-分页列表查询")
+    @ApiOperation(value = "数据日志-分页列表查询")
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public Result<IPage<SysDataLog>> queryPageList(SysDataLog dataLog, @RequestParam(name = "pageNo", defaultValue = "1") Integer pageNo,
                                                    @RequestParam(name = "pageSize", defaultValue = "10") Integer pageSize, HttpServletRequest req) {
@@ -56,6 +60,8 @@ public class SysDataLogController {
      * @param req
      * @return
      */
+    @AutoLog(value = "数据日志-查询对比数据")
+    @ApiOperation(value = "数据日志-查询对比数据")
     @RequestMapping(value = "/queryCompareList", method = RequestMethod.GET)
     public Result<List<SysDataLog>> queryCompareList(HttpServletRequest req) {
         Result<List<SysDataLog>> result = new Result<>();
@@ -80,6 +86,8 @@ public class SysDataLogController {
      * @param req
      * @return
      */
+    @AutoLog(value = "数据日志-查询版本信息")
+    @ApiOperation(value = "数据日志-查询版本信息")
     @RequestMapping(value = "/queryDataVerList", method = RequestMethod.GET)
     public Result<List<SysDataLog>> queryDataVerList(HttpServletRequest req) {
         Result<List<SysDataLog>> result = new Result<>();

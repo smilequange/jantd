@@ -9,6 +9,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import cn.jantd.core.annotation.AutoLog;
 import cn.jantd.core.api.vo.Result;
 import cn.jantd.core.constant.SystemConstant;
 import cn.jantd.core.poi.def.NormalExcelConstants;
@@ -26,6 +27,7 @@ import cn.jantd.modules.system.service.ISysDictItemService;
 import cn.jantd.modules.system.service.ISysDictService;
 import cn.jantd.modules.system.vo.SysDictPage;
 
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
@@ -65,6 +67,8 @@ public class SysDictController {
     @Autowired
     private ISysDictItemService sysDictItemService;
 
+    @AutoLog(value = "数据字典-分页列表查询")
+    @ApiOperation(value = "数据字典-分页列表查询")
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public Result<IPage<SysDict>> queryPageList(SysDict sysDict, @RequestParam(name = "pageNo", defaultValue = "1") Integer pageNo,
                                                 @RequestParam(name = "pageSize", defaultValue = "10") Integer pageSize, HttpServletRequest req) {
@@ -90,6 +94,8 @@ public class SysDictController {
      * @return
      * @功能：获取树形字典数据
      */
+    @AutoLog(value = "数据字典-获取树形字典数据")
+    @ApiOperation(value = "数据字典-获取树形字典数据")
     @SuppressWarnings("unchecked")
     @RequestMapping(value = "/treeList", method = RequestMethod.GET)
     public Result<List<SysDictTree>> treeList(SysDict sysDict, @RequestParam(name = "pageNo", defaultValue = "1") Integer pageNo,
@@ -120,6 +126,8 @@ public class SysDictController {
      * @param dictCode 表名,文本字段,code字段  | 举例：sys_user,realname,id
      * @return
      */
+    @AutoLog(value = "数据字典-获取字典数据")
+    @ApiOperation(value = "数据字典-获取字典数据")
     @RequestMapping(value = "/getDictItems/{dictCode}", method = RequestMethod.GET)
     public Result<List<DictModel>> getDictItems(@PathVariable String dictCode) {
         log.info(" dictCode : " + dictCode);
@@ -157,6 +165,8 @@ public class SysDictController {
      * @param dictCode
      * @return
      */
+    @AutoLog(value = "数据字典-通过查询指定code 获取字典值text")
+    @ApiOperation(value = "数据字典-通过查询指定code 获取字典值text")
     @RequestMapping(value = "/getDictText/{dictCode}/{key}", method = RequestMethod.GET)
     public Result<String> getDictItems(@PathVariable("dictCode") String dictCode, @PathVariable("key") String key) {
         log.info(" dictCode : " + dictCode);
@@ -179,6 +189,8 @@ public class SysDictController {
      * @return
      * @功能：新增
      */
+    @AutoLog(value = "数据字典-新增")
+    @ApiOperation(value = "部门管理-新增")
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public Result<SysDict> add(@RequestBody SysDict sysDict) {
         Result<SysDict> result = new Result<SysDict>();
@@ -198,6 +210,8 @@ public class SysDictController {
      * @return
      * @功能：编辑
      */
+    @AutoLog(value = "数据字典-编辑")
+    @ApiOperation(value = "数据字典-编辑")
     @RequestMapping(value = "/edit", method = RequestMethod.PUT)
     public Result<SysDict> edit(@RequestBody SysDict sysDict) {
         Result<SysDict> result = new Result<SysDict>();
@@ -220,6 +234,8 @@ public class SysDictController {
      * @return
      * @功能：删除
      */
+    @AutoLog(value = "数据字典-通过id删除")
+    @ApiOperation(value = "数据字典-通过id删除")
     @RequestMapping(value = "/delete", method = RequestMethod.DELETE)
     @CacheEvict(value = "dictCache", allEntries = true)
     public Result<SysDict> delete(@RequestParam(name = "id", required = true) String id) {
@@ -243,6 +259,8 @@ public class SysDictController {
      * @return
      * @功能：批量删除
      */
+    @AutoLog(value = "数据字典-批量删除")
+    @ApiOperation(value = "数据字典-批量删除")
     @RequestMapping(value = "/deleteBatch", method = RequestMethod.DELETE)
     @CacheEvict(value = "dictCache", allEntries = true)
     public Result<SysDict> deleteBatch(@RequestParam(name = "ids", required = true) String ids) {
@@ -268,6 +286,8 @@ public class SysDictController {
      * @param request
      * @return
      */
+    @AutoLog(value = "数据字典-导出excel")
+    @ApiOperation(value = "数据字典-导出excel")
     @RequestMapping(value = "/exportXls")
     public ModelAndView exportXls(SysDict sysDict, HttpServletRequest request) {
         // Step.1 组装查询条件
@@ -304,6 +324,8 @@ public class SysDictController {
      * @param
      * @return
      */
+    @AutoLog(value = "数据字典-通过excel导入数据")
+    @ApiOperation(value = "数据字典-通过excel导入数据")
     @RequestMapping(value = "/importExcel", method = RequestMethod.POST)
     public Result<?> importExcel(HttpServletRequest request, HttpServletResponse response) {
         MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;

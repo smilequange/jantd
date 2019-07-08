@@ -6,10 +6,12 @@ import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 
+import cn.jantd.core.annotation.AutoLog;
 import cn.jantd.core.api.vo.Result;
 import cn.jantd.core.system.query.QueryGenerator;
 import cn.jantd.modules.system.entity.SysDictItem;
 import cn.jantd.modules.system.service.ISysDictItemService;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -48,6 +50,8 @@ public class SysDictItemController {
      * @return
      * @功能：查询字典数据
      */
+    @AutoLog(value = "字典配置-查询字典数据")
+    @ApiOperation(value = "字典配置-查询字典数据")
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public Result<IPage<SysDictItem>> queryPageList(SysDictItem sysDictItem, @RequestParam(name = "pageNo", defaultValue = "1") Integer pageNo,
                                                     @RequestParam(name = "pageSize", defaultValue = "10") Integer pageSize, HttpServletRequest req) {
@@ -67,6 +71,8 @@ public class SysDictItemController {
      * @param sysDictItem
      * @return
      */
+    @AutoLog(value = "字典配置-新增")
+    @ApiOperation(value = "字典配置-新增")
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     @CacheEvict(value = "dictCache", allEntries = true)
     public Result<SysDictItem> add(@RequestBody SysDictItem sysDictItem) {
@@ -87,6 +93,8 @@ public class SysDictItemController {
      * @return
      * @功能：编辑
      */
+    @AutoLog(value = "字典配置-编辑")
+    @ApiOperation(value = "字典配置-编辑")
     @RequestMapping(value = "/edit", method = RequestMethod.PUT)
     @CacheEvict(value = "dictCache", allEntries = true)
     public Result<SysDictItem> edit(@RequestBody SysDictItem sysDictItem) {
@@ -110,6 +118,8 @@ public class SysDictItemController {
      * @return
      * @功能：删除字典数据
      */
+    @AutoLog(value = "字典配置-通过id删除")
+    @ApiOperation(value = "字典配置-通过id删除")
     @RequestMapping(value = "/delete", method = RequestMethod.DELETE)
     @CacheEvict(value = "dictCache", allEntries = true)
     public Result<SysDictItem> delete(@RequestParam(name = "id", required = true) String id) {
@@ -131,6 +141,8 @@ public class SysDictItemController {
      * @return
      * @功能：批量删除字典数据
      */
+    @AutoLog(value = "字典配置-批量删除字典数据")
+    @ApiOperation(value = "字典配置-批量删除字典数据")
     @RequestMapping(value = "/deleteBatch", method = RequestMethod.DELETE)
     @CacheEvict(value = "dictCache", allEntries = true)
     public Result<SysDictItem> deleteBatch(@RequestParam(name = "ids", required = true) String ids) {

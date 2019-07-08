@@ -10,6 +10,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import cn.jantd.core.annotation.AutoLog;
 import cn.jantd.core.api.vo.Result;
 import cn.jantd.core.poi.def.NormalExcelConstants;
 import cn.jantd.core.poi.excel.ExcelImportUtil;
@@ -26,6 +27,7 @@ import cn.jantd.modules.system.service.ISysUserDepartService;
 import cn.jantd.modules.system.service.ISysUserService;
 import cn.jantd.modules.system.util.FindsDepartsChildrenUtil;
 
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -65,6 +67,8 @@ public class SysDepartController {
      *
      * @return
      */
+    @AutoLog(value = "部门管理-查询部门树")
+    @ApiOperation(value = "部门管理-查询部门树")
     @RequestMapping(value = "/queryTreeList", method = RequestMethod.GET)
     public Result<List<SysDepartTreeModel>> queryTreeList() {
         Result<List<SysDepartTreeModel>> result = new Result<>();
@@ -84,6 +88,8 @@ public class SysDepartController {
      * @param sysDepart
      * @return
      */
+    @AutoLog(value = "部门管理-添加部门")
+    @ApiOperation(value = "部门管理-添加部门")
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public Result<SysDepart> add(@RequestBody SysDepart sysDepart, HttpServletRequest request) {
         Result<SysDepart> result = new Result<SysDepart>();
@@ -105,6 +111,8 @@ public class SysDepartController {
      * @param sysDepart
      * @return
      */
+    @AutoLog(value = "部门管理-编辑部门")
+    @ApiOperation(value = "部门管理-编辑部门")
     @RequestMapping(value = "/edit", method = RequestMethod.PUT)
     public Result<SysDepart> edit(@RequestBody SysDepart sysDepart, HttpServletRequest request) {
         String username = JwtUtil.getUserNameByToken(request);
@@ -129,6 +137,8 @@ public class SysDepartController {
      * @param id
      * @return
      */
+    @AutoLog(value = "部门管理-通过id删除")
+    @ApiOperation(value = "部门管理-通过id删除")
     @RequestMapping(value = "/delete", method = RequestMethod.DELETE)
     public Result<SysDepart> delete(@RequestParam(name = "id", required = true) String id) {
 
@@ -152,6 +162,8 @@ public class SysDepartController {
      * @param ids
      * @return
      */
+    @AutoLog(value = "部门管理-批量删除")
+    @ApiOperation(value = "部门管理-批量删除")
     @RequestMapping(value = "/deleteBatch", method = RequestMethod.DELETE)
     public Result<SysDepart> deleteBatch(@RequestParam(name = "ids", required = true) String ids) {
 
@@ -170,6 +182,8 @@ public class SysDepartController {
      *
      * @return
      */
+    @AutoLog(value = "部门管理-查询数据")
+    @ApiOperation(value = "部门管理-查询数据")
     @RequestMapping(value = "/queryIdTree", method = RequestMethod.GET)
     public Result<List<DepartIdModel>> queryIdTree() {
         Result<List<DepartIdModel>> result = new Result<List<DepartIdModel>>();
@@ -201,6 +215,8 @@ public class SysDepartController {
      * @param keyWord
      * @return
      */
+    @AutoLog(value = "部门管理-部门搜索")
+    @ApiOperation(value = "部门管理-部门搜索")
     @RequestMapping(value = "/searchBy", method = RequestMethod.GET)
     public Result<List<SysDepartTreeModel>> searchBy(@RequestParam(name = "keyWord", required = true) String keyWord) {
         Result<List<SysDepartTreeModel>> result = new Result<List<SysDepartTreeModel>>();
@@ -228,6 +244,8 @@ public class SysDepartController {
      * @param request
      * @return
      */
+    @AutoLog(value = "部门管理-导出excel")
+    @ApiOperation(value = "部门管理-导出excel")
     @RequestMapping(value = "/exportXls")
     public ModelAndView exportXls(SysDepart sysDepart, HttpServletRequest request) {
         // Step.1 组装查询条件
@@ -257,6 +275,8 @@ public class SysDepartController {
      * @param response
      * @return
      */
+    @AutoLog(value = "部门管理-通过excel导入数据")
+    @ApiOperation(value = "部门管理-通过excel导入数据")
     @RequestMapping(value = "/importExcel", method = RequestMethod.POST)
     public Result<?> importExcel(HttpServletRequest request, HttpServletResponse response) {
         MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;

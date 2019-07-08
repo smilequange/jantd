@@ -8,6 +8,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import cn.jantd.core.annotation.AutoLog;
 import cn.jantd.core.api.vo.Result;
 import cn.jantd.core.poi.def.NormalExcelConstants;
 import cn.jantd.core.poi.excel.ExcelImportUtil;
@@ -18,6 +19,7 @@ import cn.jantd.core.system.query.QueryGenerator;
 import cn.jantd.modules.system.entity.SysUserAgent;
 import cn.jantd.modules.system.service.ISysUserAgentService;
 
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -62,6 +64,8 @@ public class SysUserAgentController {
      * @param req
      * @return
      */
+    @AutoLog(value = "用户代理人-分页列表查询")
+    @ApiOperation(value = "用户代理人-分页列表查询")
     @GetMapping(value = "/list")
     public Result<IPage<SysUserAgent>> queryPageList(SysUserAgent sysUserAgent,
                                                      @RequestParam(name = "pageNo", defaultValue = "1") Integer pageNo,
@@ -82,6 +86,8 @@ public class SysUserAgentController {
      * @param sysUserAgent
      * @return
      */
+    @AutoLog(value = "用户代理人-添加")
+    @ApiOperation(value = "用户代理人-添加")
     @PostMapping(value = "/add")
     public Result<SysUserAgent> add(@RequestBody SysUserAgent sysUserAgent) {
         Result<SysUserAgent> result = new Result<SysUserAgent>();
@@ -101,6 +107,8 @@ public class SysUserAgentController {
      * @param sysUserAgent
      * @return
      */
+    @AutoLog(value = "用户代理人-编辑")
+    @ApiOperation(value = "用户代理人-编辑")
     @PutMapping(value = "/edit")
     public Result<SysUserAgent> edit(@RequestBody SysUserAgent sysUserAgent) {
         Result<SysUserAgent> result = new Result<SysUserAgent>();
@@ -124,6 +132,8 @@ public class SysUserAgentController {
      * @param id
      * @return
      */
+    @AutoLog(value = "用户代理人-通过id删除")
+    @ApiOperation(value = "用户代理人-通过id删除")
     @DeleteMapping(value = "/delete")
     public Result<SysUserAgent> delete(@RequestParam(name = "id", required = true) String id) {
         Result<SysUserAgent> result = new Result<SysUserAgent>();
@@ -146,6 +156,8 @@ public class SysUserAgentController {
      * @param ids
      * @return
      */
+    @AutoLog(value = "用户代理人-批量删除")
+    @ApiOperation(value = "用户代理人-批量删除")
     @DeleteMapping(value = "/deleteBatch")
     public Result<SysUserAgent> deleteBatch(@RequestParam(name = "ids", required = true) String ids) {
         Result<SysUserAgent> result = new Result<SysUserAgent>();
@@ -164,6 +176,8 @@ public class SysUserAgentController {
      * @param id
      * @return
      */
+    @AutoLog(value = "用户代理人-通过id查询")
+    @ApiOperation(value = "用户代理人-通过id查询")
     @GetMapping(value = "/queryById")
     public Result<SysUserAgent> queryById(@RequestParam(name = "id", required = true) String id) {
         Result<SysUserAgent> result = new Result<SysUserAgent>();
@@ -183,6 +197,8 @@ public class SysUserAgentController {
      * @param userName
      * @return
      */
+    @AutoLog(value = "用户代理人-通过用户名查询")
+    @ApiOperation(value = "用户代理人-通过用户名查询")
     @GetMapping(value = "/queryByUserName")
     public Result<SysUserAgent> queryByUserName(@RequestParam(name = "userName", required = true) String userName) {
         Result<SysUserAgent> result = new Result<SysUserAgent>();
@@ -205,6 +221,8 @@ public class SysUserAgentController {
      * @param request
      * @return
      */
+    @AutoLog(value = "用户代理人-导出excel")
+    @ApiOperation(value = "用户代理人-导出excel")
     @RequestMapping(value = "/exportXls")
     public ModelAndView exportXls(SysUserAgent sysUserAgent, HttpServletRequest request) {
         // Step.1 组装查询条件
@@ -227,6 +245,8 @@ public class SysUserAgentController {
      * @param response
      * @return
      */
+    @AutoLog(value = "用户代理人-通过excel导入数据")
+    @ApiOperation(value = "用户代理人-通过excel导入数据")
     @RequestMapping(value = "/importExcel", method = RequestMethod.POST)
     public Result<?> importExcel(HttpServletRequest request, HttpServletResponse response) {
         MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;

@@ -5,6 +5,7 @@ import java.util.Arrays;
 
 import javax.servlet.http.HttpServletRequest;
 
+import cn.jantd.core.annotation.AutoLog;
 import cn.jantd.core.api.vo.Result;
 import cn.jantd.core.constant.SystemConstant;
 import cn.jantd.core.system.query.QueryGenerator;
@@ -12,6 +13,7 @@ import cn.jantd.core.util.oConvertUtils;
 import cn.jantd.modules.system.entity.SysLog;
 import cn.jantd.modules.system.entity.SysRole;
 import cn.jantd.modules.system.service.ISysLogService;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -48,6 +50,8 @@ public class SysLogController {
      * @return
      * @功能：查询日志记录
      */
+    @AutoLog(value = "日志管理-分页查询日志记录")
+    @ApiOperation(value = "日志管理-分页查询日志记录")
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public Result<IPage<SysLog>> queryPageList(SysLog syslog, @RequestParam(name = "pageNo", defaultValue = "1") Integer pageNo,
                                                @RequestParam(name = "pageSize", defaultValue = "10") Integer pageSize, HttpServletRequest req) {
@@ -78,6 +82,8 @@ public class SysLogController {
      * @return
      * @功能：删除单个日志记录
      */
+    @AutoLog(value = "日志管理-通过id删除")
+    @ApiOperation(value = "日志管理-通过id删除")
     @RequestMapping(value = "/delete", method = RequestMethod.DELETE)
     public Result<SysLog> delete(@RequestParam(name = "id", required = true) String id) {
         Result<SysLog> result = new Result<SysLog>();
@@ -98,6 +104,8 @@ public class SysLogController {
      * @return
      * @功能：批量，全部清空日志记录
      */
+    @AutoLog(value = "日志管理-批量删除")
+    @ApiOperation(value = "日志管理-批量删除")
     @RequestMapping(value = "/deleteBatch", method = RequestMethod.DELETE)
     public Result<SysRole> deleteBatch(@RequestParam(name = "ids", required = true) String ids) {
         Result<SysRole> result = new Result<SysRole>();

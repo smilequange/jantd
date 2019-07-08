@@ -13,6 +13,7 @@ import java.util.UUID;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import cn.jantd.core.annotation.AutoLog;
 import cn.jantd.core.api.vo.Result;
 import cn.jantd.core.poi.def.NormalExcelConstants;
 import cn.jantd.core.poi.excel.ExcelImportUtil;
@@ -33,6 +34,7 @@ import cn.jantd.modules.system.service.ISysUserService;
 import cn.jantd.modules.system.vo.SysDepartUsersVO;
 import cn.jantd.modules.system.vo.SysUserRoleVO;
 
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -78,6 +80,17 @@ public class SysUserController {
     @Autowired
     private ISysUserRoleService userRoleService;
 
+    /**
+     * 分页列表查询
+     *
+     * @param user
+     * @param pageNo
+     * @param pageSize
+     * @param req
+     * @return
+     */
+    @AutoLog(value = "用户管理-分页列表查询")
+    @ApiOperation(value = "用户管理-分页列表查询")
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public Result<IPage<SysUser>> queryPageList(SysUser user, @RequestParam(name = "pageNo", defaultValue = "1") Integer pageNo,
                                                 @RequestParam(name = "pageSize", defaultValue = "10") Integer pageSize, HttpServletRequest req) {
@@ -90,6 +103,14 @@ public class SysUserController {
         return result;
     }
 
+    /**
+     * 添加
+     *
+     * @param jsonObject
+     * @return
+     */
+    @AutoLog(value = "用户管理-添加")
+    @ApiOperation(value = "用户管理-添加")
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public Result<SysUser> add(@RequestBody JSONObject jsonObject) {
         Result<SysUser> result = new Result<SysUser>();
@@ -113,6 +134,15 @@ public class SysUserController {
         return result;
     }
 
+    /**
+     * 编辑
+     *
+     * @param jsonObject
+     * @return
+     */
+
+    @AutoLog(value = "用户管理-编辑")
+    @ApiOperation(value = "用户管理-编辑")
     @RequestMapping(value = "/edit", method = RequestMethod.PUT)
     public Result<SysUser> edit(@RequestBody JSONObject jsonObject) {
         Result<SysUser> result = new Result<SysUser>();
@@ -136,8 +166,13 @@ public class SysUserController {
     }
 
     /**
-     * 删除用户
+     * 通过id删除
+     *
+     * @param id
+     * @return
      */
+    @AutoLog(value = "用户管理-通过id删除")
+    @ApiOperation(value = "用户管理-通过id删除")
     @RequestMapping(value = "/delete", method = RequestMethod.DELETE)
     public Result<SysUser> delete(@RequestParam(name = "id", required = true) String id) {
         Result<SysUser> result = new Result<SysUser>();
@@ -161,7 +196,12 @@ public class SysUserController {
 
     /**
      * 批量删除用户
+     *
+     * @param ids
+     * @return
      */
+    @AutoLog(value = "用户管理-批量删除用户")
+    @ApiOperation(value = "用户管理-批量删除用户")
     @RequestMapping(value = "/deleteBatch", method = RequestMethod.DELETE)
     public Result<SysUser> deleteBatch(@RequestParam(name = "ids", required = true) String ids) {
         // 定义SysUserDepart实体类的数据库查询对象LambdaQueryWrapper
@@ -188,6 +228,8 @@ public class SysUserController {
      * @param jsonObject
      * @return
      */
+    @AutoLog(value = "用户管理-冻结&解冻用户")
+    @ApiOperation(value = "用户管理-冻结&解冻用户")
     @RequestMapping(value = "/frozenBatch", method = RequestMethod.PUT)
     public Result<SysUser> frozenBatch(@RequestBody JSONObject jsonObject) {
         Result<SysUser> result = new Result<SysUser>();
@@ -210,6 +252,14 @@ public class SysUserController {
 
     }
 
+    /**
+     * 通过id查询
+     *
+     * @param id
+     * @return
+     */
+    @AutoLog(value = "用户管理-通过id查询")
+    @ApiOperation(value = "用户管理-通过id查询")
     @RequestMapping(value = "/queryById", method = RequestMethod.GET)
     public Result<SysUser> queryById(@RequestParam(name = "id", required = true) String id) {
         Result<SysUser> result = new Result<SysUser>();
@@ -223,6 +273,14 @@ public class SysUserController {
         return result;
     }
 
+    /**
+     * 通过userId查询用户角色
+     *
+     * @param userid
+     * @return
+     */
+    @AutoLog(value = "用户管理-通过userId查询用户角色")
+    @ApiOperation(value = "用户管理-通过userId查询用户角色")
     @RequestMapping(value = "/queryUserRole", method = RequestMethod.GET)
     public Result<List<String>> queryUserRole(@RequestParam(name = "userid", required = true) String userid) {
         Result<List<String>> result = new Result<>();
@@ -248,6 +306,7 @@ public class SysUserController {
      * @param sysUser
      * @return
      */
+    @ApiOperation(value = "用户管理-校验用户账号是否唯一")
     @RequestMapping(value = "/checkOnlyUser", method = RequestMethod.GET)
     public Result<Boolean> checkUsername(SysUser sysUser) {
         Result<Boolean> result = new Result<>();
@@ -292,6 +351,8 @@ public class SysUserController {
     /**
      * 修改密码
      */
+    @AutoLog(value = "用户管理-修改密码")
+    @ApiOperation(value = "用户管理-修改密码")
     @RequestMapping(value = "/changPassword", method = RequestMethod.PUT)
     public Result<SysUser> changPassword(@RequestBody SysUser sysUser) {
         Result<SysUser> result = new Result<SysUser>();
@@ -317,6 +378,8 @@ public class SysUserController {
      * @param userId
      * @return
      */
+    @AutoLog(value = "用户管理-查询指定用户和部门关联的数据")
+    @ApiOperation(value = "用户管理-查询指定用户和部门关联的数据")
     @RequestMapping(value = "/userDepartList", method = RequestMethod.GET)
     public Result<List<DepartIdModel>> getUserDepartsList(@RequestParam(name = "userId", required = true) String userId) {
         Result<List<DepartIdModel>> result = new Result<>();
@@ -346,6 +409,8 @@ public class SysUserController {
      * @param sysUserDepartsVO
      * @return
      */
+    @AutoLog(value = "用户管理-给指定用户添加对应的部门")
+    @ApiOperation(value = "用户管理-给指定用户添加对应的部门")
     @RequestMapping(value = "/addUDepartIds", method = RequestMethod.POST)
     public Result<String> addSysUseWithrDepart(@RequestBody SysUserDepartsVO sysUserDepartsVO) {
         boolean ok = this.sysUserDepartService.addSysUseWithrDepart(sysUserDepartsVO);
@@ -373,6 +438,7 @@ public class SysUserController {
      * @param sysUserDepartsVO
      * @return
      */
+    @ApiOperation(value = "用户管理-根据用户id编辑对应的部门信息")
     @RequestMapping(value = "/editUDepartIds", method = RequestMethod.PUT)
     public Result<String> editSysUserWithDepart(@RequestBody SysUserDepartsVO sysUserDepartsVO) {
         Result<String> result = new Result<String>();
@@ -392,6 +458,7 @@ public class SysUserController {
      *
      * @return
      */
+    @ApiOperation(value = "用户管理-生成在添加用户情况下没有主键的问题,返回给前端,根据该id绑定部门数据")
     @RequestMapping(value = "/generateUserId", method = RequestMethod.GET)
     public Result<String> generateUserId() {
         Result<String> result = new Result<>();
@@ -408,6 +475,8 @@ public class SysUserController {
      * @param id
      * @return
      */
+    @AutoLog(value = "用户管理-根据部门id查询用户信息")
+    @ApiOperation(value = "用户管理-根据部门id查询用户信息")
     @RequestMapping(value = "/queryUserByDepId", method = RequestMethod.GET)
     public Result<List<SysUser>> queryUserByDepId(@RequestParam(name = "id", required = true) String id) {
         Result<List<SysUser>> result = new Result<>();
@@ -428,6 +497,8 @@ public class SysUserController {
      *
      * @return
      */
+    @AutoLog(value = "用户管理-查询所有用户所对应的角色信息")
+    @ApiOperation(value = "用户管理-查询所有用户所对应的角色信息")
     @RequestMapping(value = "/queryUserRoleMap", method = RequestMethod.GET)
     public Result<Map<String, String>> queryUserRole() {
         Result<Map<String, String>> result = new Result<>();
@@ -444,6 +515,8 @@ public class SysUserController {
      * @param request
      * @return
      */
+    @AutoLog(value = "用户管理-导出excel")
+    @ApiOperation(value = "用户管理-导出excel")
     @RequestMapping(value = "/exportXls")
     public ModelAndView exportXls(SysUser sysUser, HttpServletRequest request) {
         // Step.1 组装查询条件
@@ -466,6 +539,8 @@ public class SysUserController {
      * @param response
      * @return
      */
+    @AutoLog(value = "用户管理-通过excel导入数据")
+    @ApiOperation(value = "用户管理-通过excel导入数据")
     @RequestMapping(value = "/importExcel", method = RequestMethod.POST)
     public Result<?> importExcel(HttpServletRequest request, HttpServletResponse response) {
         MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
@@ -506,6 +581,8 @@ public class SysUserController {
      * @return
      * @功能：根据id 批量查询
      */
+    @AutoLog(value = "用户管理-根据id 批量查询")
+    @ApiOperation(value = "用户管理-根据id 批量查询")
     @RequestMapping(value = "/queryByIds", method = RequestMethod.GET)
     public Result<Collection<SysUser>> queryByIds(@RequestParam String userIds) {
         Result<Collection<SysUser>> result = new Result<>();
@@ -520,6 +597,8 @@ public class SysUserController {
     /**
      * 首页密码修改
      */
+    @AutoLog(value = "用户管理-首页密码修改")
+    @ApiOperation(value = "用户管理-首页密码修改")
     @RequestMapping(value = "/updatePassword", method = RequestMethod.PUT)
     public Result<SysUser> changPassword(@RequestBody JSONObject json) {
         Result<SysUser> result = new Result<SysUser>();
@@ -553,6 +632,16 @@ public class SysUserController {
         return result;
     }
 
+    /**
+     * 根据角色Id查询用户
+     *
+     * @param pageNo
+     * @param pageSize
+     * @param req
+     * @return
+     */
+    @AutoLog(value = "用户管理-根据角色Id查询用户")
+    @ApiOperation(value = "用户管理-根据角色Id查询用户")
     @RequestMapping(value = "/userRoleList", method = RequestMethod.GET)
     public Result<IPage<SysUser>> userRoleList(@RequestParam(name = "pageNo", defaultValue = "1") Integer pageNo,
                                                @RequestParam(name = "pageSize", defaultValue = "10") Integer pageSize, HttpServletRequest req) {
@@ -569,9 +658,12 @@ public class SysUserController {
     /**
      * 给指定角色添加用户
      *
-     * @param
+     * @param sysUserRoleVO
      * @return
      */
+
+    @AutoLog(value = "用户管理-给指定角色添加用户")
+    @ApiOperation(value = "用户管理-给指定角色添加用户")
     @RequestMapping(value = "/addSysUserRole", method = RequestMethod.POST)
     public Result<String> addSysUserRole(@RequestBody SysUserRoleVO sysUserRoleVO) {
         Result<String> result = new Result<String>();
@@ -605,6 +697,8 @@ public class SysUserController {
      * @param
      * @return
      */
+    @AutoLog(value = "用户管理-删除指定角色的用户关系")
+    @ApiOperation(value = "用户管理-删除指定角色的用户关系")
     @RequestMapping(value = "/deleteUserRole", method = RequestMethod.DELETE)
     public Result<SysUserRole> deleteUserRole(@RequestParam(name = "roleId") String roleId,
                                               @RequestParam(name = "userId", required = true) String userId
@@ -625,9 +719,12 @@ public class SysUserController {
     /**
      * 批量删除指定角色的用户关系
      *
-     * @param
+     * @param roleId
+     * @param userIds
      * @return
      */
+    @AutoLog(value = "用户管理-批量删除指定角色的用户关系")
+    @ApiOperation(value = "用户管理-批量删除指定角色的用户关系")
     @RequestMapping(value = "/deleteUserRoleBatch", method = RequestMethod.DELETE)
     public Result<SysUserRole> deleteUserRoleBatch(
             @RequestParam(name = "roleId") String roleId,
@@ -647,7 +744,14 @@ public class SysUserController {
 
     /**
      * 部门用户列表
+     *
+     * @param pageNo
+     * @param pageSize
+     * @param req
+     * @return
      */
+    @AutoLog(value = "用户管理-部门用户列表")
+    @ApiOperation(value = "用户管理-部门用户列表")
     @RequestMapping(value = "/departUserList", method = RequestMethod.GET)
     public Result<IPage<SysUser>> departUserList(@RequestParam(name = "pageNo", defaultValue = "1") Integer pageNo,
                                                  @RequestParam(name = "pageSize", defaultValue = "10") Integer pageSize, HttpServletRequest req) {
@@ -663,7 +767,12 @@ public class SysUserController {
 
     /**
      * 给指定部门添加对应的用户
+     *
+     * @param sysDepartUsersVO
+     * @return
      */
+    @AutoLog(value = "用户管理-给指定部门添加对应的用户")
+    @ApiOperation(value = "用户管理-给指定部门添加对应的用户")
     @RequestMapping(value = "/editSysDepartWithUser", method = RequestMethod.POST)
     public Result<String> editSysDepartWithUser(@RequestBody SysDepartUsersVO sysDepartUsersVO) {
         Result<String> result = new Result<String>();
@@ -692,7 +801,13 @@ public class SysUserController {
 
     /**
      * 删除指定机构的用户关系
+     *
+     * @param depId
+     * @param userId
+     * @return
      */
+    @AutoLog(value = "用户管理-删除指定机构的用户关系")
+    @ApiOperation(value = "用户管理-删除指定机构的用户关系")
     @RequestMapping(value = "/deleteUserInDepart", method = RequestMethod.DELETE)
     public Result<SysUserDepart> deleteUserInDepart(@RequestParam(name = "depId") String depId,
                                                     @RequestParam(name = "userId", required = true) String userId
@@ -712,7 +827,13 @@ public class SysUserController {
 
     /**
      * 批量删除指定机构的用户关系
+     *
+     * @param depId
+     * @param userIds
+     * @return
      */
+    @AutoLog(value = "用户管理-批量删除指定机构的用户关系")
+    @ApiOperation(value = "用户管理-批量删除指定机构的用户关系")
     @RequestMapping(value = "/deleteUserInDepartBatch", method = RequestMethod.DELETE)
     public Result<SysUserDepart> deleteUserInDepartBatch(
             @RequestParam(name = "depId") String depId,

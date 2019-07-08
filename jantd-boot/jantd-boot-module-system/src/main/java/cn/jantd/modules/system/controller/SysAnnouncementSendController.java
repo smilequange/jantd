@@ -5,11 +5,13 @@ import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 
+import cn.jantd.core.annotation.AutoLog;
 import cn.jantd.core.api.vo.Result;
 import cn.jantd.core.constant.CommonConstant;
 import cn.jantd.core.constant.SystemConstant;
 import cn.jantd.core.system.vo.LoginUser;
 import cn.jantd.core.util.oConvertUtils;
+import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.SecurityUtils;
 import cn.jantd.modules.system.entity.SysAnnouncementSend;
 import cn.jantd.modules.system.model.AnnouncementSendModel;
@@ -56,6 +58,8 @@ public class SysAnnouncementSendController {
      * @param req
      * @return
      */
+    @AutoLog(value = "系统通告-分页列表查询")
+    @ApiOperation(value = "系统通告-分页列表查询")
     @GetMapping(value = "/list")
     public Result<IPage<SysAnnouncementSend>> queryPageList(SysAnnouncementSend sysAnnouncementSend,
                                                             @RequestParam(name = "pageNo", defaultValue = "1") Integer pageNo,
@@ -186,6 +190,7 @@ public class SysAnnouncementSendController {
      * @return
      * @功能：更新用户系统消息阅读状态
      */
+    @ApiOperation(value = "我的消息-更新用户系统消息阅读状态")
     @PutMapping(value = "/editByAnntIdAndUserId")
     public Result<SysAnnouncementSend> editById(@RequestBody JSONObject json) {
         Result<SysAnnouncementSend> result = new Result<SysAnnouncementSend>();
@@ -206,6 +211,8 @@ public class SysAnnouncementSendController {
      * @return
      * @功能：获取我的消息
      */
+    @AutoLog(value = "我的消息-分页列表查询")
+    @ApiOperation(value = "我的消息-分页列表查询")
     @GetMapping(value = "/getMyAnnouncementSend")
     public Result<IPage<AnnouncementSendModel>> getMyAnnouncementSend(AnnouncementSendModel announcementSendModel,
                                                                       @RequestParam(name = "pageNo", defaultValue = "1") Integer pageNo,
@@ -227,6 +234,8 @@ public class SysAnnouncementSendController {
      * @return
      * @功能：一键已读
      */
+    @AutoLog(value = "我的消息-一键已读")
+    @ApiOperation(value = "我的消息-一键已读")
     @PutMapping(value = "/readAll")
     public Result<SysAnnouncementSend> readAll() {
         Result<SysAnnouncementSend> result = new Result<SysAnnouncementSend>();

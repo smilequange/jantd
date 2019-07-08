@@ -7,12 +7,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import cn.jantd.core.annotation.AutoLog;
 import cn.jantd.core.api.vo.Result;
 import cn.jantd.core.constant.SystemConstant;
 import cn.jantd.core.system.util.JwtUtil;
 import cn.jantd.core.util.MD5Util;
 import cn.jantd.core.util.oConvertUtils;
 import cn.jantd.modules.system.entity.SysPermissionDataRule;
+import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.authz.annotation.RequiresRoles;
 import cn.jantd.modules.system.entity.SysPermission;
 import cn.jantd.modules.system.entity.SysRolePermission;
@@ -64,6 +66,8 @@ public class SysPermissionController {
      *
      * @return
      */
+    @AutoLog(value = "菜单管理-查询菜单列表")
+    @ApiOperation(value = "菜单管理-查询菜单列表")
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public Result<List<SysPermissionTree>> list() {
         Result<List<SysPermissionTree>> result = new Result<>();
@@ -107,8 +111,11 @@ public class SysPermissionController {
     /**
      * 查询用户拥有的菜单权限和按钮权限（根据TOKEN）
      *
+     * @param token
      * @return
      */
+    @AutoLog(value = "菜单管理-查询用户拥有的菜单权限和按钮权限（根据TOKEN）")
+    @ApiOperation(value = "菜单管理-查询用户拥有的菜单权限和按钮权限（根据TOKEN）")
     @RequestMapping(value = "/getUserPermissionByToken", method = RequestMethod.GET)
     public Result<?> getUserPermissionByToken(@RequestParam(name = "token", required = true) String token) {
         Result<JSONObject> result = new Result<JSONObject>();
@@ -150,6 +157,8 @@ public class SysPermissionController {
      * @param permission
      * @return
      */
+    @AutoLog(value = "菜单管理-添加菜单")
+    @ApiOperation(value = "菜单管理-添加菜单")
     @RequiresRoles({"admin"})
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public Result<SysPermission> add(@RequestBody SysPermission permission) {
@@ -171,6 +180,8 @@ public class SysPermissionController {
      * @param permission
      * @return
      */
+    @AutoLog(value = "菜单管理-编辑菜单")
+    @ApiOperation(value = "菜单管理-编辑菜单")
     @RequiresRoles({"admin"})
     @CacheEvict(value = "loginUser_cacheRules", allEntries = true)
     @RequestMapping(value = "/edit", method = {RequestMethod.PUT, RequestMethod.POST})
@@ -193,6 +204,8 @@ public class SysPermissionController {
      * @param id
      * @return
      */
+    @AutoLog(value = "菜单管理-删除菜单")
+    @ApiOperation(value = "菜单管理-删除菜单")
     @RequiresRoles({"admin"})
     @CacheEvict(value = "loginUser_cacheRules", allEntries = true)
     @RequestMapping(value = "/delete", method = RequestMethod.DELETE)
@@ -215,6 +228,8 @@ public class SysPermissionController {
      * @param ids
      * @return
      */
+    @AutoLog(value = "菜单管理-批量删除菜单")
+    @ApiOperation(value = "菜单管理-批量删除菜单")
     @RequiresRoles({"admin"})
     @CacheEvict(value = "loginUser_cacheRules", allEntries = true)
     @RequestMapping(value = "/deleteBatch", method = RequestMethod.DELETE)
@@ -240,6 +255,8 @@ public class SysPermissionController {
      *
      * @return
      */
+    @AutoLog(value = "菜单管理-获取全部的权限树")
+    @ApiOperation(value = "菜单管理-获取全部的权限树")
     @RequestMapping(value = "/queryTreeList", method = RequestMethod.GET)
     public Result<Map<String, Object>> queryTreeList() {
         Result<Map<String, Object>> result = new Result<>();
@@ -274,6 +291,8 @@ public class SysPermissionController {
      *
      * @return
      */
+    @AutoLog(value = "菜单管理-异步加载数据节点")
+    @ApiOperation(value = "菜单管理-异步加载数据节点")
     @RequestMapping(value = "/queryListAsync", method = RequestMethod.GET)
     public Result<List<TreeModel>> queryAsync(@RequestParam(name = "pid", required = false) String parentId) {
         Result<List<TreeModel>> result = new Result<>();
@@ -295,8 +314,11 @@ public class SysPermissionController {
     /**
      * 查询角色授权
      *
+     * @param roleId
      * @return
      */
+    @AutoLog(value = "查询角色授权")
+    @ApiOperation(value = "查询角色授权")
     @RequestMapping(value = "/queryRolePermission", method = RequestMethod.GET)
     public Result<List<String>> queryRolePermission(@RequestParam(name = "roleId", required = true) String roleId) {
         Result<List<String>> result = new Result<>();
@@ -315,6 +337,8 @@ public class SysPermissionController {
      *
      * @return
      */
+    @AutoLog(value = "保存角色授权")
+    @ApiOperation(value = "保存角色授权")
     @RequestMapping(value = "/saveRolePermission", method = RequestMethod.POST)
     @RequiresRoles({"admin"})
     public Result<String> saveRolePermission(@RequestBody JSONObject json) {
@@ -566,6 +590,8 @@ public class SysPermissionController {
      * @param sysPermissionDataRule
      * @return
      */
+    @AutoLog(value = "根据菜单id来获取其对应的权限数据")
+    @ApiOperation(value = "根据菜单id来获取其对应的权限数据")
     @RequestMapping(value = "/getPermRuleListByPermId", method = RequestMethod.GET)
     public Result<List<SysPermissionDataRule>> getPermRuleListByPermId(SysPermissionDataRule sysPermissionDataRule) {
         List<SysPermissionDataRule> permRuleList = sysPermissionDataRuleService.getPermRuleListByPermId(sysPermissionDataRule.getPermissionId());
@@ -581,6 +607,8 @@ public class SysPermissionController {
      * @param sysPermissionDataRule
      * @return
      */
+    @AutoLog(value = "菜单管理-添加菜单权限数据")
+    @ApiOperation(value = "菜单管理-添加菜单权限数据")
     @RequestMapping(value = "/addPermissionRule", method = RequestMethod.POST)
     public Result<SysPermissionDataRule> addPermissionRule(@RequestBody SysPermissionDataRule sysPermissionDataRule) {
         Result<SysPermissionDataRule> result = new Result<SysPermissionDataRule>();
@@ -595,6 +623,14 @@ public class SysPermissionController {
         return result;
     }
 
+    /**
+     * 编辑菜单权限数据
+     *
+     * @param sysPermissionDataRule
+     * @return
+     */
+    @AutoLog(value = "菜单管理-编辑菜单权限数据")
+    @ApiOperation(value = "菜单管理-编辑菜单权限数据")
     @RequestMapping(value = "/editPermissionRule", method = {RequestMethod.PUT, RequestMethod.POST})
     public Result<SysPermissionDataRule> editPermissionRule(@RequestBody SysPermissionDataRule sysPermissionDataRule) {
         Result<SysPermissionDataRule> result = new Result<SysPermissionDataRule>();
@@ -614,6 +650,8 @@ public class SysPermissionController {
      * @param id
      * @return
      */
+    @AutoLog(value = "菜单管理-删除菜单权限数据")
+    @ApiOperation(value = "菜单管理-删除菜单权限数据")
     @RequestMapping(value = "/deletePermissionRule", method = RequestMethod.DELETE)
     public Result<SysPermissionDataRule> deletePermissionRule(@RequestParam(name = "id", required = true) String id) {
         Result<SysPermissionDataRule> result = new Result<SysPermissionDataRule>();
@@ -633,6 +671,8 @@ public class SysPermissionController {
      * @param sysPermissionDataRule
      * @return
      */
+    @AutoLog(value = "菜单管理-查询菜单权限数据")
+    @ApiOperation(value = "菜单管理-查询菜单权限数据")
     @RequestMapping(value = "/queryPermissionRule", method = RequestMethod.GET)
     public Result<List<SysPermissionDataRule>> queryPermissionRule(SysPermissionDataRule sysPermissionDataRule) {
         Result<List<SysPermissionDataRule>> result = new Result<>();
