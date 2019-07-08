@@ -105,10 +105,6 @@
           <a-input placeholder="请输入手机号码" :disabled="disabledAuth('user:form:phone')" v-decorator="[ 'phone', validatorRules.phone]" />
         </a-form-item>
 
-        <a-form-item label="工作流引擎" :labelCol="labelCol" :wrapperCol="wrapperCol">
-          <j-dict-select-tag  v-decorator="['activitiSync', {}]" placeholder="请选择是否同步工作流引擎" :type="'radio'" :triggerChange="true" dictCode="activiti_sync"/>
-        </a-form-item>
-
       </a-form>
     </a-spin>
     <depart-window ref="departWindow" @ok="modalFormOk"></depart-window>
@@ -264,7 +260,7 @@
       add () {
         this.picUrl = "";
         this.refresh()
-        this.edit({activitiSync:'1'});
+        this.edit({});
       },
       edit (record) {
         this.resetScreenSize(); // 调用此方法,根据屏幕宽度自适应调整抽屉的宽度
@@ -280,7 +276,7 @@
         that.visible = true;
         that.model = Object.assign({}, record);
         that.$nextTick(() => {
-          that.form.setFieldsValue(pick(this.model,'username','sex','realname','email','phone','activitiSync'))
+          that.form.setFieldsValue(pick(this.model,'username','sex','realname','email','phone'))
         });
         // 调用查询用户对应的部门信息的方法
         that.checkedDepartKeys = [];

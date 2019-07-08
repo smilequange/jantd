@@ -129,10 +129,6 @@ public class SysUser implements Serializable {
      * 更新时间
      */
     private Date updateTime;
-    /**
-     * 同步工作流引擎1同步0不同步
-     */
-    private String activitiSync;
 
 
 }
