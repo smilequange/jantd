@@ -172,6 +172,8 @@
   import { ACCESS_TOKEN } from "@/store/mutation-types"
   import JGraphicCode from '@/components/jeecg/JGraphicCode'
   import { putAction } from '@/api/manage'
+  import { getAction} from '@/api/manage'
+  import { encryption } from '@/utils/encryption/aesEncrypt'
 
   export default {
     components: {
@@ -255,15 +257,18 @@
         if (that.customActiveKey === 'tab1') {
           that.form.validateFields([ 'username', 'password','inputCode' ], { force: true }, (err, values) => {
             if (!err) {
-              loginParams.username = values.username
-              //loginParams.password = md5(values.password)
-              loginParams.password = values.password
-              that.Login(loginParams).then((res) => {
-                this.departConfirm(res)
+              getAction("/sys/getEncryptedString",{}).then((res)=>{
+                loginParams.username = values.username
+                //loginParams.password = md5(values.password)
+                loginParams.password = encryption(values.password,res.result.key,res.result.iv)
+                that.Login(loginParams).then((res) => {
+                  this.departConfirm(res)
+                }).catch((err) => {
+                  that.requestFailed(err);
+                })
               }).catch((err) => {
                 that.requestFailed(err);
-              })
-
+              });
             }
           })
           // 使用手机号登陆

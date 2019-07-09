@@ -8,6 +8,8 @@ import cn.jantd.core.system.util.JwtUtil;
 import cn.jantd.core.system.vo.LoginUser;
 import cn.jantd.core.util.PasswordUtil;
 import cn.jantd.core.util.RedisUtil;
+import cn.jantd.core.util.encryption.AesEncryptUtil;
+import cn.jantd.core.util.encryption.EncryptedString;
 import cn.jantd.modules.shiro.vo.DefContants;
 import cn.jantd.modules.system.entity.SysDepart;
 import cn.jantd.modules.system.entity.SysUser;
@@ -26,10 +28,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.List;
+import java.util.*;
 
 /**
  * @Author xiagf
@@ -53,47 +52,30 @@ public class LoginController {
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     @ApiOperation("登录接口")
-    public Result<JSONObject> login(@RequestBody SysLoginModel sysLoginModel) {
+    public Result<JSONObject> login(@RequestBody SysLoginModel sysLoginModel) throws Exception {
         Result<JSONObject> result = new Result<JSONObject>();
         String username = sysLoginModel.getUsername();
         String password = sysLoginModel.getPassword();
+        // 密码解密
+        password = AesEncryptUtil.desEncrypt(sysLoginModel.getPassword()).trim();
         SysUser sysUser = sysUserService.getUserByName(username);
-        if (sysUser == null) {
-            result.error500("该用户不存在");
-            systemBaseAPI.addLog("登录失败，用户名:" + username + "不存在！", CommonConstant.LOG_TYPE_LOGIN, null, username, null);
+        result = sysUserService.checkUserIsEffective(sysUser);
+        if (!result.isSuccess()) {
             return result;
-        } else {
-            //密码验证
-            String userpassword = PasswordUtil.encrypt(username, password, sysUser.getSalt());
-            String syspassword = sysUser.getPassword();
-            if (!syspassword.equals(userpassword)) {
-                result.error500("用户名或密码错误");
-                return result;
-            }
-            //生成token
-            String token = JwtUtil.sign(username, syspassword);
-            redisUtil.set(CommonConstant.PREFIX_USER_TOKEN + token, token);
-            //设置超时时间
-            redisUtil.expire(CommonConstant.PREFIX_USER_TOKEN + token, JwtUtil.EXPIRE_TIME / 1000);
-
-            //获取用户部门信息
-            JSONObject obj = new JSONObject();
-            List<SysDepart> departs = sysDepartService.queryUserDeparts(sysUser.getId());
-            obj.put("departs", departs);
-            if (departs == null || departs.size() == 0) {
-                obj.put("multi_depart", 0);
-            } else if (departs.size() == 1) {
-                sysUserService.updateUserDepart(username, departs.get(0).getOrgCode());
-                obj.put("multi_depart", 1);
-            } else {
-                obj.put("multi_depart", 2);
-            }
-            obj.put("token", token);
-            obj.put("userInfo", sysUser);
-            result.setResult(obj);
-            result.success("登录成功");
-            systemBaseAPI.addLog("用户名: " + username + ",登录成功！", CommonConstant.LOG_TYPE_LOGIN, null, sysUser.getUsername(), sysUser.getRealname());
         }
+
+        //2. 校验用户名或密码是否正确
+        String userpassword = PasswordUtil.encrypt(username, password, sysUser.getSalt());
+        String syspassword = sysUser.getPassword();
+        if (!syspassword.equals(userpassword)) {
+            result.error500("用户名或密码错误");
+            return result;
+        }
+
+        //用户登录信息
+        userInfo(sysUser, result);
+        systemBaseAPI.addLog("用户名: " + username + ",登录成功！", CommonConstant.LOG_TYPE_LOGIN, null, sysUser.getUsername(), sysUser.getRealname());
+
         return result;
     }
 
@@ -173,5 +155,54 @@ public class LoginController {
         return Result.ok();
     }
 
+    /**
+     * 获取加密字符串
+     *
+     * @return
+     */
+    @GetMapping(value = "/getEncryptedString")
+    public Result<Map<String, String>> getEncryptedString() {
+        Result<Map<String, String>> result = new Result<Map<String, String>>();
+        Map<String, String> map = new HashMap<String, String>(16);
+        map.put("key", EncryptedString.key);
+        map.put("iv", EncryptedString.iv);
+        result.setResult(map);
+        return result;
+    }
+
+    /**
+     * 用户信息
+     *
+     * @param sysUser
+     * @param result
+     * @return
+     */
+    private Result<JSONObject> userInfo(SysUser sysUser, Result<JSONObject> result) {
+        String syspassword = sysUser.getPassword();
+        String username = sysUser.getUsername();
+        // 生成token
+        String token = JwtUtil.sign(username, syspassword);
+        redisUtil.set(CommonConstant.PREFIX_USER_TOKEN + token, token);
+        // 设置超时时间
+        redisUtil.expire(CommonConstant.PREFIX_USER_TOKEN + token, JwtUtil.EXPIRE_TIME / 1000);
+
+        // 获取用户部门信息
+        JSONObject obj = new JSONObject();
+        List<SysDepart> departs = sysDepartService.queryUserDeparts(sysUser.getId());
+        obj.put("departs", departs);
+        if (departs == null || departs.size() == 0) {
+            obj.put("multi_depart", 0);
+        } else if (departs.size() == 1) {
+            sysUserService.updateUserDepart(username, departs.get(0).getOrgCode());
+            obj.put("multi_depart", 1);
+        } else {
+            obj.put("multi_depart", 2);
+        }
+        obj.put("token", token);
+        obj.put("userInfo", sysUser);
+        result.setResult(obj);
+        result.success("登录成功");
+        return result;
+    }
 
 }

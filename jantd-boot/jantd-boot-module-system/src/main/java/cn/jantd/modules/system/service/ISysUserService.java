@@ -3,6 +3,7 @@ package cn.jantd.modules.system.service;
 import java.util.List;
 import java.util.Set;
 
+import cn.jantd.core.api.vo.Result;
 import cn.jantd.core.system.vo.SysUserCacheInfo;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -105,4 +106,11 @@ public interface ISysUserService extends IService<SysUser> {
      * @param orgCode
      */
     void updateUserDepart(String username, String orgCode);
+
+    /**
+     * 校验用户是否有效
+     * @param sysUser
+     * @return
+     */
+    Result checkUserIsEffective(SysUser sysUser);
 }

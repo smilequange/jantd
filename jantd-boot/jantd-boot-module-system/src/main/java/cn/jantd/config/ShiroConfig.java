@@ -47,6 +47,8 @@ public class ShiroConfig {
         filterChainDefinitionMap.put("/sys/login", "anon");
         // 登录验证码
         filterChainDefinitionMap.put("/auth/2step-code", "anon");
+        // 获取加密串
+        filterChainDefinitionMap.put("/sys/getEncryptedString", "anon");
         // 图片预览不限制token
         filterChainDefinitionMap.put("/sys/common/view/**", "anon");
         // 文件下载不限制token
