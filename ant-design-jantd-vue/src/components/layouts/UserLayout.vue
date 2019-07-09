@@ -16,14 +16,14 @@
       <route-view></route-view>
 
       <div class="footer">
-        <div class="links">
+        <!-- <div class="links">
           <a href="http://jeecg-boot.mydoc.io" target="_blank">帮助</a>
           <a href="https://github.com/zhangdaiscott/jeecg-boot" target="_blank">隐私</a>
           <a href="https://github.com/zhangdaiscott/jeecg-boot" target="_blank">条款</a>
         </div>
         <div class="copyright">
           Copyright &copy; 2019 <a href="http://www.jeecg.org" target="_blank">JEECG开源社区</a> 出品
-        </div>
+        </div> -->
       </div>
     </div>
   </div>
