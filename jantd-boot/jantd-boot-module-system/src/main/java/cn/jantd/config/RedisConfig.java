@@ -2,6 +2,7 @@ package cn.jantd.config;
 
 import java.lang.reflect.Method;
 import java.time.Duration;
+import java.util.Arrays;
 
 import javax.annotation.Resource;
 
@@ -51,9 +52,8 @@ public class RedisConfig extends CachingConfigurerSupport {
 				StringBuffer sb = new StringBuffer();
 				sb.append(target.getClass().getName());
 				sb.append(method.getName());
-				for (Object obj : params) {
-					sb.append(obj.toString());
-				}
+				sb.append(method.getDeclaringClass().getName());
+				Arrays.stream(params).map(Object::toString).forEach(sb::append);
 				return sb.toString();
 			}
 		};
