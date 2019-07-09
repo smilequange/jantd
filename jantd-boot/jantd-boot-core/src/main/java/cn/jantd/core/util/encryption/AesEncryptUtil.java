@@ -52,7 +52,7 @@ public class AesEncryptUtil {
             cipher.init(Cipher.ENCRYPT_MODE, keyspec, ivspec);
             byte[] encrypted = cipher.doFinal(plaintext);
 
-            return new Base64().encodeToString(encrypted);
+            return Base64.encodeToString(encrypted);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -71,7 +71,7 @@ public class AesEncryptUtil {
      */
     public static String desEncrypt(String data, String key, String iv) throws Exception {
         try {
-            byte[] encrypted1 = new Base64().decode(data);
+            byte[] encrypted1 = Base64.decode(data);
 
             Cipher cipher = Cipher.getInstance("AES/CBC/NoPadding");
             SecretKeySpec keyspec = new SecretKeySpec(key.getBytes(), "AES");

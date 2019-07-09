@@ -59,12 +59,13 @@ public class LoginController {
         // 密码解密
         password = AesEncryptUtil.desEncrypt(sysLoginModel.getPassword()).trim();
         SysUser sysUser = sysUserService.getUserByName(username);
+        // 1. 校验用户是否有效
         result = sysUserService.checkUserIsEffective(sysUser);
         if (!result.isSuccess()) {
             return result;
         }
 
-        //2. 校验用户名或密码是否正确
+        // 2. 校验用户名或密码是否正确
         String userpassword = PasswordUtil.encrypt(username, password, sysUser.getSalt());
         String syspassword = sysUser.getPassword();
         if (!syspassword.equals(userpassword)) {
@@ -72,7 +73,7 @@ public class LoginController {
             return result;
         }
 
-        //用户登录信息
+        // 用户登录信息
         userInfo(sysUser, result);
         systemBaseAPI.addLog("用户名: " + username + ",登录成功！", CommonConstant.LOG_TYPE_LOGIN, null, sysUser.getUsername(), sysUser.getRealname());
 
