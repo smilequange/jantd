@@ -12,18 +12,18 @@
         <span v-if="isDesktop()">欢迎您，{{ nickname() }}</span>
       </span>
       <a-menu slot="overlay" class="user-dropdown-menu-wrapper">
-        <a-menu-item key="0">
-          <router-link :to="{ name: 'account-center' }">
-            <a-icon type="user"/>
-            <span>个人中心</span>
-          </router-link>
-        </a-menu-item>
-        <a-menu-item key="1">
-          <router-link :to="{ name: 'account-settings-base' }">
-            <a-icon type="setting"/>
-            <span>账户设置</span>
-          </router-link>
-        </a-menu-item>
+        <!--<a-menu-item key="0">-->
+          <!--<router-link :to="{ name: 'account-center' }">-->
+            <!--<a-icon type="user"/>-->
+            <!--<span>个人中心</span>-->
+          <!--</router-link>-->
+        <!--</a-menu-item>-->
+        <!--<a-menu-item key="1">-->
+          <!--<router-link :to="{ name: 'account-settings-base' }">-->
+            <!--<a-icon type="setting"/>-->
+            <!--<span>账户设置</span>-->
+          <!--</router-link>-->
+        <!--</a-menu-item>-->
         <a-menu-item key="2" @click="updatePassword">
           <a-icon type="setting"/>
           <span>密码修改</span>
