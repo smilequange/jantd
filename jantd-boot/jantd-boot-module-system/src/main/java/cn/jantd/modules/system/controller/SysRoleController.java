@@ -21,6 +21,7 @@ import cn.jantd.core.poi.excel.entity.ExportParams;
 import cn.jantd.core.poi.excel.entity.ImportParams;
 import cn.jantd.core.poi.view.JantdEntityExcelViewBase;
 import cn.jantd.core.system.query.QueryGenerator;
+import cn.jantd.core.system.vo.LoginUser;
 import cn.jantd.core.util.oConvertUtils;
 import cn.jantd.modules.system.entity.SysPermissionDataRule;
 import cn.jantd.modules.system.entity.SysPermission;
@@ -33,6 +34,7 @@ import cn.jantd.modules.system.service.ISysRolePermissionService;
 import cn.jantd.modules.system.service.ISysRoleService;
 
 import io.swagger.annotations.ApiOperation;
+import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -293,7 +295,8 @@ public class SysRoleController {
         //导出文件名称
         mv.addObject(NormalExcelConstants.FILE_NAME, "角色列表");
         mv.addObject(NormalExcelConstants.CLASS, SysRole.class);
-        mv.addObject(NormalExcelConstants.PARAMS, new ExportParams("角色列表数据", "导出人:Jeecg", "导出信息"));
+        LoginUser user = (LoginUser) SecurityUtils.getSubject().getPrincipal();
+        mv.addObject(NormalExcelConstants.PARAMS, new ExportParams("角色列表数据", "导出人:"+user.getRealname(), "导出信息"));
         mv.addObject(NormalExcelConstants.DATA_LIST, pageList);
         return mv;
     }

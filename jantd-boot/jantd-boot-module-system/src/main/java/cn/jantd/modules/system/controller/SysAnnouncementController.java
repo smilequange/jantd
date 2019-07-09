@@ -348,10 +348,11 @@ public class SysAnnouncementController {
         //Step.2 AutoPoi 导出Excel
         ModelAndView mv = new ModelAndView(new JantdEntityExcelViewBase());
         List<SysAnnouncement> pageList = sysAnnouncementService.list(queryWrapper);
+        LoginUser user = (LoginUser) SecurityUtils.getSubject().getPrincipal();
         //导出文件名称
         mv.addObject(NormalExcelConstants.FILE_NAME, "系统通告列表");
         mv.addObject(NormalExcelConstants.CLASS, SysAnnouncement.class);
-        mv.addObject(NormalExcelConstants.PARAMS, new ExportParams("系统通告列表数据", "导出人:Jeecg", "导出信息"));
+        mv.addObject(NormalExcelConstants.PARAMS, new ExportParams("系统通告列表数据", "导出人:"+user.getRealname(), "导出信息"));
         mv.addObject(NormalExcelConstants.DATA_LIST, pageList);
         return mv;
     }

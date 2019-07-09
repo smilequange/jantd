@@ -17,6 +17,7 @@ import cn.jantd.core.poi.excel.entity.ImportParams;
 import cn.jantd.core.poi.view.JantdEntityExcelViewBase;
 import cn.jantd.core.system.query.QueryGenerator;
 import cn.jantd.core.system.vo.DictModel;
+import cn.jantd.core.system.vo.LoginUser;
 import cn.jantd.core.util.oConvertUtils;
 import cn.jantd.modules.system.entity.SysDict;
 import cn.jantd.modules.system.entity.SysDictItem;
@@ -26,6 +27,7 @@ import cn.jantd.modules.system.service.ISysDictService;
 import cn.jantd.modules.system.vo.SysDictPage;
 
 import io.swagger.annotations.ApiOperation;
+import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
@@ -296,6 +298,7 @@ public class SysDictController {
         List<SysDictPage> pageList = new ArrayList<SysDictPage>();
 
         List<SysDict> sysDictList = sysDictService.list(queryWrapper);
+        LoginUser user = (LoginUser) SecurityUtils.getSubject().getPrincipal();
         for (SysDict dictMain : sysDictList) {
             SysDictPage vo = new SysDictPage();
             BeanUtils.copyProperties(dictMain, vo);
@@ -310,7 +313,7 @@ public class SysDictController {
         // 注解对象Class
         mv.addObject(NormalExcelConstants.CLASS, SysDictPage.class);
         // 自定义表格参数
-        mv.addObject(NormalExcelConstants.PARAMS, new ExportParams("数据字典列表", "导出人:Jeecg", "数据字典"));
+        mv.addObject(NormalExcelConstants.PARAMS, new ExportParams("数据字典列表", "导出人:"+user.getRealname(), "数据字典"));
         // 导出数据列表
         mv.addObject(NormalExcelConstants.DATA_LIST, pageList);
         return mv;

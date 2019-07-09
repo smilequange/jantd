@@ -16,10 +16,12 @@ import cn.jantd.core.poi.excel.entity.ExportParams;
 import cn.jantd.core.poi.excel.entity.ImportParams;
 import cn.jantd.core.poi.view.JantdEntityExcelViewBase;
 import cn.jantd.core.system.query.QueryGenerator;
+import cn.jantd.core.system.vo.LoginUser;
 import cn.jantd.modules.system.entity.SysUserAgent;
 import cn.jantd.modules.system.service.ISysUserAgentService;
 
 import io.swagger.annotations.ApiOperation;
+import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -233,7 +235,8 @@ public class SysUserAgentController {
         //导出文件名称
         mv.addObject(NormalExcelConstants.FILE_NAME, "用户代理人设置列表");
         mv.addObject(NormalExcelConstants.CLASS, SysUserAgent.class);
-        mv.addObject(NormalExcelConstants.PARAMS, new ExportParams("用户代理人设置列表数据", "导出人:Jeecg", "导出信息"));
+        LoginUser user = (LoginUser) SecurityUtils.getSubject().getPrincipal();
+        mv.addObject(NormalExcelConstants.PARAMS, new ExportParams("用户代理人设置列表数据", "导出人:"+user.getRealname(), "导出信息"));
         mv.addObject(NormalExcelConstants.DATA_LIST, pageList);
         return mv;
     }
