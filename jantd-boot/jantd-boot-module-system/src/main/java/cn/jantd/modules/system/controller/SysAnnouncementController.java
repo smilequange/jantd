@@ -32,6 +32,8 @@ import cn.jantd.modules.system.service.ISysAnnouncementSendService;
 import cn.jantd.modules.system.service.ISysAnnouncementService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.CollectionUtils;
+import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -299,7 +301,9 @@ public class SysAnnouncementController {
         querySaWrapper.eq(SysAnnouncement::getDelFlag, CommonConstant.DEL_FLAG_NO);
         // 已发布
         querySaWrapper.eq(SysAnnouncement::getSendStatus, CommonConstant.HAS_SEND);
-        querySaWrapper.notIn(SysAnnouncement::getId, anntIds);
+        if (!CollectionUtils.isEmpty(anntIds)) {
+            querySaWrapper.notIn(SysAnnouncement::getId, anntIds);
+        }
         List<SysAnnouncement> announcements = sysAnnouncementService.list(querySaWrapper);
         if (announcements.size() > 0) {
             for (int i = 0; i < announcements.size(); i++) {
