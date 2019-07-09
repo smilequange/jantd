@@ -2,6 +2,7 @@ package cn.jantd.modules.system.service.impl;
 
 import java.util.List;
 
+import cn.jantd.core.constant.CommonConstant;
 import cn.jantd.core.system.vo.DictModel;
 import cn.jantd.modules.system.service.ISysDictService;
 import cn.jantd.modules.system.entity.SysDict;
@@ -99,7 +100,7 @@ public class SysDictServiceImpl extends ServiceImpl<SysDictMapper, SysDict> impl
      */
     @Override
     public boolean deleteByDictId(SysDict sysDict) {
-        sysDict.setDelFlag(2);
+        sysDict.setDelFlag(CommonConstant.DEL_FLAG_YES);
         return this.updateById(sysDict);
     }
 

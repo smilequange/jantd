@@ -1,16 +1,14 @@
 package cn.jantd.modules.system.controller;
 
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import cn.jantd.core.annotation.AutoLog;
 import cn.jantd.core.api.vo.Result;
+import cn.jantd.core.constant.CommonConstant;
 import cn.jantd.core.constant.SystemConstant;
 import cn.jantd.core.poi.def.NormalExcelConstants;
 import cn.jantd.core.poi.excel.ExcelImportUtil;
@@ -74,7 +72,7 @@ public class SysDictController {
                                                 @RequestParam(name = "pageSize", defaultValue = "10") Integer pageSize, HttpServletRequest req) {
         Result<IPage<SysDict>> result = new Result<IPage<SysDict>>();
         QueryWrapper<SysDict> queryWrapper = QueryGenerator.initQueryWrapper(sysDict, req.getParameterMap());
-        queryWrapper.eq("del_flag", "1");
+        queryWrapper.eq("del_flag", "0");
         Page<SysDict> page = new Page<SysDict>(pageNo, pageSize);
         IPage<SysDict> pageList = sysDictService.page(page, queryWrapper);
         log.info("查询当前页：" + pageList.getCurrent());
@@ -196,6 +194,7 @@ public class SysDictController {
         Result<SysDict> result = new Result<SysDict>();
         try {
             sysDict.setCreateTime(new Date());
+            sysDict.setDelFlag(CommonConstant.DEL_FLAG_NO);
             sysDictService.save(sysDict);
             result.success("保存成功！");
         } catch (Exception e) {
@@ -271,7 +270,7 @@ public class SysDictController {
             String[] id = ids.split(",");
             for (int i = 0; i < id.length; i++) {
                 SysDict sysDict = sysDictService.getById(id[i]);
-                sysDict.setDelFlag(2);
+                sysDict.setDelFlag(CommonConstant.DEL_FLAG_YES);
                 sysDictService.updateById(sysDict);
             }
             result.success("删除成功!");
