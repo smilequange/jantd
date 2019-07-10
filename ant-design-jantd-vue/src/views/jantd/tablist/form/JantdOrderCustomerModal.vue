@@ -90,7 +90,7 @@
   import {ACCESS_TOKEN} from "@/store/mutation-types"
 
   export default {
-    name: "JeecgOrderCustomerModal",
+    name: "JantdOrderCustomerModal",
     data() {
       return {
         title: "操作",

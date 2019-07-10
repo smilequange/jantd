@@ -99,16 +99,16 @@
 </template>
 
 <script>
-  import JeecgOrderDMainModal from './form/JeecgOrderDMainModal'
-  import JeecgOrderCustomerList from './JeecgOrderCustomerList'
-  import JeecgOrderTicketList from './JeecgOrderTicketList'
+  import JeecgOrderDMainModal from './form/JantdOrderDMainModal'
+  import JeecgOrderCustomerList from './JantdOrderCustomerList'
+  import JeecgOrderTicketList from './JantdOrderTicketList'
   import {deleteAction} from '@/api/manage'
-  import JeecgOrderCustomerModal from './form/JeecgOrderCustomerModal'
-  import JeecgOrderTicketModal from './form/JeecgOrderTicketModal'
+  import JeecgOrderCustomerModal from './form/JantdOrderCustomerModal'
+  import JeecgOrderTicketModal from './form/JantdOrderTicketModal'
   import {JeecgListMixin} from '@/mixins/JeecgListMixin'
 
   export default {
-    name: "JeecgOrderDMainList",
+    name: "JantdOrderDMainList",
     mixins: [JeecgListMixin],
     components: {
       JeecgOrderTicketModal,

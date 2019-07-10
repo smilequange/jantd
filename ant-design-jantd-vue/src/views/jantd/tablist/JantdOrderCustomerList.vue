@@ -2,7 +2,7 @@
   <a-card :bordered="false">
 
     <!-- 操作按钮区域 -->
-    <div class="table-operator" :md="24" :sm="24" style="margin: -25px 0px 10px 2px">
+    <div class="table-operator" :md="24" :sm="24" style="margin: -25px 0px 10px 0px">
       <a-button @click="handleAdd" type="primary" icon="plus">新增</a-button>
 
       <a-dropdown v-if="selectedRowKeys.length > 0">
@@ -48,7 +48,6 @@
               <a-menu-item>
                 <a href="javascript:;" @click="handleDetail(record)">详情</a>
               </a-menu-item>
-
               <a-menu-item>
                 <a-popconfirm title="确定删除吗?" @confirm="() => handleDelete(record.id)">
                   <a>删除</a>
@@ -57,63 +56,75 @@
             </a-menu>
           </a-dropdown>
         </span>
-
       </a-table>
     </div>
     <!-- table区域-end -->
-
     <!-- 表单区域 -->
-    <JeecgOrderTicket-modal ref="modalForm" @ok="modalFormOk"></JeecgOrderTicket-modal>
+    <jeecgOrderCustomer-modal ref="modalForm" @ok="modalFormOk"></jeecgOrderCustomer-modal>
   </a-card>
 </template>
 
 <script>
-  import JeecgOrderTicketModal from './form/JeecgOrderTicketModal'
+  import JeecgOrderCustomerModal from './form/JantdOrderCustomerModal'
+  import JeecgOrderDMainList from './JantdOrderDMainList'
   import {JeecgListMixin} from '@/mixins/JeecgListMixin'
   import {getAction} from '@/api/manage'
 
   export default {
-    name: "JeecgOrderTicketList",
+    name: "JantdOrderCustomerList",
     mixins: [JeecgListMixin],
     components: {
-      JeecgOrderTicketModal,
+      JeecgOrderDMainList,
+      JeecgOrderCustomerModal
     },
     data() {
       return {
-        description: '机票信息',
+        description: '订单客户信息',
         // 表头
-        columns: [{
-          title: '航班号',
-          align: "center",
-          dataIndex: 'ticketCode'
-        }, {
-          title: '航班时间',
-          align: "center",
-          dataIndex: 'tickectDate'
-        }, {
-          title: '订单号码',
-          align: "center",
-          dataIndex: 'orderId',
-        }, {
-          title: '创建人',
-          align: "center",
-          dataIndex: 'createBy'
-        }, {
-          title: '创建时间',
-          align: "center",
-          dataIndex: 'createTime',
-          sorter: true
-        }, {
-          title: '操作',
-          key: 'operation',
-          align: "center",
-          width: 130,
-          scopedSlots: {customRender: 'action'},
-        }],
+        columns: [
+          {
+            title: '客户名',
+            align: "center",
+            width: 100,
+            dataIndex: 'name',
+            key: 'name',
+          },
+          {
+            title: '性别',
+            align: "center",
+            dataIndex: 'sex',
+            customRender: function (text) {
+              if (text == 1) {
+                return "男";
+              } else if (text == 2) {
+                return "女";
+              } else {
+                return text;
+              }
+            }
+          },
+          {
+            title: '身份证号码',
+            align: "center",
+            dataIndex: 'idcard',
+          },
+          {
+            title: '电话',
+            dataIndex: 'telphone',
+            align: "center",
+          },
+          {
+            title: '操作',
+            key: 'operation',
+            align: 'center',
+            width: 130,
+            scopedSlots: {customRender: 'action'},
+          },
+        ],
         url: {
-          list: "/test/order/listOrderTicketByMainId",
-          delete: "/test/order/deleteTicket",
-          deleteBatch: "/test/order/deleteBatchTicket",
+          list: "/test/order/listOrderCustomerByMainId",
+          delete: "/test/order/deleteCustomer",
+          deleteBatch: "/test/order/deleteBatchCustomer",
         }
       }
     },
@@ -137,7 +148,7 @@
       },
       handleAdd: function () {
         this.$refs.modalForm.add(this.queryParam.mainId);
-        this.$refs.modalForm.title = "添加机票信息";
+        this.$refs.modalForm.title = "添加客户信息";
       },
     }
   }

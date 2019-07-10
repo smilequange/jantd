@@ -130,9 +130,9 @@
 </template>
 
 <script>
-  import JeecgDemoModal from './modules/JeecgDemoModal'
+  import JeecgDemoModal from './modules/JantdDemoModal'
   import JSuperQuery from '@/components/jantd/JSuperQuery.vue';
-  import JeecgDemoTabsModal from './modules/JeecgDemoTabsModal'
+  import JeecgDemoTabsModal from './modules/JantdDemoTabsModal'
   import {initDictOptions, filterDictText} from '@/components/dict/JDictSelectUtil'
   import { JeecgListMixin } from '@/mixins/JeecgListMixin'
 
@@ -151,7 +151,7 @@
     text:"年龄"
   }]
   export default {
-    name: "JeecgDemoList",
+    name: "JantdDemoList",
     mixins:[JeecgListMixin],
     components: {
       JeecgDemoModal,

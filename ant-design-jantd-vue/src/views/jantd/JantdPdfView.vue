@@ -55,7 +55,7 @@
   }]
 
   export default {
-    name: "JeecgPdfView",
+    name: "JantdPdfView",
     components:{
       PdfPreviewModal
     },

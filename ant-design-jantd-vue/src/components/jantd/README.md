@@ -90,7 +90,7 @@ fieldList结构示例：
 ```vue
 import JSuperQuery from '@/components/jantd/JSuperQuery.vue';
   export default {
-    name: "JeecgDemoList",
+    name: "JantdDemoList",
     components: {
       JSuperQuery
     },

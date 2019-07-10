@@ -59,7 +59,7 @@
   import moment from "moment"
 
   export default {
-    name: "JeecgOrderDMainModal",
+    name: "JantdOrderDMainModal",
     components: {
       JDate
     },
