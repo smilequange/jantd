@@ -1,6 +1,6 @@
 package cn.jantd.modules.demo.test.service;
 
-import cn.jantd.modules.demo.test.entity.JeecgDemo;
+import cn.jantd.modules.demo.test.entity.JantdDemo;
 import cn.jantd.core.system.base.service.BaseService;
 
 /**
@@ -9,9 +9,9 @@ import cn.jantd.core.system.base.service.BaseService;
  * @Date:  2018-12-29
  * @Version: V1.0
  */
-public interface IJeecgDemoService extends BaseService<JeecgDemo> {
+public interface IJantdDemoService extends BaseService<JantdDemo> {
 
 	public void testTran();
 
-	public JeecgDemo getByIdCacheable(String id);
+	public JantdDemo getByIdCacheable(String id);
 }

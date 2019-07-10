@@ -1,9 +1,9 @@
 package cn.jantd.modules.demo.test.service.impl;
 
-import cn.jantd.modules.demo.test.entity.JeecgDemo;
-import cn.jantd.modules.demo.test.mapper.JeecgDemoMapper;
+import cn.jantd.modules.demo.test.entity.JantdDemo;
+import cn.jantd.modules.demo.test.mapper.JantdDemoMapper;
 import cn.jantd.core.system.base.service.impl.BaseServiceImpl;
-import cn.jantd.modules.demo.test.service.IJeecgDemoService;
+import cn.jantd.modules.demo.test.service.IJantdDemoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
@@ -16,9 +16,9 @@ import org.springframework.transaction.annotation.Transactional;
  * @Version: V1.0
  */
 @Service
-public class JeecgDemoServiceImpl extends BaseServiceImpl<JeecgDemoMapper, JeecgDemo> implements IJeecgDemoService {
+public class JantdDemoServiceImpl extends BaseServiceImpl<JantdDemoMapper, JantdDemo> implements IJantdDemoService {
 	@Autowired
-	JeecgDemoMapper jeecgDemoMapper;
+	JantdDemoMapper jantdDemoMapper;
 
 	/**
 	 * 事务控制在service层面
@@ -27,22 +27,22 @@ public class JeecgDemoServiceImpl extends BaseServiceImpl<JeecgDemoMapper, Jeecg
 	@Override
 	@Transactional
 	public void testTran() {
-		JeecgDemo pp = new JeecgDemo();
+		JantdDemo pp = new JantdDemo();
 		pp.setAge(1111);
 		pp.setName("测试事务  小白兔 1");
-		jeecgDemoMapper.insert(pp);
+		jantdDemoMapper.insert(pp);
 
-		JeecgDemo pp2 = new JeecgDemo();
+		JantdDemo pp2 = new JantdDemo();
 		pp2.setAge(2222);
 		pp2.setName("测试事务  小白兔 2");
-		jeecgDemoMapper.insert(pp2);
+		jantdDemoMapper.insert(pp2);
 
 		Integer.parseInt("hello");//自定义异常
 
-		JeecgDemo pp3 = new JeecgDemo();
+		JantdDemo pp3 = new JantdDemo();
 		pp3.setAge(3333);
 		pp3.setName("测试事务  小白兔 3");
-		jeecgDemoMapper.insert(pp3);
+		jantdDemoMapper.insert(pp3);
 		return ;
 	}
 
@@ -52,8 +52,8 @@ public class JeecgDemoServiceImpl extends BaseServiceImpl<JeecgDemoMapper, Jeecg
 	 */
 	@Override
 	@Cacheable(cacheNames="jeecgDemo", key="#id")
-	public JeecgDemo getByIdCacheable(String id) {
-		JeecgDemo t = jeecgDemoMapper.selectById(id);
+	public JantdDemo getByIdCacheable(String id) {
+		JantdDemo t = jantdDemoMapper.selectById(id);
 		System.err.println("---未读缓存，读取数据库---");
 		System.err.println(t);
 		return t;

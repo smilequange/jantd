@@ -1,45 +1,40 @@
 package cn.jantd.modules.demo.test.entity;
 
 import java.io.Serializable;
-
-import cn.jantd.core.poi.excel.annotation.Excel;
+import java.util.Date;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import com.fasterxml.jackson.annotation.JsonFormat;
-
 import org.springframework.format.annotation.DateTimeFormat;
 
 /**
- * @Description: 订单客户
+ * @Description: 订单
  * @Author xiagf
  * @Date:  2019-02-15
  * @Version: V1.0
  */
 @Data
-@TableName("jeecg_order_customer")
-public class JeecgOrderCustomer implements Serializable {
+@TableName("jeecg_order_main")
+public class JantdOrderMain implements Serializable {
     private static final long serialVersionUID = 1L;
 
 	/**主键*/
 	@TableId(type = IdType.UUID)
 	private java.lang.String id;
-	/**客户名*/
-	@Excel(name="客户名字",width=15)
-	private java.lang.String name;
-	/**性别*/
-	private java.lang.String sex;
-	/**身份证号码*/
-	@Excel(name="身份证号码",width=15)
-	private java.lang.String idcard;
-	/**身份证扫描件*/
-	private java.lang.String idcardPic;
-	/**电话1*/
-	@Excel(name="电话",width=15)
-	private java.lang.String telphone;
-	/**外键*/
-	private java.lang.String orderId;
+	/**订单号*/
+	private java.lang.String orderCode;
+	/**订单类型*/
+	private java.lang.String ctype;
+	/**订单日期*/
+	@JsonFormat(timezone = "GMT+8",pattern = "yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
+	private java.util.Date orderDate;
+	/**订单金额*/
+	private java.lang.Double orderMoney;
+	/**订单备注*/
+	private java.lang.String content;
 	/**创建人*/
 	private java.lang.String createBy;
 	/**创建时间*/

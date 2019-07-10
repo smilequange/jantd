@@ -7,13 +7,13 @@ import javax.servlet.http.HttpServletRequest;
 
 import cn.jantd.core.api.vo.Result;
 import cn.jantd.core.system.query.QueryGenerator;
-import cn.jantd.modules.demo.test.entity.JeecgOrderCustomer;
-import cn.jantd.modules.demo.test.entity.JeecgOrderMain;
-import cn.jantd.modules.demo.test.entity.JeecgOrderTicket;
-import cn.jantd.modules.demo.test.service.IJeecgOrderCustomerService;
-import cn.jantd.modules.demo.test.service.IJeecgOrderMainService;
-import cn.jantd.modules.demo.test.service.IJeecgOrderTicketService;
-import cn.jantd.modules.demo.test.vo.JeecgOrderMainPage;
+import cn.jantd.modules.demo.test.entity.JantdOrderCustomer;
+import cn.jantd.modules.demo.test.entity.JantdOrderMain;
+import cn.jantd.modules.demo.test.entity.JantdOrderTicket;
+import cn.jantd.modules.demo.test.service.IJantdOrderCustomerService;
+import cn.jantd.modules.demo.test.service.IJantdOrderMainService;
+import cn.jantd.modules.demo.test.service.IJantdOrderTicketService;
+import cn.jantd.modules.demo.test.vo.JantdOrderMainPage;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -41,36 +41,36 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @RestController
 @RequestMapping("/test/order")
-public class JeecgOrderDMainController {
+public class JantdOrderDMainController {
     @Autowired
-    private IJeecgOrderMainService jeecgOrderMainService;
+    private IJantdOrderMainService jeecgOrderMainService;
     @Autowired
-    private IJeecgOrderCustomerService jeecgOrderCustomerService;
+    private IJantdOrderCustomerService jeecgOrderCustomerService;
     @Autowired
-    private IJeecgOrderTicketService jeecgOrderTicketService;
+    private IJantdOrderTicketService jeecgOrderTicketService;
     @Autowired
-    private IJeecgOrderCustomerService customerService;
+    private IJantdOrderCustomerService customerService;
     @Autowired
-    private IJeecgOrderTicketService ticketService;
+    private IJantdOrderTicketService ticketService;
 
     /**
      * 分页列表查询
      *
-     * @param jeecgOrderMain
+     * @param jantdOrderMain
      * @param pageNo
      * @param pageSize
      * @param req
      * @return
      */
     @GetMapping(value = "/orderList")
-    public Result<IPage<JeecgOrderMain>> respondePagedData(JeecgOrderMain jeecgOrderMain,
+    public Result<IPage<JantdOrderMain>> respondePagedData(JantdOrderMain jantdOrderMain,
                                                            @RequestParam(name = "pageNo", defaultValue = "1") Integer pageNo,
                                                            @RequestParam(name = "pageSize", defaultValue = "10") Integer pageSize,
                                                            HttpServletRequest req) {
-        Result<IPage<JeecgOrderMain>> result = new Result<IPage<JeecgOrderMain>>();
-        QueryWrapper<JeecgOrderMain> queryWrapper = QueryGenerator.initQueryWrapper(jeecgOrderMain, req.getParameterMap());
-        Page<JeecgOrderMain> page = new Page<JeecgOrderMain>(pageNo, pageSize);
-        IPage<JeecgOrderMain> pageList = jeecgOrderMainService.page(page, queryWrapper);
+        Result<IPage<JantdOrderMain>> result = new Result<IPage<JantdOrderMain>>();
+        QueryWrapper<JantdOrderMain> queryWrapper = QueryGenerator.initQueryWrapper(jantdOrderMain, req.getParameterMap());
+        Page<JantdOrderMain> page = new Page<JantdOrderMain>(pageNo, pageSize);
+        IPage<JantdOrderMain> pageList = jeecgOrderMainService.page(page, queryWrapper);
         //log.debug("查询当前页："+pageList.getCurrent());
         //log.debug("查询当前页数量："+pageList.getSize());
         //log.debug("查询结果数量："+pageList.getRecords().size());
@@ -83,16 +83,16 @@ public class JeecgOrderDMainController {
     /**
      * 添加
      *
-     * @param jeecgOrderMainPage
+     * @param jantdOrderMainPage
      * @return
      */
     @PostMapping(value = "/add")
-    public Result<JeecgOrderMain> add(@RequestBody JeecgOrderMainPage jeecgOrderMainPage) {
-        Result<JeecgOrderMain> result = new Result<JeecgOrderMain>();
+    public Result<JantdOrderMain> add(@RequestBody JantdOrderMainPage jantdOrderMainPage) {
+        Result<JantdOrderMain> result = new Result<JantdOrderMain>();
         try {
-            JeecgOrderMain jeecgOrderMain = new JeecgOrderMain();
-            BeanUtils.copyProperties(jeecgOrderMainPage, jeecgOrderMain);
-            jeecgOrderMainService.save(jeecgOrderMain);
+            JantdOrderMain jantdOrderMain = new JantdOrderMain();
+            BeanUtils.copyProperties(jantdOrderMainPage, jantdOrderMain);
+            jeecgOrderMainService.save(jantdOrderMain);
             result.success("添加成功！");
         } catch (Exception e) {
             log.error(e.getMessage(),e);
@@ -104,19 +104,19 @@ public class JeecgOrderDMainController {
     /**
      * 编辑
      *
-     * @param jeecgOrderMainPage
+     * @param jantdOrderMainPage
      * @return
      */
     @PutMapping("/edit")
-    public Result<JeecgOrderMain> edit(@RequestBody JeecgOrderMainPage jeecgOrderMainPage) {
-        Result<JeecgOrderMain> result = new Result<JeecgOrderMain>();
-        JeecgOrderMain jeecgOrderMain = new JeecgOrderMain();
-        BeanUtils.copyProperties(jeecgOrderMainPage, jeecgOrderMain);
-        JeecgOrderMain jeecgOrderMainEntity = jeecgOrderMainService.getById(jeecgOrderMain.getId());
-        if (jeecgOrderMainEntity == null) {
+    public Result<JantdOrderMain> edit(@RequestBody JantdOrderMainPage jantdOrderMainPage) {
+        Result<JantdOrderMain> result = new Result<JantdOrderMain>();
+        JantdOrderMain jantdOrderMain = new JantdOrderMain();
+        BeanUtils.copyProperties(jantdOrderMainPage, jantdOrderMain);
+        JantdOrderMain jantdOrderMainEntity = jeecgOrderMainService.getById(jantdOrderMain.getId());
+        if (jantdOrderMainEntity == null) {
             result.error500("未找到对应实体");
         } else {
-            jeecgOrderMainService.updateById(jeecgOrderMain);
+            jeecgOrderMainService.updateById(jantdOrderMain);
             result.success("修改成功!");
         }
 
@@ -130,10 +130,10 @@ public class JeecgOrderDMainController {
      * @return
      */
     @DeleteMapping(value = "/delete")
-    public Result<JeecgOrderMain> delete(@RequestParam(name = "id", required = true) String id) {
-        Result<JeecgOrderMain> result = new Result<JeecgOrderMain>();
-        JeecgOrderMain jeecgOrderMain = jeecgOrderMainService.getById(id);
-        if (jeecgOrderMain == null) {
+    public Result<JantdOrderMain> delete(@RequestParam(name = "id", required = true) String id) {
+        Result<JantdOrderMain> result = new Result<JantdOrderMain>();
+        JantdOrderMain jantdOrderMain = jeecgOrderMainService.getById(id);
+        if (jantdOrderMain == null) {
             result.error500("未找到对应实体");
         } else {
             jeecgOrderMainService.delMain(id);
@@ -150,8 +150,8 @@ public class JeecgOrderDMainController {
      * @return
      */
     @DeleteMapping(value = "/deleteBatch")
-    public Result<JeecgOrderMain> deleteBatch(@RequestParam(name = "ids", required = true) String ids) {
-        Result<JeecgOrderMain> result = new Result<JeecgOrderMain>();
+    public Result<JantdOrderMain> deleteBatch(@RequestParam(name = "ids", required = true) String ids) {
+        Result<JantdOrderMain> result = new Result<JantdOrderMain>();
         if (ids == null || "".equals(ids.trim())) {
             result.error500("参数不识别！");
         } else {
@@ -168,13 +168,13 @@ public class JeecgOrderDMainController {
      * @return
      */
     @GetMapping(value = "/queryById")
-    public Result<JeecgOrderMain> queryById(@RequestParam(name = "id", required = true) String id) {
-        Result<JeecgOrderMain> result = new Result<JeecgOrderMain>();
-        JeecgOrderMain jeecgOrderMain = jeecgOrderMainService.getById(id);
-        if (jeecgOrderMain == null) {
+    public Result<JantdOrderMain> queryById(@RequestParam(name = "id", required = true) String id) {
+        Result<JantdOrderMain> result = new Result<JantdOrderMain>();
+        JantdOrderMain jantdOrderMain = jeecgOrderMainService.getById(id);
+        if (jantdOrderMain == null) {
             result.error500("未找到对应实体");
         } else {
-            result.setResult(jeecgOrderMain);
+            result.setResult(jantdOrderMain);
             result.setSuccess(true);
         }
         return result;
@@ -187,12 +187,12 @@ public class JeecgOrderDMainController {
      * @return
      */
     @GetMapping(value = "/listOrderCustomerByMainId")
-    public Result<List<JeecgOrderCustomer>> queryOrderCustomerListByMainId(@RequestParam(name = "mainId", required = false) String mainId) {
-        Result<List<JeecgOrderCustomer>> result = new Result<List<JeecgOrderCustomer>>();
-        List<JeecgOrderCustomer> jeecgOrderCustomerList = null;
+    public Result<List<JantdOrderCustomer>> queryOrderCustomerListByMainId(@RequestParam(name = "mainId", required = false) String mainId) {
+        Result<List<JantdOrderCustomer>> result = new Result<List<JantdOrderCustomer>>();
+        List<JantdOrderCustomer> jantdOrderCustomerList = null;
         if (mainId != null) {
-            jeecgOrderCustomerList = jeecgOrderCustomerService.selectCustomersByMainId(mainId);
-            result.setResult(jeecgOrderCustomerList);
+            jantdOrderCustomerList = jeecgOrderCustomerService.selectCustomersByMainId(mainId);
+            result.setResult(jantdOrderCustomerList);
             result.setSuccess(true);
             return result;
         } else {
@@ -207,12 +207,12 @@ public class JeecgOrderDMainController {
      * @return
      */
     @GetMapping(value = "/listOrderTicketByMainId")
-    public Result<List<JeecgOrderTicket>> queryOrderTicketListByMainId(@RequestParam(name = "mainId", required = false) String mainId) {
-        Result<List<JeecgOrderTicket>> result = new Result<List<JeecgOrderTicket>>();
-        List<JeecgOrderTicket> jeecgOrderTicketList = null;
+    public Result<List<JantdOrderTicket>> queryOrderTicketListByMainId(@RequestParam(name = "mainId", required = false) String mainId) {
+        Result<List<JantdOrderTicket>> result = new Result<List<JantdOrderTicket>>();
+        List<JantdOrderTicket> jantdOrderTicketList = null;
         if (mainId != null) {
-            jeecgOrderTicketList = jeecgOrderTicketService.selectTicketsByMainId(mainId);
-            result.setResult(jeecgOrderTicketList);
+            jantdOrderTicketList = jeecgOrderTicketService.selectTicketsByMainId(mainId);
+            result.setResult(jantdOrderTicketList);
             result.setSuccess(true);
             return result;
         } else {
@@ -225,14 +225,14 @@ public class JeecgOrderDMainController {
     /**
      * 添加
      *
-     * @param jeecgOrderCustomer
+     * @param jantdOrderCustomer
      * @return
      */
     @PostMapping(value = "/addCustomer")
-    public Result<JeecgOrderCustomer> addCustomer(@RequestBody JeecgOrderCustomer jeecgOrderCustomer) {
-        Result<JeecgOrderCustomer> result = new Result<>();
+    public Result<JantdOrderCustomer> addCustomer(@RequestBody JantdOrderCustomer jantdOrderCustomer) {
+        Result<JantdOrderCustomer> result = new Result<>();
         try {
-            boolean ok = customerService.save(jeecgOrderCustomer);
+            boolean ok = customerService.save(jantdOrderCustomer);
             if (ok) {
                 result.setSuccess(true);
                 result.setMessage("添加数据成功");
@@ -253,14 +253,14 @@ public class JeecgOrderDMainController {
     /**
      * 编辑
      *
-     * @param jeecgOrderCustomer
+     * @param jantdOrderCustomer
      * @return
      */
     @PutMapping("/editCustomer")
-    public Result<JeecgOrderCustomer> editCustomer(@RequestBody JeecgOrderCustomer jeecgOrderCustomer) {
-        Result<JeecgOrderCustomer> result = new Result<>();
+    public Result<JantdOrderCustomer> editCustomer(@RequestBody JantdOrderCustomer jantdOrderCustomer) {
+        Result<JantdOrderCustomer> result = new Result<>();
         try {
-            boolean ok = customerService.updateById(jeecgOrderCustomer);
+            boolean ok = customerService.updateById(jantdOrderCustomer);
             if (ok) {
                 result.setSuccess(true);
                 result.setMessage("更新成功");
@@ -285,8 +285,8 @@ public class JeecgOrderDMainController {
      * @return
      */
     @DeleteMapping(value = "/deleteCustomer")
-    public Result<JeecgOrderCustomer> deleteCustomer(@RequestParam(name = "id", required = true) String id) {
-        Result<JeecgOrderCustomer> result = new Result<>();
+    public Result<JantdOrderCustomer> deleteCustomer(@RequestParam(name = "id", required = true) String id) {
+        Result<JantdOrderCustomer> result = new Result<>();
         try {
             boolean ok = customerService.removeById(id);
             if (ok) {
@@ -312,8 +312,8 @@ public class JeecgOrderDMainController {
      * @return
      */
     @DeleteMapping(value = "/deleteBatchCustomer")
-    public Result<JeecgOrderCustomer> deleteBatchCustomer(@RequestParam(name = "ids", required = true) String ids) {
-        Result<JeecgOrderCustomer> result = new Result<JeecgOrderCustomer>();
+    public Result<JantdOrderCustomer> deleteBatchCustomer(@RequestParam(name = "ids", required = true) String ids) {
+        Result<JantdOrderCustomer> result = new Result<JantdOrderCustomer>();
         if (ids == null || "".equals(ids.trim())) {
             result.error500("参数不识别！");
         } else {
@@ -327,14 +327,14 @@ public class JeecgOrderDMainController {
     /**
      * 添加
      *
-     * @param jeecgOrderTicket
+     * @param jantdOrderTicket
      * @return
      */
     @PostMapping(value = "/addTicket")
-    public Result<JeecgOrderTicket> addTicket(@RequestBody JeecgOrderTicket jeecgOrderTicket) {
-        Result<JeecgOrderTicket> result = new Result<>();
+    public Result<JantdOrderTicket> addTicket(@RequestBody JantdOrderTicket jantdOrderTicket) {
+        Result<JantdOrderTicket> result = new Result<>();
         try {
-            boolean ok = ticketService.save(jeecgOrderTicket);
+            boolean ok = ticketService.save(jantdOrderTicket);
             if (ok) {
                 result.setSuccess(true);
                 result.setMessage("添加机票信息成功.");
@@ -355,14 +355,14 @@ public class JeecgOrderDMainController {
     /**
      * 编辑
      *
-     * @param jeecgOrderTicket
+     * @param jantdOrderTicket
      * @return
      */
     @PutMapping("/editTicket")
-    public Result<JeecgOrderTicket> editTicket(@RequestBody JeecgOrderTicket jeecgOrderTicket) {
-        Result<JeecgOrderTicket> result = new Result<>();
+    public Result<JantdOrderTicket> editTicket(@RequestBody JantdOrderTicket jantdOrderTicket) {
+        Result<JantdOrderTicket> result = new Result<>();
         try {
-            boolean ok = ticketService.updateById(jeecgOrderTicket);
+            boolean ok = ticketService.updateById(jantdOrderTicket);
             if (ok) {
                 result.setSuccess(true);
                 result.setMessage("更新数据成功.");
@@ -385,8 +385,8 @@ public class JeecgOrderDMainController {
      * @return
      */
     @DeleteMapping(value = "/deleteTicket")
-    public Result<JeecgOrderTicket> deleteTicket(@RequestParam(name = "id", required = true) String id) {
-        Result<JeecgOrderTicket> result = new Result<>();
+    public Result<JantdOrderTicket> deleteTicket(@RequestParam(name = "id", required = true) String id) {
+        Result<JantdOrderTicket> result = new Result<>();
         try {
             boolean ok = ticketService.removeById(id);
             if (ok) {
@@ -411,8 +411,8 @@ public class JeecgOrderDMainController {
      * @return
      */
     @DeleteMapping(value = "/deleteBatchTicket")
-    public Result<JeecgOrderTicket> deleteBatchTicket(@RequestParam(name = "ids", required = true) String ids) {
-        Result<JeecgOrderTicket> result = new Result<JeecgOrderTicket>();
+    public Result<JantdOrderTicket> deleteBatchTicket(@RequestParam(name = "ids", required = true) String ids) {
+        Result<JantdOrderTicket> result = new Result<JantdOrderTicket>();
         if (ids == null || "".equals(ids.trim())) {
             result.error500("参数不识别！");
         } else {

@@ -8,30 +8,36 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import com.fasterxml.jackson.annotation.JsonFormat;
+
 import org.springframework.format.annotation.DateTimeFormat;
 
 /**
- * @Description: 订单机票
+ * @Description: 订单客户
  * @Author xiagf
  * @Date:  2019-02-15
  * @Version: V1.0
  */
 @Data
-@TableName("jeecg_order_ticket")
-public class JeecgOrderTicket implements Serializable {
+@TableName("jeecg_order_customer")
+public class JantdOrderCustomer implements Serializable {
     private static final long serialVersionUID = 1L;
 
 	/**主键*/
 	@TableId(type = IdType.UUID)
 	private java.lang.String id;
-	/**航班号*/
-	@Excel(name="航班号",width=15)
-	private java.lang.String ticketCode;
-	/**航班时间*/
-	@JsonFormat(timezone = "GMT+8",pattern = "yyyy-MM-dd")
-    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
-	@Excel(name="航班时间",width=15,format = "yyyy-MM-dd")
-	private java.util.Date tickectDate;
+	/**客户名*/
+	@Excel(name="客户名字",width=15)
+	private java.lang.String name;
+	/**性别*/
+	private java.lang.String sex;
+	/**身份证号码*/
+	@Excel(name="身份证号码",width=15)
+	private java.lang.String idcard;
+	/**身份证扫描件*/
+	private java.lang.String idcardPic;
+	/**电话1*/
+	@Excel(name="电话",width=15)
+	private java.lang.String telphone;
 	/**外键*/
 	private java.lang.String orderId;
 	/**创建人*/

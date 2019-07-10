@@ -4,14 +4,14 @@ import java.util.List;
 
 import cn.jantd.core.poi.excel.annotation.Excel;
 import cn.jantd.core.poi.excel.annotation.ExcelCollection;
-import cn.jantd.modules.demo.test.entity.JeecgOrderCustomer;
-import cn.jantd.modules.demo.test.entity.JeecgOrderTicket;
+import cn.jantd.modules.demo.test.entity.JantdOrderCustomer;
+import cn.jantd.modules.demo.test.entity.JantdOrderTicket;
 
 
 import lombok.Data;
 
 @Data
-public class JeecgOrderMainPage {
+public class JantdOrderMainPage {
 
 	/**主键*/
 	private java.lang.String id;
@@ -38,8 +38,8 @@ public class JeecgOrderMainPage {
 	private java.util.Date updateTime;
 
 	@ExcelCollection(name="客户")
-	private List<JeecgOrderCustomer> jeecgOrderCustomerList;
+	private List<JantdOrderCustomer> jantdOrderCustomerList;
 	@ExcelCollection(name="机票")
-	private List<JeecgOrderTicket> jeecgOrderTicketList;
+	private List<JantdOrderTicket> jantdOrderTicketList;
 
 }

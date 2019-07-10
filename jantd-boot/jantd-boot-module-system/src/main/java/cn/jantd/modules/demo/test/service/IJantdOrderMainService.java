@@ -4,9 +4,9 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
 
-import cn.jantd.modules.demo.test.entity.JeecgOrderCustomer;
-import cn.jantd.modules.demo.test.entity.JeecgOrderMain;
-import cn.jantd.modules.demo.test.entity.JeecgOrderTicket;
+import cn.jantd.modules.demo.test.entity.JantdOrderCustomer;
+import cn.jantd.modules.demo.test.entity.JantdOrderMain;
+import cn.jantd.modules.demo.test.entity.JantdOrderTicket;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -16,19 +16,19 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @Date:  2019-02-15
  * @Version: V1.0
  */
-public interface IJeecgOrderMainService extends IService<JeecgOrderMain> {
+public interface IJantdOrderMainService extends IService<JantdOrderMain> {
 
 	/**
 	 * 添加一对多
 	 *
 	 */
-	public void saveMain(JeecgOrderMain jeecgOrderMain, List<JeecgOrderCustomer> jeecgOrderCustomerList, List<JeecgOrderTicket> jeecgOrderTicketList) ;
+	public void saveMain(JantdOrderMain jantdOrderMain, List<JantdOrderCustomer> jantdOrderCustomerList, List<JantdOrderTicket> jantdOrderTicketList) ;
 
 	/**
 	 * 修改一对多
 	 *
 	 */
-	public void updateMain(JeecgOrderMain jeecgOrderMain,List<JeecgOrderCustomer> jeecgOrderCustomerList,List<JeecgOrderTicket> jeecgOrderTicketList);
+	public void updateMain(JantdOrderMain jantdOrderMain, List<JantdOrderCustomer> jantdOrderCustomerList, List<JantdOrderTicket> jantdOrderTicketList);
 
 	/**
 	 * 删除一对多

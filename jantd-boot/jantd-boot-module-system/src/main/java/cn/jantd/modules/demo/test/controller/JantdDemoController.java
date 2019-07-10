@@ -15,8 +15,8 @@ import cn.jantd.core.system.base.controller.BaseController;
 import cn.jantd.core.system.query.QueryGenerator;
 import cn.jantd.core.util.DateUtils;
 import cn.jantd.core.util.RedisUtil;
-import cn.jantd.modules.demo.test.entity.JeecgDemo;
-import cn.jantd.modules.demo.test.service.IJeecgDemoService;
+import cn.jantd.modules.demo.test.entity.JantdDemo;
+import cn.jantd.modules.demo.test.service.IJantdDemoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -50,9 +50,9 @@ import lombok.extern.slf4j.Slf4j;
 @Api(tags="单表DEMO")
 @RestController
 @RequestMapping("/test/jantdDemo")
-public class JeecgDemoController extends BaseController<JeecgDemo,IJeecgDemoService> {
+public class JantdDemoController extends BaseController<JantdDemo, IJantdDemoService> {
 	@Autowired
-	private IJeecgDemoService jeecgDemoService;
+	private IJantdDemoService jeecgDemoService;
 
 	@Autowired
 	private RedisUtil redisUtil;
@@ -60,7 +60,7 @@ public class JeecgDemoController extends BaseController<JeecgDemo,IJeecgDemoServ
 	/**
 	 * 分页列表查询
 	 *
-	 * @param jeecgDemo
+	 * @param jantdDemo
 	 * @param pageNo
 	 * @param pageSize
 	 * @param req
@@ -69,18 +69,18 @@ public class JeecgDemoController extends BaseController<JeecgDemo,IJeecgDemoServ
 	@ApiOperation(value = "获取Demo数据列表", notes = "获取所有Demo数据列表")
 	@GetMapping(value = "/list")
 	@PermissionData(pageComponent="jeecg/JeecgDemoList")
-	public Result<IPage<JeecgDemo>> list(JeecgDemo jeecgDemo, @RequestParam(name = "pageNo", defaultValue = "1") Integer pageNo, @RequestParam(name = "pageSize", defaultValue = "10") Integer pageSize,
-                                         HttpServletRequest req) {
-		Result<IPage<JeecgDemo>> result = new Result<IPage<JeecgDemo>>();
+	public Result<IPage<JantdDemo>> list(JantdDemo jantdDemo, @RequestParam(name = "pageNo", defaultValue = "1") Integer pageNo, @RequestParam(name = "pageSize", defaultValue = "10") Integer pageSize,
+										 HttpServletRequest req) {
+		Result<IPage<JantdDemo>> result = new Result<IPage<JantdDemo>>();
 		/*
-		 * QueryWrapper<JeecgDemo> queryWrapper = null;
+		 * QueryWrapper<JantdDemo> queryWrapper = null;
 		 * //===========================================================================
 		 * ===== //高级组合查询 try { String superQueryParams =
 		 * req.getParameter("superQueryParams");
 		 * if(oConvertUtils.isNotEmpty(superQueryParams)) { // 解码 superQueryParams =
 		 * URLDecoder.decode(superQueryParams, "UTF-8"); List<QueryRuleVo> userList =
 		 * JSON.parseArray(superQueryParams, QueryRuleVo.class);
-		 * log.info(superQueryParams); queryWrapper = new QueryWrapper<JeecgDemo>(); for
+		 * log.info(superQueryParams); queryWrapper = new QueryWrapper<JantdDemo>(); for
 		 * (QueryRuleVo rule : userList) { if(oConvertUtils.isNotEmpty(rule.getField())
 		 * && oConvertUtils.isNotEmpty(rule.getRule()) &&
 		 * oConvertUtils.isNotEmpty(rule.getVal())){
@@ -91,8 +91,8 @@ public class JeecgDemoController extends BaseController<JeecgDemo,IJeecgDemoServ
 		 * =====
 		 *
 		 * // 手工转换实体驼峰字段为下划线分隔表字段 queryWrapper = queryWrapper==null?new
-		 * QueryWrapper<JeecgDemo>(jeecgDemo):queryWrapper; Page<JeecgDemo> page = new
-		 * Page<JeecgDemo>(pageNo, pageSize);
+		 * QueryWrapper<JantdDemo>(jantdDemo):queryWrapper; Page<JantdDemo> page = new
+		 * Page<JantdDemo>(pageNo, pageSize);
 		 *
 		 * // 排序逻辑 处理 String column = req.getParameter("column"); String order =
 		 * req.getParameter("order"); if (oConvertUtils.isNotEmpty(column) &&
@@ -101,10 +101,10 @@ public class JeecgDemoController extends BaseController<JeecgDemo,IJeecgDemoServ
 		 * queryWrapper.orderByDesc(oConvertUtils.camelToUnderline(column)); } }
 		 */
 
-		QueryWrapper<JeecgDemo> queryWrapper = QueryGenerator.initQueryWrapper(jeecgDemo, req.getParameterMap());
-		Page<JeecgDemo> page = new Page<JeecgDemo>(pageNo, pageSize);
+		QueryWrapper<JantdDemo> queryWrapper = QueryGenerator.initQueryWrapper(jantdDemo, req.getParameterMap());
+		Page<JantdDemo> page = new Page<JantdDemo>(pageNo, pageSize);
 
-		IPage<JeecgDemo> pageList = jeecgDemoService.page(page, queryWrapper);
+		IPage<JantdDemo> pageList = jeecgDemoService.page(page, queryWrapper);
 //		log.info("查询当前页：" + pageList.getCurrent());
 //		log.info("查询当前页数量：" + pageList.getSize());
 //		log.info("查询结果数量：" + pageList.getRecords().size());
@@ -117,16 +117,16 @@ public class JeecgDemoController extends BaseController<JeecgDemo,IJeecgDemoServ
 	/**
 	 * 添加
 	 *
-	 * @param jeecgDemo
+	 * @param jantdDemo
 	 * @return
 	 */
 	@PostMapping(value = "/add")
 	@AutoLog(value = "添加测试DEMO")
 	@ApiOperation(value = "添加DEMO", notes = "添加DEMO")
-	public Result<JeecgDemo> add(@RequestBody JeecgDemo jeecgDemo) {
-		Result<JeecgDemo> result = new Result<JeecgDemo>();
+	public Result<JantdDemo> add(@RequestBody JantdDemo jantdDemo) {
+		Result<JantdDemo> result = new Result<JantdDemo>();
 		try {
-			jeecgDemoService.save(jeecgDemo);
+			jeecgDemoService.save(jantdDemo);
 			result.success("添加成功！");
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);
@@ -138,18 +138,18 @@ public class JeecgDemoController extends BaseController<JeecgDemo,IJeecgDemoServ
 	/**
 	 * 编辑
 	 *
-	 * @param jeecgDemo
+	 * @param jantdDemo
 	 * @return
 	 */
 	@PutMapping(value = "/edit")
 	@ApiOperation(value = "编辑DEMO", notes = "编辑DEMO")
-	public Result<JeecgDemo> eidt(@RequestBody JeecgDemo jeecgDemo) {
-		Result<JeecgDemo> result = new Result<JeecgDemo>();
-		JeecgDemo jeecgDemoEntity = jeecgDemoService.getById(jeecgDemo.getId());
-		if (jeecgDemoEntity == null) {
+	public Result<JantdDemo> eidt(@RequestBody JantdDemo jantdDemo) {
+		Result<JantdDemo> result = new Result<JantdDemo>();
+		JantdDemo jantdDemoEntity = jeecgDemoService.getById(jantdDemo.getId());
+		if (jantdDemoEntity == null) {
 			result.error500("未找到对应实体");
 		} else {
-			boolean ok = jeecgDemoService.updateById(jeecgDemo);
+			boolean ok = jeecgDemoService.updateById(jantdDemo);
 			// TODO 返回false说明什么？
 			if (ok) {
 				result.success("修改成功!");
@@ -168,10 +168,10 @@ public class JeecgDemoController extends BaseController<JeecgDemo,IJeecgDemoServ
 	@AutoLog(value = "删除测试DEMO")
 	@DeleteMapping(value = "/delete")
 	@ApiOperation(value = "通过ID删除DEMO", notes = "通过ID删除DEMO")
-	public Result<JeecgDemo> delete(@RequestParam(name = "id", required = true) String id) {
-		Result<JeecgDemo> result = new Result<JeecgDemo>();
-		JeecgDemo jeecgDemo = jeecgDemoService.getById(id);
-		if (jeecgDemo == null) {
+	public Result<JantdDemo> delete(@RequestParam(name = "id", required = true) String id) {
+		Result<JantdDemo> result = new Result<JantdDemo>();
+		JantdDemo jantdDemo = jeecgDemoService.getById(id);
+		if (jantdDemo == null) {
 			result.error500("未找到对应实体");
 		} else {
 			boolean ok = jeecgDemoService.removeById(id);
@@ -191,8 +191,8 @@ public class JeecgDemoController extends BaseController<JeecgDemo,IJeecgDemoServ
 	 */
 	@DeleteMapping(value = "/deleteBatch")
 	@ApiOperation(value = "批量删除DEMO", notes = "批量删除DEMO")
-	public Result<JeecgDemo> deleteBatch(@RequestParam(name = "ids", required = true) String ids) {
-		Result<JeecgDemo> result = new Result<JeecgDemo>();
+	public Result<JantdDemo> deleteBatch(@RequestParam(name = "ids", required = true) String ids) {
+		Result<JantdDemo> result = new Result<JantdDemo>();
 		if (ids == null || "".equals(ids.trim())) {
 			result.error500("参数不识别！");
 		} else {
@@ -210,13 +210,13 @@ public class JeecgDemoController extends BaseController<JeecgDemo,IJeecgDemoServ
 	 */
 	@GetMapping(value = "/queryById")
 	@ApiOperation(value = "通过ID查询DEMO", notes = "通过ID查询DEMO")
-	public Result<JeecgDemo> queryById(@ApiParam(name = "id", value = "示例id", required = true) @RequestParam(name = "id", required = true) String id) {
-		Result<JeecgDemo> result = new Result<JeecgDemo>();
-		JeecgDemo jeecgDemo = jeecgDemoService.getById(id);
-		if (jeecgDemo == null) {
+	public Result<JantdDemo> queryById(@ApiParam(name = "id", value = "示例id", required = true) @RequestParam(name = "id", required = true) String id) {
+		Result<JantdDemo> result = new Result<JantdDemo>();
+		JantdDemo jantdDemo = jeecgDemoService.getById(id);
+		if (jantdDemo == null) {
 			result.error500("未找到对应实体");
 		} else {
-			result.setResult(jeecgDemo);
+			result.setResult(jantdDemo);
 			result.setSuccess(true);
 		}
 		return result;
@@ -230,8 +230,8 @@ public class JeecgDemoController extends BaseController<JeecgDemo,IJeecgDemoServ
 	 */
 	@RequestMapping(value = "/exportXls")
 	@PermissionData(pageComponent="jeecg/JeecgDemoList")
-	public ModelAndView exportXls(HttpServletRequest request, JeecgDemo jeecgDemo) {
-		return super.exportXls(request, jeecgDemo, JeecgDemo.class, "单表模型");
+	public ModelAndView exportXls(HttpServletRequest request, JantdDemo jantdDemo) {
+		return super.exportXls(request, jantdDemo, JantdDemo.class, "单表模型");
 	}
 
 	/**
@@ -243,7 +243,7 @@ public class JeecgDemoController extends BaseController<JeecgDemo,IJeecgDemoServ
 	 */
 	@RequestMapping(value = "/importExcel", method = RequestMethod.POST)
 	public Result<?> importExcel(HttpServletRequest request, HttpServletResponse response) {
-		return super.importExcel(request, response, JeecgDemo.class);
+		return super.importExcel(request, response, JantdDemo.class);
 	}
 
 	// ================================================================================================================
@@ -268,7 +268,7 @@ public class JeecgDemoController extends BaseController<JeecgDemo,IJeecgDemoServ
 	 */
 	@GetMapping(value = "/redisSetObj")
 	public void redisSetObj() {
-		JeecgDemo p = new JeecgDemo();
+		JantdDemo p = new JantdDemo();
 		p.setAge(10);
 		p.setBirthday(new Date());
 		p.setContent("hello");
@@ -289,8 +289,8 @@ public class JeecgDemoController extends BaseController<JeecgDemo,IJeecgDemoServ
 	 * redis操作 -- get
 	 */
 	@GetMapping(value = "/redisDemo/{id}")
-	public JeecgDemo redisGetJeecgDemo(@PathVariable("id") String id) {
-		JeecgDemo t = jeecgDemoService.getByIdCacheable(id);
+	public JantdDemo redisGetJeecgDemo(@PathVariable("id") String id) {
+		JantdDemo t = jeecgDemoService.getByIdCacheable(id);
 		System.out.println(t);
 		return t;
 	}
@@ -318,8 +318,8 @@ public class JeecgDemoController extends BaseController<JeecgDemo,IJeecgDemoServ
 	// ==========================================动态表单
 	// JSON接收测试===========================================//
 	@PostMapping(value = "/testOnlineAdd")
-	public Result<JeecgDemo> testOnlineAdd(@RequestBody JSONObject json) {
-		Result<JeecgDemo> result = new Result<JeecgDemo>();
+	public Result<JantdDemo> testOnlineAdd(@RequestBody JSONObject json) {
+		Result<JantdDemo> result = new Result<JantdDemo>();
 		log.info(json.toJSONString());
 		result.success("添加成功！");
 		return result;

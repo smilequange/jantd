@@ -26,7 +26,7 @@ import lombok.experimental.Accessors;
 @Accessors(chain = true)
 @ApiModel(value="测试DEMO对象", description="测试DEMO")
 @TableName("demo")
-public class JeecgDemo extends BaseEntity implements Serializable {
+public class JantdDemo extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 	/** 部门编码 */
 	@Excel(name="部门编码",width=25)

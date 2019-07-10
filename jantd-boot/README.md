@@ -47,13 +47,13 @@ QueryWrapper<?> queryWrapper = QueryGenerator.initQueryWrapper(?, req.getParamet
 ```
 
 	@GetMapping(value = "/list")
-	public Result<IPage<JeecgDemo>> list(JeecgDemo jeecgDemo, @RequestParam(name = "pageNo", defaultValue = "1") Integer pageNo, 
+	public Result<IPage<JeecgDemo>> list(JeecgDemo jantdDemo, @RequestParam(name = "pageNo", defaultValue = "1") Integer pageNo, 
 	                                     @RequestParam(name = "pageSize", defaultValue = "10") Integer pageSize,
 			HttpServletRequest req) {
 		Result<IPage<JeecgDemo>> result = new Result<IPage<JeecgDemo>>();
 		
 		//调用QueryGenerator的initQueryWrapper
-		QueryWrapper<JeecgDemo> queryWrapper = QueryGenerator.initQueryWrapper(jeecgDemo, req.getParameterMap());
+		QueryWrapper<JeecgDemo> queryWrapper = QueryGenerator.initQueryWrapper(jantdDemo, req.getParameterMap());
 		
 		Page<JeecgDemo> page = new Page<JeecgDemo>(pageNo, pageSize);
 		IPage<JeecgDemo> pageList = jeecgDemoService.page(page, queryWrapper);

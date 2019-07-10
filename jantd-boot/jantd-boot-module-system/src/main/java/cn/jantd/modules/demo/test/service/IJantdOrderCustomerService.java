@@ -2,7 +2,7 @@ package cn.jantd.modules.demo.test.service;
 
 import java.util.List;
 
-import cn.jantd.modules.demo.test.entity.JeecgOrderCustomer;
+import cn.jantd.modules.demo.test.entity.JantdOrderCustomer;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -12,7 +12,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @Date:  2019-02-15
  * @Version: V1.0
  */
-public interface IJeecgOrderCustomerService extends IService<JeecgOrderCustomer> {
+public interface IJantdOrderCustomerService extends IService<JantdOrderCustomer> {
 
-	public List<JeecgOrderCustomer> selectCustomersByMainId(String mainId);
+	public List<JantdOrderCustomer> selectCustomersByMainId(String mainId);
 }

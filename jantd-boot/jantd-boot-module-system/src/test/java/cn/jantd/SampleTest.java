@@ -5,9 +5,9 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import cn.jantd.modules.demo.mock.MockController;
-import cn.jantd.modules.demo.test.entity.JeecgDemo;
-import cn.jantd.modules.demo.test.mapper.JeecgDemoMapper;
-import cn.jantd.modules.demo.test.service.IJeecgDemoService;
+import cn.jantd.modules.demo.test.entity.JantdDemo;
+import cn.jantd.modules.demo.test.mapper.JantdDemoMapper;
+import cn.jantd.modules.demo.test.service.IJantdDemoService;
 import cn.jantd.modules.system.service.ISysDataLogService;
 import org.junit.Assert;
 import org.junit.Test;
@@ -20,9 +20,9 @@ import org.springframework.test.context.junit4.SpringRunner;
 public class SampleTest {
 
 	@Resource
-	private JeecgDemoMapper jeecgDemoMapper;
+	private JantdDemoMapper jantdDemoMapper;
 	@Resource
-	private IJeecgDemoService jeecgDemoService;
+	private IJantdDemoService jantdDemoService;
 	@Resource
 	private ISysDataLogService sysDataLogService;
 	@Resource
@@ -31,7 +31,7 @@ public class SampleTest {
 	@Test
 	public void testSelect() {
 		System.out.println(("----- selectAll method test ------"));
-		List<JeecgDemo> userList = jeecgDemoMapper.selectList(null);
+		List<JantdDemo> userList = jantdDemoMapper.selectList(null);
 		Assert.assertEquals(5, userList.size());
 		userList.forEach(System.out::println);
 	}
@@ -39,7 +39,7 @@ public class SampleTest {
 	@Test
 	public void testXmlSql() {
 		System.out.println(("----- selectAll method test ------"));
-		List<JeecgDemo> userList = jeecgDemoMapper.getDemoByName("Sandy12");
+		List<JantdDemo> userList = jantdDemoMapper.getDemoByName("Sandy12");
 		userList.forEach(System.out::println);
 	}
 
@@ -48,7 +48,7 @@ public class SampleTest {
 	 */
 	@Test
 	public void testTran() {
-		jeecgDemoService.testTran();
+		jantdDemoService.testTran();
 	}
 
 	//author:lvdandan-----date：20190315---for:添加数据日志测试----

@@ -15,13 +15,13 @@ import cn.jantd.core.poi.excel.entity.ExportParams;
 import cn.jantd.core.poi.excel.entity.ImportParams;
 import cn.jantd.core.poi.view.JantdEntityExcelViewBase;
 import cn.jantd.core.system.query.QueryGenerator;
-import cn.jantd.modules.demo.test.entity.JeecgOrderCustomer;
-import cn.jantd.modules.demo.test.entity.JeecgOrderMain;
-import cn.jantd.modules.demo.test.entity.JeecgOrderTicket;
-import cn.jantd.modules.demo.test.service.IJeecgOrderCustomerService;
-import cn.jantd.modules.demo.test.service.IJeecgOrderMainService;
-import cn.jantd.modules.demo.test.service.IJeecgOrderTicketService;
-import cn.jantd.modules.demo.test.vo.JeecgOrderMainPage;
+import cn.jantd.modules.demo.test.entity.JantdOrderCustomer;
+import cn.jantd.modules.demo.test.entity.JantdOrderMain;
+import cn.jantd.modules.demo.test.entity.JantdOrderTicket;
+import cn.jantd.modules.demo.test.service.IJantdOrderCustomerService;
+import cn.jantd.modules.demo.test.service.IJantdOrderMainService;
+import cn.jantd.modules.demo.test.service.IJantdOrderTicketService;
+import cn.jantd.modules.demo.test.vo.JantdOrderMainPage;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,29 +54,29 @@ import lombok.extern.slf4j.Slf4j;
 @RestController
 @RequestMapping("/test/jantdOrderMain")
 @Slf4j
-public class JeecgOrderMainController {
+public class JantdOrderMainController {
 	@Autowired
-	private IJeecgOrderMainService jeecgOrderMainService;
+	private IJantdOrderMainService jeecgOrderMainService;
 	@Autowired
-	private IJeecgOrderCustomerService jeecgOrderCustomerService;
+	private IJantdOrderCustomerService jeecgOrderCustomerService;
 	@Autowired
-	private IJeecgOrderTicketService jeecgOrderTicketService;
+	private IJantdOrderTicketService jeecgOrderTicketService;
 
 	/**
 	 * 分页列表查询
 	 *
-	 * @param jeecgOrderMain
+	 * @param jantdOrderMain
 	 * @param pageNo
 	 * @param pageSize
 	 * @param req
 	 * @return
 	 */
 	@GetMapping(value = "/list")
-	public Result<IPage<JeecgOrderMain>> queryPageList(JeecgOrderMain jeecgOrderMain, @RequestParam(name = "pageNo", defaultValue = "1") Integer pageNo, @RequestParam(name = "pageSize", defaultValue = "10") Integer pageSize, HttpServletRequest req) {
-		Result<IPage<JeecgOrderMain>> result = new Result<IPage<JeecgOrderMain>>();
-		QueryWrapper<JeecgOrderMain> queryWrapper = QueryGenerator.initQueryWrapper(jeecgOrderMain, req.getParameterMap());
-		Page<JeecgOrderMain> page = new Page<JeecgOrderMain>(pageNo, pageSize);
-		IPage<JeecgOrderMain> pageList = jeecgOrderMainService.page(page, queryWrapper);
+	public Result<IPage<JantdOrderMain>> queryPageList(JantdOrderMain jantdOrderMain, @RequestParam(name = "pageNo", defaultValue = "1") Integer pageNo, @RequestParam(name = "pageSize", defaultValue = "10") Integer pageSize, HttpServletRequest req) {
+		Result<IPage<JantdOrderMain>> result = new Result<IPage<JantdOrderMain>>();
+		QueryWrapper<JantdOrderMain> queryWrapper = QueryGenerator.initQueryWrapper(jantdOrderMain, req.getParameterMap());
+		Page<JantdOrderMain> page = new Page<JantdOrderMain>(pageNo, pageSize);
+		IPage<JantdOrderMain> pageList = jeecgOrderMainService.page(page, queryWrapper);
 		// log.debug("查询当前页："+pageList.getCurrent());
 		// log.debug("查询当前页数量："+pageList.getSize());
 		// log.debug("查询结果数量："+pageList.getRecords().size());
@@ -93,12 +93,12 @@ public class JeecgOrderMainController {
 	 * @return
 	 */
 	@PostMapping(value = "/add")
-	public Result<JeecgOrderMain> add(@RequestBody JeecgOrderMainPage jeecgOrderMainPage) {
-		Result<JeecgOrderMain> result = new Result<JeecgOrderMain>();
+	public Result<JantdOrderMain> add(@RequestBody JantdOrderMainPage jantdOrderMainPage) {
+		Result<JantdOrderMain> result = new Result<JantdOrderMain>();
 		try {
-			JeecgOrderMain jeecgOrderMain = new JeecgOrderMain();
-			BeanUtils.copyProperties(jeecgOrderMainPage, jeecgOrderMain);
-			jeecgOrderMainService.saveMain(jeecgOrderMain, jeecgOrderMainPage.getJeecgOrderCustomerList(), jeecgOrderMainPage.getJeecgOrderTicketList());
+			JantdOrderMain jantdOrderMain = new JantdOrderMain();
+			BeanUtils.copyProperties(jantdOrderMainPage, jantdOrderMain);
+			jeecgOrderMainService.saveMain(jantdOrderMain, jantdOrderMainPage.getJantdOrderCustomerList(), jantdOrderMainPage.getJantdOrderTicketList());
 			result.success("添加成功！");
 		} catch (Exception e) {
 			log.error(e.getMessage(),e);
@@ -114,15 +114,15 @@ public class JeecgOrderMainController {
 	 * @return
 	 */
 	@PutMapping(value = "/edit")
-	public Result<JeecgOrderMain> eidt(@RequestBody JeecgOrderMainPage jeecgOrderMainPage) {
-		Result<JeecgOrderMain> result = new Result<JeecgOrderMain>();
-		JeecgOrderMain jeecgOrderMain = new JeecgOrderMain();
-		BeanUtils.copyProperties(jeecgOrderMainPage, jeecgOrderMain);
-		JeecgOrderMain jeecgOrderMainEntity = jeecgOrderMainService.getById(jeecgOrderMain.getId());
-		if (jeecgOrderMainEntity == null) {
+	public Result<JantdOrderMain> eidt(@RequestBody JantdOrderMainPage jantdOrderMainPage) {
+		Result<JantdOrderMain> result = new Result<JantdOrderMain>();
+		JantdOrderMain jantdOrderMain = new JantdOrderMain();
+		BeanUtils.copyProperties(jantdOrderMainPage, jantdOrderMain);
+		JantdOrderMain jantdOrderMainEntity = jeecgOrderMainService.getById(jantdOrderMain.getId());
+		if (jantdOrderMainEntity == null) {
 			result.error500("未找到对应实体");
 		} else {
-			jeecgOrderMainService.updateMain(jeecgOrderMain, jeecgOrderMainPage.getJeecgOrderCustomerList(), jeecgOrderMainPage.getJeecgOrderTicketList());
+			jeecgOrderMainService.updateMain(jantdOrderMain, jantdOrderMainPage.getJantdOrderCustomerList(), jantdOrderMainPage.getJantdOrderTicketList());
 			result.success("修改成功!");
 		}
 
@@ -136,10 +136,10 @@ public class JeecgOrderMainController {
 	 * @return
 	 */
 	@DeleteMapping(value = "/delete")
-	public Result<JeecgOrderMain> delete(@RequestParam(name = "id", required = true) String id) {
-		Result<JeecgOrderMain> result = new Result<JeecgOrderMain>();
-		JeecgOrderMain jeecgOrderMain = jeecgOrderMainService.getById(id);
-		if (jeecgOrderMain == null) {
+	public Result<JantdOrderMain> delete(@RequestParam(name = "id", required = true) String id) {
+		Result<JantdOrderMain> result = new Result<JantdOrderMain>();
+		JantdOrderMain jantdOrderMain = jeecgOrderMainService.getById(id);
+		if (jantdOrderMain == null) {
 			result.error500("未找到对应实体");
 		} else {
 			jeecgOrderMainService.delMain(id);
@@ -156,8 +156,8 @@ public class JeecgOrderMainController {
 	 * @return
 	 */
 	@DeleteMapping(value = "/deleteBatch")
-	public Result<JeecgOrderMain> deleteBatch(@RequestParam(name = "ids", required = true) String ids) {
-		Result<JeecgOrderMain> result = new Result<JeecgOrderMain>();
+	public Result<JantdOrderMain> deleteBatch(@RequestParam(name = "ids", required = true) String ids) {
+		Result<JantdOrderMain> result = new Result<JantdOrderMain>();
 		if (ids == null || "".equals(ids.trim())) {
 			result.error500("参数不识别！");
 		} else {
@@ -174,13 +174,13 @@ public class JeecgOrderMainController {
 	 * @return
 	 */
 	@GetMapping(value = "/queryById")
-	public Result<JeecgOrderMain> queryById(@RequestParam(name = "id", required = true) String id) {
-		Result<JeecgOrderMain> result = new Result<JeecgOrderMain>();
-		JeecgOrderMain jeecgOrderMain = jeecgOrderMainService.getById(id);
-		if (jeecgOrderMain == null) {
+	public Result<JantdOrderMain> queryById(@RequestParam(name = "id", required = true) String id) {
+		Result<JantdOrderMain> result = new Result<JantdOrderMain>();
+		JantdOrderMain jantdOrderMain = jeecgOrderMainService.getById(id);
+		if (jantdOrderMain == null) {
 			result.error500("未找到对应实体");
 		} else {
-			result.setResult(jeecgOrderMain);
+			result.setResult(jantdOrderMain);
 			result.setSuccess(true);
 		}
 		return result;
@@ -193,10 +193,10 @@ public class JeecgOrderMainController {
 	 * @return
 	 */
 	@GetMapping(value = "/queryOrderCustomerListByMainId")
-	public Result<List<JeecgOrderCustomer>> queryOrderCustomerListByMainId(@RequestParam(name = "id", required = true) String id) {
-		Result<List<JeecgOrderCustomer>> result = new Result<List<JeecgOrderCustomer>>();
-		List<JeecgOrderCustomer> jeecgOrderCustomerList = jeecgOrderCustomerService.selectCustomersByMainId(id);
-		result.setResult(jeecgOrderCustomerList);
+	public Result<List<JantdOrderCustomer>> queryOrderCustomerListByMainId(@RequestParam(name = "id", required = true) String id) {
+		Result<List<JantdOrderCustomer>> result = new Result<List<JantdOrderCustomer>>();
+		List<JantdOrderCustomer> jantdOrderCustomerList = jeecgOrderCustomerService.selectCustomersByMainId(id);
+		result.setResult(jantdOrderCustomerList);
 		result.setSuccess(true);
 		return result;
 	}
@@ -208,10 +208,10 @@ public class JeecgOrderMainController {
 	 * @return
 	 */
 	@GetMapping(value = "/queryOrderTicketListByMainId")
-	public Result<List<JeecgOrderTicket>> queryOrderTicketListByMainId(@RequestParam(name = "id", required = true) String id) {
-		Result<List<JeecgOrderTicket>> result = new Result<List<JeecgOrderTicket>>();
-		List<JeecgOrderTicket> jeecgOrderTicketList = jeecgOrderTicketService.selectTicketsByMainId(id);
-		result.setResult(jeecgOrderTicketList);
+	public Result<List<JantdOrderTicket>> queryOrderTicketListByMainId(@RequestParam(name = "id", required = true) String id) {
+		Result<List<JantdOrderTicket>> result = new Result<List<JantdOrderTicket>>();
+		List<JantdOrderTicket> jantdOrderTicketList = jeecgOrderTicketService.selectTicketsByMainId(id);
+		result.setResult(jantdOrderTicketList);
 		result.setSuccess(true);
 		return result;
 	}
@@ -223,30 +223,30 @@ public class JeecgOrderMainController {
 	 * @param response
 	 */
 	@RequestMapping(value = "/exportXls")
-	public ModelAndView exportXls(HttpServletRequest request, JeecgOrderMain jeecgOrderMain) {
+	public ModelAndView exportXls(HttpServletRequest request, JantdOrderMain jantdOrderMain) {
 		// Step.1 组装查询条件
-		QueryWrapper<JeecgOrderMain> queryWrapper = QueryGenerator.initQueryWrapper(jeecgOrderMain, request.getParameterMap());
+		QueryWrapper<JantdOrderMain> queryWrapper = QueryGenerator.initQueryWrapper(jantdOrderMain, request.getParameterMap());
 		//Step.2 AutoPoi 导出Excel
 		ModelAndView mv = new ModelAndView(new JantdEntityExcelViewBase());
-		List<JeecgOrderMainPage> pageList = new ArrayList<JeecgOrderMainPage>();
+		List<JantdOrderMainPage> pageList = new ArrayList<JantdOrderMainPage>();
 
-		List<JeecgOrderMain> jeecgOrderMainList = jeecgOrderMainService.list(queryWrapper);
-		for (JeecgOrderMain orderMain : jeecgOrderMainList) {
-			JeecgOrderMainPage vo = new JeecgOrderMainPage();
+		List<JantdOrderMain> jantdOrderMainList = jeecgOrderMainService.list(queryWrapper);
+		for (JantdOrderMain orderMain : jantdOrderMainList) {
+			JantdOrderMainPage vo = new JantdOrderMainPage();
 			BeanUtils.copyProperties(orderMain, vo);
 			// 查询机票
-			List<JeecgOrderTicket> jeecgOrderTicketList = jeecgOrderTicketService.selectTicketsByMainId(orderMain.getId());
-			vo.setJeecgOrderTicketList(jeecgOrderTicketList);
+			List<JantdOrderTicket> jantdOrderTicketList = jeecgOrderTicketService.selectTicketsByMainId(orderMain.getId());
+			vo.setJantdOrderTicketList(jantdOrderTicketList);
 			// 查询客户
-			List<JeecgOrderCustomer> jeecgOrderCustomerList = jeecgOrderCustomerService.selectCustomersByMainId(orderMain.getId());
-			vo.setJeecgOrderCustomerList(jeecgOrderCustomerList);
+			List<JantdOrderCustomer> jantdOrderCustomerList = jeecgOrderCustomerService.selectCustomersByMainId(orderMain.getId());
+			vo.setJantdOrderCustomerList(jantdOrderCustomerList);
 			pageList.add(vo);
 		}
 
 		// 导出文件名称
 		mv.addObject(NormalExcelConstants.FILE_NAME, "一对多导出文件名字");
 		// 注解对象Class
-		mv.addObject(NormalExcelConstants.CLASS, JeecgOrderMainPage.class);
+		mv.addObject(NormalExcelConstants.CLASS, JantdOrderMainPage.class);
 		// 自定义表格参数
 		mv.addObject(NormalExcelConstants.PARAMS, new ExportParams("自定义导出Excel内容标题", "导出人:Jeecg", "自定义Sheet名字"));
 		// 导出数据列表
@@ -272,11 +272,11 @@ public class JeecgOrderMainController {
 			params.setHeadRows(2);
 			params.setNeedSave(true);
 			try {
-				List<JeecgOrderMainPage> list = ExcelImportUtil.importExcel(file.getInputStream(), JeecgOrderMainPage.class, params);
-				for (JeecgOrderMainPage page : list) {
-					JeecgOrderMain po = new JeecgOrderMain();
+				List<JantdOrderMainPage> list = ExcelImportUtil.importExcel(file.getInputStream(), JantdOrderMainPage.class, params);
+				for (JantdOrderMainPage page : list) {
+					JantdOrderMain po = new JantdOrderMain();
 					BeanUtils.copyProperties(page, po);
-					jeecgOrderMainService.saveMain(po, page.getJeecgOrderCustomerList(), page.getJeecgOrderTicketList());
+					jeecgOrderMainService.saveMain(po, page.getJantdOrderCustomerList(), page.getJantdOrderTicketList());
 				}
 				return Result.ok("文件导入成功！");
 			} catch (Exception e) {
