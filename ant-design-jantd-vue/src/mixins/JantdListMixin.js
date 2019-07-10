@@ -8,7 +8,7 @@ import { deleteAction, getAction,downFile } from '@/api/manage'
 import Vue from 'vue'
 import { ACCESS_TOKEN } from "@/store/mutation-types"
 
-export const JeecgListMixin = {
+export const JantdListMixin = {
   data(){
     return {
       //token header

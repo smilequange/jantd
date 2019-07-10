@@ -100,12 +100,12 @@
 <script>
   import RoleModal from './modules/RoleModal'
   import UserRoleModal from './modules/UserRoleModal'
-  import { JeecgListMixin } from '@/mixins/JeecgListMixin'
+  import { JantdListMixin } from '@/mixins/JantdListMixin'
   import JDate from '@/components/jantd/JDate'
 
   export default {
     name: "RoleList",
-    mixins:[JeecgListMixin],
+    mixins:[JantdListMixin],
     components: {
       RoleModal,
       UserRoleModal,

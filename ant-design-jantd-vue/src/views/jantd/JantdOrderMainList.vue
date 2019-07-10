@@ -87,24 +87,24 @@
     <!-- table区域-end -->
 
     <!-- 表单区域 -->
-    <jeecgOrderMain-modal ref="modalForm" @ok="modalFormOk"></jeecgOrderMain-modal>
+    <jantdOrderMain-modal ref="modalForm" @ok="modalFormOk"></jantdOrderMain-modal>
   </a-card>
 </template>
 
 <script>
-  import JeecgOrderMainModal from './modules/JantdOrderMainModal'
-  import { JeecgListMixin } from '@/mixins/JeecgListMixin'
+  import JantdOrderMainModal from './modules/JantdOrderMainModal'
+  import { JantdListMixin } from '@/mixins/JantdListMixin'
 
   export default {
     name: "JantdOrderMainList",
-    mixins: [JeecgListMixin],
+    mixins: [JantdListMixin],
     components: {
-      JeecgOrderMainModal
+      JantdOrderMainModal
     },
     data () {
       return {
         description: '订单管理页面',
-        importExcelUrl:`${window._CONFIG['domianURL']}/test/jeecgOrderMain/importExcel`,
+        importExcelUrl:`${window._CONFIG['domianURL']}/test/jantdOrderMain/importExcel`,
         // 表头
         columns: [
           {
@@ -160,10 +160,10 @@
         ],
 
 		url: {
-          list: "/test/jeecgOrderMain/list",
-          delete: "/test/jeecgOrderMain/delete",
-          deleteBatch: "/test/jeecgOrderMain/deleteBatch",
-          exportXlsUrl: "/test/jeecgOrderMain/exportXls",
+          list: "/test/jantdOrderMain/list",
+          delete: "/test/jantdOrderMain/delete",
+          deleteBatch: "/test/jantdOrderMain/deleteBatch",
+          exportXlsUrl: "/test/jantdOrderMain/exportXls",
         }
       }
     },

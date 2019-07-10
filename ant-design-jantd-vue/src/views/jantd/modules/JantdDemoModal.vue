@@ -102,8 +102,8 @@
         validatorRules:{
         },
         url: {
-          add: "/test/jeecgDemo/add",
-          edit: "/test/jeecgDemo/edit",
+          add: "/test/jantdDemo/add",
+          edit: "/test/jantdDemo/edit",
         },
       }
     },

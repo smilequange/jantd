@@ -67,11 +67,11 @@
 
 <script>
   import { filterObj } from '@/utils/util';
-  import { JeecgListMixin } from '@/mixins/JeecgListMixin'
+  import { JantdListMixin } from '@/mixins/JantdListMixin'
 
   export default {
     name: "LogList",
-    mixins:[JeecgListMixin],
+    mixins:[JantdListMixin],
     data () {
       return {
         description: '这是日志管理页面',

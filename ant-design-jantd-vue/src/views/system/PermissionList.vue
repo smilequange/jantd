@@ -77,7 +77,7 @@
 <script>
   import PermissionModal from './modules/PermissionModal'
   import { getPermissionList } from '@/api/api'
-  import { JeecgListMixin } from '@/mixins/JeecgListMixin'
+  import { JantdListMixin } from '@/mixins/JantdListMixin'
   import PermissionDataRuleList from './PermissionDataRuleList'
   import JEllipsis from '@/components/jantd/JEllipsis'
 
@@ -138,7 +138,7 @@
 
   export default {
     name: 'PermissionList',
-    mixins: [JeecgListMixin],
+    mixins: [JantdListMixin],
     components: {
       PermissionDataRuleList,
       PermissionModal,

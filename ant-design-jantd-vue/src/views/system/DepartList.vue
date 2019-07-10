@@ -118,7 +118,7 @@
   import pick from 'lodash.pick'
   import {queryDepartTreeList, searchByKeywords, deleteByDepartId} from '@/api/api'
   import {httpAction, deleteAction} from '@/api/manage'
-  import {JeecgListMixin} from '@/mixins/JeecgListMixin'
+  import {JantdListMixin} from '@/mixins/JantdListMixin'
   // 表头
   const columns = [
     {
@@ -160,7 +160,7 @@
   ]
   export default {
     name: 'DepartList',
-    mixins: [JeecgListMixin],
+    mixins: [JantdListMixin],
     components: {
       DepartModal
     },

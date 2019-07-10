@@ -161,7 +161,7 @@
         selectedRowKeys: [],
         selectedRows: [],
         url: {
-          list: "/test/jeecgDemo/list",
+          list: "/test/jantdDemo/list",
         },
 
       }

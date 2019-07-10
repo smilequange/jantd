@@ -92,20 +92,20 @@
     <!-- table区域-end -->
 
     <!-- 表单区域 -->
-    <jeecgOrderDMain-modal ref="modalForm" @ok="modalFormOk"></jeecgOrderDMain-modal>
+    <jantdOrderDMain-modal ref="modalForm" @ok="modalFormOk"></jantdOrderDMain-modal>
   </a-card>
 </template>
 
 <script>
   import { getAction } from '@/api/manage'
-  import JeecgOrderDMainModal from '@/views/jantd/tablist/form/JantdOrderDMainModal'
-  import {JeecgListMixin} from '@/mixins/JeecgListMixin'
+  import JantdOrderDMainModal from '@/views/jantd/tablist/form/JantdOrderDMainModal'
+  import {JantdListMixin} from '@/mixins/JantdListMixin'
 
   export default {
     name: "TableDemo",
-    mixins: [JeecgListMixin],
+    mixins: [JantdListMixin],
     components: {
-      JeecgOrderDMainModal
+      JantdOrderDMainModal
     },
     data() {
       return {

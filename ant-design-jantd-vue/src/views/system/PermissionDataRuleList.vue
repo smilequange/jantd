@@ -66,7 +66,7 @@
 </template>
 <script>
   import {getPermissionRuleList, queryPermissionRule} from '@/api/api'
-  import {JeecgListMixin} from '@/mixins/JeecgListMixin'
+  import {JantdListMixin} from '@/mixins/JantdListMixin'
   import PermissionDataRuleModal from './modules/PermissionDataRuleModal'
 
   const columns = [
@@ -94,7 +94,7 @@
   ]
   export default {
     name: 'PermissionDataRuleList',
-    mixins: [JeecgListMixin],
+    mixins: [JantdListMixin],
     components: {
       PermissionDataRuleModal
     },

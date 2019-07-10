@@ -102,7 +102,7 @@ import BarMultid from '@/components/chart/BarMultid'
 ```json
 [
     {
-        "type": "Jeecg", // 列名
+        "type": "Jantd", // 列名
         "Jan.": 18.9,
         "Feb.": 28.8,
         "Mar.": 39.3,
@@ -219,7 +219,7 @@ import LineChartMultid from '@/components/chart/LineChartMultid'
 ##### fields 示例
 
 ```json
-["jeecg", "jeebt"]
+["jantd", "jeebt"]
 ```
 
 ##### dataSource 示例
@@ -228,20 +228,20 @@ import LineChartMultid from '@/components/chart/LineChartMultid'
 [
     {
         "type": "Jan", // 列名
-        "jeecg": 7,
+        "jantd": 7,
         "jeebt": 3.9
     },
-    { "type": "Feb", "jeecg": 6.9, "jeebt": 4.2 },
-    { "type": "Mar", "jeecg": 9.5, "jeebt": 5.7 },
-    { "type": "Apr", "jeecg": 14.5, "jeebt": 8.5 },
-    { "type": "May", "jeecg": 18.4, "jeebt": 11.9 },
-    { "type": "Jun", "jeecg": 21.5, "jeebt": 15.2 },
-    { "type": "Jul", "jeecg": 25.2, "jeebt": 17 },
-    { "type": "Aug", "jeecg": 26.5, "jeebt": 16.6 },
-    { "type": "Sep", "jeecg": 23.3, "jeebt": 14.2 },
-    { "type": "Oct", "jeecg": 18.3, "jeebt": 10.3 },
-    { "type": "Nov", "jeecg": 13.9, "jeebt": 6.6 },
-    { "type": "Dec", "jeecg": 9.6, "jeebt": 4.8 }
+    { "type": "Feb", "jantd": 6.9, "jeebt": 4.2 },
+    { "type": "Mar", "jantd": 9.5, "jeebt": 5.7 },
+    { "type": "Apr", "jantd": 14.5, "jeebt": 8.5 },
+    { "type": "May", "jantd": 18.4, "jeebt": 11.9 },
+    { "type": "Jun", "jantd": 21.5, "jeebt": 15.2 },
+    { "type": "Jul", "jantd": 25.2, "jeebt": 17 },
+    { "type": "Aug", "jantd": 26.5, "jeebt": 16.6 },
+    { "type": "Sep", "jantd": 23.3, "jeebt": 14.2 },
+    { "type": "Oct", "jantd": 18.3, "jeebt": 10.3 },
+    { "type": "Nov", "jantd": 13.9, "jeebt": 6.6 },
+    { "type": "Dec", "jantd": 9.6, "jeebt": 4.8 }
 ]
 ```
 

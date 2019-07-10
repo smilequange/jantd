@@ -116,14 +116,14 @@
 
 <script>
   import { postAction } from '@/api/manage'
-  import { JeecgListMixin } from '@/mixins/JeecgListMixin'
+  import { JantdListMixin } from '@/mixins/JantdListMixin'
   import JDate from '@/components/jantd/JDate.vue'
   import FormCommonModal from "@/components/bpm/FormCommonModal";
   import ProcessInstPicModal from "@/components/bpm/ProcessInstPicModal";
 
   export default {
     name: "JoaDemoList",
-    mixins:[JeecgListMixin],
+    mixins:[JantdListMixin],
     components: {
       FormCommonModal,
       ProcessInstPicModal,

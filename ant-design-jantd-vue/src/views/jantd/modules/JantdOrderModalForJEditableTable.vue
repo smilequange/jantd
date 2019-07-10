@@ -107,7 +107,7 @@
   import moment from 'moment'
 
   export default {
-    name: 'JeecgOrderModalForJEditableTable',
+    name: 'JantdOrderModalForJEditableTable',
     components: {
       JDate, JEditableTable
     },
@@ -204,10 +204,10 @@
           ]
         },
         url: {
-          add: '/test/jeecgOrderMain/add',
-          edit: '/test/jeecgOrderMain/edit',
-          orderCustomerList: '/test/jeecgOrderMain/queryOrderCustomerListByMainId',
-          orderTicketList: '/test/jeecgOrderMain/queryOrderTicketListByMainId'
+          add: '/test/jantdOrderMain/add',
+          edit: '/test/jantdOrderMain/edit',
+          orderCustomerList: '/test/jantdOrderMain/queryOrderCustomerListByMainId',
+          orderTicketList: '/test/jantdOrderMain/queryOrderTicketListByMainId'
         }
       }
     },
@@ -307,8 +307,8 @@
         orderMain.orderDate = orderMain.orderDate ? orderMain.orderDate.format('YYYY-MM-DD HH:mm:ss') : null
         return {
           ...orderMain, // 展开
-          jeecgOrderCustomerList: allValues.tablesValue[0].values,
-          jeecgOrderTicketList: allValues.tablesValue[1].values
+          jantdOrderCustomerList: allValues.tablesValue[0].values,
+          jantdOrderTicketList: allValues.tablesValue[1].values
         }
       },
       /** 发起新增或修改的请求 */

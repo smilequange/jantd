@@ -68,8 +68,8 @@
         title: "操作",
         visible: false,
         orderMainModel: {
-          jeecgOrderCustomerList: [{}],
-          jeecgOrderTicketList: [{}]
+          jantdOrderCustomerList: [{}],
+          jantdOrderTicketList: [{}]
         },
         labelCol: {
           xs: {span: 24},

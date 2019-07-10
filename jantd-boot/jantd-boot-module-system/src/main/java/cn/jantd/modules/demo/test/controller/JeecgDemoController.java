@@ -49,7 +49,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Api(tags="单表DEMO")
 @RestController
-@RequestMapping("/test/jeecgDemo")
+@RequestMapping("/test/jantdDemo")
 public class JeecgDemoController extends BaseController<JeecgDemo,IJeecgDemoService> {
 	@Autowired
 	private IJeecgDemoService jeecgDemoService;

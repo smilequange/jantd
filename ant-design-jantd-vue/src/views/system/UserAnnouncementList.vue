@@ -53,11 +53,11 @@
   import { filterObj } from '@/utils/util'
   import { getAction,putAction } from '@/api/manage'
   import ShowAnnouncement from '@/components/tools/ShowAnnouncement'
-  import {JeecgListMixin} from '@/mixins/JeecgListMixin'
+  import {JantdListMixin} from '@/mixins/JantdListMixin'
 
   export default {
     name: "UserAnnouncementList",
-    mixins: [JeecgListMixin],
+    mixins: [JantdListMixin],
     components: {
       ShowAnnouncement
     },

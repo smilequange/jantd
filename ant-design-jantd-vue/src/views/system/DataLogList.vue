@@ -61,12 +61,12 @@
 
 <script>
   import DataLogModal from './modules/DataLogModal'
-  import {JeecgListMixin} from '@/mixins/JeecgListMixin'
+  import {JantdListMixin} from '@/mixins/JantdListMixin'
   import JEllipsis from "@/components/jantd/JEllipsis";
 
   export default {
     name: 'DataLogList',
-    mixins: [JeecgListMixin],
+    mixins: [JantdListMixin],
     components: {
       JEllipsis,
       DataLogModal

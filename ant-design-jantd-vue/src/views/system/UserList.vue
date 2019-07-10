@@ -178,12 +178,12 @@
   import PasswordModal from './modules/PasswordModal'
   import {putAction} from '@/api/manage';
   import {frozenBatch} from '@/api/api'
-  import {JeecgListMixin} from '@/mixins/JeecgListMixin'
+  import {JantdListMixin} from '@/mixins/JantdListMixin'
   import SysUserAgentModal from "./modules/SysUserAgentModal";
 
   export default {
     name: "UserList",
-    mixins: [JeecgListMixin],
+    mixins: [JantdListMixin],
     components: {
       SysUserAgentModal,
       UserModal,

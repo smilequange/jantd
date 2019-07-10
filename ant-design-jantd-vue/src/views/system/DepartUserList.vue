@@ -41,11 +41,11 @@
   import DeptBaseInfo from './modules/DeptBaseInfo'
   import DeptUserInfo from './modules/DeptUserInfo'
   import {queryDepartTreeList, searchByKeywords} from '@/api/api'
-  import {JeecgListMixin} from '@/mixins/JeecgListMixin'
+  import {JantdListMixin} from '@/mixins/JantdListMixin'
 
   export default {
     name: 'DepartUserList',
-    mixins: [JeecgListMixin],
+    mixins: [JantdListMixin],
     components: {
       DeptBaseInfo,
       DeptUserInfo,

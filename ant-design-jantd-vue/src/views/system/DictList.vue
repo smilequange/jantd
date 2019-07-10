@@ -63,13 +63,13 @@
 
 <script>
   import { filterObj } from '@/utils/util';
-  import { JeecgListMixin } from '@/mixins/JeecgListMixin'
+  import { JantdListMixin } from '@/mixins/JantdListMixin'
   import DictModal from './modules/DictModal'
   import DictItemList from './DictItemList'
 
   export default {
     name: "DictList",
-    mixins:[JeecgListMixin],
+    mixins:[JantdListMixin],
     components: {DictModal, DictItemList},
     data() {
       return {

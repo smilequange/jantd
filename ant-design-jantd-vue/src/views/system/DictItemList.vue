@@ -80,11 +80,11 @@
   import pick from 'lodash.pick'
   import {filterObj} from '@/utils/util';
   import DictItemModal from './modules/DictItemModal'
-  import {JeecgListMixin} from '@/mixins/JeecgListMixin'
+  import {JantdListMixin} from '@/mixins/JantdListMixin'
 
   export default {
     name: "DictItemList",
-    mixins: [JeecgListMixin],
+    mixins: [JantdListMixin],
     components: {DictItemModal},
     data() {
       return {

@@ -63,20 +63,20 @@
     <!-- table区域-end -->
 
     <!-- 表单区域 -->
-    <JeecgOrderTicket-modal ref="modalForm" @ok="modalFormOk"></JeecgOrderTicket-modal>
+    <JantdOrderTicket-modal ref="modalForm" @ok="modalFormOk"></JantdOrderTicket-modal>
   </a-card>
 </template>
 
 <script>
-  import JeecgOrderTicketModal from './form/JantdOrderTicketModal'
-  import {JeecgListMixin} from '@/mixins/JeecgListMixin'
+  import JantdOrderTicketModal from './form/JantdOrderTicketModal'
+  import {JantdListMixin} from '@/mixins/JantdListMixin'
   import {getAction} from '@/api/manage'
 
   export default {
     name: "JantdOrderTicketList",
-    mixins: [JeecgListMixin],
+    mixins: [JantdListMixin],
     components: {
-      JeecgOrderTicketModal,
+      JantdOrderTicketModal,
     },
     data() {
       return {

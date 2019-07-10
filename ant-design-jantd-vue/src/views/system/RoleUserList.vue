@@ -156,7 +156,7 @@
   </a-row>
 </template>
 <script>
-  import { JeecgListMixin } from '@/mixins/JeecgListMixin'
+  import { JantdListMixin } from '@/mixins/JantdListMixin'
   import { deleteAction, postAction, getAction } from '@/api/manage'
   import SelectUserModal from './modules/SelectUserModal'
   import RoleModal from './modules/RoleModal'
@@ -165,7 +165,7 @@
 
   export default {
     name: 'RoleUserList',
-    mixins: [JeecgListMixin],
+    mixins: [JantdListMixin],
     components: {
       SelectUserModal,
       RoleModal,

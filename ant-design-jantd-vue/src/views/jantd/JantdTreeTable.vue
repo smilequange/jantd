@@ -8,7 +8,7 @@
   import JTreeTable from '@/components/jantd/JTreeTable'
 
   export default {
-    name: 'JeecgTreeTable',
+    name: 'JantdTreeTable',
     components: { JTreeTable },
     data() {
       return {

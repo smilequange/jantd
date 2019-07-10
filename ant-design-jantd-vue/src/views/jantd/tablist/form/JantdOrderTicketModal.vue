@@ -69,7 +69,7 @@
     components: {
       JDate
     },
-    name: 'JeecgOrderTicketModal',
+    name: 'JantdOrderTicketModal',
     data() {
       return {
         title: '操作',

@@ -105,11 +105,11 @@
 <script>
   import SysAnnouncementModal from './modules/SysAnnouncementModal'
   import {doReleaseData, doReovkeData} from '@/api/api'
-  import {JeecgListMixin} from '@/mixins/JeecgListMixin'
+  import {JantdListMixin} from '@/mixins/JantdListMixin'
 
   export default {
     name: "SysAnnouncementList",
-    mixins: [JeecgListMixin],
+    mixins: [JantdListMixin],
     components: {
       SysAnnouncementModal
     },

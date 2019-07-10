@@ -100,14 +100,14 @@
 </template>
 
 <script>
-  import {JeecgListMixin} from '@/mixins/JeecgListMixin'
+  import {JantdListMixin} from '@/mixins/JantdListMixin'
   import {getAction, postAction, deleteAction} from '@/api/manage'
   import SelectUserModal from './SelectUserModal'
   import UserModal from './UserModal'
 
   export default {
     name: "DeptUserInfo",
-    mixins: [JeecgListMixin],
+    mixins: [JantdListMixin],
     components: {
       SelectUserModal,
       UserModal

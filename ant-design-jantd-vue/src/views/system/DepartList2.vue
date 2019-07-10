@@ -121,7 +121,7 @@
     },
     data() {
       return {
-        description: 'jeecg 生成SysDepart代码管理页面',
+        description: 'jantd 生成SysDepart代码管理页面',
         // 查询条件
         queryParam: {},
         //数据集

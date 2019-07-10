@@ -260,10 +260,10 @@
         userRealName: '',
         multiUser: '',
         jcheckbox: {
-          values: 'spring,jeecgboot',
+          values: 'spring,jantdboot',
           options: [
-            { label: 'Jeecg', value: 'jeecg' },
-            { label: 'Jeecg-Boot', value: 'jeecgboot' },
+            { label: 'Jantd', value: 'jantd' },
+            { label: 'Jantd-Boot', value: 'jantdboot' },
             { label: 'Spring', value: 'spring', disabled: true },
             { label: 'MyBaits', value: 'mybatis' }
           ]

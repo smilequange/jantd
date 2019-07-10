@@ -93,30 +93,30 @@
     <!-- table区域-end -->
 
     <!-- 表单区域 -->
-    <jeecg-order-modal-for-j-editable-table ref="modalForm" @ok="modalFormOk"/>
+    <jantd-order-modal-for-j-editable-table ref="modalForm" @ok="modalFormOk"/>
 
   </a-card>
 </template>
 
 <script>
 
-  import { JeecgListMixin } from '@/mixins/JeecgListMixin'
-  import JeecgOrderModalForJEditableTable from './modules/JantdOrderModalForJEditableTable'
+  import { JantdListMixin } from '@/mixins/JantdListMixin'
+  import JantdOrderModalForJEditableTable from './modules/JantdOrderModalForJEditableTable'
 
   export default {
-    name: 'JeecgOrderMainListForJEditableTable',
-    mixins: [JeecgListMixin],
+    name: 'JantdOrderMainListForJEditableTable',
+    mixins: [JantdListMixin],
     components: {
-      JeecgOrderModalForJEditableTable
+      JantdOrderModalForJEditableTable
     },
     data() {
       return {
         description: '订单管理页面',
         // 请求参数
         url: {
-          list: '/test/jeecgOrderMain/list',
-          delete: '/test/jeecgOrderMain/delete',
-          deleteBatch: '/test/jeecgOrderMain/deleteBatch'
+          list: '/test/jantdOrderMain/list',
+          delete: '/test/jantdOrderMain/delete',
+          deleteBatch: '/test/jantdOrderMain/deleteBatch'
         },
         // 表头
         columns: [

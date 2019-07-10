@@ -119,10 +119,10 @@
     <!-- table区域-end -->
 
     <!-- 表单区域 -->
-    <jeecgDemo-modal ref="modalForm" @ok="modalFormOk"></jeecgDemo-modal>
+    <jantdDemo-modal ref="modalForm" @ok="modalFormOk"></jantdDemo-modal>
 
     <!-- 一对多表单区域 -->
-    <JeecgDemoTabsModal ref="jeecgDemoTabsModal" @ok="modalFormOk"></JeecgDemoTabsModal>
+    <JantdDemoTabsModal ref="jantdDemoTabsModal" @ok="modalFormOk"></JantdDemoTabsModal>
 
     <!-- 高级查询区域 -->
     <j-super-query :fieldList="fieldList" ref="superQueryModal" @handleSuperQuery="handleSuperQuery"></j-super-query>
@@ -130,11 +130,11 @@
 </template>
 
 <script>
-  import JeecgDemoModal from './modules/JantdDemoModal'
+  import JantdDemoModal from './modules/JantdDemoModal'
   import JSuperQuery from '@/components/jantd/JSuperQuery.vue';
-  import JeecgDemoTabsModal from './modules/JantdDemoTabsModal'
+  import JantdDemoTabsModal from './modules/JantdDemoTabsModal'
   import {initDictOptions, filterDictText} from '@/components/dict/JDictSelectUtil'
-  import { JeecgListMixin } from '@/mixins/JeecgListMixin'
+  import { JantdListMixin } from '@/mixins/JantdListMixin'
 
   //高级查询modal需要参数
   const superQueryFieldList=[{
@@ -152,18 +152,18 @@
   }]
   export default {
     name: "JantdDemoList",
-    mixins:[JeecgListMixin],
+    mixins:[JantdListMixin],
     components: {
-      JeecgDemoModal,
+      JantdDemoModal,
       JSuperQuery,
-      JeecgDemoTabsModal,
+      JantdDemoTabsModal,
     },
     data() {
       return {
         description: '用户管理页面',
         //字典数组缓存
         sexDictOptions: [],
-        importExcelUrl:`${window._CONFIG['domianURL']}/test/jeecgDemo/importExcel`,
+        importExcelUrl:`${window._CONFIG['domianURL']}/test/jantdDemo/importExcel`,
         // 表头
         columns: [
           {
@@ -228,10 +228,10 @@
           }
         ],
         url: {
-          list: "/test/jeecgDemo/list",
-          delete: "/test/jeecgDemo/delete",
-          deleteBatch: "/test/jeecgDemo/deleteBatch",
-          exportXlsUrl: "/test/jeecgDemo/exportXls"
+          list: "/test/jantdDemo/list",
+          delete: "/test/jantdDemo/delete",
+          deleteBatch: "/test/jantdDemo/deleteBatch",
+          exportXlsUrl: "/test/jantdDemo/exportXls"
         },
         fieldList:superQueryFieldList
       }
@@ -247,8 +247,8 @@
         });
       },
       onetomany: function () {
-        this.$refs.jeecgDemoTabsModal.add();
-        this.$refs.jeecgDemoTabsModal.title = "编辑";
+        this.$refs.jantdDemoTabsModal.add();
+        this.$refs.jantdDemoTabsModal.title = "编辑";
       },
       //跳转单据页面
       jump() {

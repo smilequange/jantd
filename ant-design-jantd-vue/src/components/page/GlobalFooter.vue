@@ -1,8 +1,8 @@
 <template>
   <div class="footer">
     <!-- <div class="links">
-      <a href="http://www.jeecg.org" target="_blank">JEECG 首页</a>
-      <a href="https://github.com/zhangdaiscott/jeecg-boot" target="_blank">
+      <a href="http://www.jantd.org" target="_blank">Jantd 首页</a>
+      <a href="https://github.com/zhangdaiscott/jantd-boot" target="_blank">
         <a-icon type="github"/>
       </a>
       <a href="https://ant.design/">Ant Design</a>
@@ -11,7 +11,7 @@
     <div class="copyright">
       Copyright
       <a-icon type="copyright"/>
-      2019 <span>JEECG开源社区 出品</span>
+      2019 <span>Jantd开源社区 出品</span>
     </div> -->
   </div>
 </template>

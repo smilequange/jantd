@@ -60,22 +60,22 @@
     </div>
     <!-- table区域-end -->
     <!-- 表单区域 -->
-    <jeecgOrderCustomer-modal ref="modalForm" @ok="modalFormOk"></jeecgOrderCustomer-modal>
+    <jantdOrderCustomer-modal ref="modalForm" @ok="modalFormOk"></jantdOrderCustomer-modal>
   </a-card>
 </template>
 
 <script>
-  import JeecgOrderCustomerModal from './form/JantdOrderCustomerModal'
-  import JeecgOrderDMainList from './JantdOrderDMainList'
-  import {JeecgListMixin} from '@/mixins/JeecgListMixin'
+  import JantdOrderCustomerModal from './form/JantdOrderCustomerModal'
+  import JantdOrderDMainList from './JantdOrderDMainList'
+  import {JantdListMixin} from '@/mixins/JantdListMixin'
   import {getAction} from '@/api/manage'
 
   export default {
     name: "JantdOrderCustomerList",
-    mixins: [JeecgListMixin],
+    mixins: [JantdListMixin],
     components: {
-      JeecgOrderDMainList,
-      JeecgOrderCustomerModal
+      JantdOrderDMainList,
+      JantdOrderCustomerModal
     },
     data() {
       return {

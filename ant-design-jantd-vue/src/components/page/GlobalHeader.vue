@@ -18,7 +18,7 @@
         @click.native="toggle"/>
 
       <span v-if="device === 'desktop'">欢迎进入 Jantd-Boot 后台管理系统</span>
-      <span v-else>Jeecg-Boot</span>
+      <span v-else>Jantd-Boot</span>
 
       <user-menu :theme="theme"/>
     </div>

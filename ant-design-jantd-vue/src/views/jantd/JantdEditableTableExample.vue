@@ -42,7 +42,7 @@
   import { randomUUID, randomNumber } from '@/utils/util'
 
   export default {
-    name: 'JeecgEditableTableExample',
+    name: 'JantdEditableTableExample',
     components: {
       JEditableTable
     },

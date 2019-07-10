@@ -52,7 +52,7 @@ import lombok.extern.slf4j.Slf4j;
  * @Version: V1.0
  */
 @RestController
-@RequestMapping("/test/jeecgOrderMain")
+@RequestMapping("/test/jantdOrderMain")
 @Slf4j
 public class JeecgOrderMainController {
 	@Autowired

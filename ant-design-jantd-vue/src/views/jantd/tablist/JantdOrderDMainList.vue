@@ -85,37 +85,37 @@
 
     <a-tabs defaultActiveKey="1">
       <a-tab-pane tab="客户信息" key="1">
-        <Jeecg-Order-Customer-List ref="JeecgOrderCustomerList"></Jeecg-Order-Customer-List>
+        <Jantd-Order-Customer-List ref="JantdOrderCustomerList"></Jantd-Order-Customer-List>
       </a-tab-pane>
       <a-tab-pane tab="机票信息" key="2" forceRender>
-        <Jeecg-Order-Ticket-List ref="JeecgOrderTicketList"></Jeecg-Order-Ticket-List>
+        <Jantd-Order-Ticket-List ref="JantdOrderTicketList"></Jantd-Order-Ticket-List>
       </a-tab-pane>
     </a-tabs>
 
     <!-- 表单区域 -->
-    <jeecgOrderDMain-modal ref="modalForm" @ok="modalFormOk"></jeecgOrderDMain-modal>
+    <jantdOrderDMain-modal ref="modalForm" @ok="modalFormOk"></jantdOrderDMain-modal>
 
   </a-card>
 </template>
 
 <script>
-  import JeecgOrderDMainModal from './form/JantdOrderDMainModal'
-  import JeecgOrderCustomerList from './JantdOrderCustomerList'
-  import JeecgOrderTicketList from './JantdOrderTicketList'
+  import JantdOrderDMainModal from './form/JantdOrderDMainModal'
+  import JantdOrderCustomerList from './JantdOrderCustomerList'
+  import JantdOrderTicketList from './JantdOrderTicketList'
   import {deleteAction} from '@/api/manage'
-  import JeecgOrderCustomerModal from './form/JantdOrderCustomerModal'
-  import JeecgOrderTicketModal from './form/JantdOrderTicketModal'
-  import {JeecgListMixin} from '@/mixins/JeecgListMixin'
+  import JantdOrderCustomerModal from './form/JantdOrderCustomerModal'
+  import JantdOrderTicketModal from './form/JantdOrderTicketModal'
+  import {JantdListMixin} from '@/mixins/JantdListMixin'
 
   export default {
     name: "JantdOrderDMainList",
-    mixins: [JeecgListMixin],
+    mixins: [JantdListMixin],
     components: {
-      JeecgOrderTicketModal,
-      JeecgOrderCustomerModal,
-      JeecgOrderDMainModal,
-      JeecgOrderCustomerList,
-      JeecgOrderTicketList,
+      JantdOrderTicketModal,
+      JantdOrderCustomerModal,
+      JantdOrderDMainModal,
+      JantdOrderCustomerList,
+      JantdOrderTicketList,
     },
     data() {
       return {
@@ -205,20 +205,20 @@
       onSelectChange(selectedRowKeys, selectionRows) {
         this.selectedRowKeys = selectedRowKeys;
         this.selectionRows = selectionRows;
-        this.$refs.JeecgOrderCustomerList.getOrderMain(this.selectedRowKeys[0]);
-        this.$refs.JeecgOrderTicketList.getOrderMain(this.selectedRowKeys[0]);
+        this.$refs.JantdOrderCustomerList.getOrderMain(this.selectedRowKeys[0]);
+        this.$refs.JantdOrderTicketList.getOrderMain(this.selectedRowKeys[0]);
       },
       onClearSelected() {
         this.selectedRowKeys = [];
         this.selectionRows = [];
-        this.$refs.JeecgOrderCustomerList.queryParam.mainId = null;
-        this.$refs.JeecgOrderTicketList.queryParam.mainId = null;
-        this.$refs.JeecgOrderCustomerList.loadData();
-        this.$refs.JeecgOrderTicketList.loadData();
-        this.$refs.JeecgOrderCustomerList.selectedRowKeys = [];
-        this.$refs.JeecgOrderCustomerList.selectionRows = [];
-        this.$refs.JeecgOrderTicketList.selectedRowKeys = [];
-        this.$refs.JeecgOrderTicketList.selectionRows = [];
+        this.$refs.JantdOrderCustomerList.queryParam.mainId = null;
+        this.$refs.JantdOrderTicketList.queryParam.mainId = null;
+        this.$refs.JantdOrderCustomerList.loadData();
+        this.$refs.JantdOrderTicketList.loadData();
+        this.$refs.JantdOrderCustomerList.selectedRowKeys = [];
+        this.$refs.JantdOrderCustomerList.selectionRows = [];
+        this.$refs.JantdOrderTicketList.selectedRowKeys = [];
+        this.$refs.JantdOrderTicketList.selectionRows = [];
       },
 
       handleDelete: function (id) {
@@ -227,8 +227,8 @@
           if (res.success) {
             that.$message.success(res.message);
             that.loadData();
-            this.$refs.JeecgOrderCustomerList.loadData();
-            this.$refs.JeecgOrderTicketList.loadData();
+            this.$refs.JantdOrderCustomerList.loadData();
+            this.$refs.JantdOrderTicketList.loadData();
           } else {
             that.$message.warning(res.message);
           }
@@ -237,14 +237,14 @@
       searchQuery:function(){
         this.selectedRowKeys = [];
         this.selectionRows = [];
-        this.$refs.JeecgOrderCustomerList.queryParam.mainId = null;
-        this.$refs.JeecgOrderTicketList.queryParam.mainId = null;
-        this.$refs.JeecgOrderCustomerList.loadData();
-        this.$refs.JeecgOrderTicketList.loadData();
-        this.$refs.JeecgOrderCustomerList.selectedRowKeys = [];
-        this.$refs.JeecgOrderCustomerList.selectionRows = [];
-        this.$refs.JeecgOrderTicketList.selectedRowKeys = [];
-        this.$refs.JeecgOrderTicketList.selectionRows = [];
+        this.$refs.JantdOrderCustomerList.queryParam.mainId = null;
+        this.$refs.JantdOrderTicketList.queryParam.mainId = null;
+        this.$refs.JantdOrderCustomerList.loadData();
+        this.$refs.JantdOrderTicketList.loadData();
+        this.$refs.JantdOrderCustomerList.selectedRowKeys = [];
+        this.$refs.JantdOrderCustomerList.selectionRows = [];
+        this.$refs.JantdOrderTicketList.selectedRowKeys = [];
+        this.$refs.JantdOrderTicketList.selectionRows = [];
         this.loadData();
       }
     }

@@ -22,11 +22,11 @@
 
 <script>
   import {getUserList} from '@/api/api'
-  import {JeecgListMixin} from '@/mixins/JeecgListMixin'
+  import {JantdListMixin} from '@/mixins/JantdListMixin'
 
   export default {
     name: "SelectUserListModal",
-    mixins: [JeecgListMixin],
+    mixins: [JantdListMixin],
     data() {
       return {
         title: "操作",

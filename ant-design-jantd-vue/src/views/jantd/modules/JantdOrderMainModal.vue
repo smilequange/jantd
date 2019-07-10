@@ -70,15 +70,15 @@
                 <a-col :span="4">操作</a-col>
               </a-row>
 
-              <a-row type="flex" style="margin-bottom:10px" :gutter="16" v-for="(item, index) in orderMainModel.jeecgOrderCustomerList" :key="index">
+              <a-row type="flex" style="margin-bottom:10px" :gutter="16" v-for="(item, index) in orderMainModel.jantdOrderCustomerList" :key="index">
                 <a-col :span="5">
                   <a-form-item>
-                    <a-input placeholder="客户名" v-decorator="['jeecgOrderCustomerList['+index+'].name', {'initialValue':item.name,rules: [{ required: true, message: '请输入用户名!' }]}]" />
+                    <a-input placeholder="客户名" v-decorator="['jantdOrderCustomerList['+index+'].name', {'initialValue':item.name,rules: [{ required: true, message: '请输入用户名!' }]}]" />
                   </a-form-item>
                 </a-col>
                 <a-col :span="5">
                   <a-form-item>
-                    <a-select placeholder="性别" v-decorator="['jeecgOrderCustomerList['+index+'].sex', {'initialValue':item.sex}]">
+                    <a-select placeholder="性别" v-decorator="['jantdOrderCustomerList['+index+'].sex', {'initialValue':item.sex}]">
                       <a-select-option value="1">男</a-select-option>
                       <a-select-option value="2">女</a-select-option>
                     </a-select>
@@ -86,12 +86,12 @@
                 </a-col>
                 <a-col :span="5">
                   <a-form-item>
-                    <a-input placeholder="身份证号" v-decorator="['jeecgOrderCustomerList['+index+'].idcard', {'initialValue':item.idcard,rules: [{ pattern: '^\\d{6}(18|19|20)?\\d{2}(0[1-9]|1[012])(0[1-9]|[12]\\d|3[01])\\d{3}(\\d|[xX])$', message: '身份证号格式不对!' }]}]"/>
+                    <a-input placeholder="身份证号" v-decorator="['jantdOrderCustomerList['+index+'].idcard', {'initialValue':item.idcard,rules: [{ pattern: '^\\d{6}(18|19|20)?\\d{2}(0[1-9]|1[012])(0[1-9]|[12]\\d|3[01])\\d{3}(\\d|[xX])$', message: '身份证号格式不对!' }]}]"/>
                   </a-form-item>
                 </a-col>
                 <a-col :span="5">
                   <a-form-item>
-                    <a-input placeholder="手机号" v-decorator="['jeecgOrderCustomerList['+index+'].telphone', {'initialValue':item.telphone,rules: [{ pattern: '^1(3|4|5|7|8)\\d{9}$', message: '手机号格式不对!' }]}]"/>
+                    <a-input placeholder="手机号" v-decorator="['jantdOrderCustomerList['+index+'].telphone', {'initialValue':item.telphone,rules: [{ pattern: '^1(3|4|5|7|8)\\d{9}$', message: '手机号格式不对!' }]}]"/>
                   </a-form-item>
                 </a-col>
                 <a-col :span="4">
@@ -111,15 +111,15 @@
                 <a-col :span="6">航班时间</a-col>
                 <a-col :span="6">操作</a-col>
               </a-row>
-              <a-row type="flex" style="margin-bottom:10px" :gutter="16" v-for="(item, index) in orderMainModel.jeecgOrderTicketList" :key="index">
+              <a-row type="flex" style="margin-bottom:10px" :gutter="16" v-for="(item, index) in orderMainModel.jantdOrderTicketList" :key="index">
                 <a-col :span="6">
                   <a-form-item>
-                    <a-input placeholder="航班号" v-decorator="['jeecgOrderTicketList['+index+'].ticketCode', {'initialValue':item.ticketCode,rules: [{ required: true, message: '请输入航班号!' }]}]" />
+                    <a-input placeholder="航班号" v-decorator="['jantdOrderTicketList['+index+'].ticketCode', {'initialValue':item.ticketCode,rules: [{ required: true, message: '请输入航班号!' }]}]" />
                   </a-form-item>
                 </a-col>
                 <a-col :span="6">
                   <a-form-item>
-                    <j-date placeholder="航班时间" :trigger-change="true" v-decorator="['jeecgOrderTicketList['+index+'].tickectDate', {'initialValue':item.tickectDate}]"></j-date>
+                    <j-date placeholder="航班时间" :trigger-change="true" v-decorator="['jantdOrderTicketList['+index+'].tickectDate', {'initialValue':item.tickectDate}]"></j-date>
                   </a-form-item>
                 </a-col>
                 <a-col :span="6">
@@ -153,8 +153,8 @@
       return {
         title:"操作",
         visible: false,
-        orderMainModel: {jeecgOrderCustomerList: [{}],
-                           jeecgOrderTicketList: [{}]},
+        orderMainModel: {jantdOrderCustomerList: [{}],
+                           jantdOrderTicketList: [{}]},
         labelCol: {
           xs: { span: 24 },
           sm: { span: 5 },
@@ -169,10 +169,10 @@
         validatorRules:{
         },
         url: {
-          add: "/test/jeecgOrderMain/add",
-          edit: "/test/jeecgOrderMain/edit",
-          orderCustomerList: "/test/jeecgOrderMain/queryOrderCustomerListByMainId",
-          orderTicketList: "/test/jeecgOrderMain/queryOrderTicketListByMainId",
+          add: "/test/jantdOrderMain/add",
+          edit: "/test/jantdOrderMain/edit",
+          orderCustomerList: "/test/jantdOrderMain/queryOrderCustomerListByMainId",
+          orderTicketList: "/test/jantdOrderMain/queryOrderTicketListByMainId",
         },
       }
     },
@@ -185,8 +185,8 @@
       edit (record) {
         this.form.resetFields();
         this.orderMainModel = Object.assign({}, record);
-        this.orderMainModel.jeecgOrderCustomerList = [{}];
-        this.orderMainModel.jeecgOrderTicketList = [{}];
+        this.orderMainModel.jantdOrderCustomerList = [{}];
+        this.orderMainModel.jantdOrderTicketList = [{}];
         //--------------------------------------------------------
         //初始化明细表数据
         console.log(this.orderMainModel.id)
@@ -195,14 +195,14 @@
           //初始化订单机票列表
           getAction(this.url.orderCustomerList,params).then((res)=>{
             if(res.success){
-              this.orderMainModel.jeecgOrderCustomerList = res.result;
+              this.orderMainModel.jantdOrderCustomerList = res.result;
               this.$forceUpdate()
             }
           })
           //初始化订单客户列表
           getAction(this.url.orderTicketList,params).then((res)=>{
             if(res.success){
-              this.orderMainModel.jeecgOrderTicketList = res.result;
+              this.orderMainModel.jantdOrderTicketList = res.result;
               this.$forceUpdate()
             }
           })
@@ -239,8 +239,8 @@
             orderMainData.orderDate = orderMainData.orderDate?orderMainData.orderDate.format('YYYY-MM-DD HH:mm:ss'):null;
             let formData = {
               ...orderMainData,
-              jeecgOrderCustomerList: orderMainData.jeecgOrderCustomerList,
-              jeecgOrderTicketList: orderMainData.jeecgOrderTicketList
+              jantdOrderCustomerList: orderMainData.jantdOrderCustomerList,
+              jantdOrderTicketList: orderMainData.jantdOrderTicketList
             }
 
             console.log(formData)
@@ -263,22 +263,22 @@
         this.close()
       },
       addRowCustom () {
-        this.orderMainModel.jeecgOrderCustomerList.push({});
+        this.orderMainModel.jantdOrderCustomerList.push({});
         this.$forceUpdate();
       },
       delRowCustom (index) {
         console.log(index)
-        this.orderMainModel.jeecgOrderCustomerList.splice(index,1);
+        this.orderMainModel.jantdOrderCustomerList.splice(index,1);
         this.$forceUpdate();
       },
       addRowTicket () {
-        this.orderMainModel.jeecgOrderTicketList.push({});
-        console.log(this.orderMainModel.jeecgOrderTicketList)
+        this.orderMainModel.jantdOrderTicketList.push({});
+        console.log(this.orderMainModel.jantdOrderTicketList)
         this.$forceUpdate();
       },
       delRowTicket (index) {
         console.log(index)
-        this.orderMainModel.jeecgOrderTicketList.splice(index,1);
+        this.orderMainModel.jantdOrderTicketList.splice(index,1);
         this.$forceUpdate();
       },
 
