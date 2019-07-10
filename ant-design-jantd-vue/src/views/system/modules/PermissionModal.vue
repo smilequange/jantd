@@ -177,7 +177,6 @@
         alwaysShow:false,//表单元素-聚合路由
         menuHidden:false,//表单元素-隐藏路由
         routeSwitch:true, //是否路由菜单
-        isKeepalive:true, //是否缓存路由
         show:true,//根据菜单类型，动态显示隐藏表单元素
         menuLabel:'菜单名称',
         isRequrie:true,  // 是否需要验证
@@ -285,7 +284,6 @@
             this.model.alwaysShow = this.alwaysShow;
             this.model.hidden = this.menuHidden;
             this.model.route = this.routeSwitch;
-            this.model.keepAlive = this.isKeepalive;
             let formData = Object.assign(this.model, values);
             if ((formData.menuType == 1 || formData.menuType == 2) && !formData.parentId) {
               that.validateStatus = 'error';
