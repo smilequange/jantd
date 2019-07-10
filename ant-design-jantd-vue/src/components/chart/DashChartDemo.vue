@@ -88,7 +88,7 @@
   }];
 
   const data = [
-    { value: 7.0 },
+    { value: 0.1 },
   ];
 
   export default {
