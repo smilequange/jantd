@@ -81,14 +81,6 @@ public class MockController {
 	}
 
 	/**
-	 * 省市县
-	 */
-	@GetMapping(value = "/area")
-	public String area() {
-		return readJson("classpath:cn/jantd/modules/demo/mock/json/area.json");
-	}
-
-	/**
 	  * 测试报表数据
 	 */
 	@GetMapping(value = "/report/getYearCountInfo")

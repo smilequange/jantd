@@ -196,16 +196,6 @@ public class CommonController {
 		}
 
 	}
-	/**
-	 * @功能：pdf预览Iframe
-	 * @param modelAndView
-	 * @return
-	 */
-	@RequestMapping("/pdf/pdfPreviewIframe")
-	public ModelAndView pdfPreviewIframe(ModelAndView modelAndView) {
-		modelAndView.setViewName("pdfPreviewIframe");
-		return modelAndView;
-	}
 
 	/**
 	  *  把指定URL后的字符串全部截断当成参数

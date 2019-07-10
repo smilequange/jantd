@@ -267,7 +267,7 @@
               }).catch((err) => {
                 that.requestFailed(err);
               });
-            }
+            }y
           })
           // 使用手机号登陆
         } else {
