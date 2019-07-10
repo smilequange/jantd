@@ -223,12 +223,12 @@
 </template>
 
 <script>
-  import JSelectMultipleUser from '@/components/jeecgbiz/JSelectMultipleUser'
-  import JSearchUserByDep from '@/components/jeecgbiz/JSearchUserByDep'
+  import JSelectMultipleUser from '@/components/jantdbiz/JSelectMultipleUser'
+  import JSearchUserByDep from '@/components/jantdbiz/JSearchUserByDep'
   import JDictSelectTag from '../../components/dict/JDictSelectTag.vue'
-  import JSelectDepart from '@/components/jeecgbiz/JSelectDepart'
-  import JSelectUserByDep from '@/components/jeecgbiz/JSelectUserByDep'
-  import JSelectMultiUser from '@/components/jeecgbiz/JSelectMultiUser'
+  import JSelectDepart from '@/components/jantdbiz/JSelectDepart'
+  import JSelectUserByDep from '@/components/jantdbiz/JSelectUserByDep'
+  import JSelectMultiUser from '@/components/jantdbiz/JSelectMultiUser'
   import JCheckbox from '@/components/jantd/JCheckbox'
   import JCodeEditor from '@/components/jantd/JCodeEditor'
   import JDate from '@/components/jantd/JDate'

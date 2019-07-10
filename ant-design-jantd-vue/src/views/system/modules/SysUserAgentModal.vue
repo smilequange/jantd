@@ -64,7 +64,7 @@
   import { httpAction, getAction } from '@/api/manage'
   import pick from 'lodash.pick'
   import moment from "moment"
-  import JSearchUserByDep from '@/components/jeecgbiz/JSearchUserByDep'
+  import JSearchUserByDep from '@/components/jantdbiz/JSearchUserByDep'
 
   export default {
     name: "SysUserAgentModal",
