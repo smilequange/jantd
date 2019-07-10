@@ -35,7 +35,7 @@ import org.springframework.web.servlet.view.AbstractView;
  * @date 2014年6月30日 下午9:15:49
  */
 @SuppressWarnings("unchecked")
-@Controller(TemplateWordConstants.JEECG_TEMPLATE_WORD_VIEW)
+@Controller(TemplateWordConstants.JANTD_TEMPLATE_WORD_VIEW)
 public class JantdTemplateWordView extends AbstractView {
 
 	private static final String CONTENT_TYPE = "application/msword";

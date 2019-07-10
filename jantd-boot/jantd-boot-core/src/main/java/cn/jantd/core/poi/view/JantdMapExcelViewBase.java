@@ -39,7 +39,7 @@ import org.springframework.stereotype.Controller;
  * @date 2014年11月25日 下午3:26:32
  */
 @SuppressWarnings("unchecked")
-@Controller(MapExcelConstants.JEECG_MAP_EXCEL_VIEW)
+@Controller(MapExcelConstants.JANTD_MAP_EXCEL_VIEW)
 public class JantdMapExcelViewBase extends BaseMiniAbstractExcelView {
 
 	public JantdMapExcelViewBase() {

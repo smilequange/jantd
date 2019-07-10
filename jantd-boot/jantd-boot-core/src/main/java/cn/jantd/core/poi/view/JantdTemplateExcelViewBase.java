@@ -38,7 +38,7 @@ import org.springframework.stereotype.Controller;
  * @date 2014年6月30日 下午9:15:49
  */
 @SuppressWarnings("unchecked")
-@Controller(TemplateExcelConstants.JEECG_TEMPLATE_EXCEL_VIEW)
+@Controller(TemplateExcelConstants.JANTD_TEMPLATE_EXCEL_VIEW)
 public class JantdTemplateExcelViewBase extends BaseMiniAbstractExcelView {
 
 	public JantdTemplateExcelViewBase() {

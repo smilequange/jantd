@@ -24,7 +24,7 @@ public interface NormalExcelConstants extends BasePOIConstants {
 	/**
 	 * 单Sheet导出
 	 */
-	public final static String JANTD_ENTITY_EXCEL_VIEW = "jeecgEntityExcelView";
+	public final static String JANTD_ENTITY_EXCEL_VIEW = "jantdEntityExcelView";
 	/**
 	 * 数据列表
 	 */
