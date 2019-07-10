@@ -11,19 +11,8 @@ management:
   web:
    exposure:
     include: metrics,httptrace
-    
-spring:
-  mail:
-    host: smtp.163.com
-    username: jeecgos@163.com
-    password: ??
-    properties:
-      mail: 
-        smtp: 
-          auth: true
-          starttls: 
-            enable: true
-            required: true
+
+
   ## quartz定时任务,采用数据库方式
   quartz:
     job-store-type: jdbc
