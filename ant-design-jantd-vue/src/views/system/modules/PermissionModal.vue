@@ -12,7 +12,7 @@
       <a-form :form="form">
 
         <a-form-item label="菜单类型" :labelCol="labelCol" :wrapperCol="wrapperCol" >
-          <a-radio-group @change="onChangeMenuType" v-decorator="['menuType',{'initialValue':0}]">
+          <a-radio-group @change="onChangeMenuType" v-decorator="['menuType',{'initialValue':localMenuType}]">
             <a-radio :value="0">一级菜单</a-radio>
             <a-radio :value="1">子菜单</a-radio>
             <a-radio :value="2">按钮/权限</a-radio>
@@ -32,14 +32,19 @@
           v-show="localMenuType!=0"
           label="上级菜单"
           :labelCol="labelCol"
-          :wrapperCol="wrapperCol" >
+          :wrapperCol="wrapperCol"
+          :validate-status="validateStatus"
+          :hasFeedback="true"
+          :required="true">
+          <span slot="help">{{ validateStatus=='error'?'请选择上级菜单':'&nbsp;&nbsp;' }}</span>
           <a-tree-select
             style="width:100%"
             :dropdownStyle="{ maxHeight: '200px', overflow: 'auto' }"
             :treeData="treeData"
             v-model="model.parentId"
             placeholder="请选择父级菜单"
-            :disabled="disableSubmit">
+            :disabled="disableSubmit"
+            @change="handleParentIdChange">
           </a-tree-select>
         </a-form-item>
 
@@ -47,7 +52,7 @@
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
           label="菜单路径">
-          <a-input placeholder="请输入菜单路径" v-decorator="[ 'url',{}]" :readOnly="disableSubmit"/>
+          <a-input placeholder="请输入菜单路径" v-decorator="[ 'url',validatorRules.url]" :readOnly="disableSubmit"/>
         </a-form-item>
 
         <a-form-item
@@ -55,7 +60,7 @@
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
           label="前端组件">
-          <a-input placeholder="请输入前端组件" v-decorator="[ 'component', {}]" :readOnly="disableSubmit"/>
+          <a-input placeholder="请输入前端组件" v-decorator="[ 'component',validatorRules.component]" :readOnly="disableSubmit"/>
         </a-form-item>
 
         <a-form-item
@@ -107,7 +112,7 @@
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
           label="排序">
-          <a-input-number placeholder="请输入菜单排序" style="width: 200px" v-decorator="[ 'sortNo', {'initialValue':1.0,'rule':validatorRules.sortNo}]" :readOnly="disableSubmit"/>
+          <a-input-number placeholder="请输入菜单排序" style="width: 200px" v-decorator="[ 'sortNo',validatorRules.sortNo]" :readOnly="disableSubmit"/>
         </a-form-item>
 
         <a-form-item
@@ -154,7 +159,7 @@
   import {addPermission,editPermission,queryTreeList} from '@/api/api'
   import Icons from './icon/Icons'
   import pick from 'lodash.pick'
-  import { initDictOptions } from '@/components/dict/JDictSelectUtil'
+
 
   export default {
     name: "PermissionModal",
@@ -168,12 +173,14 @@
         visible: false,
         disableSubmit:false,
         model: {},
-        localMenuType:'1',
+        localMenuType:0,
         alwaysShow:false,//表单元素-聚合路由
         menuHidden:false,//表单元素-隐藏路由
         routeSwitch:true, //是否路由菜单
+        isKeepalive:true, //是否缓存路由
         show:true,//根据菜单类型，动态显示隐藏表单元素
         menuLabel:'菜单名称',
+        isRequrie:true,  // 是否需要验证
         labelCol: {
           xs: { span: 24 },
           sm: { span: 5 },
@@ -185,12 +192,20 @@
 
         confirmLoading: false,
         form: this.$form.createForm(this),
-        validatorRules:{
-          name:{rules: [{ required: true, message: '请输入菜单标题!' }]},
-          permsType:{rules: [{ required: true, message: '请输入授权策略!' }]},
-          sortNo:{rules: [{validator: this.validateNumber}]},
-        },
+
         iconChooseVisible: false,
+        validateStatus:""
+      }
+    },
+    computed:{
+      validatorRules:function() {
+        return {
+          name:{rules: [{ required: true, message: '请输入菜单标题!' }]},
+          component:{rules: [{ required: this.show, message: '请输入前端组件!' }]},
+          url:{rules: [{ required: this.show, message: '请输入菜单路径!' }]},
+          permsType:{rules: [{ required: true, message: '请输入授权策略!' }]},
+          sortNo:{rules: [{initialValue:1.0,validator: this.validateNumber}]},
+        }
       }
     },
     created () {
@@ -226,9 +241,18 @@
         console.log(record)
         this.alwaysShow = !record.alwaysShow?false:true;
         this.menuHidden = !record.hidden?false:true;
+
         if(record.route!=null){
           this.routeSwitch = record.route?true:false;
         }
+        
+        if(record.keepAlive!=null){
+          this.isKeepalive = record.keepAlive?true:false;
+        }else{
+          this.isKeepalive = false; // 升级兼容 如果没有（后台没有传过来、或者是新建）默认为false
+        }
+
+
 
         //console.log('record.menuType', record.menuType);
         this.show = record.menuType==2?false:true;
@@ -258,29 +282,37 @@
         // 触发表单验证
         this.form.validateFields((err, values) => {
           if (!err) {
-            that.confirmLoading = true;
             this.model.alwaysShow = this.alwaysShow;
             this.model.hidden = this.menuHidden;
             this.model.route = this.routeSwitch;
+            this.model.keepAlive = this.isKeepalive;
             let formData = Object.assign(this.model, values);
+            if ((formData.menuType == 1 || formData.menuType == 2) && !formData.parentId) {
+              that.validateStatus = 'error';
+              that.$message.error("请检查你填的类型以及信息是否正确！");
+              return;
+            } else {
+              that.validateStatus = 'success';
+            }
+            that.confirmLoading = true;
             console.log(formData);
             let obj;
-            if(!this.model.id){
-              obj=addPermission(formData);
-            }else{
-              obj=editPermission(formData);
+            if (!this.model.id) {
+              obj = addPermission(formData);
+            } else {
+              obj = editPermission(formData);
             }
-            obj.then((res)=>{
-              if(res.success){
+            obj.then((res) => {
+              if (res.success) {
                 that.$message.success(res.message);
                 that.$emit('ok');
-              }else{
+              } else {
                 that.$message.warning(res.message);
               }
             }).finally(() => {
               that.confirmLoading = false;
               that.close();
-            })
+            });
           }
         })
       },
@@ -304,6 +336,9 @@
           this.show = true;
           this.menuLabel = '菜单名称';
         }
+        this.$nextTick(() => {
+          this.form.validateFields(['url','component'], { force: true });
+        });
       },
       selectIcons(){
         this.iconChooseVisible = true
@@ -328,6 +363,13 @@
       },
       initDictConfig() {
       },
+      handleParentIdChange(value){
+        if(!value){
+          this.validateStatus="error"
+        }else{
+          this.validateStatus="success"
+        }
+      }
     }
   }
 </script>
