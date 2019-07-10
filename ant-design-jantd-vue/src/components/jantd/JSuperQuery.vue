@@ -61,7 +61,7 @@
 
 <script>
   import ACol from 'ant-design-vue/es/grid/Col'
-  import JDate from '@/components/jeecg/JDate.vue';
+  import JDate from '@/components/jantd/JDate.vue';
 
   export default {
     name: 'JSuperQuery',

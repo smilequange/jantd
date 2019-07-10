@@ -1,4 +1,4 @@
-import JEditableTable from '@/components/jeecg/JEditableTable'
+import JEditableTable from '@/components/jantd/JEditableTable'
 import { VALIDATE_NO_PASSED, getRefPromise, validateFormAndTables } from '@/utils/JEditableTableUtil'
 import { httpAction, getAction } from '@/api/manage'
 

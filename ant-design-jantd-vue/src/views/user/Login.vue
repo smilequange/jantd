@@ -168,7 +168,7 @@
   import { timeFix } from "@/utils/util"
   import Vue from 'vue'
   import { ACCESS_TOKEN } from "@/store/mutation-types"
-  import JGraphicCode from '@/components/jeecg/JGraphicCode'
+  import JGraphicCode from '@/components/jantd/JGraphicCode'
   import { putAction } from '@/api/manage'
   import { getAction} from '@/api/manage'
   import { encryption } from '@/utils/encryption/aesEncrypt'

@@ -99,7 +99,7 @@
   import pick from 'lodash.pick'
   import moment from "moment"
   import { getAction } from '@/api/manage'
-  import JDate from '@/components/jeecg/JDate'
+  import JDate from '@/components/jantd/JDate'
   import SelectUserListModal from "./SelectUserListModal";
 
   export default {

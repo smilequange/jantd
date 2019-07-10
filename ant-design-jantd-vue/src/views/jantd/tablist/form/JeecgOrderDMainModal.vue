@@ -54,7 +54,7 @@
 
 <script>
   import {httpAction} from '@/api/manage'
-  import JDate from '@/components/jeecg/JDate'
+  import JDate from '@/components/jantd/JDate'
   import pick from 'lodash.pick'
   import moment from "moment"
 

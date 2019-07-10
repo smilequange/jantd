@@ -46,7 +46,7 @@
 script内需引入jdate
 ```vue
 <script>
-  import JDate from '@/components/jeecg/JDate'
+  import JDate from '@/components/jantd/JDate'
   export default {
     name: "demo",
     components: {
@@ -88,7 +88,7 @@ fieldList结构示例：
 ----
 1.import之后再components之内声明
 ```vue
-import JSuperQuery from '@/components/jeecg/JSuperQuery.vue';
+import JSuperQuery from '@/components/jantd/JSuperQuery.vue';
   export default {
     name: "JeecgDemoList",
     components: {
@@ -222,7 +222,7 @@ this.$refs.superQueryModal.show();
 ## 引入组件
 
 ```js
-import JTreeTable from '@/components/jeecg/JTreeTable'
+import JTreeTable from '@/components/jantd/JTreeTable'
 export default {
   components: { JTreeTable }
 }
@@ -248,7 +248,7 @@ export default {
 </template>
 
 <script>
-  import JTreeTable from '@/components/jeecg/JTreeTable'
+  import JTreeTable from '@/components/jantd/JTreeTable'
 
   export default {
     name: 'AsyncTreeTable',

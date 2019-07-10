@@ -5,7 +5,7 @@
 </template>
 
 <script>
-  import JTreeTable from '@/components/jeecg/JTreeTable'
+  import JTreeTable from '@/components/jantd/JTreeTable'
 
   export default {
     name: 'JeecgTreeTable',

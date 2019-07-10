@@ -38,7 +38,7 @@
   import { httpAction,getAction } from '@/api/manage'
   import moment from "moment"
   import pick from 'lodash.pick'
-  import JDate from '@/components/jeecg/JDate.vue'
+  import JDate from '@/components/jantd/JDate.vue'
 
   export default {
     name: "JoaDemoModal",

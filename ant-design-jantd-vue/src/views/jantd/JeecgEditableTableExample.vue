@@ -37,7 +37,7 @@
 
 <script>
   import moment from 'moment'
-  import JEditableTable from '@/components/jeecg/JEditableTable'
+  import JEditableTable from '@/components/jantd/JEditableTable'
   import { FormTypes } from '@/utils/JEditableTableUtil'
   import { randomUUID, randomNumber } from '@/utils/util'
 

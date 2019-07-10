@@ -277,7 +277,7 @@
   import { ACCESS_TOKEN } from '@/store/mutation-types'
   import { FormTypes, VALIDATE_NO_PASSED } from '@/utils/JEditableTableUtil'
   import { cloneObject, randomString } from '@/utils/util'
-  import JDate from '@/components/jeecg/JDate'
+  import JDate from '@/components/jantd/JDate'
 
   // 行高，需要在实例加载完成前用到
   let rowHeight = 61

@@ -101,7 +101,7 @@
   import RoleModal from './modules/RoleModal'
   import UserRoleModal from './modules/UserRoleModal'
   import { JeecgListMixin } from '@/mixins/JeecgListMixin'
-  import JDate from '@/components/jeecg/JDate'
+  import JDate from '@/components/jantd/JDate'
 
   export default {
     name: "RoleList",

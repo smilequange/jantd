@@ -131,7 +131,7 @@
 
 <script>
   import JeecgDemoModal from './modules/JeecgDemoModal'
-  import JSuperQuery from '@/components/jeecg/JSuperQuery.vue';
+  import JSuperQuery from '@/components/jantd/JSuperQuery.vue';
   import JeecgDemoTabsModal from './modules/JeecgDemoTabsModal'
   import {initDictOptions, filterDictText} from '@/components/dict/JDictSelectUtil'
   import { JeecgListMixin } from '@/mixins/JeecgListMixin'
@@ -252,7 +252,7 @@
       },
       //跳转单据页面
       jump() {
-        this.$router.push({path: '/jeecg/helloworld'})
+        this.$router.push({path: '/jantd/helloworld'})
       }
     }
   }

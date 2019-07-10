@@ -466,7 +466,7 @@ this.$refs.editableTable.getValues((error, values) => {
 </template>
 <script>
     import { FormTypes } from '@/utils/JEditableTableUtil'
-    import JEditableTable from '@/components/jeecg/JEditableTable'
+    import JEditableTable from '@/components/jantd/JEditableTable'
     export default {
         components: { JEditableTable },
         data() {

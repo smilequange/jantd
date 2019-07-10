@@ -117,7 +117,7 @@
 <script>
   import { postAction } from '@/api/manage'
   import { JeecgListMixin } from '@/mixins/JeecgListMixin'
-  import JDate from '@/components/jeecg/JDate.vue'
+  import JDate from '@/components/jantd/JDate.vue'
   import FormCommonModal from "@/components/bpm/FormCommonModal";
   import ProcessInstPicModal from "@/components/bpm/ProcessInstPicModal";
 
@@ -195,7 +195,7 @@
           }
         ],
         flowCode:"dev_joa_demo_001",
-        path:"jeecg/modules/JoaDemoForm",
+        path:"jantd/modules/JoaDemoForm",
 		    url: {
           list: "/test/joaDemo/list",
           delete: "/test/joaDemo/delete",

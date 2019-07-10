@@ -98,7 +98,7 @@
 
 <script>
   import { getAction } from '@/api/manage'
-  import JeecgOrderDMainModal from '@/views/jeecg/tablist/form/JeecgOrderDMainModal'
+  import JeecgOrderDMainModal from '@/views/jantd/tablist/form/JeecgOrderDMainModal'
   import {JeecgListMixin} from '@/mixins/JeecgListMixin'
 
   export default {

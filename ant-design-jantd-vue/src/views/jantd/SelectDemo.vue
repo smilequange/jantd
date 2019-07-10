@@ -229,14 +229,14 @@
   import JSelectDepart from '@/components/jeecgbiz/JSelectDepart'
   import JSelectUserByDep from '@/components/jeecgbiz/JSelectUserByDep'
   import JSelectMultiUser from '@/components/jeecgbiz/JSelectMultiUser'
-  import JCheckbox from '@/components/jeecg/JCheckbox'
-  import JCodeEditor from '@/components/jeecg/JCodeEditor'
-  import JDate from '@/components/jeecg/JDate'
-  import JEditor from '@/components/jeecg/JEditor'
-  import JEllipsis from '@/components/jeecg/JEllipsis'
-  import JGraphicCode from '@/components/jeecg/JGraphicCode'
-  import JSlider from '@/components/jeecg/JSlider'
-  import JSelectMultiple from '@/components/jeecg/JSelectMultiple'
+  import JCheckbox from '@/components/jantd/JCheckbox'
+  import JCodeEditor from '@/components/jantd/JCodeEditor'
+  import JDate from '@/components/jantd/JDate'
+  import JEditor from '@/components/jantd/JEditor'
+  import JEllipsis from '@/components/jantd/JEllipsis'
+  import JGraphicCode from '@/components/jantd/JGraphicCode'
+  import JSlider from '@/components/jantd/JSlider'
+  import JSelectMultiple from '@/components/jantd/JSelectMultiple'
 
   export default {
     name: 'SelectDemo',

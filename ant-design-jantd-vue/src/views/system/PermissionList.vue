@@ -79,7 +79,7 @@
   import { getPermissionList } from '@/api/api'
   import { JeecgListMixin } from '@/mixins/JeecgListMixin'
   import PermissionDataRuleList from './PermissionDataRuleList'
-  import JEllipsis from '@/components/jeecg/JEllipsis'
+  import JEllipsis from '@/components/jantd/JEllipsis'
 
   const columns = [
     {
