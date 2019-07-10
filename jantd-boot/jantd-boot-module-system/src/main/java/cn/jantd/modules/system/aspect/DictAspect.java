@@ -61,7 +61,7 @@ public class DictAspect {
 
     /**
      * 本方法针对返回对象为Result 的IPage的分页列表数据进行动态字典注入
-     * 字典注入实现 通过对实体类添加注解@dict 来标识需要的字典内容,字典分为单字典code即可 ，table字典 code table text配合使用与原来jeecg的用法相同
+     * 字典注入实现 通过对实体类添加注解@dict 来标识需要的字典内容,字典分为单字典code即可 ，table字典 code table text配合使用与原来jantd的用法相同
      * 示例为SysUser   字段为sex 添加了注解@Dict(dicCode = "sex") 会在字典服务立马查出来对应的text 然后在请求list的时候将这个字典text，已字段名称加_dictText形式返回到前端
      * 例输入当前返回值的就会多出一个sex_dictText字段
      * {

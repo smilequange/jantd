@@ -6,21 +6,21 @@
 		{
 			"id": 21,
 			"name": "弹框选择Demo",
-			"component": "jeecg/SelectDemo",
+			"component": "jantd/SelectDemo",
 			"orderNum": 1,
 			"hasChildren": false
 		},
 		{
 			"id": 22,
 			"name": "单表模型示例",
-			"component": "jeecg/JeecgDemoList",
+			"component": "jantd/JantdDemoList",
 			"orderNum": 2,
 			"hasChildren": false
 		},
 		{
 			"id": 23,
 			"name": "一对多Tab示例",
-			"component": "jeecg/tablist/JeecgOrderDMainList",
+			"component": "jantd/tablist/JantdOrderDMainList",
 			"orderNum": 3,
 			"hasChildren": false
 		}

@@ -12,7 +12,7 @@ import org.springframework.util.StringUtils;
 
 /**
  * @author 圈哥
- * @ClassName: JeecgDataAutorUtils
+ * @ClassName: JantdDataAutorUtils
  * @Description: 数据权限查询规则容器工具类
  * @Date: 2012-12-15 下午11:27:39
  */

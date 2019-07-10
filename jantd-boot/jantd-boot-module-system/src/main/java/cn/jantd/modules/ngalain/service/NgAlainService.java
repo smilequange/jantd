@@ -20,13 +20,13 @@ public interface NgAlainService {
     JSONArray getMenu(String id) throws Exception;
 
     /**
-     * 获取jeecg菜单
+     * 获取jantd菜单
      *
      * @param id
      * @return
      * @throws Exception
      */
-    JSONArray getJeecgMenu(String id) throws Exception;
+    JSONArray getJantdMenu(String id) throws Exception;
 
     /**
      * 通过表名获取字典

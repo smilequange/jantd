@@ -30,22 +30,22 @@ public class NgAlainServiceImpl implements NgAlainService {
 
     @Override
     public JSONArray getMenu(String id) throws Exception {
-        return getJeecgMenu(id);
+        return getJantdMenu(id);
     }
 
     @Override
-    public JSONArray getJeecgMenu(String id) throws Exception {
+    public JSONArray getJantdMenu(String id) throws Exception {
         List<SysPermission> metaList = sysPermissionService.queryByUser(id);
         JSONArray jsonArray = new JSONArray();
         getPermissionJsonArray(jsonArray, metaList, null);
         JSONArray menulist = parseNgAlain(jsonArray);
-        JSONObject jeecgMenu = new JSONObject();
-        jeecgMenu.put("text", "jeecg菜单");
-        jeecgMenu.put("group", true);
-        jeecgMenu.put("children", menulist);
-        JSONArray jeecgMenuList = new JSONArray();
-        jeecgMenuList.add(jeecgMenu);
-        return jeecgMenuList;
+        JSONObject jantdMenu = new JSONObject();
+        jantdMenu.put("text", "jantd菜单");
+        jantdMenu.put("group", true);
+        jantdMenu.put("children", menulist);
+        JSONArray jantdMenuList = new JSONArray();
+        jantdMenuList.add(jantdMenu);
+        return jantdMenuList;
     }
 
     @Override

@@ -221,13 +221,13 @@ public class ExportBase {
 		excelEntity.setMergeRely(excel.mergeRely());
 		excelEntity.setReplace(excel.replace());
 		if(StringUtils.isNotEmpty(excel.dicCode())){
-			AutoPoiDictServiceI jeecgDictService = null;
+			AutoPoiDictServiceI jantdDictService = null;
 			try {
-				jeecgDictService = ApplicationContextUtil.getContext().getBean(AutoPoiDictServiceI.class);
+				jantdDictService = ApplicationContextUtil.getContext().getBean(AutoPoiDictServiceI.class);
 			} catch (Exception e) {
 			}
-			if(jeecgDictService!=null){
-				 String[] dictReplace = jeecgDictService.queryDict(excel.dictTable(), excel.dicCode(), excel.dicText());
+			if(jantdDictService!=null){
+				 String[] dictReplace = jantdDictService.queryDict(excel.dictTable(), excel.dicCode(), excel.dicText());
 				 if(excelEntity.getReplace()!=null && dictReplace!=null && dictReplace.length!=0){
 					 excelEntity.setReplace(dictReplace);
 				 }

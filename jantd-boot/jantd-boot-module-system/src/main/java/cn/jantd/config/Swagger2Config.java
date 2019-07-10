@@ -86,7 +86,7 @@ public class Swagger2Config implements WebMvcConfigurer {
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
                 // //大标题
-                .title("Jeecg-Boot 后台服务API接口文档")
+                .title("Jantd-Boot 后台服务API接口文档")
                 // 版本号
                 .version("1.0")
 //				.termsOfServiceUrl("NO terms of service")

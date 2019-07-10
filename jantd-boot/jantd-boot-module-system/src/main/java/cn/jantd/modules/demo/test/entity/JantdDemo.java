@@ -16,7 +16,7 @@ import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
 /**
- * @Description: jeecg 测试demo
+ * @Description: jantd 测试demo
  * @Author xiagf
  * @Date:	2018-12-29
  * @Version:V1.0

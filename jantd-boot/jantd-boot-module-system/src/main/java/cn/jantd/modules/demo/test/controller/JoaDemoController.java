@@ -200,7 +200,7 @@ public class JoaDemoController {
       //导出文件名称
       mv.addObject(NormalExcelConstants.FILE_NAME, "流程测试列表");
       mv.addObject(NormalExcelConstants.CLASS, JoaDemo.class);
-      mv.addObject(NormalExcelConstants.PARAMS, new ExportParams("流程测试列表数据", "导出人:Jeecg", "导出信息"));
+      mv.addObject(NormalExcelConstants.PARAMS, new ExportParams("流程测试列表数据", "导出人:Jantd", "导出信息"));
       mv.addObject(NormalExcelConstants.DATA_LIST, pageList);
       return mv;
   }

@@ -102,7 +102,7 @@ mybatis-plus:
   mapper-locations: classpath*:cn/jantd/modules/**/xml/*Mapper.xml
 
 #jeecg专用配置
-jeecg :
+jantd :
   path :
     #文件上传根目录 设置
     upload: /opt/jeecg-boot/upload

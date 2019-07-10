@@ -31,7 +31,7 @@ public class MockController {
 
 	/**
 	 * 通用json访问接口
-	 * 格式： http://localhost:8080/jeecg-boot/api/json/{filename}
+	 * 格式： http://localhost:8080/jantd-boot/api/json/{filename}
 	 * @param filename
 	 * @return
 	 */

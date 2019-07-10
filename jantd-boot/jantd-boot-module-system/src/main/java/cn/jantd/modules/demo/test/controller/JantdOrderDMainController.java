@@ -43,11 +43,11 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping("/test/order")
 public class JantdOrderDMainController {
     @Autowired
-    private IJantdOrderMainService jeecgOrderMainService;
+    private IJantdOrderMainService jantdOrderMainService;
     @Autowired
-    private IJantdOrderCustomerService jeecgOrderCustomerService;
+    private IJantdOrderCustomerService jantdOrderCustomerService;
     @Autowired
-    private IJantdOrderTicketService jeecgOrderTicketService;
+    private IJantdOrderTicketService jantdOrderTicketService;
     @Autowired
     private IJantdOrderCustomerService customerService;
     @Autowired
@@ -70,7 +70,7 @@ public class JantdOrderDMainController {
         Result<IPage<JantdOrderMain>> result = new Result<IPage<JantdOrderMain>>();
         QueryWrapper<JantdOrderMain> queryWrapper = QueryGenerator.initQueryWrapper(jantdOrderMain, req.getParameterMap());
         Page<JantdOrderMain> page = new Page<JantdOrderMain>(pageNo, pageSize);
-        IPage<JantdOrderMain> pageList = jeecgOrderMainService.page(page, queryWrapper);
+        IPage<JantdOrderMain> pageList = jantdOrderMainService.page(page, queryWrapper);
         //log.debug("查询当前页："+pageList.getCurrent());
         //log.debug("查询当前页数量："+pageList.getSize());
         //log.debug("查询结果数量："+pageList.getRecords().size());
@@ -92,10 +92,10 @@ public class JantdOrderDMainController {
         try {
             JantdOrderMain jantdOrderMain = new JantdOrderMain();
             BeanUtils.copyProperties(jantdOrderMainPage, jantdOrderMain);
-            jeecgOrderMainService.save(jantdOrderMain);
+            jantdOrderMainService.save(jantdOrderMain);
             result.success("添加成功！");
         } catch (Exception e) {
-            log.error(e.getMessage(),e);
+            log.error(e.getMessage(), e);
             result.error500("操作失败");
         }
         return result;
@@ -112,11 +112,11 @@ public class JantdOrderDMainController {
         Result<JantdOrderMain> result = new Result<JantdOrderMain>();
         JantdOrderMain jantdOrderMain = new JantdOrderMain();
         BeanUtils.copyProperties(jantdOrderMainPage, jantdOrderMain);
-        JantdOrderMain jantdOrderMainEntity = jeecgOrderMainService.getById(jantdOrderMain.getId());
+        JantdOrderMain jantdOrderMainEntity = jantdOrderMainService.getById(jantdOrderMain.getId());
         if (jantdOrderMainEntity == null) {
             result.error500("未找到对应实体");
         } else {
-            jeecgOrderMainService.updateById(jantdOrderMain);
+            jantdOrderMainService.updateById(jantdOrderMain);
             result.success("修改成功!");
         }
 
@@ -132,11 +132,11 @@ public class JantdOrderDMainController {
     @DeleteMapping(value = "/delete")
     public Result<JantdOrderMain> delete(@RequestParam(name = "id", required = true) String id) {
         Result<JantdOrderMain> result = new Result<JantdOrderMain>();
-        JantdOrderMain jantdOrderMain = jeecgOrderMainService.getById(id);
+        JantdOrderMain jantdOrderMain = jantdOrderMainService.getById(id);
         if (jantdOrderMain == null) {
             result.error500("未找到对应实体");
         } else {
-            jeecgOrderMainService.delMain(id);
+            jantdOrderMainService.delMain(id);
             result.success("删除成功!");
         }
 
@@ -155,7 +155,7 @@ public class JantdOrderDMainController {
         if (ids == null || "".equals(ids.trim())) {
             result.error500("参数不识别！");
         } else {
-            this.jeecgOrderMainService.removeByIds(Arrays.asList(ids.split(",")));
+            this.jantdOrderMainService.removeByIds(Arrays.asList(ids.split(",")));
             result.success("删除成功!");
         }
         return result;
@@ -170,7 +170,7 @@ public class JantdOrderDMainController {
     @GetMapping(value = "/queryById")
     public Result<JantdOrderMain> queryById(@RequestParam(name = "id", required = true) String id) {
         Result<JantdOrderMain> result = new Result<JantdOrderMain>();
-        JantdOrderMain jantdOrderMain = jeecgOrderMainService.getById(id);
+        JantdOrderMain jantdOrderMain = jantdOrderMainService.getById(id);
         if (jantdOrderMain == null) {
             result.error500("未找到对应实体");
         } else {
@@ -191,13 +191,13 @@ public class JantdOrderDMainController {
         Result<List<JantdOrderCustomer>> result = new Result<List<JantdOrderCustomer>>();
         List<JantdOrderCustomer> jantdOrderCustomerList = null;
         if (mainId != null) {
-            jantdOrderCustomerList = jeecgOrderCustomerService.selectCustomersByMainId(mainId);
+            jantdOrderCustomerList = jantdOrderCustomerService.selectCustomersByMainId(mainId);
             result.setResult(jantdOrderCustomerList);
             result.setSuccess(true);
             return result;
         } else {
-			return null;
-		}
+            return null;
+        }
     }
 
     /**
@@ -211,13 +211,13 @@ public class JantdOrderDMainController {
         Result<List<JantdOrderTicket>> result = new Result<List<JantdOrderTicket>>();
         List<JantdOrderTicket> jantdOrderTicketList = null;
         if (mainId != null) {
-            jantdOrderTicketList = jeecgOrderTicketService.selectTicketsByMainId(mainId);
+            jantdOrderTicketList = jantdOrderTicketService.selectTicketsByMainId(mainId);
             result.setResult(jantdOrderTicketList);
             result.setSuccess(true);
             return result;
         } else {
-			return null;
-		}
+            return null;
+        }
     }
 
 // ================================以下是客户信息相关的API=================================

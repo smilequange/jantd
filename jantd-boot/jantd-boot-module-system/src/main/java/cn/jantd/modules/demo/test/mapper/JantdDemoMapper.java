@@ -6,7 +6,7 @@ import org.springframework.data.repository.query.Param;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
- * @Description: jeecg 测试demo
+ * @Description: jantd 测试demo
  * @Author xiagf
  * @Date:  2018-12-29
  * @Version: V1.0

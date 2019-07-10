@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- * @Description: jeecg 测试demo
+ * @Description: jantd 测试demo
  * @Author xiagf
  * @Date:  2018-12-29
  * @Version: V1.0
@@ -51,7 +51,7 @@ public class JantdDemoServiceImpl extends BaseServiceImpl<JantdDemoMapper, Jantd
 	 * 缓存注解测试： redis
 	 */
 	@Override
-	@Cacheable(cacheNames="jeecgDemo", key="#id")
+	@Cacheable(cacheNames="jantdDemo", key="#id")
 	public JantdDemo getByIdCacheable(String id) {
 		JantdDemo t = jantdDemoMapper.selectById(id);
 		System.err.println("---未读缓存，读取数据库---");

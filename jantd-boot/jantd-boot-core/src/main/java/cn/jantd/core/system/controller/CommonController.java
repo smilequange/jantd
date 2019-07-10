@@ -41,11 +41,11 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping("/sys/common")
 public class CommonController {
 
-	@Value(value = "${jeecg.path.upload}")
+	@Value(value = "${jantd.path.upload}")
 	private String uploadpath;
 
 	/**
-	 * @Author 政辉
+	 * @Author xiagf
 	 * @return
 	 */
 	@GetMapping("/403")
