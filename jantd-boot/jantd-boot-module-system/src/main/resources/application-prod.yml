@@ -12,7 +12,7 @@ management:
    exposure:
     include: metrics,httptrace
 
-
+spring:
   ## quartz定时任务,采用数据库方式
   quartz:
     job-store-type: jdbc
