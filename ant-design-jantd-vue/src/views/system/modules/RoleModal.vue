@@ -62,12 +62,21 @@
         confirmLoading: false,
         form: this.$form.createForm(this),
         validatorRules:{
-          roleName:{rules: [{ required: true, message: '请输入角色名称!' }]},
-          roleCode:{
-            rules: [
-              {required: true, message: '请输入角色名称!'},
-              {validator: this.validateRoleCode}
-            ]}
+          roleName:{
+              rules: [
+                { required: true, message: '请输入角色名称!' },
+                { min: 2, max: 30, message: '长度在 2 到 30 个字符', trigger: 'blur' }
+              ]},
+            roleCode:{
+              rules: [
+                { required: true, message: '请输入角色编码!'},
+                { min: 0, max: 64, message: '长度不超过 64 个字符', trigger: 'blur' },
+                { validator: this.validateRoleCode}
+              ]},
+            description:{
+              rules: [
+                { min: 0, max: 126, message: '长度不超过 126 个字符', trigger: 'blur' }
+              ]}
         },
       }
     },
