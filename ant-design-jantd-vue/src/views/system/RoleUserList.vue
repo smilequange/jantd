@@ -24,7 +24,7 @@
         <!-- 操作按钮区域 -->
         <div class="table-operator" style="margin: -8px 0 10px 2px">
           <a-button @click="handleAdd" type="primary" icon="plus">角色录入</a-button>
-          <a-button @click="handleEdit(model1)" type="primary" icon="plus">角色编辑</a-button>
+          <a-button @click="handleEdit(model1)" type="primary" icon="highlight">角色编辑</a-button>
           <a-upload name="file" :showUploadList="false" :multiple="false" :headers="tokenHeader" :action="importExcelUrl" @change="handleImportExcel">
             <a-button type="primary" icon="import">导入</a-button>
           </a-upload>
