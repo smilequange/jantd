@@ -10,6 +10,7 @@ import cn.jantd.core.util.PasswordUtil;
 import cn.jantd.core.util.RedisUtil;
 import cn.jantd.core.util.encryption.AesEncryptUtil;
 import cn.jantd.core.util.encryption.EncryptedString;
+import cn.jantd.core.util.oConvertUtils;
 import cn.jantd.modules.shiro.vo.DefContants;
 import cn.jantd.modules.system.entity.SysDepart;
 import cn.jantd.modules.system.entity.SysUser;
@@ -137,6 +138,27 @@ public class LoginController {
         obj.put("todayIp", todayIp);
         result.setResult(obj);
         result.success("登录成功");
+        return result;
+    }
+
+    /**
+     * 获取访问量
+     * @return
+     */
+    @GetMapping("visitInfo")
+    public Result<List<Map<String,Object>>> visitInfo() {
+        Result<List<Map<String,Object>>> result = new Result<List<Map<String,Object>>>();
+        Calendar calendar = new GregorianCalendar();
+        calendar.set(Calendar.HOUR_OF_DAY,0);
+        calendar.set(Calendar.MINUTE,0);
+        calendar.set(Calendar.SECOND,0);
+        calendar.set(Calendar.MILLISECOND,0);
+        calendar.add(Calendar.DAY_OF_MONTH, 1);
+        Date dayEnd = calendar.getTime();
+        calendar.add(Calendar.DAY_OF_MONTH, -7);
+        Date dayStart = calendar.getTime();
+        List<Map<String,Object>> list = logService.findVisitCount(dayStart, dayEnd);
+        result.setResult(oConvertUtils.toLowerCasePageList(list));
         return result;
     }
 

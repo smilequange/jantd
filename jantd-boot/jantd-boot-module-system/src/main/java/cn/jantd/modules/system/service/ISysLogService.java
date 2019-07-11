@@ -1,6 +1,8 @@
 package cn.jantd.modules.system.service;
 
 import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 import cn.jantd.modules.system.entity.SysLog;
 
@@ -28,8 +30,6 @@ public interface ISysLogService extends IService<SysLog> {
      */
     Long findTotalVisitCount();
 
-    //update-begin--Author:zhangweijian  Date:20190428 for：传入开始时间，结束时间参数
-
     /**
      * 获取系统今日访问次数
      *
@@ -47,5 +47,13 @@ public interface ISysLogService extends IService<SysLog> {
      * @return
      */
     Long findTodayIp(Date dayStart, Date dayEnd);
-    //update-end--Author:zhangweijian  Date:20190428 for：传入开始时间，结束时间参数
+
+    /**
+     * 首页：根据时间统计访问数量/ip数量
+     *
+     * @param dayStart
+     * @param dayEnd
+     * @return
+     */
+    List<Map<String, Object>> findVisitCount(Date dayStart, Date dayEnd);
 }

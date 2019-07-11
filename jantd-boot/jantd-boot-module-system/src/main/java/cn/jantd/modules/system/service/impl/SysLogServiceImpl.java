@@ -1,6 +1,8 @@
 package cn.jantd.modules.system.service.impl;
 
 import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -46,6 +48,11 @@ public class SysLogServiceImpl extends ServiceImpl<SysLogMapper, SysLog> impleme
     @Override
     public Long findTodayIp(Date dayStart, Date dayEnd) {
         return sysLogMapper.findTodayIp(dayStart, dayEnd);
+    }
+
+    @Override
+    public List<Map<String,Object>> findVisitCount(Date dayStart, Date dayEnd) {
+        return sysLogMapper.findVisitCount(dayStart, dayEnd);
     }
 
 }

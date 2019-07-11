@@ -1,6 +1,8 @@
 package cn.jantd.modules.system.mapper;
 
 import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 import cn.jantd.modules.system.entity.SysLog;
 import org.apache.ibatis.annotations.Param;
@@ -46,4 +48,12 @@ public interface SysLogMapper extends BaseMapper<SysLog> {
      * @return
      */
     Long findTodayIp(@Param("dayStart") Date dayStart, @Param("dayEnd") Date dayEnd);
+
+    /**
+     *   首页：根据时间统计访问数量/ip数量
+     * @param dayStart
+     * @param dayEnd
+     * @return
+     */
+    List<Map<String,Object>> findVisitCount(@Param("dayStart") Date dayStart, @Param("dayEnd") Date dayEnd);
 }

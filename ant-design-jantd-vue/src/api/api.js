@@ -76,6 +76,7 @@ const doReleaseData = (params)=>getAction("/sys/annountCement/doReleaseData",par
 const doReovkeData = (params)=>getAction("/sys/annountCement/doReovkeData",params);
 //获取系统访问量
 const getLoginfo = (params)=>getAction("/sys/loginfo",params);
+const getVisitInfo = (params)=>getAction("/sys/visitInfo",params);
 //数据日志访问
 // const getDataLogList = (params)=>getAction("/sys/dataLog/list",params);
 
@@ -131,6 +132,7 @@ export {
   queryUserRoleMap,
   duplicateCheck,
   queryTreeListForRole,
+  getVisitInfo,
 }
 
 

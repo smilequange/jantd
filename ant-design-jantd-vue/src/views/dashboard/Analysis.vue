@@ -99,64 +99,36 @@
       </div>
     </a-card>
 
-    <a-row :gutter="12">
-      <a-col :xl="12" :lg="24" :md="24" :sm="24" :xs="24">
-        <a-card :loading="loading" :bordered="false" title="实时访问统计" :style="{ marginTop: '24px' }">
-          <a-dropdown :trigger="['click']" placement="bottomLeft" slot="extra">
-            <a class="ant-dropdown-link" href="#">
-              <a-icon type="ellipsis" />
-            </a>
-            <a-menu slot="overlay">
-              <a-menu-item>
-                <a href="javascript:;">操作一</a>
-              </a-menu-item>
-              <a-menu-item>
-                <a href="javascript:;">操作二</a>
-              </a-menu-item>
-            </a-menu>
-          </a-dropdown>
-          <div style="height: 105px">
-            <a-row>
-              <a-col :span="8">
-                <div class="head-info" :class="center && 'center'">
-                  <span>今日IP</span>
-                  <p><a>{{ loginfo.todayIp }}</a></p>
-                </div>
-              </a-col>
-              <a-col :span="8">
-                <div class="head-info" :class="center && 'center'">
-                  <span>今日访问</span>
-                  <p><a>{{ loginfo.todayVisitCount }}</a></p>
-                </div>
-              </a-col>
-              <a-col :span="8">
-                <div class="head-info" :class="center && 'center'">
-                  <span>访问总览</span>
-                  <p><a>{{ loginfo.totalVisitCount }}</a></p>
-                </div>
-              </a-col>
-            </a-row>
-          </div>
-        </a-card>
-      </a-col>
-      <a-col :xl="12" :lg="24" :md="24" :sm="24" :xs="24">
-        <a-card :loading="loading" :bordered="false" title="销售额类别占比" :style="{ marginTop: '24px' }">
-          <a-dropdown :trigger="['click']" placement="bottomLeft" slot="extra">
-            <a class="ant-dropdown-link" href="#">
-              <a-icon type="ellipsis" />
-            </a>
-            <a-menu slot="overlay">
-              <a-menu-item>
-                <a href="javascript:;">操作一</a>
-              </a-menu-item>
-              <a-menu-item>
-                <a href="javascript:;">操作二</a>
-              </a-menu-item>
-            </a-menu>
-          </a-dropdown>
-          <p>card content</p>
-          <p>card content</p>
-          <p>card content</p>
+    <a-row>
+      <a-col :span="24">
+        <a-card :loading="loading" :bordered="false" title="最近一周访问次数统计" :style="{ marginTop: '24px' }">
+          <a-row>
+            <a-col :span="6">
+              <head-info title="今日访问IP数" :content="loginfo.todayIp"></head-info>
+            </a-col>
+            <a-col :span="2">
+              <a-spin class='circle-cust'>
+                <a-icon slot="indicator" type="environment" style="font-size: 24px"  />
+              </a-spin>
+            </a-col>
+            <a-col :span="6">
+              <head-info title="今日访问次数" :content="loginfo.todayVisitCount"></head-info>
+            </a-col>
+            <a-col :span="2">
+              <a-spin class='circle-cust'>
+                <a-icon slot="indicator" type="team" style="font-size: 24px"  />
+              </a-spin>
+            </a-col>
+            <a-col :span="6">
+              <head-info title="访问总次数" :content="loginfo.totalVisitCount"></head-info>
+            </a-col>
+            <a-col :span="2">
+              <a-spin class='circle-cust'>
+                <a-icon slot="indicator" type="rise" style="font-size: 24px"  />
+              </a-spin>
+            </a-col>
+          </a-row>
+          <line-chart-multid :fields="visitFields" :dataSource="visitInfo"></line-chart-multid>
         </a-card>
       </a-col>
     </a-row>
@@ -172,8 +144,11 @@
   import MiniProgress from '@/components/chart/MiniProgress'
   import RankList from '@/components/chart/RankList'
   import Bar from '@/components/chart/Bar'
+  import LineChartMultid from '@/components/chart/LineChartMultid'
+  import HeadInfo from '@/components/tools/HeadInfo.vue'
+
   import Trend from '@/components/Trend'
-  import {getLoginfo} from '@/api/api'
+  import { getLoginfo,getVisitInfo } from '@/api/api'
 
   const rankList = []
   for (let i = 0; i < 7; i++) {
@@ -200,7 +175,9 @@
       MiniProgress,
       RankList,
       Bar,
-      Trend
+      Trend,
+      LineChartMultid,
+      HeadInfo
     },
     data() {
       return {
@@ -209,6 +186,9 @@
         rankList,
         barData,
         loginfo:{},
+        visitFields:['ip','visit'],
+        visitInfo:[],
+        indicator: <a-icon type="loading" style="font-size: 24px" spin />
       }
     },
     created() {
@@ -221,7 +201,16 @@
       initLogInfo () {
         getLoginfo(null).then((res)=>{
           if(res.success){
+            Object.keys(res.result).forEach(key=>{
+              res.result[key] =res.result[key]+""
+            })
             this.loginfo = res.result;
+          }
+        })
+        getVisitInfo().then(res=>{
+          if(res.success){
+            console.log("aaaaaa",res.result)
+            this.visitInfo = res.result;
           }
         })
       },
@@ -230,6 +219,11 @@
 </script>
 
 <style lang="scss" scoped>
+  .circle-cust{
+    position: relative;
+    top: 28px;
+    left: -100%;
+  }
   .extra-wrapper {
     line-height: 55px;
     padding-right: 24px;
