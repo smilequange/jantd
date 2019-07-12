@@ -128,6 +128,7 @@
   import { getAction, httpAction,putAction } from '@/api/manage'
   import {addUser,editUser,queryUserRole,queryall,checkUsername } from '@/api/api'
   import { disabledAuthFilter } from "@/utils/authFilter"
+  import {duplicateCheck } from '@/api/api'
 
   export default {
     name: "RoleModal",
@@ -162,7 +163,9 @@
           },
           password:{
             rules: [{
-              required: true, message: '请输入密码!',
+              required: true, 
+              // pattern:/^(?=.*[a-zA-Z])(?=.*\d)(?=.*[~!@#$%^&*()_+`\-={}:";'<>?,./]).{8,}$/,
+              message: '请输入密码!'
             }, {
               validator: this.validateToNextPassword,
             }],
@@ -176,7 +179,11 @@
           },
           realname:{rules: [{ required: true, message: '请输入用户名称!' }]},
           phone:{rules: [{validator: this.validatePhone}]},
-          email:{rules: [{type: 'email', message: '请输入正确格式的电子邮箱!',}]},
+          email:{
+            rules: [{
+              validator: this.validateEmail
+            }],
+          },
           roles:{}
           //  sex:{initialValue:((!this.model.sex)?"": (this.model.sex+""))}
         },
@@ -504,6 +511,30 @@
           callback();
         }else{
           callback("请输入正确格式的手机号码!");
+        }
+      },
+      validateEmail(rule, value, callback){
+        if(!value){
+          callback()
+        }else{
+          if(new RegExp(/^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/).test(value)){
+            var params = {
+              tableName: 'sys_user',
+              fieldName: 'email',
+              fieldVal: value,
+              dataId: this.userId
+            };
+            duplicateCheck(params).then((res) => {
+              console.log(res)
+              if (res.success) {
+                callback()
+              } else {
+                callback("邮箱已存在!")
+              }
+            })
+          }else{
+            callback("请输入正确格式的邮箱!")
+          }
         }
       },
       validateUsername(rule, value, callback){
