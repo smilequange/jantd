@@ -390,6 +390,14 @@
         deleteAction(that.url.delete2, { roleId: this.currentRoleId, userId: id }).then((res) => {
           if (res.success) {
             that.$message.success(res.message)
+            if(this.selectedRowKeys2.length > 0){
+              for(let i = 0;i<this.selectedRowKeys2.length;i++){
+                if(this.selectedRowKeys2[i] == id){
+                  this.selectedRowKeys2.splice(i,1)
+                  break;
+                }
+              }
+            }
             that.loadData2()
           } else {
             that.$message.warning(res.message)
