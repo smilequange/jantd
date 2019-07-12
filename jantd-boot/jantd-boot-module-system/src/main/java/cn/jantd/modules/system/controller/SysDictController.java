@@ -296,7 +296,7 @@ public class SysDictController {
         //Step.2 AutoPoi 导出Excel
         ModelAndView mv = new ModelAndView(new JantdEntityExcelViewBase());
         List<SysDictPage> pageList = new ArrayList<SysDictPage>();
-
+        queryWrapper.eq("del_flag","0");
         List<SysDict> sysDictList = sysDictService.list(queryWrapper);
         LoginUser user = (LoginUser) SecurityUtils.getSubject().getPrincipal();
         for (SysDict dictMain : sysDictList) {

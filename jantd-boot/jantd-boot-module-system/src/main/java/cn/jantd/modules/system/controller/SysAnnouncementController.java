@@ -347,6 +347,7 @@ public class SysAnnouncementController {
         QueryWrapper<SysAnnouncement> queryWrapper = QueryGenerator.initQueryWrapper(sysAnnouncement, request.getParameterMap());
         //Step.2 AutoPoi 导出Excel
         ModelAndView mv = new ModelAndView(new JantdEntityExcelViewBase());
+        queryWrapper.eq("del_flag", "0");
         List<SysAnnouncement> pageList = sysAnnouncementService.list(queryWrapper);
         LoginUser user = (LoginUser) SecurityUtils.getSubject().getPrincipal();
         //导出文件名称
