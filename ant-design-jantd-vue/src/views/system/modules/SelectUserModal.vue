@@ -96,7 +96,7 @@
             title: '状态',
             align: "center",
             width: 100,
-            dataIndex: 'status'
+            dataIndex: 'status_dictText'
           }
         ],
         columns2: [
