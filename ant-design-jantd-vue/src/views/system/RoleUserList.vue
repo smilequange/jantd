@@ -9,7 +9,7 @@
             <a-row :gutter="24">
               <a-col :md="12" :sm="12">
                 <a-form-item label="角色名称" :labelCol="{span: 5}" :wrapperCol="{span: 18, offset: 1}">
-                  <a-input placeholder="" v-model="queryParam.roleName"></a-input>
+                  <a-input placeholder="请输入角色名称" v-model="queryParam.roleName"></a-input>
                 </a-form-item>
               </a-col>
               <span style="float: left;overflow: hidden;" class="table-page-search-submitButtons">
@@ -79,7 +79,7 @@
 
               <a-col :md="12" :sm="12">
                 <a-form-item label="用户账号">
-                  <a-input placeholder="" v-model="queryParam2.username"></a-input>
+                  <a-input placeholder="请输入账户查询" v-model="queryParam2.username"></a-input>
                 </a-form-item>
               </a-col>
               <span style="float: left;overflow: hidden;" class="table-page-search-submitButtons">

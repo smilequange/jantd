@@ -7,7 +7,7 @@
         <a-row :gutter="10">
           <a-col :md="10" :sm="12">
             <a-form-item label="用户账号" style="margin-left:8px">
-              <a-input placeholder="请输入名称查询" v-model="queryParam.username"></a-input>
+              <a-input placeholder="请输入账号查询" v-model="queryParam.username"></a-input>
             </a-form-item>
           </a-col>
           <!--<a-col :md="8" :sm="8">-->
