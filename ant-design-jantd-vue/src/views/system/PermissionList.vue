@@ -44,6 +44,10 @@
               </a-menu-item>
 
               <a-menu-item>
+                <a href="javascript:;" @click="handleAddSub(record)">添加子菜单</a>
+              </a-menu-item>
+
+              <a-menu-item>
                 <a href="javascript:;" @click="handleDataRule(record)">数据规则</a>
               </a-menu-item>
 
@@ -170,7 +174,14 @@
       // 打开数据规则编辑
       handleDataRule(record) {
         this.$refs.PermissionDataRuleList.edit(record)
+      },
+      handleAddSub(record) {
+        this.$refs.modalForm.title = "添加子菜单";
+        this.$refs.modalForm.localMenuType = 1;
+        this.$refs.modalForm.disableSubmit = false;
+        this.$refs.modalForm.edit({status:'1',permsType:'1',route:true,'parentId':record.id});
       }
+
     }
   }
 </script>
