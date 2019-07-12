@@ -89,8 +89,17 @@
         form: this.$form.createForm(this),
         validatorRules:{
           agentUserName:{rules: [{ required: true, message: '请输入代理人用户名!' }]},
-          startTime:{rules: [{ required: true, message: '请输入代理开始时间!' }]},
-          endTime:{rules: [{ required: true, message: '请输入代理结束时间!' }]},
+          startTime:{
+            rules: [
+              { required: true, message: '请输入代理开始时间!' },
+              { validator: this.startTimeValidate}
+            ]},
+          endTime:{
+            rules: [
+              { 
+                required: true, message: '请输入代理结束时间!' },
+                { validator: this.endTimeValidate}
+            ]},
         },
         url: {
           add: "/system/sysUserAgent/add",
@@ -183,6 +192,26 @@
       },
       onSearchDepUserCallBack(selectedDepUsers) {
         this.form.setFieldsValue({agentUserName:selectedDepUsers});
+      },
+      startTimeValidate(rule,value,callback){
+        let endTime = this.form.getFieldValue("endTime")
+        if(!value || !endTime){
+          callback()
+        }else if(moment(value).isBefore(endTime)){
+          callback()
+        }else{
+          callback("开始时间需小于结束时间")
+        }
+      },
+      endTimeValidate(rule,value,callback){
+        let startTime = this.form.getFieldValue("startTime")
+        if(!value || !startTime){
+          callback()
+        }else if(moment(startTime).isBefore(value)){
+          callback()
+        }else{
+          callback("结束时间需大于开始时间")
+        }
       }
 
     }
