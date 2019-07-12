@@ -41,13 +41,13 @@
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
           label="开始时间">
-          <a-date-picker showTime format="YYYY-MM-DD HH:mm:ss" v-decorator="[ 'startTime', {}]" />
+          <a-date-picker showTime format="YYYY-MM-DD HH:mm:ss" v-decorator="[ 'startTime', validatorRules.startTime]" />
         </a-form-item>
         <a-form-item
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
           label="结束时间">
-          <a-date-picker showTime format="YYYY-MM-DD HH:mm:ss" v-decorator="[ 'endTime', {}]" />
+          <a-date-picker showTime format="YYYY-MM-DD HH:mm:ss" v-decorator="[ 'endTime', validatorRules.endTime]" />
         </a-form-item>
         <a-form-item
           :labelCol="labelCol"
@@ -126,6 +126,8 @@
           title:{rules: [{ required: true, message: '请输入标题!' }]},
           msgCategory:{rules: [{ required: true, message: '请选择消息类型!' }]},
           msgType:{rules: [{ required: true, message: '请选择通告对象类型!' }]},
+          endTime:{rules:[{validator: this.endTimeValidate}]},
+          startTime:{rules:[{validator: this.startTimeValidate}]}
         },
         url: {
           queryByIds: "/sys/user/queryByIds",
@@ -254,8 +256,27 @@
           this.selectedUser.push(userList[i].realname);
           this.userIds += userList[i].id+","
         }
+      },
+       startTimeValidate(rule,value,callback){
+        let endTime = this.form.getFieldValue("endTime")
+        if(!value || !endTime){
+          callback()
+        }else if(moment(value).isBefore(endTime)){
+          callback()
+        }else{
+          callback("开始时间需小于结束时间")
+        }
+      },
+      endTimeValidate(rule,value,callback){
+        let startTime = this.form.getFieldValue("startTime")
+        if(!value || !startTime){
+          callback()
+        }else if(moment(startTime).isBefore(value)){
+          callback()
+        }else{
+          callback("结束时间需大于开始时间")
+        }
       }
-
     }
   }
 </script>

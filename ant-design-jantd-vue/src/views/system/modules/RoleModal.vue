@@ -31,7 +31,7 @@
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
           label="描述">
-          <a-textarea :rows="5" placeholder="..." v-decorator="[ 'description', {} ]" />
+          <a-textarea :rows="5" placeholder="..." v-decorator="[ 'description', validatorRules.description ]" />
         </a-form-item>
 
       </a-form>
