@@ -34,8 +34,7 @@
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
           label="内容">
-          <!--<a-input placeholder="请输入内容" v-decorator="['msgContent', {}]" />-->
-          <a-textarea :rows="5" placeholder="..." v-decorator="[ 'msgContent', {} ]" />
+          <j-editor v-decorator="[ 'msgContent', {} ]" triggerChange></j-editor>
         </a-form-item>
         <a-form-item
           :labelCol="labelCol"
@@ -100,10 +99,11 @@
   import moment from "moment"
   import { getAction } from '@/api/manage'
   import JDate from '@/components/jantd/JDate'
+  import JEditor from '@/components/jantd/JEditor'
   import SelectUserListModal from "./SelectUserListModal";
 
   export default {
-    components: {SelectUserListModal},
+    components: {JEditor, SelectUserListModal},
     name: "SysAnnouncementModal",
     data () {
       return {
@@ -155,8 +155,6 @@
       },
       getUser(record){
         this.model = Object.assign({}, record);
-        //this.model.msgContent.replace("<br/>","\n");
-        console.log(this.model.msgContent);
         // 指定用户
         if(record&&record.msgType === "USER"){
           this.userType =  true;

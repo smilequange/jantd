@@ -54,11 +54,10 @@
         :loading="loading"
         @change="handleTableChange">
 
-        <p v-show="queryParam.logType==2" slot="expandedRowRender" slot-scope="record" style="margin: 0">
-          请求方法： {{ record.method }}
-          <a-divider dashed/>
-          请求参数： {{ record.requestParam }}
-        </p>
+        <div v-show="queryParam.logType==2" slot="expandedRowRender" slot-scope="record" style="margin: 0">
+          <div style="margin-bottom: 5px"><a-badge status="success" style="vertical-align: middle;"/><span style="vertical-align: middle;">请求方法:{{ record.method }}</span></div>
+          <div><a-badge status="processing" style="vertical-align: middle;"/><span style="vertical-align: middle;">请求参数:{{ record.requestParam }}</span></div>
+        </div>
 
       </a-table>
     <!-- table区域-end -->
