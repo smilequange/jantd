@@ -333,15 +333,16 @@
         return str
       },
       handleEdit2: function(record) {
-        this.$refs.modalForm2.edit(record)
         this.$refs.modalForm2.title = '编辑'
+        this.$refs.modalForm2.roleDisabled = true
+        this.$refs.modalForm2.edit(record)
       },
       handleAdd2: function() {
         if (this.currentRoleId == '') {
           this.$message.error('请选择一个角色!')
         } else {
           this.$refs.modalForm2.roleDisabled = true
-          this.$refs.modalForm2.roleId = this.currentRoleId
+          this.$refs.modalForm2.selectedRole = [this.currentRoleId]
 
           this.$refs.modalForm2.add()
 

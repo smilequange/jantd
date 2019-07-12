@@ -39,8 +39,8 @@
         <a-form-item label="用户名字" :labelCol="labelCol" :wrapperCol="wrapperCol" >
           <a-input placeholder="请输入用户名称" v-decorator="[ 'realname', validatorRules.realname]" />
         </a-form-item>
-        <template v-show="!roleDisabled">
-        <a-form-item label="角色分配" :labelCol="labelCol" :wrapperCol="wrapperCol" >
+
+        <a-form-item label="角色分配" :labelCol="labelCol" :wrapperCol="wrapperCol" v-show="!roleDisabled" >
           <a-select
             mode="multiple"
             style="width: 100%"
@@ -51,10 +51,9 @@
             </a-select-option>
           </a-select>
         </a-form-item>
-        </template>
+
         <!--部门分配-->
-        <template v-show="!departDisabled">
-        <a-form-item   label="部门分配" :labelCol="labelCol" :wrapperCol="wrapperCol" >
+        <a-form-item label="部门分配" :labelCol="labelCol" :wrapperCol="wrapperCol" v-show="!departDisabled">
           <a-input-search
             placeholder="点击右侧按钮选择部门"
             v-model="checkedDepartNameString"
@@ -63,7 +62,6 @@
             <a-button slot="enterButton" icon="search">选择</a-button>
           </a-input-search>
         </a-form-item>
-        </template>
         <a-form-item label="头像" :labelCol="labelCol" :wrapperCol="wrapperCol">
           <a-upload
             listType="picture-card"
