@@ -1,17 +1,6 @@
 package cn.jantd.modules.system.controller;
 
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import cn.jantd.core.annotation.AutoLog;
 import cn.jantd.core.annotation.PermissionData;
 import cn.jantd.core.api.vo.Result;
@@ -23,8 +12,8 @@ import cn.jantd.core.poi.view.JantdEntityExcelViewBase;
 import cn.jantd.core.system.query.QueryGenerator;
 import cn.jantd.core.system.vo.LoginUser;
 import cn.jantd.core.util.oConvertUtils;
-import cn.jantd.modules.system.entity.SysPermissionDataRule;
 import cn.jantd.modules.system.entity.SysPermission;
+import cn.jantd.modules.system.entity.SysPermissionDataRule;
 import cn.jantd.modules.system.entity.SysRole;
 import cn.jantd.modules.system.entity.SysRolePermission;
 import cn.jantd.modules.system.model.TreeModel;
@@ -32,30 +21,25 @@ import cn.jantd.modules.system.service.ISysPermissionDataRuleService;
 import cn.jantd.modules.system.service.ISysPermissionService;
 import cn.jantd.modules.system.service.ISysRolePermissionService;
 import cn.jantd.modules.system.service.ISysRoleService;
-
-import io.swagger.annotations.ApiOperation;
-import org.apache.shiro.SecurityUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
-import org.springframework.web.servlet.ModelAndView;
-
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.shiro.SecurityUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.servlet.ModelAndView;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.*;
 
 /**
  * <p>
