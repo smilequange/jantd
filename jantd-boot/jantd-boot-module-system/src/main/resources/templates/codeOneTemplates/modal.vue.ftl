@@ -11,20 +11,20 @@
     <a-spin :spinning="confirmLoading">
       <a-form :form="form">
       
-<#list columns as po><#rt/>
-<#if po.fieldName !='id'><#rt/>
+<#list table.fields as field><#rt/>
+<#if field.propertyName !='id'><#rt/>
         <a-form-item
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
-          label="${po.filedComment}">
-          <#if po.fieldType =='date'>
-          <a-date-picker v-decorator="[ '${po.fieldName}', <#if po.nullable =='N'>validatorRules.${po.fieldName} <#else>{}</#if>]" />
-          <#elseif po.fieldType =='datetime'>
-          <a-date-picker showTime format='YYYY-MM-DD HH:mm:ss' v-decorator="[ '${po.fieldName}', <#if po.nullable =='N'>validatorRules.${po.fieldName} <#else>{}</#if>]" />
-          <#elseif "int,decimal,double,"?contains(po.fieldType)>
-          <a-input-number v-decorator="[ '${po.fieldName}', <#if po.nullable =='N'>validatorRules.${po.fieldName} <#else>{}</#if>]" />
+          label="${field.comment}">
+          <#if field.type =='date'>
+          <a-date-picker v-decorator="[ '${field.propertyName}', <#if field.customMap.NULL =='NO'>validatorRules.${field.propertyName} <#else>{}</#if>]" />
+          <#elseif field.type =='datetime'>
+          <a-date-picker showTime format='YYYY-MM-DD HH:mm:ss' v-decorator="[ '${field.propertyName}', <#if field.customMap.NULL =='NO'>validatorRules.${field.propertyName} <#else>{}</#if>]" />
+          <#elseif "int,decimal,double,"?contains(field.type)>
+          <a-input-number v-decorator="[ '${field.propertyName}', <#if field.customMap.NULL =='NO'>validatorRules.${field.propertyName} <#else>{}</#if>]" />
           <#else>
-          <a-input placeholder="请输入${po.filedComment}" v-decorator="['${po.fieldName}', <#if po.nullable =='N'>validatorRules.${po.fieldName} <#else>{}</#if>]" />
+          <a-input placeholder="请输入${field.comment}" v-decorator="['${field.propertyName}', <#if field.customMap.NULL =='NO'>validatorRules.${field.propertyName} <#else>{}</#if>]" />
           </#if>
         </a-form-item>
 </#if>
@@ -41,7 +41,7 @@
   import moment from "moment"
 
   export default {
-    name: "${entityName}Modal",
+    name: "${entity}Modal",
     data () {
       return {
         title:"操作",
@@ -59,17 +59,17 @@
         confirmLoading: false,
         form: this.$form.createForm(this),
         validatorRules:{
-        <#list columns as po>
-        <#if po.fieldName !='id'>
-        <#if po.nullable =='N'>
-        ${po.fieldName}:{rules: [{ required: true, message: '请输入${po.filedComment}!' }]},
+        <#list table.fields as field>
+        <#if field.propertyName !='id'>
+        <#if field.customMap.NULL =='NO'>
+        ${field.propertyName}:{rules: [{ required: true, message: '请输入${field.comment}!' }]},
         </#if>
         </#if>
 	    </#list>
         },
         url: {
-          add: "/${entityPackage}/${entityName?uncap_first}/add",
-          edit: "/${entityPackage}/${entityName?uncap_first}/edit",
+          add: "/${entity}/${entity?uncap_first}/add",
+          edit: "/${entity}/${entity?uncap_first}/edit",
         },
       }
     },
@@ -84,11 +84,11 @@
         this.model = Object.assign({}, record);
         this.visible = true;
         this.$nextTick(() => {
-          this.form.setFieldsValue(pick(this.model<#list columns as po><#if po.fieldName !='id' && po.fieldType?index_of("date")==-1>,'${po.fieldName}'</#if></#list>))
+          this.form.setFieldsValue(pick(this.model<#list table.fields as field><#if field.propertyName !='id' && field.type?index_of("date")==-1>,'${field.propertyName}'</#if></#list>))
 		  //时间格式化
-          <#list columns as po>
-          <#if po.fieldName !='id' && po.fieldType?index_of("date")!=-1>
-          this.form.setFieldsValue({${po.fieldName}:this.model.${po.fieldName}?moment(this.model.${po.fieldName}):null})
+          <#list table.fields as field>
+          <#if field.propertyName !='id' && field.type?index_of("date")!=-1>
+          this.form.setFieldsValue({${field.propertyName}:this.model.${field.propertyName}?moment(this.model.${field.propertyName}):null})
           </#if>
           </#list>
         });
@@ -115,11 +115,11 @@
             }
             let formData = Object.assign(this.model, values);
             //时间格式化
-            <#list columns as po>
-            <#if po.fieldName !='id' && po.fieldType =='date'>
-            formData.${po.fieldName} = formData.${po.fieldName}?formData.${po.fieldName}.format():null;
-            <#elseif po.fieldName !='id' && po.fieldType =='datetime'>
-            formData.${po.fieldName} = formData.${po.fieldName}?formData.${po.fieldName}.format('YYYY-MM-DD HH:mm:ss'):null;
+            <#list table.fields as field>
+            <#if field.propertyName !='id' && field.type =='date'>
+            formData.${field.propertyName} = formData.${field.propertyName}?formData.${field.propertyName}.format():null;
+            <#elseif field.propertyName !='id' && field.propertyName =='datetime'>
+            formData.${field.propertyName} = formData.${field.propertyName}?formData.${field.propertyName}.format('YYYY-MM-DD HH:mm:ss'):null;
             </#if>
             </#list>
             

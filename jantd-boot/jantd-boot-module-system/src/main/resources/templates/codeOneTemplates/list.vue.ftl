@@ -6,24 +6,24 @@
       <a-form layout="inline">
         <a-row :gutter="24">
 
-<#list columns as po>
-<#if po.fieldName !='id' && po_index<= tableVo.searchFieldNum>
+<#list table.fields as field>
+<#if field.propertyName !='id' && field_index<= 1>
           <a-col :md="6" :sm="8">
-            <a-form-item label="${po.filedComment}">
-              <a-input placeholder="请输入${po.filedComment}" v-model="queryParam.${po.fieldName}"></a-input>
+            <a-form-item label="${field.comment}">
+              <a-input placeholder="请输入${field.comment}" v-model="queryParam.${field.propertyName}"></a-input>
             </a-form-item>
           </a-col>
-<#elseif po_index == 2>
+<#elseif field_index == 2>
         <template v-if="toggleSearchStatus">
         <a-col :md="6" :sm="8">
-            <a-form-item label="${po.filedComment}">
-              <a-input placeholder="请输入${po.filedComment}" v-model="queryParam.${po.fieldName}"></a-input>
+            <a-form-item label="${field.comment}">
+              <a-input placeholder="请输入${field.comment}" v-model="queryParam.${field.propertyName}"></a-input>
             </a-form-item>
           </a-col>
-<#elseif po.fieldName !='id' && po_index< 5>
+<#elseif field.propertyName !='id' && field_index< 5>
           <a-col :md="6" :sm="8">
-            <a-form-item label="${po.filedComment}">
-              <a-input placeholder="请输入${po.filedComment}" v-model="queryParam.${po.fieldName}"></a-input>
+            <a-form-item label="${field.comment}">
+              <a-input placeholder="请输入${field.comment}" v-model="queryParam.${field.propertyName}"></a-input>
             </a-form-item>
           </a-col>
 <#else>
@@ -48,7 +48,7 @@
     <!-- 操作按钮区域 -->
     <div class="table-operator">
       <a-button @click="handleAdd" type="primary" icon="plus">新增</a-button>
-      <a-button type="primary" icon="download" @click="handleExportXls('${tableVo.ftlDescription}')">导出</a-button>
+      <a-button type="primary" icon="download" @click="handleExportXls('${table.comment}')">导出</a-button>
       <a-upload name="file" :showUploadList="false" :multiple="false" :headers="tokenHeader" :action="importExcelUrl" @change="handleImportExcel">
         <a-button type="primary" icon="import">导入</a-button>
       </a-upload>
@@ -100,23 +100,23 @@
     <!-- table区域-end -->
 
     <!-- 表单区域 -->
-    <${entityName?uncap_first}-modal ref="modalForm" @ok="modalFormOk"></${entityName?uncap_first}-modal>
+    <${entity?uncap_first}-modal ref="modalForm" @ok="modalFormOk"></${entity?uncap_first}-modal>
   </a-card>
 </template>
 
 <script>
-  import ${entityName}Modal from './modules/${entityName}Modal'
-  import { JeecgListMixin } from '@/mixins/JeecgListMixin'
+  import ${entity}Modal from './modules/${entity}Modal'
+  import { JantdListMixin } from '@/mixins/JantdListMixin'
 
   export default {
-    name: "${entityName}List",
+    name: "${entity}List",
     mixins:[JeecgListMixin],
     components: {
-      ${entityName}Modal
+      ${entity}Modal
     },
     data () {
       return {
-        description: '${tableVo.ftlDescription}管理页面',
+        description: '${table.comment}管理页面',
         // 表头
         columns: [
           {
@@ -129,12 +129,12 @@
               return parseInt(index)+1;
             }
            },
-          <#list columns as po>
-           <#if po.fieldName !='id'>
+          <#list table.fields as field>
+           <#if field.propertyName !='id'>
 		   {
-            title: '${po.filedComment}',
+            title: '${field.comment}',
             align:"center",
-            dataIndex: '${po.fieldName}'
+            dataIndex: '${field.propertyName}'
            },
 		   </#if>
 		  </#list>
@@ -146,11 +146,11 @@
           }
         ],
 		url: {
-          list: "/${entityPackage}/${entityName?uncap_first}/list",
-          delete: "/${entityPackage}/${entityName?uncap_first}/delete",
-          deleteBatch: "/${entityPackage}/${entityName?uncap_first}/deleteBatch",
-          exportXlsUrl: "${entityPackage}/${entityName?uncap_first}/exportXls",
-          importExcelUrl: "${entityPackage}/${entityName?uncap_first}/importExcel",
+          list: "/${entity?uncap_first}/${entity?uncap_first}/list",
+          delete: "/${entity?uncap_first}/${entity?uncap_first}/delete",
+          deleteBatch: "/${entity?uncap_first}/${entity?uncap_first}/deleteBatch",
+          exportXlsUrl: "${entity?uncap_first}/${entity?uncap_first}/exportXls",
+          importExcelUrl: "${entity?uncap_first}/${entity?uncap_first}/importExcel",
        },
     }
   },

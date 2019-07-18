@@ -2,12 +2,12 @@ package cn.jantd;
 
 import com.baomidou.mybatisplus.annotation.DbType;
 import com.baomidou.mybatisplus.core.exceptions.MybatisPlusException;
-import com.baomidou.mybatisplus.core.toolkit.StringPool;
 import com.baomidou.mybatisplus.generator.AutoGenerator;
 import com.baomidou.mybatisplus.generator.InjectionConfig;
 import com.baomidou.mybatisplus.generator.config.*;
 import com.baomidou.mybatisplus.generator.config.converts.MySqlTypeConvert;
 import com.baomidou.mybatisplus.generator.config.po.TableInfo;
+import com.baomidou.mybatisplus.generator.config.querys.MySqlQuery;
 import com.baomidou.mybatisplus.generator.config.rules.IColumnType;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 import com.baomidou.mybatisplus.generator.engine.FreemarkerTemplateEngine;
@@ -18,7 +18,12 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Scanner;
 
-// 演示例子，执行 main 方法控制台输入模块表名回车自动生成对应项目目录中
+/**
+ * 控制台输入模块表名回车自动生成对应项目目录中
+ *
+ * @author xiagf
+ * @date 2019-07-18
+ */
 public class CodeGenerator {
 
     private static final ResourceBundle r = ResourceBundle.getBundle("templates/jantd_config");
@@ -92,19 +97,28 @@ public class CodeGenerator {
      */
     private static void selfDefineSetUp(AutoGenerator autoGenerator, PackageConfig pc, InjectionConfig cfg) {
         // 自定义输出配置
-        // 如果模板引擎是 freemarker
-        String templatePath = "/templates/mapper.xml.ftl";
+        String vueTemplatePath = "/templates/codeOneTemplates/list.vue.ftl";
+        String vueModelTemplatePath = "/templates/codeOneTemplates/modal.vue.ftl";
         List<FileOutConfig> focList = new ArrayList<>();
-        cfg.setFileOutConfigList(focList);
-        // 自定义配置会被优先输出
-        focList.add(new FileOutConfig(templatePath) {
+        // ##List.vue生成
+        focList.add(new FileOutConfig(vueTemplatePath) {
             @Override
             public String outputFile(TableInfo tableInfo) {
-                // 自定义输出文件名 ， 如果你 Entity 设置了前后缀、此处注意 xml 的名称会跟着发生变化！！
-                return r.getString("project_path") + "/src/main/resources/mapper/" + pc.getModuleName()
-                        + "/" + tableInfo.getEntityName() + "Mapper" + StringPool.DOT_XML;
+                // 自定义输出文件名
+                return r.getString("project_path") + r.getString("source_root_package") + "/cn/jantd/modules/" + pc.getModuleName() + "/vue"
+                        + "/" + tableInfo.getEntityName() + "List" + ".vue";
             }
         });
+        // ##modal.vue生成
+        focList.add(new FileOutConfig(vueModelTemplatePath) {
+            @Override
+            public String outputFile(TableInfo tableInfo) {
+                // 自定义输出文件名
+                return r.getString("project_path") + r.getString("source_root_package") + "/cn/jantd/modules/" + pc.getModuleName() + "/vue/modules"
+                        + "/" + tableInfo.getEntityName() + "Modal" + ".vue";
+            }
+        });
+        cfg.setFileOutConfigList(focList);
         autoGenerator.setCfg(cfg);
     }
 
@@ -170,7 +184,19 @@ public class CodeGenerator {
      * @param autoGenerator
      */
     private static void dataSourceSetUp(AutoGenerator autoGenerator) {
-        DataSourceConfig dsc = new DataSourceConfig();
+        DataSourceConfig dsc = new DataSourceConfig().setDbQuery(new MySqlQuery() {
+
+            /**
+             * 重写父类预留查询自定义字段<br>
+             * 这里查询的 SQL 对应父类 tableFieldsSql 的查询字段，默认不能满足你的需求请重写它<br>
+             * 模板中调用：  table.fields 获取所有字段信息，
+             * 然后循环字段获取 field.customMap 从 MAP 中获取注入字段如下  NULL 或者 PRIVILEGES
+             */
+            @Override
+            public String[] fieldCustom() {
+                return new String[]{"NULL", "PRIVILEGES"};
+            }
+        });
         dsc.setDbType(DbType.MYSQL);
         dsc.setUrl(r.getString("url"));
         dsc.setDriverName(r.getString("diver_name"));
