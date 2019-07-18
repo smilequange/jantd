@@ -68,8 +68,8 @@
 	    </#list>
         },
         url: {
-          add: "/${entity}/${entity?uncap_first}/add",
-          edit: "/${entity}/${entity?uncap_first}/edit",
+          add: "/${entity?uncap_first}/${entity?uncap_first}/add",
+          edit: "/${entity?uncap_first}/${entity?uncap_first}/edit",
         },
       }
     },
@@ -118,7 +118,7 @@
             <#list table.fields as field>
             <#if field.propertyName !='id' && field.type =='date'>
             formData.${field.propertyName} = formData.${field.propertyName}?formData.${field.propertyName}.format():null;
-            <#elseif field.propertyName !='id' && field.propertyName =='datetime'>
+            <#elseif field.propertyName !='id' && field.type =='datetime'>
             formData.${field.propertyName} = formData.${field.propertyName}?formData.${field.propertyName}.format('YYYY-MM-DD HH:mm:ss'):null;
             </#if>
             </#list>

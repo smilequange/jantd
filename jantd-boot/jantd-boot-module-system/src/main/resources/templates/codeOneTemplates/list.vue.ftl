@@ -110,7 +110,7 @@
 
   export default {
     name: "${entity}List",
-    mixins:[JeecgListMixin],
+    mixins:[JantdListMixin],
     components: {
       ${entity}Modal
     },

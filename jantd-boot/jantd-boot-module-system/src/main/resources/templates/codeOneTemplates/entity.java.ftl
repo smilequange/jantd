@@ -39,8 +39,8 @@ public class ${entity} implements Serializable {
 
     <#list table.commonFields as field>
     /**
-    * ${field.comment}
-    */
+     * ${field.comment}
+     */
     @TableId(type = IdType.UUID)
     private ${field.propertyType} ${field.propertyName};
 
