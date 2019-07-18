@@ -24,7 +24,7 @@ import java.util.Scanner;
  * @author xiagf
  * @date 2019-07-18
  */
-public class CodeGenerator {
+public class CodeOneGenerator {
 
     private static final ResourceBundle r = ResourceBundle.getBundle("templates/jantd_config");
 
@@ -152,7 +152,7 @@ public class CodeGenerator {
         TemplateConfig templateConfig = new TemplateConfig();
 
         // 配置自定义输出模板
-        //指定自定义模板路径，注意不要带上.ftl/.vm, 会根据使用的模板引擎自动识别
+        // 指定自定义模板路径，注意不要带上.ftl, 会根据使用的模板引擎自动识别
         templateConfig.setController("/templates/codeOneTemplates/controller.java");
         templateConfig.setEntity("/templates/codeOneTemplates/entity.java");
         templateConfig.setService("/templates/codeOneTemplates/service.java");
