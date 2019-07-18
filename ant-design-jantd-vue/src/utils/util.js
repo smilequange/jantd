@@ -1,4 +1,5 @@
 import { isURL } from '@/utils/validate'
+import Vue from 'vue'
 
 export function timeFix() {
   const time = new Date()
@@ -220,5 +221,4 @@ export function underLine2CamelCase(string){
   });
 }
 
-import Vue from 'vue'
 export default new Vue
