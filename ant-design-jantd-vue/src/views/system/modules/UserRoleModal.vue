@@ -16,6 +16,7 @@
           @check="onCheck"
           :checkedKeys="checkedKeys"
           :treeData="treeData"
+          :selectedKeys="selectedKeys"
           @expand="onExpand"
           @select="onTreeNodeSelect"
           :expandedKeys="expandedKeysss"
@@ -55,6 +56,7 @@
 <script>
   import {queryTreeListForRole,queryRolePermission,saveRolePermission} from '@/api/api'
   import RoleDataruleModal from './RoleDataruleModal.vue'
+  import Utils from '../../../utils/util.js';
 
   export default {
     name: "RoleModal",
@@ -74,10 +76,19 @@
         title:"角色权限配置",
         visible: false,
         loading: false,
+        selectedKeys: []
       }
+    },
+    mounted () {
+      const self = this
+      Utils.$on('clearSelectedKeys', function (msg) {
+        self.clearSelectedKeys();
+      })
     },
     methods: {
       onTreeNodeSelect(id){
+        this.selectedKeys = []
+        this.selectedKeys.push(id[0])
         this.$refs.datarule.show(id[0],this.roleId)
       },
       onCheck (o) {
@@ -89,22 +100,27 @@
       },
       show(roleId){
         this.roleId=roleId
-        this.visible = true;
+        this.visible = true
       },
       close () {
         this.reset()
         this.$emit('close');
         this.visible = false;
       },
-      onExpand(expandedKeys){
+      onExpand (expandedKeys) {
         this.expandedKeysss = expandedKeys;
         this.autoExpandParent = false
+      },
+      clearSelectedKeys () {
+        this.selectedKeys = []
       },
       reset () {
         this.expandedKeysss = []
         this.checkedKeys = []
         this.defaultCheckedKeys = []
         this.loading = false
+//        this.selectedKeys = []
+//        this.defaultSelectedKeys = []
       },
       expandAll () {
         this.expandedKeysss = this.allTreeKeys

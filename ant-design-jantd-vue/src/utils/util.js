@@ -219,3 +219,6 @@ export function underLine2CamelCase(string){
     return letter.toUpperCase();
   });
 }
+
+import Vue from 'vue'
+export default new Vue

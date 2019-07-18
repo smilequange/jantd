@@ -36,7 +36,7 @@
   import ARow from 'ant-design-vue/es/grid/Row'
   import ACol from 'ant-design-vue/es/grid/Col'
   import { getAction,postAction } from '@/api/manage'
-
+  import Utils from '../../../utils/util.js';
   export default {
     name: 'RoleDataruleModal',
     components: { ACol, ARow },
@@ -101,6 +101,7 @@
       onClose(){
         this.visible=false
         this.onReset()
+        Utils.$emit('clearSelectedKeys');
       },
       onTabChange (key) {
         this.activeTabKey = key
