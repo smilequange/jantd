@@ -130,7 +130,7 @@
             }
            },
           <#list table.fields as field>
-           <#if field.propertyName !='id'>
+           <#if field.propertyName !='id' && !"createBy,updateBy,createTime,updateTime"?contains(field.propertyName)>
 		   {
             title: '${field.comment}',
             align:"center",

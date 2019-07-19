@@ -12,7 +12,7 @@
       <a-form :form="form">
       
 <#list table.fields as field><#rt/>
-<#if field.propertyName !='id'><#rt/>
+<#if field.propertyName !='id' && !"createBy,updateBy,createTime,updateTime"?contains(field.propertyName)><#rt/>
         <a-form-item
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
@@ -87,7 +87,7 @@
           this.form.setFieldsValue(pick(this.model<#list table.fields as field><#if field.propertyName !='id' && field.type?index_of("date")==-1>,'${field.propertyName}'</#if></#list>))
 		  //时间格式化
           <#list table.fields as field>
-          <#if field.propertyName !='id' && field.type?index_of("date")!=-1>
+          <#if field.propertyName !='id' && field.type?index_of("date")!=-1 && !"createTime,updateTime"?contains(field.propertyName)>
           this.form.setFieldsValue({${field.propertyName}:this.model.${field.propertyName}?moment(this.model.${field.propertyName}):null})
           </#if>
           </#list>
@@ -118,7 +118,7 @@
             <#list table.fields as field>
             <#if field.propertyName !='id' && field.type =='date'>
             formData.${field.propertyName} = formData.${field.propertyName}?formData.${field.propertyName}.format():null;
-            <#elseif field.propertyName !='id' && field.type =='datetime'>
+            <#elseif field.propertyName !='id' && field.type =='datetime' && !"createTime,updateTime"?contains(field.propertyName) >
             formData.${field.propertyName} = formData.${field.propertyName}?formData.${field.propertyName}.format('YYYY-MM-DD HH:mm:ss'):null;
             </#if>
             </#list>
