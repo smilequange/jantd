@@ -1,27 +1,25 @@
 package cn.jantd.modules.system.controller;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-
 import cn.jantd.core.annotation.AutoLog;
 import cn.jantd.core.api.vo.Result;
+import cn.jantd.core.constant.CommonConstant;
 import cn.jantd.core.system.query.QueryGenerator;
 import cn.jantd.modules.system.entity.SysDataLog;
 import cn.jantd.modules.system.service.ISysDataLogService;
-import io.swagger.annotations.ApiOperation;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @Description: 系统日志
@@ -38,7 +36,7 @@ public class SysDataLogController {
 
     @AutoLog(value = "数据日志-分页列表查询")
     @ApiOperation(value = "数据日志-分页列表查询")
-    @RequestMapping(value = "/list", method = RequestMethod.GET)
+    @GetMapping(value = "/list")
     public Result<IPage<SysDataLog>> queryPageList(SysDataLog dataLog, @RequestParam(name = "pageNo", defaultValue = "1") Integer pageNo,
                                                    @RequestParam(name = "pageSize", defaultValue = "10") Integer pageSize, HttpServletRequest req) {
         Result<IPage<SysDataLog>> result = new Result<IPage<SysDataLog>>();
@@ -62,7 +60,7 @@ public class SysDataLogController {
      */
     @AutoLog(value = "数据日志-查询对比数据")
     @ApiOperation(value = "数据日志-查询对比数据")
-    @RequestMapping(value = "/queryCompareList", method = RequestMethod.GET)
+    @GetMapping(value = "/queryCompareList")
     public Result<List<SysDataLog>> queryCompareList(HttpServletRequest req) {
         Result<List<SysDataLog>> result = new Result<>();
         String dataId1 = req.getParameter("dataId1");
@@ -88,7 +86,7 @@ public class SysDataLogController {
      */
     @AutoLog(value = "数据日志-查询版本信息")
     @ApiOperation(value = "数据日志-查询版本信息")
-    @RequestMapping(value = "/queryDataVerList", method = RequestMethod.GET)
+    @GetMapping(value = "/queryDataVerList")
     public Result<List<SysDataLog>> queryDataVerList(HttpServletRequest req) {
         Result<List<SysDataLog>> result = new Result<>();
         String dataTable = req.getParameter("dataTable");
@@ -97,7 +95,7 @@ public class SysDataLogController {
         queryWrapper.eq("data_table", dataTable);
         queryWrapper.eq("data_id", dataId);
         List<SysDataLog> list = service.list(queryWrapper);
-        if (list == null || list.size() <= 0) {
+        if (list.isEmpty()) {
             result.error500("未找到版本信息");
         } else {
             result.setResult(list);

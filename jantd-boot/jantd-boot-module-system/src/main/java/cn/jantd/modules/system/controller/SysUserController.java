@@ -36,13 +36,10 @@ import cn.jantd.modules.system.vo.SysDepartUsersVO;
 import cn.jantd.modules.system.vo.SysUserRoleVO;
 
 import io.swagger.annotations.ApiOperation;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
@@ -93,12 +90,12 @@ public class SysUserController {
      */
     @AutoLog(value = "用户管理-分页列表查询")
     @ApiOperation(value = "用户管理-分页列表查询")
-    @RequestMapping(value = "/list", method = RequestMethod.GET)
+    @GetMapping(value = "/list")
     public Result<IPage<SysUser>> queryPageList(SysUser user, @RequestParam(name = "pageNo", defaultValue = "1") Integer pageNo,
                                                 @RequestParam(name = "pageSize", defaultValue = "10") Integer pageSize, HttpServletRequest req) {
-        Result<IPage<SysUser>> result = new Result<IPage<SysUser>>();
+        Result<IPage<SysUser>> result = new Result<>();
         QueryWrapper<SysUser> queryWrapper = QueryGenerator.initQueryWrapper(user, req.getParameterMap());
-        Page<SysUser> page = new Page<SysUser>(pageNo, pageSize);
+        Page<SysUser> page = new Page<>(pageNo, pageSize);
         IPage<SysUser> pageList = sysUserService.page(page, queryWrapper);
         result.setSuccess(true);
         result.setResult(pageList);
@@ -113,9 +110,9 @@ public class SysUserController {
      */
     @AutoLog(value = "用户管理-添加")
     @ApiOperation(value = "用户管理-添加")
-    @RequestMapping(value = "/add", method = RequestMethod.POST)
+    @PostMapping(value = "/add")
     public Result<SysUser> add(@RequestBody JSONObject jsonObject) {
-        Result<SysUser> result = new Result<SysUser>();
+        Result<SysUser> result = new Result<>();
         String selectedRoles = jsonObject.getString("selectedroles");
         try {
             SysUser user = JSON.parseObject(jsonObject.toJSONString(), SysUser.class);
@@ -145,9 +142,9 @@ public class SysUserController {
 
     @AutoLog(value = "用户管理-编辑")
     @ApiOperation(value = "用户管理-编辑")
-    @RequestMapping(value = "/edit", method = RequestMethod.PUT)
+    @PutMapping(value = "/edit")
     public Result<SysUser> edit(@RequestBody JSONObject jsonObject) {
-        Result<SysUser> result = new Result<SysUser>();
+        Result<SysUser> result = new Result<>();
         try {
             SysUser sysUser = sysUserService.getById(jsonObject.getString("id"));
             if (sysUser == null) {
@@ -175,11 +172,11 @@ public class SysUserController {
      */
     @AutoLog(value = "用户管理-通过id删除")
     @ApiOperation(value = "用户管理-通过id删除")
-    @RequestMapping(value = "/delete", method = RequestMethod.DELETE)
+    @DeleteMapping(value = "/delete")
     public Result<SysUser> delete(@RequestParam(name = "id", required = true) String id) {
-        Result<SysUser> result = new Result<SysUser>();
+        Result<SysUser> result = new Result<>();
         // 定义SysUserDepart实体类的数据库查询LambdaQueryWrapper
-        LambdaQueryWrapper<SysUserDepart> query = new LambdaQueryWrapper<SysUserDepart>();
+        LambdaQueryWrapper<SysUserDepart> query = new LambdaQueryWrapper<>();
         SysUser sysUser = sysUserService.getById(id);
         if (sysUser == null) {
             result.error500("未找到对应实体");
@@ -204,13 +201,13 @@ public class SysUserController {
      */
     @AutoLog(value = "用户管理-批量删除用户")
     @ApiOperation(value = "用户管理-批量删除用户")
-    @RequestMapping(value = "/deleteBatch", method = RequestMethod.DELETE)
+    @DeleteMapping(value = "/deleteBatch")
     public Result<SysUser> deleteBatch(@RequestParam(name = "ids", required = true) String ids) {
         // 定义SysUserDepart实体类的数据库查询对象LambdaQueryWrapper
-        LambdaQueryWrapper<SysUserDepart> query = new LambdaQueryWrapper<SysUserDepart>();
+        LambdaQueryWrapper<SysUserDepart> query = new LambdaQueryWrapper<>();
         String[] idArry = ids.split(",");
-        Result<SysUser> result = new Result<SysUser>();
-        if (ids == null || "".equals(ids.trim())) {
+        Result<SysUser> result = new Result<>();
+        if (StringUtils.isEmpty(ids)) {
             result.error500("参数不识别！");
         } else {
             this.sysUserService.removeByIds(Arrays.asList(ids.split(",")));
@@ -232,9 +229,9 @@ public class SysUserController {
      */
     @AutoLog(value = "用户管理-冻结&解冻用户")
     @ApiOperation(value = "用户管理-冻结&解冻用户")
-    @RequestMapping(value = "/frozenBatch", method = RequestMethod.PUT)
+    @PutMapping(value = "/frozenBatch")
     public Result<SysUser> frozenBatch(@RequestBody JSONObject jsonObject) {
-        Result<SysUser> result = new Result<SysUser>();
+        Result<SysUser> result = new Result<>();
         try {
             String ids = jsonObject.getString("ids");
             String status = jsonObject.getString("status");
@@ -262,9 +259,9 @@ public class SysUserController {
      */
     @AutoLog(value = "用户管理-通过id查询")
     @ApiOperation(value = "用户管理-通过id查询")
-    @RequestMapping(value = "/queryById", method = RequestMethod.GET)
+    @GetMapping(value = "/queryById")
     public Result<SysUser> queryById(@RequestParam(name = "id", required = true) String id) {
-        Result<SysUser> result = new Result<SysUser>();
+        Result<SysUser> result = new Result<>();
         SysUser sysUser = sysUserService.getById(id);
         if (sysUser == null) {
             result.error500("未找到对应实体");
@@ -283,12 +280,12 @@ public class SysUserController {
      */
     @AutoLog(value = "用户管理-通过userId查询用户角色")
     @ApiOperation(value = "用户管理-通过userId查询用户角色")
-    @RequestMapping(value = "/queryUserRole", method = RequestMethod.GET)
+    @GetMapping(value = "/queryUserRole")
     public Result<List<String>> queryUserRole(@RequestParam(name = "userid", required = true) String userid) {
         Result<List<String>> result = new Result<>();
-        List<String> list = new ArrayList<String>();
+        List<String> list = new ArrayList<>();
         List<SysUserRole> userRole = sysUserRoleService.list(new QueryWrapper<SysUserRole>().lambda().eq(SysUserRole::getUserId, userid));
-        if (userRole == null || userRole.size() <= 0) {
+        if (userRole.isEmpty()) {
             result.error500("未找到用户相关角色信息");
         } else {
             for (SysUserRole sysUserRole : userRole) {
@@ -309,7 +306,7 @@ public class SysUserController {
      * @return
      */
     @ApiOperation(value = "用户管理-校验用户账号是否唯一")
-    @RequestMapping(value = "/checkOnlyUser", method = RequestMethod.GET)
+    @GetMapping(value = "/checkOnlyUser")
     public Result<Boolean> checkUsername(SysUser sysUser) {
         Result<Boolean> result = new Result<>();
         // 如果此参数为false则程序发生异常
@@ -324,7 +321,7 @@ public class SysUserController {
                 sysUser.setId(null);
             }
             //通过传入信息查询新的用户信息
-            SysUser newUser = sysUserService.getOne(new QueryWrapper<SysUser>(sysUser));
+            SysUser newUser = sysUserService.getOne(new QueryWrapper<>(sysUser));
             if (newUser != null) {
                 //如果根据传入信息查询到用户了，那么就需要做校验了。
                 if (oldUser == null) {
@@ -355,9 +352,9 @@ public class SysUserController {
      */
     @AutoLog(value = "用户管理-修改密码")
     @ApiOperation(value = "用户管理-修改密码")
-    @RequestMapping(value = "/changPassword", method = RequestMethod.PUT)
+    @PutMapping(value = "/changPassword")
     public Result<SysUser> changPassword(@RequestBody SysUser sysUser) {
-        Result<SysUser> result = new Result<SysUser>();
+        Result<SysUser> result = new Result<>();
         String password = sysUser.getPassword();
         sysUser = this.sysUserService.getOne(new LambdaQueryWrapper<SysUser>().eq(SysUser::getUsername, sysUser.getUsername()));
         if (sysUser == null) {
@@ -382,12 +379,12 @@ public class SysUserController {
      */
     @AutoLog(value = "用户管理-查询指定用户和部门关联的数据")
     @ApiOperation(value = "用户管理-查询指定用户和部门关联的数据")
-    @RequestMapping(value = "/userDepartList", method = RequestMethod.GET)
+    @GetMapping(value = "/userDepartList")
     public Result<List<DepartIdModel>> getUserDepartsList(@RequestParam(name = "userId", required = true) String userId) {
         Result<List<DepartIdModel>> result = new Result<>();
         try {
             List<DepartIdModel> depIdModelList = this.sysUserDepartService.queryDepartIdsOfUser(userId);
-            if (depIdModelList != null && depIdModelList.size() > 0) {
+            if (!depIdModelList.isEmpty()) {
                 result.setSuccess(true);
                 result.setMessage("查找成功");
                 result.setResult(depIdModelList);
@@ -413,10 +410,10 @@ public class SysUserController {
      */
     @AutoLog(value = "用户管理-给指定用户添加对应的部门")
     @ApiOperation(value = "用户管理-给指定用户添加对应的部门")
-    @RequestMapping(value = "/addUDepartIds", method = RequestMethod.POST)
+    @PostMapping(value = "/addUDepartIds")
     public Result<String> addSysUseWithrDepart(@RequestBody SysUserDepartsVO sysUserDepartsVO) {
         boolean ok = this.sysUserDepartService.addSysUseWithrDepart(sysUserDepartsVO);
-        Result<String> result = new Result<String>();
+        Result<String> result = new Result<>();
         try {
             if (ok) {
                 result.setMessage("添加成功!");
@@ -441,9 +438,9 @@ public class SysUserController {
      * @return
      */
     @ApiOperation(value = "用户管理-根据用户id编辑对应的部门信息")
-    @RequestMapping(value = "/editUDepartIds", method = RequestMethod.PUT)
+    @PutMapping(value = "/editUDepartIds")
     public Result<String> editSysUserWithDepart(@RequestBody SysUserDepartsVO sysUserDepartsVO) {
-        Result<String> result = new Result<String>();
+        Result<String> result = new Result<>();
         boolean ok = sysUserDepartService.editSysUserWithDepart(sysUserDepartsVO);
         if (ok) {
             result.setMessage("更新成功!");
@@ -461,10 +458,10 @@ public class SysUserController {
      * @return
      */
     @ApiOperation(value = "用户管理-生成在添加用户情况下没有主键的问题,返回给前端,根据该id绑定部门数据")
-    @RequestMapping(value = "/generateUserId", method = RequestMethod.GET)
+    @GetMapping(value = "/generateUserId")
     public Result<String> generateUserId() {
         Result<String> result = new Result<>();
-        System.out.println("我执行了,生成用户ID==============================");
+        log.info("我执行了,生成用户ID==============================");
         String userId = UUID.randomUUID().toString().replace("-", "");
         result.setSuccess(true);
         result.setResult(userId);
@@ -479,7 +476,7 @@ public class SysUserController {
      */
     @AutoLog(value = "用户管理-根据部门id查询用户信息")
     @ApiOperation(value = "用户管理-根据部门id查询用户信息")
-    @RequestMapping(value = "/queryUserByDepId", method = RequestMethod.GET)
+    @GetMapping(value = "/queryUserByDepId")
     public Result<List<SysUser>> queryUserByDepId(@RequestParam(name = "id", required = true) String id) {
         Result<List<SysUser>> result = new Result<>();
         List<SysUser> userList = sysUserDepartService.queryUserByDepId(id);
@@ -501,7 +498,7 @@ public class SysUserController {
      */
     @AutoLog(value = "用户管理-查询所有用户所对应的角色信息")
     @ApiOperation(value = "用户管理-查询所有用户所对应的角色信息")
-    @RequestMapping(value = "/queryUserRoleMap", method = RequestMethod.GET)
+    @GetMapping(value = "/queryUserRoleMap")
     public Result<Map<String, String>> queryUserRole() {
         Result<Map<String, String>> result = new Result<>();
         Map<String, String> map = userRoleService.queryUserRole();
@@ -544,8 +541,8 @@ public class SysUserController {
      */
     @AutoLog(value = "用户管理-通过excel导入数据")
     @ApiOperation(value = "用户管理-通过excel导入数据")
-    @RequestMapping(value = "/importExcel", method = RequestMethod.POST)
-    public Result<?> importExcel(HttpServletRequest request, HttpServletResponse response) {
+    @PostMapping(value = "/importExcel")
+    public Result<Object> importExcel(HttpServletRequest request, HttpServletResponse response) {
         MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
         Map<String, MultipartFile> fileMap = multipartRequest.getFileMap();
         for (Map.Entry<String, MultipartFile> entity : fileMap.entrySet()) {
@@ -586,7 +583,7 @@ public class SysUserController {
      */
     @AutoLog(value = "用户管理-根据id 批量查询")
     @ApiOperation(value = "用户管理-根据id 批量查询")
-    @RequestMapping(value = "/queryByIds", method = RequestMethod.GET)
+    @GetMapping(value = "/queryByIds")
     public Result<Collection<SysUser>> queryByIds(@RequestParam String userIds) {
         Result<Collection<SysUser>> result = new Result<>();
         String[] userId = userIds.split(",");
@@ -602,9 +599,9 @@ public class SysUserController {
      */
     @AutoLog(value = "用户管理-首页密码修改")
     @ApiOperation(value = "用户管理-首页密码修改")
-    @RequestMapping(value = "/updatePassword", method = RequestMethod.PUT)
+    @PutMapping(value = "/updatePassword")
     public Result<SysUser> changPassword(@RequestBody JSONObject json) {
-        Result<SysUser> result = new Result<SysUser>();
+        Result<SysUser> result = new Result<>();
         String username = json.getString("username");
         String oldpassword = json.getString("oldpassword");
         SysUser user = this.sysUserService.getOne(new LambdaQueryWrapper<SysUser>().eq(SysUser::getUsername, username));
@@ -645,11 +642,11 @@ public class SysUserController {
      */
     @AutoLog(value = "用户管理-根据角色Id查询用户")
     @ApiOperation(value = "用户管理-根据角色Id查询用户")
-    @RequestMapping(value = "/userRoleList", method = RequestMethod.GET)
+    @GetMapping(value = "/userRoleList")
     public Result<IPage<SysUser>> userRoleList(@RequestParam(name = "pageNo", defaultValue = "1") Integer pageNo,
                                                @RequestParam(name = "pageSize", defaultValue = "10") Integer pageSize, HttpServletRequest req) {
-        Result<IPage<SysUser>> result = new Result<IPage<SysUser>>();
-        Page<SysUser> page = new Page<SysUser>(pageNo, pageSize);
+        Result<IPage<SysUser>> result = new Result<>();
+        Page<SysUser> page = new Page<>(pageNo, pageSize);
         String roleId = req.getParameter("roleId");
         String username = req.getParameter("username");
         IPage<SysUser> pageList = sysUserService.getUserByRoleId(page, roleId, username);
@@ -667,14 +664,14 @@ public class SysUserController {
 
     @AutoLog(value = "用户管理-给指定角色添加用户")
     @ApiOperation(value = "用户管理-给指定角色添加用户")
-    @RequestMapping(value = "/addSysUserRole", method = RequestMethod.POST)
+    @PostMapping(value = "/addSysUserRole")
     public Result<String> addSysUserRole(@RequestBody SysUserRoleVO sysUserRoleVO) {
-        Result<String> result = new Result<String>();
+        Result<String> result = new Result<>();
         try {
             String sysRoleId = sysUserRoleVO.getRoleId();
             for (String sysUserId : sysUserRoleVO.getUserIdList()) {
                 SysUserRole sysUserRole = new SysUserRole(sysUserId, sysRoleId);
-                QueryWrapper<SysUserRole> queryWrapper = new QueryWrapper<SysUserRole>();
+                QueryWrapper<SysUserRole> queryWrapper = new QueryWrapper<>();
                 queryWrapper.eq("role_id", sysRoleId).eq("user_id", sysUserId);
                 SysUserRole one = sysUserRoleService.getOne(queryWrapper);
                 if (one == null) {
@@ -702,13 +699,13 @@ public class SysUserController {
      */
     @AutoLog(value = "用户管理-删除指定角色的用户关系")
     @ApiOperation(value = "用户管理-删除指定角色的用户关系")
-    @RequestMapping(value = "/deleteUserRole", method = RequestMethod.DELETE)
+    @DeleteMapping(value = "/deleteUserRole")
     public Result<SysUserRole> deleteUserRole(@RequestParam(name = "roleId") String roleId,
                                               @RequestParam(name = "userId", required = true) String userId
     ) {
-        Result<SysUserRole> result = new Result<SysUserRole>();
+        Result<SysUserRole> result = new Result<>();
         try {
-            QueryWrapper<SysUserRole> queryWrapper = new QueryWrapper<SysUserRole>();
+            QueryWrapper<SysUserRole> queryWrapper = new QueryWrapper<>();
             queryWrapper.eq("role_id", roleId).eq("user_id", userId);
             sysUserRoleService.remove(queryWrapper);
             result.success("删除成功!");
@@ -728,13 +725,13 @@ public class SysUserController {
      */
     @AutoLog(value = "用户管理-批量删除指定角色的用户关系")
     @ApiOperation(value = "用户管理-批量删除指定角色的用户关系")
-    @RequestMapping(value = "/deleteUserRoleBatch", method = RequestMethod.DELETE)
+    @DeleteMapping(value = "/deleteUserRoleBatch")
     public Result<SysUserRole> deleteUserRoleBatch(
             @RequestParam(name = "roleId") String roleId,
             @RequestParam(name = "userIds", required = true) String userIds) {
-        Result<SysUserRole> result = new Result<SysUserRole>();
+        Result<SysUserRole> result = new Result<>();
         try {
-            QueryWrapper<SysUserRole> queryWrapper = new QueryWrapper<SysUserRole>();
+            QueryWrapper<SysUserRole> queryWrapper = new QueryWrapper<>();
             queryWrapper.eq("role_id", roleId).in("user_id", Arrays.asList(userIds.split(",")));
             sysUserRoleService.remove(queryWrapper);
             result.success("删除成功!");
@@ -755,11 +752,11 @@ public class SysUserController {
      */
     @AutoLog(value = "用户管理-部门用户列表")
     @ApiOperation(value = "用户管理-部门用户列表")
-    @RequestMapping(value = "/departUserList", method = RequestMethod.GET)
+    @GetMapping(value = "/departUserList")
     public Result<IPage<SysUser>> departUserList(@RequestParam(name = "pageNo", defaultValue = "1") Integer pageNo,
                                                  @RequestParam(name = "pageSize", defaultValue = "10") Integer pageSize, HttpServletRequest req) {
-        Result<IPage<SysUser>> result = new Result<IPage<SysUser>>();
-        Page<SysUser> page = new Page<SysUser>(pageNo, pageSize);
+        Result<IPage<SysUser>> result = new Result<>();
+        Page<SysUser> page = new Page<>(pageNo, pageSize);
         String depId = req.getParameter("depId");
         String username = req.getParameter("username");
         IPage<SysUser> pageList = sysUserService.getUserByDepId(page, depId, username);
@@ -776,14 +773,14 @@ public class SysUserController {
      */
     @AutoLog(value = "用户管理-给指定部门添加对应的用户")
     @ApiOperation(value = "用户管理-给指定部门添加对应的用户")
-    @RequestMapping(value = "/editSysDepartWithUser", method = RequestMethod.POST)
+    @PostMapping(value = "/editSysDepartWithUser")
     public Result<String> editSysDepartWithUser(@RequestBody SysDepartUsersVO sysDepartUsersVO) {
-        Result<String> result = new Result<String>();
+        Result<String> result = new Result<>();
         try {
             String sysDepId = sysDepartUsersVO.getDepId();
             for (String sysUserId : sysDepartUsersVO.getUserIdList()) {
                 SysUserDepart sysUserDepart = new SysUserDepart(null, sysUserId, sysDepId);
-                QueryWrapper<SysUserDepart> queryWrapper = new QueryWrapper<SysUserDepart>();
+                QueryWrapper<SysUserDepart> queryWrapper = new QueryWrapper<>();
                 queryWrapper.eq("dep_id", sysDepId).eq("user_id", sysUserId);
                 SysUserDepart one = sysUserDepartService.getOne(queryWrapper);
                 if (one == null) {
@@ -811,13 +808,13 @@ public class SysUserController {
      */
     @AutoLog(value = "用户管理-删除指定机构的用户关系")
     @ApiOperation(value = "用户管理-删除指定机构的用户关系")
-    @RequestMapping(value = "/deleteUserInDepart", method = RequestMethod.DELETE)
+    @DeleteMapping(value = "/deleteUserInDepart")
     public Result<SysUserDepart> deleteUserInDepart(@RequestParam(name = "depId") String depId,
                                                     @RequestParam(name = "userId", required = true) String userId
     ) {
-        Result<SysUserDepart> result = new Result<SysUserDepart>();
+        Result<SysUserDepart> result = new Result<>();
         try {
-            QueryWrapper<SysUserDepart> queryWrapper = new QueryWrapper<SysUserDepart>();
+            QueryWrapper<SysUserDepart> queryWrapper = new QueryWrapper<>();
             queryWrapper.eq("dep_id", depId).eq("user_id", userId);
             sysUserDepartService.remove(queryWrapper);
             result.success("删除成功!");
@@ -837,13 +834,13 @@ public class SysUserController {
      */
     @AutoLog(value = "用户管理-批量删除指定机构的用户关系")
     @ApiOperation(value = "用户管理-批量删除指定机构的用户关系")
-    @RequestMapping(value = "/deleteUserInDepartBatch", method = RequestMethod.DELETE)
+    @DeleteMapping(value = "/deleteUserInDepartBatch")
     public Result<SysUserDepart> deleteUserInDepartBatch(
             @RequestParam(name = "depId") String depId,
             @RequestParam(name = "userIds", required = true) String userIds) {
-        Result<SysUserDepart> result = new Result<SysUserDepart>();
+        Result<SysUserDepart> result = new Result<>();
         try {
-            QueryWrapper<SysUserDepart> queryWrapper = new QueryWrapper<SysUserDepart>();
+            QueryWrapper<SysUserDepart> queryWrapper = new QueryWrapper<>();
             queryWrapper.eq("dep_id", depId).in("user_id", Arrays.asList(userIds.split(",")));
             sysUserDepartService.remove(queryWrapper);
             result.success("删除成功!");

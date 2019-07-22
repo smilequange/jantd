@@ -51,12 +51,12 @@ public class LoginController {
     @Autowired
     private ISysDepartService sysDepartService;
 
-    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    @PostMapping(value = "/login")
     @ApiOperation("登录接口")
     public Result<JSONObject> login(@RequestBody SysLoginModel sysLoginModel) throws Exception {
-        Result<JSONObject> result = new Result<JSONObject>();
+        Result<JSONObject> result;
         String username = sysLoginModel.getUsername();
-        String password = sysLoginModel.getPassword();
+        String password;
         // 密码解密
         password = AesEncryptUtil.desEncrypt(sysLoginModel.getPassword()).trim();
         SysUser sysUser = sysUserService.getUserByName(username);
@@ -116,7 +116,7 @@ public class LoginController {
     @ApiOperation(value = "获取访问量")
     @GetMapping("loginfo")
     public Result<JSONObject> loginfo() {
-        Result<JSONObject> result = new Result<JSONObject>();
+        Result<JSONObject> result = new Result<>();
         JSONObject obj = new JSONObject();
         //update-begin--Author:zhangweijian  Date:20190428 for：传入开始时间，结束时间参数
         // 获取一天的开始和结束时间
@@ -143,21 +143,22 @@ public class LoginController {
 
     /**
      * 获取访问量
+     *
      * @return
      */
     @GetMapping("visitInfo")
-    public Result<List<Map<String,Object>>> visitInfo() {
-        Result<List<Map<String,Object>>> result = new Result<List<Map<String,Object>>>();
+    public Result<List<Map<String, Object>>> visitInfo() {
+        Result<List<Map<String, Object>>> result = new Result<>();
         Calendar calendar = new GregorianCalendar();
-        calendar.set(Calendar.HOUR_OF_DAY,0);
-        calendar.set(Calendar.MINUTE,0);
-        calendar.set(Calendar.SECOND,0);
-        calendar.set(Calendar.MILLISECOND,0);
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
         calendar.add(Calendar.DAY_OF_MONTH, 1);
         Date dayEnd = calendar.getTime();
         calendar.add(Calendar.DAY_OF_MONTH, -7);
         Date dayStart = calendar.getTime();
-        List<Map<String,Object>> list = logService.findVisitCount(dayStart, dayEnd);
+        List<Map<String, Object>> list = logService.findVisitCount(dayStart, dayEnd);
         result.setResult(oConvertUtils.toLowerCasePageList(list));
         return result;
     }
@@ -170,8 +171,8 @@ public class LoginController {
      */
     @AutoLog(value = "登陆成功选择用户当前部门")
     @ApiOperation(value = "登陆成功选择用户当前部门")
-    @RequestMapping(value = "/selectDepart", method = RequestMethod.PUT)
-    public Result<?> selectDepart(@RequestBody SysUser user) {
+    @PutMapping(value = "/selectDepart")
+    public Result<Object> selectDepart(@RequestBody SysUser user) {
         String username = user.getUsername();
         String orgCode = user.getOrgCode();
         this.sysUserService.updateUserDepart(username, orgCode);
@@ -185,8 +186,8 @@ public class LoginController {
      */
     @GetMapping(value = "/getEncryptedString")
     public Result<Map<String, String>> getEncryptedString() {
-        Result<Map<String, String>> result = new Result<Map<String, String>>();
-        Map<String, String> map = new HashMap<String, String>(16);
+        Result<Map<String, String>> result = new Result<>();
+        Map<String, String> map = new HashMap<>(16);
         map.put("key", EncryptedString.key);
         map.put("iv", EncryptedString.iv);
         result.setResult(map);
@@ -213,7 +214,7 @@ public class LoginController {
         JSONObject obj = new JSONObject();
         List<SysDepart> departs = sysDepartService.queryUserDeparts(sysUser.getId());
         obj.put("departs", departs);
-        if (departs == null || departs.size() == 0) {
+        if (departs == null || departs.isEmpty()) {
             obj.put("multi_depart", 0);
         } else if (departs.size() == 1) {
             sysUserService.updateUserDepart(username, departs.get(0).getOrgCode());

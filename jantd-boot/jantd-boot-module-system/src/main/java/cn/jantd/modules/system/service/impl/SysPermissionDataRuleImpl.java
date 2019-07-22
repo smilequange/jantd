@@ -1,5 +1,6 @@
 package cn.jantd.modules.system.service.impl;
 
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -43,8 +44,7 @@ public class SysPermissionDataRuleImpl extends ServiceImpl<SysPermissionDataRule
         LambdaQueryWrapper<SysPermissionDataRule> query = new LambdaQueryWrapper<SysPermissionDataRule>();
         query.eq(SysPermissionDataRule::getPermissionId, permissionId);
         query.orderByDesc(SysPermissionDataRule::getCreateTime);
-        List<SysPermissionDataRule> permRuleList = this.list(query);
-        return permRuleList;
+        return this.list(query);
     }
 
     /**
@@ -59,8 +59,8 @@ public class SysPermissionDataRuleImpl extends ServiceImpl<SysPermissionDataRule
     @Override
     public List<SysPermissionDataRule> queryPermissionDataRules(String username, String permissionId) {
         List<String> idsList = this.baseMapper.queryDataRuleIds(username, permissionId);
-        if (idsList == null || idsList.size() == 0 || idsList.get(0) == null) {
-            return null;
+        if (idsList.isEmpty()) {
+            return Collections.emptyList();
         }
         Set<String> set = new HashSet<String>();
         for (String ids : idsList) {
@@ -74,8 +74,8 @@ public class SysPermissionDataRuleImpl extends ServiceImpl<SysPermissionDataRule
                 }
             }
         }
-        if (set.size() == 0) {
-            return null;
+        if (set.isEmpty()) {
+            return Collections.emptyList();
         }
         return this.baseMapper.selectList(new QueryWrapper<SysPermissionDataRule>().in("id", set).eq("status", "1"));
     }

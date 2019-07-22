@@ -15,10 +15,7 @@ import cn.jantd.modules.system.entity.SysRole;
 import cn.jantd.modules.system.service.ISysLogService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -52,21 +49,18 @@ public class SysLogController {
      */
     @AutoLog(value = "日志管理-分页查询日志记录")
     @ApiOperation(value = "日志管理-分页查询日志记录")
-    @RequestMapping(value = "/list", method = RequestMethod.GET)
+    @GetMapping(value = "/list")
     public Result<IPage<SysLog>> queryPageList(SysLog syslog, @RequestParam(name = "pageNo", defaultValue = "1") Integer pageNo,
                                                @RequestParam(name = "pageSize", defaultValue = "10") Integer pageSize, HttpServletRequest req) {
-        Result<IPage<SysLog>> result = new Result<IPage<SysLog>>();
+        Result<IPage<SysLog>> result = new Result<>();
         QueryWrapper<SysLog> queryWrapper = QueryGenerator.initQueryWrapper(syslog, req.getParameterMap());
         Page<SysLog> page = new Page<SysLog>(pageNo, pageSize);
-        //日志关键词
+        // 日志关键词
         String keyWord = req.getParameter("keyWord");
         if (oConvertUtils.isNotEmpty(keyWord)) {
             queryWrapper.like("log_content", keyWord);
         }
-        //TODO 过滤逻辑处理
-        //TODO begin、end逻辑处理
-        //TODO 一个强大的功能，前端传一个字段字符串，后台只返回这些字符串对应的字段
-        //创建时间/创建人的赋值
+        // 创建时间/创建人的赋值
         IPage<SysLog> pageList = sysLogService.page(page, queryWrapper);
         log.info("查询当前页：" + pageList.getCurrent());
         log.info("查询当前页数量：" + pageList.getSize());
@@ -84,9 +78,9 @@ public class SysLogController {
      */
     @AutoLog(value = "日志管理-通过id删除")
     @ApiOperation(value = "日志管理-通过id删除")
-    @RequestMapping(value = "/delete", method = RequestMethod.DELETE)
+    @DeleteMapping(value = "/delete")
     public Result<SysLog> delete(@RequestParam(name = "id", required = true) String id) {
-        Result<SysLog> result = new Result<SysLog>();
+        Result<SysLog> result = new Result<>();
         SysLog sysLog = sysLogService.getById(id);
         if (sysLog == null) {
             result.error500("未找到对应实体");
@@ -106,9 +100,9 @@ public class SysLogController {
      */
     @AutoLog(value = "日志管理-批量删除")
     @ApiOperation(value = "日志管理-批量删除")
-    @RequestMapping(value = "/deleteBatch", method = RequestMethod.DELETE)
+    @DeleteMapping(value = "/deleteBatch")
     public Result<SysRole> deleteBatch(@RequestParam(name = "ids", required = true) String ids) {
-        Result<SysRole> result = new Result<SysRole>();
+        Result<SysRole> result = new Result<>();
         if (ids == null || "".equals(ids.trim())) {
             result.error500("参数不识别！");
         } else {

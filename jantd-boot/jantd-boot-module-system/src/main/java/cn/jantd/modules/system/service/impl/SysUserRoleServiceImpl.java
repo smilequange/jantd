@@ -44,7 +44,7 @@ public class SysUserRoleServiceImpl extends ServiceImpl<SysUserRoleMapper, SysUs
         String userId = "";
         String roleId = "";
         String roleName = "";
-        if (uRoleList != null && uRoleList.size() > 0) {
+        if (!uRoleList.isEmpty()) {
             for (SysUserRole uRole : uRoleList) {
                 roleId = uRole.getRoleId();
                 for (SysUser user : userList) {

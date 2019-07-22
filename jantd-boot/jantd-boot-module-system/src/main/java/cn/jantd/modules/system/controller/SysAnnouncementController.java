@@ -1,15 +1,5 @@
 package cn.jantd.modules.system.controller;
 
-import java.io.IOException;
-import java.util.Collection;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import cn.jantd.core.annotation.AutoLog;
 import cn.jantd.core.api.vo.Result;
 import cn.jantd.core.constant.CommonConstant;
@@ -24,31 +14,28 @@ import cn.jantd.core.system.query.QueryGenerator;
 import cn.jantd.core.system.util.JwtUtil;
 import cn.jantd.core.system.vo.LoginUser;
 import cn.jantd.core.util.oConvertUtils;
-import io.swagger.annotations.ApiOperation;
-import org.apache.shiro.SecurityUtils;
 import cn.jantd.modules.system.entity.SysAnnouncement;
 import cn.jantd.modules.system.entity.SysAnnouncementSend;
 import cn.jantd.modules.system.service.ISysAnnouncementSendService;
 import cn.jantd.modules.system.service.ISysAnnouncementService;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.CollectionUtils;
-import org.springframework.util.ObjectUtils;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
-import org.springframework.web.servlet.ModelAndView;
-
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.shiro.SecurityUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.CollectionUtils;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.servlet.ModelAndView;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.*;
 
 /**
  * @Title: Controller
@@ -77,15 +64,15 @@ public class SysAnnouncementController {
      */
     @AutoLog(value = "系统通告-分页列表查询")
     @ApiOperation(value = "系统通告-分页列表查询")
-    @RequestMapping(value = "/list", method = RequestMethod.GET)
+    @GetMapping(value = "/list")
     public Result<IPage<SysAnnouncement>> queryPageList(SysAnnouncement sysAnnouncement,
                                                         @RequestParam(name = "pageNo", defaultValue = "1") Integer pageNo,
                                                         @RequestParam(name = "pageSize", defaultValue = "10") Integer pageSize,
                                                         HttpServletRequest req) {
-        Result<IPage<SysAnnouncement>> result = new Result<IPage<SysAnnouncement>>();
+        Result<IPage<SysAnnouncement>> result = new Result<>();
         sysAnnouncement.setDelFlag(CommonConstant.DEL_FLAG_NO.toString());
-        QueryWrapper<SysAnnouncement> queryWrapper = new QueryWrapper<SysAnnouncement>(sysAnnouncement);
-        Page<SysAnnouncement> page = new Page<SysAnnouncement>(pageNo, pageSize);
+        QueryWrapper<SysAnnouncement> queryWrapper = new QueryWrapper<>(sysAnnouncement);
+        Page<SysAnnouncement> page = new Page<>(pageNo, pageSize);
         //排序逻辑 处理
         String column = req.getParameter("column");
         String order = req.getParameter("order");
@@ -114,9 +101,9 @@ public class SysAnnouncementController {
      */
     @AutoLog(value = "系统通告-添加")
     @ApiOperation(value = "系统通告-添加")
-    @RequestMapping(value = "/add", method = RequestMethod.POST)
+    @PostMapping(value = "/add")
     public Result<SysAnnouncement> add(@RequestBody SysAnnouncement sysAnnouncement) {
-        Result<SysAnnouncement> result = new Result<SysAnnouncement>();
+        Result<SysAnnouncement> result = new Result<>();
         try {
             sysAnnouncement.setDelFlag(CommonConstant.DEL_FLAG_NO.toString());
             // 未发布
@@ -138,15 +125,14 @@ public class SysAnnouncementController {
      */
     @AutoLog(value = "系统通告-编辑")
     @ApiOperation(value = "系统通告-编辑")
-    @RequestMapping(value = "/edit", method = RequestMethod.PUT)
+    @PutMapping(value = "/edit")
     public Result<SysAnnouncement> eidt(@RequestBody SysAnnouncement sysAnnouncement) {
-        Result<SysAnnouncement> result = new Result<SysAnnouncement>();
+        Result<SysAnnouncement> result = new Result<>();
         SysAnnouncement sysAnnouncementEntity = sysAnnouncementService.getById(sysAnnouncement.getId());
         if (sysAnnouncementEntity == null) {
             result.error500("未找到对应实体");
         } else {
             boolean ok = sysAnnouncementService.upDateAnnouncement(sysAnnouncement);
-            //TODO 返回false说明什么？
             if (ok) {
                 result.success("修改成功!");
             }
@@ -163,9 +149,9 @@ public class SysAnnouncementController {
      */
     @AutoLog(value = "系统通告-通过id删除")
     @ApiOperation(value = "系统通告-通过id删除")
-    @RequestMapping(value = "/delete", method = RequestMethod.DELETE)
+    @DeleteMapping(value = "/delete")
     public Result<SysAnnouncement> delete(@RequestParam(name = "id", required = true) String id) {
-        Result<SysAnnouncement> result = new Result<SysAnnouncement>();
+        Result<SysAnnouncement> result = new Result<>();
         SysAnnouncement sysAnnouncement = sysAnnouncementService.getById(id);
         if (sysAnnouncement == null) {
             result.error500("未找到对应实体");
@@ -188,9 +174,9 @@ public class SysAnnouncementController {
      */
     @AutoLog(value = "系统通告-批量删除")
     @ApiOperation(value = "系统通告-批量删除")
-    @RequestMapping(value = "/deleteBatch", method = RequestMethod.DELETE)
+    @DeleteMapping(value = "/deleteBatch")
     public Result<SysAnnouncement> deleteBatch(@RequestParam(name = "ids", required = true) String ids) {
-        Result<SysAnnouncement> result = new Result<SysAnnouncement>();
+        Result<SysAnnouncement> result = new Result<>();
         if (ids == null || "".equals(ids.trim())) {
             result.error500("参数不识别！");
         } else {
@@ -213,9 +199,9 @@ public class SysAnnouncementController {
      */
     @AutoLog(value = "系统通告-通过id查询")
     @ApiOperation(value = "系统通告-通过id查询")
-    @RequestMapping(value = "/queryById", method = RequestMethod.GET)
+    @GetMapping(value = "/queryById")
     public Result<SysAnnouncement> queryById(@RequestParam(name = "id", required = true) String id) {
-        Result<SysAnnouncement> result = new Result<SysAnnouncement>();
+        Result<SysAnnouncement> result = new Result<>();
         SysAnnouncement sysAnnouncement = sysAnnouncementService.getById(id);
         if (sysAnnouncement == null) {
             result.error500("未找到对应实体");
@@ -234,9 +220,9 @@ public class SysAnnouncementController {
      */
     @AutoLog(value = "系统通告-更新发布操作")
     @ApiOperation(value = "系统通告-更新发布操作")
-    @RequestMapping(value = "/doReleaseData", method = RequestMethod.GET)
+    @GetMapping(value = "/doReleaseData")
     public Result<SysAnnouncement> doReleaseData(@RequestParam(name = "id", required = true) String id, HttpServletRequest request) {
-        Result<SysAnnouncement> result = new Result<SysAnnouncement>();
+        Result<SysAnnouncement> result = new Result<>();
         SysAnnouncement sysAnnouncement = sysAnnouncementService.getById(id);
         if (sysAnnouncement == null) {
             result.error500("未找到对应实体");
@@ -263,9 +249,9 @@ public class SysAnnouncementController {
      */
     @AutoLog(value = "系统通告-更新撤销操作")
     @ApiOperation(value = "系统通告-更新撤销操作")
-    @RequestMapping(value = "/doReovkeData", method = RequestMethod.GET)
+    @GetMapping(value = "/doReovkeData")
     public Result<SysAnnouncement> doReovkeData(@RequestParam(name = "id", required = true) String id, HttpServletRequest request) {
-        Result<SysAnnouncement> result = new Result<SysAnnouncement>();
+        Result<SysAnnouncement> result = new Result<>();
         SysAnnouncement sysAnnouncement = sysAnnouncementService.getById(id);
         if (sysAnnouncement == null) {
             result.error500("未找到对应实体");
@@ -287,14 +273,14 @@ public class SysAnnouncementController {
      * @功能：补充用户数据，并返回系统消息
      */
     @ApiOperation(value = "系统通告-补充用户数据，并返回系统消息")
-    @RequestMapping(value = "/listByUser", method = RequestMethod.GET)
+    @GetMapping(value = "/listByUser")
     public Result<Map<String, Object>> listByUser() {
-        Result<Map<String, Object>> result = new Result<Map<String, Object>>();
+        Result<Map<String, Object>> result = new Result<>();
         LoginUser sysUser = (LoginUser) SecurityUtils.getSubject().getPrincipal();
         String userId = sysUser.getId();
         // 1.将系统消息补充到用户通告阅读标记表中
         Collection<String> anntIds = sysAnnouncementSendService.queryByUserId(userId);
-        LambdaQueryWrapper<SysAnnouncement> querySaWrapper = new LambdaQueryWrapper<SysAnnouncement>();
+        LambdaQueryWrapper<SysAnnouncement> querySaWrapper = new LambdaQueryWrapper<>();
         // 全部人员
         querySaWrapper.eq(SysAnnouncement::getMsgType, CommonConstant.MSG_TYPE_ALL);
         // 未删除
@@ -305,7 +291,7 @@ public class SysAnnouncementController {
             querySaWrapper.notIn(SysAnnouncement::getId, anntIds);
         }
         List<SysAnnouncement> announcements = sysAnnouncementService.list(querySaWrapper);
-        if (announcements.size() > 0) {
+        if (!announcements.isEmpty()) {
             for (int i = 0; i < announcements.size(); i++) {
                 SysAnnouncementSend announcementSend = new SysAnnouncementSend();
                 announcementSend.setAnntId(announcements.get(i).getId());
@@ -315,13 +301,13 @@ public class SysAnnouncementController {
             }
         }
         // 2.查询用户未读的系统消息
-        Page<SysAnnouncement> anntMsgList = new Page<SysAnnouncement>(0, 5);
+        Page<SysAnnouncement> anntMsgList = new Page<>(0, 5);
         // 通知公告消息
         anntMsgList = sysAnnouncementService.querySysCementPageByUserId(anntMsgList, userId, "1");
-        Page<SysAnnouncement> sysMsgList = new Page<SysAnnouncement>(0, 5);
+        Page<SysAnnouncement> sysMsgList = new Page<>(0, 5);
         // 系统消息
         sysMsgList = sysAnnouncementService.querySysCementPageByUserId(sysMsgList, userId, "2");
-        Map<String, Object> sysMsgMap = new HashMap<String, Object>(16);
+        Map<String, Object> sysMsgMap = new HashMap<>(16);
         sysMsgMap.put("sysMsgList", sysMsgList.getRecords());
         sysMsgMap.put("sysMsgTotal", sysMsgList.getTotal());
         sysMsgMap.put("anntMsgList", anntMsgList.getRecords());
@@ -367,8 +353,8 @@ public class SysAnnouncementController {
      */
     @AutoLog(value = "系统通告-通过excel导入数据")
     @ApiOperation(value = "系统通告-通过excel导入数据")
-    @RequestMapping(value = "/importExcel", method = RequestMethod.POST)
-    public Result<?> importExcel(HttpServletRequest request, HttpServletResponse response) {
+    @PostMapping(value = "/importExcel")
+    public Result<Object> importExcel(HttpServletRequest request, HttpServletResponse response) {
         MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
         Map<String, MultipartFile> fileMap = multipartRequest.getFileMap();
         for (Map.Entry<String, MultipartFile> entity : fileMap.entrySet()) {
@@ -394,7 +380,7 @@ public class SysAnnouncementController {
                 try {
                     file.getInputStream().close();
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    log.error(e.getMessage(), e);
                 }
             }
         }

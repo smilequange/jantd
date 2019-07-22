@@ -42,13 +42,6 @@ public interface ISysDepartService extends IService<SysDepart> {
     Boolean updateDepartDataById(SysDepart sysDepart, String username);
 
     /**
-     * 删除depart数据
-     * @param id
-     * @return
-     */
-    /* boolean removeDepartDataById(String id); */
-
-    /**
      * 根据关键字搜索相关的部门数据
      *
      * @param keyWord
@@ -70,6 +63,6 @@ public interface ISysDepartService extends IService<SysDepart> {
      * @param userId
      * @return
      */
-    public List<SysDepart> queryUserDeparts(String userId);
+    List<SysDepart> queryUserDeparts(String userId);
 
 }

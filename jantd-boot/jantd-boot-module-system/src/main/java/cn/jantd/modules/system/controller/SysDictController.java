@@ -31,12 +31,7 @@ import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -69,7 +64,7 @@ public class SysDictController {
 
     @AutoLog(value = "数据字典-分页列表查询")
     @ApiOperation(value = "数据字典-分页列表查询")
-    @RequestMapping(value = "/list", method = RequestMethod.GET)
+    @GetMapping(value = "/list")
     public Result<IPage<SysDict>> queryPageList(SysDict sysDict, @RequestParam(name = "pageNo", defaultValue = "1") Integer pageNo,
                                                 @RequestParam(name = "pageSize", defaultValue = "10") Integer pageSize, HttpServletRequest req) {
         Result<IPage<SysDict>> result = new Result<IPage<SysDict>>();
@@ -97,7 +92,7 @@ public class SysDictController {
     @AutoLog(value = "数据字典-获取树形字典数据")
     @ApiOperation(value = "数据字典-获取树形字典数据")
     @SuppressWarnings("unchecked")
-    @RequestMapping(value = "/treeList", method = RequestMethod.GET)
+    @GetMapping(value = "/treeList")
     public Result<List<SysDictTree>> treeList(SysDict sysDict, @RequestParam(name = "pageNo", defaultValue = "1") Integer pageNo,
                                               @RequestParam(name = "pageSize", defaultValue = "10") Integer pageSize, HttpServletRequest req) {
         Result<List<SysDictTree>> result = new Result<>();
@@ -128,7 +123,7 @@ public class SysDictController {
      */
     @AutoLog(value = "数据字典-获取字典数据")
     @ApiOperation(value = "数据字典-获取字典数据")
-    @RequestMapping(value = "/getDictItems/{dictCode}", method = RequestMethod.GET)
+    @GetMapping(value = "/getDictItems/{dictCode}")
     public Result<List<DictModel>> getDictItems(@PathVariable String dictCode) {
         log.info(" dictCode : " + dictCode);
         Result<List<DictModel>> result = new Result<List<DictModel>>();
@@ -167,7 +162,7 @@ public class SysDictController {
      */
     @AutoLog(value = "数据字典-通过查询指定code 获取字典值text")
     @ApiOperation(value = "数据字典-通过查询指定code 获取字典值text")
-    @RequestMapping(value = "/getDictText/{dictCode}/{key}", method = RequestMethod.GET)
+    @GetMapping(value = "/getDictText/{dictCode}/{key}")
     public Result<String> getDictItems(@PathVariable("dictCode") String dictCode, @PathVariable("key") String key) {
         log.info(" dictCode : " + dictCode);
         Result<String> result = new Result<String>();
@@ -191,7 +186,7 @@ public class SysDictController {
      */
     @AutoLog(value = "数据字典-新增")
     @ApiOperation(value = "部门管理-新增")
-    @RequestMapping(value = "/add", method = RequestMethod.POST)
+    @PostMapping(value = "/add")
     public Result<SysDict> add(@RequestBody SysDict sysDict) {
         Result<SysDict> result = new Result<SysDict>();
         try {
@@ -213,7 +208,7 @@ public class SysDictController {
      */
     @AutoLog(value = "数据字典-编辑")
     @ApiOperation(value = "数据字典-编辑")
-    @RequestMapping(value = "/edit", method = RequestMethod.PUT)
+    @PutMapping(value = "/edit")
     public Result<SysDict> edit(@RequestBody SysDict sysDict) {
         Result<SysDict> result = new Result<SysDict>();
         SysDict sysdict = sysDictService.getById(sysDict.getId());
@@ -222,7 +217,6 @@ public class SysDictController {
         } else {
             sysDict.setUpdateTime(new Date());
             boolean ok = sysDictService.updateById(sysDict);
-            //TODO 返回false说明什么？
             if (ok) {
                 result.success("编辑成功!");
             }
@@ -237,7 +231,7 @@ public class SysDictController {
      */
     @AutoLog(value = "数据字典-通过id删除")
     @ApiOperation(value = "数据字典-通过id删除")
-    @RequestMapping(value = "/delete", method = RequestMethod.DELETE)
+    @DeleteMapping(value = "/delete")
     @CacheEvict(value = "dictCache", allEntries = true)
     public Result<SysDict> delete(@RequestParam(name = "id", required = true) String id) {
         Result<SysDict> result = new Result<SysDict>();
@@ -262,7 +256,7 @@ public class SysDictController {
      */
     @AutoLog(value = "数据字典-批量删除")
     @ApiOperation(value = "数据字典-批量删除")
-    @RequestMapping(value = "/deleteBatch", method = RequestMethod.DELETE)
+    @DeleteMapping(value = "/deleteBatch")
     @CacheEvict(value = "dictCache", allEntries = true)
     public Result<SysDict> deleteBatch(@RequestParam(name = "ids", required = true) String ids) {
         Result<SysDict> result = new Result<SysDict>();
@@ -328,8 +322,8 @@ public class SysDictController {
      */
     @AutoLog(value = "数据字典-通过excel导入数据")
     @ApiOperation(value = "数据字典-通过excel导入数据")
-    @RequestMapping(value = "/importExcel", method = RequestMethod.POST)
-    public Result<?> importExcel(HttpServletRequest request, HttpServletResponse response) {
+    @PostMapping(value = "/importExcel")
+    public Result<Object> importExcel(HttpServletRequest request, HttpServletResponse response) {
         MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
         Map<String, MultipartFile> fileMap = multipartRequest.getFileMap();
         for (Map.Entry<String, MultipartFile> entity : fileMap.entrySet()) {
@@ -357,7 +351,7 @@ public class SysDictController {
                 try {
                     file.getInputStream().close();
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    log.error(e.getMessage(), e);
                 }
             }
         }

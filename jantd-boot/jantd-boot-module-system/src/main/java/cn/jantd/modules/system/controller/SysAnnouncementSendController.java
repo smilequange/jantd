@@ -117,7 +117,6 @@ public class SysAnnouncementSendController {
             result.error500("未找到对应实体");
         } else {
             boolean ok = sysAnnouncementSendService.updateById(sysAnnouncementSend);
-            //TODO 返回false说明什么？
             if (ok) {
                 result.success("修改成功!");
             }

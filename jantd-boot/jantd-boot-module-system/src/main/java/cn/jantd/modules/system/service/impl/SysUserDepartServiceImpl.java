@@ -1,6 +1,7 @@
 package cn.jantd.modules.system.service.impl;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import cn.jantd.modules.system.service.ISysUserService;
@@ -42,12 +43,12 @@ public class SysUserDepartServiceImpl extends ServiceImpl<SysUserDepartMapper, S
         if (sysUserDepartsVO != null) {
             String userId = sysUserDepartsVO.getUserId();
             List<String> departIdList = sysUserDepartsVO.getDepartIdList();
-            if (departIdList != null && departIdList.size() > 0) {
+            if (!departIdList.isEmpty()) {
                 for (String depId : departIdList) {
                     query.eq(SysUserDepart::getDepId, depId);
                     query.eq(SysUserDepart::getUserId, userId);
                     List<SysUserDepart> uDepList = this.list(query);
-                    if (uDepList == null || uDepList.size() == 0) {
+                    if (uDepList.isEmpty()) {
                         this.save(new SysUserDepart("", userId, depId));
                     }
                 }
@@ -71,13 +72,13 @@ public class SysUserDepartServiceImpl extends ServiceImpl<SysUserDepartMapper, S
             List<String> depIdList = new ArrayList<>();
             List<DepartIdModel> depIdModelList = new ArrayList<>();
             List<SysUserDepart> userDepList = this.list(queryUDep);
-            if (userDepList != null && userDepList.size() > 0) {
+            if (!userDepList.isEmpty()) {
                 for (SysUserDepart userDepart : userDepList) {
                     depIdList.add(userDepart.getDepId());
                 }
                 queryDep.in(SysDepart::getId, depIdList);
                 List<SysDepart> depList = sysDepartService.list(queryDep);
-                if (depList != null || depList.size() > 0) {
+                if (!depList.isEmpty()) {
                     for (SysDepart depart : depList) {
                         depIdModelList.add(new DepartIdModel().convertByUserDepart(depart));
                     }
@@ -87,7 +88,7 @@ public class SysUserDepartServiceImpl extends ServiceImpl<SysUserDepartMapper, S
         } catch (Exception e) {
             e.fillInStackTrace();
         }
-        return null;
+        return Collections.emptyList();
 
 
     }
@@ -99,7 +100,7 @@ public class SysUserDepartServiceImpl extends ServiceImpl<SysUserDepartMapper, S
     public boolean editSysUserWithDepart(SysUserDepartsVO sysUserDepartsVO) {
         LambdaQueryWrapper<SysUserDepart> queryDep = new LambdaQueryWrapper<SysUserDepart>();
         List<String> depIdList = sysUserDepartsVO.getDepartIdList();
-        if (depIdList != null && depIdList.size() > 0) {
+        if (!depIdList.isEmpty()) {
             queryDep.eq(SysUserDepart::getUserId, sysUserDepartsVO.getUserId());
             boolean ok = this.remove(queryDep);
             if (ok) {
@@ -110,8 +111,7 @@ public class SysUserDepartServiceImpl extends ServiceImpl<SysUserDepartMapper, S
             }
         }
         queryDep.eq(SysUserDepart::getUserId, sysUserDepartsVO.getUserId());
-        boolean ok = this.remove(queryDep);
-        return ok;
+        return this.remove(queryDep);
     }
 
     /**
@@ -123,7 +123,7 @@ public class SysUserDepartServiceImpl extends ServiceImpl<SysUserDepartMapper, S
         queryUDep.eq(SysUserDepart::getDepId, depId);
         List<String> userIdList = new ArrayList<>();
         List<SysUserDepart> uDepList = this.list(queryUDep);
-        if (uDepList != null && uDepList.size() > 0) {
+        if (!uDepList.isEmpty()) {
             for (SysUserDepart uDep : uDepList) {
                 userIdList.add(uDep.getUserId());
             }

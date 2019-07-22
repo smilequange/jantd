@@ -1,10 +1,6 @@
 package cn.jantd.modules.system.service.impl;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import cn.jantd.core.util.oConvertUtils;
 import cn.jantd.modules.system.service.ISysRolePermissionService;
@@ -49,7 +45,7 @@ public class SysRolePermissionServiceImpl extends ServiceImpl<SysRolePermissionM
     @CacheEvict(value = "loginUser_cacheRules", allEntries = true)
     public void saveRolePermission(String roleId, String permissionIds, String lastPermissionIds) {
         List<String> add = getDiff(lastPermissionIds, permissionIds);
-        if (add != null && add.size() > 0) {
+        if (!add.isEmpty()) {
             List<SysRolePermission> list = new ArrayList<SysRolePermission>();
             for (String p : add) {
                 if (oConvertUtils.isNotEmpty(p)) {
@@ -61,7 +57,7 @@ public class SysRolePermissionServiceImpl extends ServiceImpl<SysRolePermissionM
         }
 
         List<String> delete = getDiff(permissionIds, lastPermissionIds);
-        if (delete != null && delete.size() > 0) {
+        if (!delete.isEmpty()) {
             for (String permissionId : delete) {
                 this.remove(new QueryWrapper<SysRolePermission>().lambda().eq(SysRolePermission::getRoleId, roleId).eq(SysRolePermission::getPermissionId, permissionId));
             }
@@ -77,7 +73,7 @@ public class SysRolePermissionServiceImpl extends ServiceImpl<SysRolePermissionM
      */
     private List<String> getDiff(String main, String diff) {
         if (oConvertUtils.isEmpty(diff)) {
-            return null;
+            return Collections.emptyList();
         }
         if (oConvertUtils.isEmpty(main)) {
             return Arrays.asList(diff.split(","));

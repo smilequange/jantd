@@ -1,9 +1,6 @@
 package cn.jantd.modules.system.service.impl;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 import cn.jantd.core.util.YouBianCodeUtil;
 import cn.jantd.modules.system.entity.SysDepart;
@@ -40,8 +37,7 @@ public class SysDepartServiceImpl extends ServiceImpl<SysDepartMapper, SysDepart
         query.orderByAsc(SysDepart::getDepartOrder);
         List<SysDepart> list = this.list(query);
         // 调用wrapTreeDataToTreeList方法生成树状数据
-        List<SysDepartTreeModel> listResult = FindsDepartsChildrenUtil.wrapTreeDataToTreeList(list);
-        return listResult;
+        return FindsDepartsChildrenUtil.wrapTreeDataToTreeList(list);
     }
 
     /**
@@ -82,7 +78,7 @@ public class SysDepartServiceImpl extends ServiceImpl<SysDepartMapper, SysDepart
         LambdaQueryWrapper<SysDepart> query1 = new LambdaQueryWrapper<SysDepart>();
         String[] strArray = new String[2];
         // 创建一个List集合,存储查询返回的所有SysDepart对象
-        List<SysDepart> departList = new ArrayList<>();
+        List<SysDepart> departList;
         // 定义新编码字符串
         String newOrgCode = "";
         // 定义旧编码字符串
@@ -95,7 +91,7 @@ public class SysDepartServiceImpl extends ServiceImpl<SysDepartMapper, SysDepart
             query1.eq(SysDepart::getParentId, "");
             query1.orderByDesc(SysDepart::getOrgCode);
             departList = this.list(query1);
-            if (departList == null || departList.size() == 0) {
+            if (departList.isEmpty()) {
                 strArray[0] = YouBianCodeUtil.getNextYouBianCode(null);
                 strArray[1] = "1";
                 return strArray;
@@ -119,7 +115,7 @@ public class SysDepartServiceImpl extends ServiceImpl<SysDepartMapper, SysDepart
             // 根据父级部门类型算出当前部门的类型
             orgType = String.valueOf(Integer.valueOf(depart.getOrgType()) + 1);
             // 处理同级部门为null的情况
-            if (parentList == null || parentList.size() == 0) {
+            if (parentList.isEmpty()) {
                 // 直接生成当前的部门编码并返回
                 newOrgCode = YouBianCodeUtil.getSubYouBianCode(parentCode, null);
             } else { //处理有同级部门的情况
@@ -164,10 +160,10 @@ public class SysDepartServiceImpl extends ServiceImpl<SysDepartMapper, SysDepart
         LambdaQueryWrapper<SysDepart> query = new LambdaQueryWrapper<SysDepart>();
         query.like(SysDepart::getDepartName, keyWord);
         //update-begin--Author:huangzhilin  Date:20140417 for：[bugfree号]组织机构搜索回显优化--------------------
-        SysDepartTreeModel model = new SysDepartTreeModel();
+        SysDepartTreeModel model;
         List<SysDepart> departList = this.list(query);
         List<SysDepartTreeModel> newList = new ArrayList<>();
-        if (departList.size() > 0) {
+        if (!departList.isEmpty()) {
             for (SysDepart depart : departList) {
                 model = new SysDepartTreeModel(depart);
                 model.setChildren(null);
@@ -176,7 +172,7 @@ public class SysDepartServiceImpl extends ServiceImpl<SysDepartMapper, SysDepart
             }
             return newList;
         }
-        return null;
+        return Collections.emptyList();
     }
 
     /**
@@ -187,8 +183,7 @@ public class SysDepartServiceImpl extends ServiceImpl<SysDepartMapper, SysDepart
         List<String> idList = new ArrayList<>();
         idList.add(id);
         this.checkChildrenExists(id, idList);
-        boolean ok = this.removeByIds(idList);
-        return ok;
+        return this.removeByIds(idList);
     }
 
     /**
@@ -201,7 +196,7 @@ public class SysDepartServiceImpl extends ServiceImpl<SysDepartMapper, SysDepart
         LambdaQueryWrapper<SysDepart> query = new LambdaQueryWrapper<SysDepart>();
         query.eq(SysDepart::getParentId, id);
         List<SysDepart> departList = this.list(query);
-        if (departList != null && departList.size() > 0) {
+        if (!departList.isEmpty()) {
             for (SysDepart depart : departList) {
                 idList.add(depart.getId());
                 this.checkChildrenExists(depart.getId(), idList);

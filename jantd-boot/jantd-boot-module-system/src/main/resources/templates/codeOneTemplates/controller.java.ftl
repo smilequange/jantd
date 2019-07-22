@@ -58,7 +58,7 @@ public class ${entity}Controller {
 											 @RequestParam(name = "pageNo", defaultValue = "1") Integer pageNo,
 									  		 @RequestParam(name = "pageSize", defaultValue = "10") Integer pageSize,
 									  		 HttpServletRequest req) {
-		Result<IPage<${entity}>> result = new Result<IPage<${entity}>>();
+		Result<IPage<${entity}>> result = new Result<>();
 		QueryWrapper<${entity}> queryWrapper = QueryGenerator.initQueryWrapper(${entity?uncap_first}, req.getParameterMap());
 		Page<${entity}> page = new Page<${entity}>(pageNo, pageSize);
 		IPage<${entity}> pageList = ${entity?uncap_first}Service.page(page, queryWrapper);
@@ -77,7 +77,7 @@ public class ${entity}Controller {
 	@ApiOperation(value = "${table.comment}-添加")
 	@PostMapping(value = "/add")
 	public Result<${entity}> add(@RequestBody ${entity} ${entity?uncap_first}) {
-		Result<${entity}> result = new Result<${entity}>();
+		Result<${entity}> result = new Result<>();
 		try {
 			${entity?uncap_first}Service.save(${entity?uncap_first});
 			result.success("添加成功！");
@@ -98,13 +98,12 @@ public class ${entity}Controller {
 	@ApiOperation(value = "${table.comment}-编辑")
 	@PutMapping(value = "/edit")
 	public Result<${entity}> edit(@RequestBody ${entity} ${entity?uncap_first}) {
-		Result<${entity}> result = new Result<${entity}>();
+		Result<${entity}> result = new Result<>();
 		${entity} ${entity?uncap_first}Entity = ${entity?uncap_first}Service.getById(${entity?uncap_first}.getId());
 		if(${entity?uncap_first}Entity == null) {
 			result.error500("未找到对应实体");
 		}else {
 			boolean ok = ${entity?uncap_first}Service.updateById(${entity?uncap_first});
-			//TODO 返回false说明什么？
 			if(ok) {
 				result.success("修改成功!");
 			}
@@ -123,7 +122,7 @@ public class ${entity}Controller {
 	@ApiOperation(value = "${table.comment}-通过id删除")
 	@DeleteMapping(value = "/delete")
 	public Result<${entity}> delete(@RequestParam(name = "id", required = true) String id) {
-		Result<${entity}> result = new Result<${entity}>();
+		Result<${entity}> result = new Result<>();
 		${entity} ${entity?uncap_first} = ${entity?uncap_first}Service.getById(id);
 		if(${entity?uncap_first} == null) {
 			result.error500("未找到对应实体");
@@ -147,7 +146,7 @@ public class ${entity}Controller {
 	@ApiOperation(value = "${table.comment}-批量删除")
 	@DeleteMapping(value = "/deleteBatch")
 	public Result<${entity}> deleteBatch(@RequestParam(name = "ids", required = true) String ids) {
-		Result<${entity}> result = new Result<${entity}>();
+		Result<${entity}> result = new Result<>();
 		if(ids == null || "".equals(ids.trim())) {
 			result.error500("参数不识别！");
 		}else {
@@ -167,7 +166,7 @@ public class ${entity}Controller {
 	@ApiOperation(value = "${table.comment}-通过id查询")
 	@GetMapping(value = "/queryById")
 	public Result<${entity}> queryById(@RequestParam(name = "id", required = true) String id) {
-		Result<${entity}> result = new Result<${entity}>();
+		Result<${entity}> result = new Result<>();
 		${entity} ${entity?uncap_first} = ${entity?uncap_first}Service.getById(id);
 		if(${entity?uncap_first} == null) {
 			result.error500("未找到对应实体");
@@ -207,12 +206,13 @@ public class ${entity}Controller {
    * @param response
    * @return
    */
-  @RequestMapping(value = "/importExcel", method = RequestMethod.POST)
-  public Result<?> importExcel(HttpServletRequest request, HttpServletResponse response) {
+  @PostMapping(value = "/importExcel")
+  public Result<Object> importExcel(HttpServletRequest request, HttpServletResponse response) {
       MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
       Map<String, MultipartFile> fileMap = multipartRequest.getFileMap();
       for (Map.Entry<String, MultipartFile> entity : fileMap.entrySet()) {
-          MultipartFile file = entity.getValue();// 获取上传文件对象
+          // 获取上传文件对象
+          MultipartFile file = entity.getValue();
           ImportParams params = new ImportParams();
           params.setTitleRows(2);
           params.setHeadRows(1);
@@ -230,7 +230,7 @@ public class ${entity}Controller {
               try {
                   file.getInputStream().close();
               } catch (IOException e) {
-                  e.printStackTrace();
+				  log.error(e.getMessage(),e);
               }
           }
       }

@@ -77,7 +77,7 @@ public class SysRoleController {
     @AutoLog(value = "角色管理-分页列表查询")
     @ApiOperation(value = "角色管理-分页列表查询")
     @PermissionData(pageComponent = "system/RoleList")
-    @RequestMapping(value = "/list", method = RequestMethod.GET)
+    @GetMapping(value = "/list")
     public Result<IPage<SysRole>> queryPageList(SysRole role,
                                                 @RequestParam(name = "pageNo", defaultValue = "1") Integer pageNo,
                                                 @RequestParam(name = "pageSize", defaultValue = "10") Integer pageSize,
@@ -99,7 +99,7 @@ public class SysRoleController {
      */
     @AutoLog(value = "角色管理-添加")
     @ApiOperation(value = "角色管理-添加")
-    @RequestMapping(value = "/add", method = RequestMethod.POST)
+    @PostMapping(value = "/add")
     public Result<SysRole> add(@RequestBody SysRole role) {
         Result<SysRole> result = new Result<SysRole>();
         try {
@@ -121,7 +121,7 @@ public class SysRoleController {
      */
     @AutoLog(value = "角色管理-编辑")
     @ApiOperation(value = "角色管理-编辑")
-    @RequestMapping(value = "/edit", method = RequestMethod.PUT)
+    @PutMapping(value = "/edit")
     public Result<SysRole> edit(@RequestBody SysRole role) {
         Result<SysRole> result = new Result<SysRole>();
         SysRole sysrole = sysRoleService.getById(role.getId());
@@ -130,7 +130,6 @@ public class SysRoleController {
         } else {
             role.setUpdateTime(new Date());
             boolean ok = sysRoleService.updateById(role);
-            //TODO 返回false说明什么？
             if (ok) {
                 result.success("修改成功!");
             }
@@ -148,7 +147,7 @@ public class SysRoleController {
     @AutoLog(value = "角色管理-通过id删除")
     @ApiOperation(value = "角色管理-通过id删除")
     @CacheEvict(value = "loginUser_cacheRules", allEntries = true)
-    @RequestMapping(value = "/delete", method = RequestMethod.DELETE)
+    @DeleteMapping(value = "/delete")
     public Result<SysRole> delete(@RequestParam(name = "id", required = true) String id) {
         Result<SysRole> result = new Result<SysRole>();
         SysRole sysrole = sysRoleService.getById(id);
@@ -173,7 +172,7 @@ public class SysRoleController {
     @AutoLog(value = "角色管理-批量删除")
     @ApiOperation(value = "角色管理-批量删除")
     @CacheEvict(value = "loginUser_cacheRules", allEntries = true)
-    @RequestMapping(value = "/deleteBatch", method = RequestMethod.DELETE)
+    @DeleteMapping(value = "/deleteBatch")
     public Result<SysRole> deleteBatch(@RequestParam(name = "ids", required = true) String ids) {
         Result<SysRole> result = new Result<SysRole>();
         if (ids == null || "".equals(ids.trim())) {
@@ -193,7 +192,7 @@ public class SysRoleController {
      */
     @AutoLog(value = "角色管理-通过id查询")
     @ApiOperation(value = "角色管理-通过id查询")
-    @RequestMapping(value = "/queryById", method = RequestMethod.GET)
+    @GetMapping(value = "/queryById")
     public Result<SysRole> queryById(@RequestParam(name = "id", required = true) String id) {
         Result<SysRole> result = new Result<SysRole>();
         SysRole sysrole = sysRoleService.getById(id);
@@ -206,11 +205,16 @@ public class SysRoleController {
         return result;
     }
 
-    @RequestMapping(value = "/queryall", method = RequestMethod.GET)
+    /**
+     * 查询全部角色
+     *
+     * @return
+     */
+    @GetMapping(value = "/queryall")
     public Result<List<SysRole>> queryall() {
         Result<List<SysRole>> result = new Result<>();
         List<SysRole> list = sysRoleService.list();
-        if (list == null || list.size() <= 0) {
+        if (list.isEmpty()) {
             result.error500("未找到角色信息");
         } else {
             result.setResult(list);
@@ -224,7 +228,7 @@ public class SysRoleController {
      */
     @AutoLog(value = "角色管理-校验角色编码唯一")
     @ApiOperation(value = "角色管理-校验角色编码唯一")
-    @RequestMapping(value = "/checkRoleCode", method = RequestMethod.GET)
+    @GetMapping(value = "/checkRoleCode")
     public Result<Boolean> checkUsername(String id, String roleCode) {
         Result<Boolean> result = new Result<>();
         // 如果此参数为false则程序发生异常
@@ -280,7 +284,7 @@ public class SysRoleController {
         mv.addObject(NormalExcelConstants.FILE_NAME, "角色列表");
         mv.addObject(NormalExcelConstants.CLASS, SysRole.class);
         LoginUser user = (LoginUser) SecurityUtils.getSubject().getPrincipal();
-        mv.addObject(NormalExcelConstants.PARAMS, new ExportParams("角色列表数据", "导出人:"+user.getRealname(), "导出信息"));
+        mv.addObject(NormalExcelConstants.PARAMS, new ExportParams("角色列表数据", "导出人:" + user.getRealname(), "导出信息"));
         mv.addObject(NormalExcelConstants.DATA_LIST, pageList);
         return mv;
     }
@@ -294,8 +298,8 @@ public class SysRoleController {
      */
     @AutoLog(value = "角色管理-通过excel导入数据")
     @ApiOperation(value = "角色管理-通过excel导入数据")
-    @RequestMapping(value = "/importExcel", method = RequestMethod.POST)
-    public Result<?> importExcel(HttpServletRequest request, HttpServletResponse response) {
+    @PostMapping(value = "/importExcel")
+    public Result<Object> importExcel(HttpServletRequest request, HttpServletResponse response) {
         MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
         Map<String, MultipartFile> fileMap = multipartRequest.getFileMap();
         for (Map.Entry<String, MultipartFile> entity : fileMap.entrySet()) {
@@ -331,9 +335,9 @@ public class SysRoleController {
     @AutoLog(value = "角色管理-查询数据规则数据")
     @ApiOperation(value = "角色管理-查询数据规则数据")
     @GetMapping(value = "/datarule/{permissionId}/{roleId}")
-    public Result<?> loadDatarule(@PathVariable("permissionId") String permissionId, @PathVariable("roleId") String roleId) {
+    public Result<Object> loadDatarule(@PathVariable("permissionId") String permissionId, @PathVariable("roleId") String roleId) {
         List<SysPermissionDataRule> list = sysPermissionDataRuleService.getPermRuleListByPermId(permissionId);
-        if (list == null || list.size() == 0) {
+        if (list.isEmpty()) {
             return Result.error("未找到权限配置信息");
         } else {
             Map<String, Object> map = new HashMap<>(16);
@@ -350,7 +354,6 @@ public class SysRoleController {
                 }
             }
             return Result.ok(map);
-            //TODO 以后按钮权限的查询也走这个请求 无非在map中多加两个key
         }
     }
 
@@ -360,7 +363,7 @@ public class SysRoleController {
     @AutoLog(value = "角色管理-保存数据规则至角色菜单关联表")
     @ApiOperation(value = "角色管理-保存数据规则至角色菜单关联表")
     @PostMapping(value = "/datarule")
-    public Result<?> saveDatarule(@RequestBody JSONObject jsonObject) {
+    public Result<Object> saveDatarule(@RequestBody JSONObject jsonObject) {
         try {
             String permissionId = jsonObject.getString("permissionId");
             String roleId = jsonObject.getString("roleId");
@@ -392,7 +395,7 @@ public class SysRoleController {
      */
     @AutoLog(value = "角色管理-授权-查询菜单权限树")
     @ApiOperation(value = "角色管理-授权-查询菜单权限树")
-    @RequestMapping(value = "/queryTreeList", method = RequestMethod.GET)
+    @GetMapping(value = "/queryTreeList")
     public Result<Map<String, Object>> queryTreeList(HttpServletRequest request) {
         Result<Map<String, Object>> result = new Result<>();
         //全部权限ids

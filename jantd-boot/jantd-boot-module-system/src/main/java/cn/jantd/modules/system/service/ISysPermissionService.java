@@ -32,7 +32,7 @@ public interface ISysPermissionService extends IService<SysPermission> {
      * @param id
      * @throws JantdBootException
      */
-    void deletePermission(String id) throws JantdBootException;
+    void deletePermission(String id);
 
     /**
      * 逻辑删除
@@ -40,7 +40,7 @@ public interface ISysPermissionService extends IService<SysPermission> {
      * @param id
      * @throws JantdBootException
      */
-    void deletePermissionLogical(String id) throws JantdBootException;
+    void deletePermissionLogical(String id);
 
     /**
      * 添加菜单
@@ -48,7 +48,7 @@ public interface ISysPermissionService extends IService<SysPermission> {
      * @param sysPermission
      * @throws JantdBootException
      */
-    void addPermission(SysPermission sysPermission) throws JantdBootException;
+    void addPermission(SysPermission sysPermission);
 
     /**
      * 编辑菜单
@@ -56,7 +56,7 @@ public interface ISysPermissionService extends IService<SysPermission> {
      * @param sysPermission
      * @throws JantdBootException
      */
-    void editPermission(SysPermission sysPermission) throws JantdBootException;
+    void editPermission(SysPermission sysPermission);
 
     /**
      * 通过用户名查询菜单

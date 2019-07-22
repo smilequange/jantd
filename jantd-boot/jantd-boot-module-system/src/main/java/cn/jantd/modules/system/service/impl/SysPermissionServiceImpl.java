@@ -51,7 +51,7 @@ public class SysPermissionServiceImpl extends ServiceImpl<SysPermissionMapper, S
     @Override
     @Transactional(rollbackFor = Exception.class)
     @CacheEvict(value = "permission", allEntries = true)
-    public void deletePermission(String id) throws JantdBootException {
+    public void deletePermission(String id) {
         SysPermission sysPermission = this.getById(id);
         if (sysPermission == null) {
             throw new JantdBootException("未找到菜单信息");
@@ -78,7 +78,7 @@ public class SysPermissionServiceImpl extends ServiceImpl<SysPermissionMapper, S
         query.eq(SysPermission::getParentId, parentId);
         // 查出该主键下的所有子级
         List<SysPermission> permissionList = this.list(query);
-        if (permissionList != null && permissionList.size() > 0) {
+        if (!permissionList.isEmpty()) {
             // id
             String id = "";
             // 查出的子级数量
@@ -102,7 +102,7 @@ public class SysPermissionServiceImpl extends ServiceImpl<SysPermissionMapper, S
      */
     @Override
     @CacheEvict(value = "permission", allEntries = true)
-    public void deletePermissionLogical(String id) throws JantdBootException {
+    public void deletePermissionLogical(String id) {
         SysPermission sysPermission = this.getById(id);
         if (sysPermission == null) {
             throw new JantdBootException("未找到菜单信息");
@@ -119,7 +119,7 @@ public class SysPermissionServiceImpl extends ServiceImpl<SysPermissionMapper, S
 
     @Override
     @CacheEvict(value = "permission", allEntries = true)
-    public void addPermission(SysPermission sysPermission) throws JantdBootException {
+    public void addPermission(SysPermission sysPermission) {
         //----------------------------------------------------------------------
         //判断是否是一级菜单，是的话清空父菜单
         if (CommonConstant.MENU_TYPE_0.equals(sysPermission.getMenuType())) {
@@ -139,9 +139,8 @@ public class SysPermissionServiceImpl extends ServiceImpl<SysPermissionMapper, S
 
     @Override
     @CacheEvict(value = "permission", allEntries = true)
-    public void editPermission(SysPermission sysPermission) throws JantdBootException {
+    public void editPermission(SysPermission sysPermission) {
         SysPermission p = this.getById(sysPermission.getId());
-        //TODO 该节点判断是否还有子节点
         if (p == null) {
             throw new JantdBootException("未找到菜单信息");
         } else {

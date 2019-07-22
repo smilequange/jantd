@@ -14,11 +14,7 @@ import cn.jantd.modules.system.service.ISysDictItemService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -52,7 +48,7 @@ public class SysDictItemController {
      */
     @AutoLog(value = "字典配置-查询字典数据")
     @ApiOperation(value = "字典配置-查询字典数据")
-    @RequestMapping(value = "/list", method = RequestMethod.GET)
+    @GetMapping(value = "/list")
     public Result<IPage<SysDictItem>> queryPageList(SysDictItem sysDictItem, @RequestParam(name = "pageNo", defaultValue = "1") Integer pageNo,
                                                     @RequestParam(name = "pageSize", defaultValue = "10") Integer pageSize, HttpServletRequest req) {
         Result<IPage<SysDictItem>> result = new Result<IPage<SysDictItem>>();
@@ -73,7 +69,7 @@ public class SysDictItemController {
      */
     @AutoLog(value = "字典配置-新增")
     @ApiOperation(value = "字典配置-新增")
-    @RequestMapping(value = "/add", method = RequestMethod.POST)
+    @PostMapping(value = "/add")
     @CacheEvict(value = "dictCache", allEntries = true)
     public Result<SysDictItem> add(@RequestBody SysDictItem sysDictItem) {
         Result<SysDictItem> result = new Result<SysDictItem>();
@@ -95,7 +91,7 @@ public class SysDictItemController {
      */
     @AutoLog(value = "字典配置-编辑")
     @ApiOperation(value = "字典配置-编辑")
-    @RequestMapping(value = "/edit", method = RequestMethod.PUT)
+    @PutMapping(value = "/edit")
     @CacheEvict(value = "dictCache", allEntries = true)
     public Result<SysDictItem> edit(@RequestBody SysDictItem sysDictItem) {
         Result<SysDictItem> result = new Result<SysDictItem>();
@@ -105,7 +101,6 @@ public class SysDictItemController {
         } else {
             sysDictItem.setUpdateTime(new Date());
             boolean ok = sysDictItemService.updateById(sysDictItem);
-            //TODO 返回false说明什么？
             if (ok) {
                 result.success("编辑成功!");
             }
@@ -120,7 +115,7 @@ public class SysDictItemController {
      */
     @AutoLog(value = "字典配置-通过id删除")
     @ApiOperation(value = "字典配置-通过id删除")
-    @RequestMapping(value = "/delete", method = RequestMethod.DELETE)
+    @DeleteMapping(value = "/delete")
     @CacheEvict(value = "dictCache", allEntries = true)
     public Result<SysDictItem> delete(@RequestParam(name = "id", required = true) String id) {
         Result<SysDictItem> result = new Result<SysDictItem>();
@@ -143,7 +138,7 @@ public class SysDictItemController {
      */
     @AutoLog(value = "字典配置-批量删除字典数据")
     @ApiOperation(value = "字典配置-批量删除字典数据")
-    @RequestMapping(value = "/deleteBatch", method = RequestMethod.DELETE)
+    @DeleteMapping(value = "/deleteBatch")
     @CacheEvict(value = "dictCache", allEntries = true)
     public Result<SysDictItem> deleteBatch(@RequestParam(name = "ids", required = true) String ids) {
         Result<SysDictItem> result = new Result<SysDictItem>();

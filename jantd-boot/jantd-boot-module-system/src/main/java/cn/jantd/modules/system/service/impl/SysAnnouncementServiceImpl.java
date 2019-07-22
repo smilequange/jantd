@@ -78,7 +78,7 @@ public class SysAnnouncementServiceImpl extends ServiceImpl<SysAnnouncementMappe
                 queryWrapper.eq(SysAnnouncementSend::getAnntId, anntId);
                 queryWrapper.eq(SysAnnouncementSend::getUserId, userIds[i]);
                 List<SysAnnouncementSend> announcementSends = sysAnnouncementSendMapper.selectList(queryWrapper);
-                if (announcementSends.size() <= 0) {
+                if (announcementSends.isEmpty()) {
                     SysAnnouncementSend announcementSend = new SysAnnouncementSend();
                     announcementSend.setAnntId(anntId);
                     announcementSend.setUserId(userIds[i]);

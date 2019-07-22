@@ -31,11 +31,8 @@ import cn.jantd.modules.system.util.FindsDepartsChildrenUtil;
 import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.util.ObjectUtils;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
@@ -71,7 +68,7 @@ public class SysDepartController {
      */
     @AutoLog(value = "部门管理-查询部门树")
     @ApiOperation(value = "部门管理-查询部门树")
-    @RequestMapping(value = "/queryTreeList", method = RequestMethod.GET)
+    @GetMapping(value = "/queryTreeList")
     public Result<List<SysDepartTreeModel>> queryTreeList() {
         Result<List<SysDepartTreeModel>> result = new Result<>();
         try {
@@ -92,7 +89,7 @@ public class SysDepartController {
      */
     @AutoLog(value = "部门管理-添加部门")
     @ApiOperation(value = "部门管理-添加部门")
-    @RequestMapping(value = "/add", method = RequestMethod.POST)
+    @PostMapping(value = "/add")
     public Result<SysDepart> add(@RequestBody SysDepart sysDepart, HttpServletRequest request) {
         Result<SysDepart> result = new Result<SysDepart>();
         String username = JwtUtil.getUserNameByToken(request);
@@ -115,7 +112,7 @@ public class SysDepartController {
      */
     @AutoLog(value = "部门管理-编辑部门")
     @ApiOperation(value = "部门管理-编辑部门")
-    @RequestMapping(value = "/edit", method = RequestMethod.PUT)
+    @PutMapping(value = "/edit")
     public Result<SysDepart> edit(@RequestBody SysDepart sysDepart, HttpServletRequest request) {
         String username = JwtUtil.getUserNameByToken(request);
         sysDepart.setUpdateBy(username);
@@ -125,7 +122,6 @@ public class SysDepartController {
             result.error500("未找到对应实体");
         } else {
             boolean ok = sysDepartService.updateDepartDataById(sysDepart, username);
-            // TODO 返回false说明什么？
             if (ok) {
                 result.success("修改成功!");
             }
@@ -141,7 +137,7 @@ public class SysDepartController {
      */
     @AutoLog(value = "部门管理-通过id删除")
     @ApiOperation(value = "部门管理-通过id删除")
-    @RequestMapping(value = "/delete", method = RequestMethod.DELETE)
+    @DeleteMapping(value = "/delete")
     public Result<SysDepart> delete(@RequestParam(name = "id", required = true) String id) {
 
         Result<SysDepart> result = new Result<SysDepart>();
@@ -166,7 +162,7 @@ public class SysDepartController {
      */
     @AutoLog(value = "部门管理-批量删除")
     @ApiOperation(value = "部门管理-批量删除")
-    @RequestMapping(value = "/deleteBatch", method = RequestMethod.DELETE)
+    @DeleteMapping(value = "/deleteBatch")
     public Result<SysDepart> deleteBatch(@RequestParam(name = "ids", required = true) String ids) {
 
         Result<SysDepart> result = new Result<SysDepart>();
@@ -186,13 +182,13 @@ public class SysDepartController {
      */
     @AutoLog(value = "部门管理-查询数据")
     @ApiOperation(value = "部门管理-查询数据")
-    @RequestMapping(value = "/queryIdTree", method = RequestMethod.GET)
+    @GetMapping(value = "/queryIdTree")
     public Result<List<DepartIdModel>> queryIdTree() {
         Result<List<DepartIdModel>> result = new Result<List<DepartIdModel>>();
         List<DepartIdModel> idList;
         try {
             idList = FindsDepartsChildrenUtil.wrapDepartIdModel();
-            if (idList != null && idList.size() > 0) {
+            if (!idList.isEmpty()) {
                 result.setResult(idList);
                 result.setSuccess(true);
             } else {
@@ -219,7 +215,7 @@ public class SysDepartController {
      */
     @AutoLog(value = "部门管理-部门搜索")
     @ApiOperation(value = "部门管理-部门搜索")
-    @RequestMapping(value = "/searchBy", method = RequestMethod.GET)
+    @GetMapping(value = "/searchBy")
     public Result<List<SysDepartTreeModel>> searchBy(@RequestParam(name = "keyWord", required = true) String keyWord) {
         Result<List<SysDepartTreeModel>> result = new Result<List<SysDepartTreeModel>>();
         try {
@@ -256,17 +252,12 @@ public class SysDepartController {
         ModelAndView mv = new ModelAndView(new JantdEntityExcelViewBase());
         List<SysDepart> pageList = sysDepartService.list(queryWrapper);
         //按字典排序
-        Collections.sort(pageList, new Comparator<SysDepart>() {
-            @Override
-            public int compare(SysDepart arg0, SysDepart arg1) {
-                return arg0.getOrgCode().compareTo(arg1.getOrgCode());
-            }
-        });
+        Collections.sort(pageList, Comparator.comparing(SysDepart::getOrgCode));
         LoginUser user = (LoginUser) SecurityUtils.getSubject().getPrincipal();
         //导出文件名称
         mv.addObject(NormalExcelConstants.FILE_NAME, "部门列表");
         mv.addObject(NormalExcelConstants.CLASS, SysDepart.class);
-        mv.addObject(NormalExcelConstants.PARAMS, new ExportParams("部门列表数据", "导出人:"+user.getRealname(), "导出信息"));
+        mv.addObject(NormalExcelConstants.PARAMS, new ExportParams("部门列表数据", "导出人:" + user.getRealname(), "导出信息"));
         mv.addObject(NormalExcelConstants.DATA_LIST, pageList);
         return mv;
     }
@@ -280,8 +271,8 @@ public class SysDepartController {
      */
     @AutoLog(value = "部门管理-通过excel导入数据")
     @ApiOperation(value = "部门管理-通过excel导入数据")
-    @RequestMapping(value = "/importExcel", method = RequestMethod.POST)
-    public Result<?> importExcel(HttpServletRequest request, HttpServletResponse response) {
+    @PostMapping(value = "/importExcel")
+    public Result<Object> importExcel(HttpServletRequest request, HttpServletResponse response) {
         MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
         Map<String, MultipartFile> fileMap = multipartRequest.getFileMap();
         for (Map.Entry<String, MultipartFile> entity : fileMap.entrySet()) {
@@ -296,28 +287,14 @@ public class SysDepartController {
                 int codeLength = 3;
                 List<SysDepart> listSysDeparts = ExcelImportUtil.importExcel(file.getInputStream(), SysDepart.class, params);
                 //按长度排序
-                Collections.sort(listSysDeparts, new Comparator<SysDepart>() {
-                    @Override
-                    public int compare(SysDepart arg0, SysDepart arg1) {
-                        return arg0.getOrgCode().length() - arg1.getOrgCode().length();
-                    }
-                });
+                Collections.sort(listSysDeparts, Comparator.comparingInt(arg0 -> arg0.getOrgCode().length()));
                 for (SysDepart sysDepart : listSysDeparts) {
                     String orgCode = sysDepart.getOrgCode();
                     if (orgCode.length() > codeLength) {
                         String parentCode = orgCode.substring(0, orgCode.length() - codeLength);
                         QueryWrapper<SysDepart> queryWrapper = new QueryWrapper<SysDepart>();
                         queryWrapper.eq("org_code", parentCode);
-                        try {
-                            SysDepart parentDept = sysDepartService.getOne(queryWrapper);
-                            if (!parentDept.equals(null)) {
-                                sysDepart.setParentId(parentDept.getId());
-                            } else {
-                                sysDepart.setParentId("");
-                            }
-                        } catch (Exception e) {
-                            //没有查找到parentDept
-                        }
+                        getSysdepartParentId(sysDepart, queryWrapper);
                     } else {
                         sysDepart.setParentId("");
                     }
@@ -331,10 +308,29 @@ public class SysDepartController {
                 try {
                     file.getInputStream().close();
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    log.error(e.getMessage(), e);
                 }
             }
         }
         return Result.error("文件导入失败！");
+    }
+
+    /**
+     * 获取父部门id
+     *
+     * @param sysDepart
+     * @param queryWrapper
+     */
+    private void getSysdepartParentId(SysDepart sysDepart, QueryWrapper<SysDepart> queryWrapper) {
+        try {
+            SysDepart parentDept = sysDepartService.getOne(queryWrapper);
+            if (!ObjectUtils.isEmpty(parentDept)) {
+                sysDepart.setParentId(parentDept.getId());
+            } else {
+                sysDepart.setParentId("");
+            }
+        } catch (Exception e) {
+            //没有查找到parentDept
+        }
     }
 }

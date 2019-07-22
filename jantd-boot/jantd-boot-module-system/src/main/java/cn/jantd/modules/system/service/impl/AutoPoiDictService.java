@@ -1,16 +1,15 @@
 package cn.jantd.modules.system.service.impl;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import cn.jantd.core.poi.service.AutoPoiDictServiceI;
 import cn.jantd.core.system.vo.DictModel;
 import cn.jantd.core.util.oConvertUtils;
 import cn.jantd.modules.system.mapper.SysDictMapper;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import lombok.extern.slf4j.Slf4j;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 描述：AutoPoi Excel注解支持字典参数设置
@@ -53,7 +52,7 @@ public class AutoPoiDictService implements AutoPoiDictServiceI {
         for (DictModel t : dictList) {
             dictReplaces.add(t.getText() + "_" + t.getValue());
         }
-        if (dictReplaces != null && dictReplaces.size() != 0) {
+        if (!dictReplaces.isEmpty()) {
             log.info("---AutoPoi--Get_DB_Dict------" + dictReplaces.toString());
             return dictReplaces.toArray(new String[dictReplaces.size()]);
         }
