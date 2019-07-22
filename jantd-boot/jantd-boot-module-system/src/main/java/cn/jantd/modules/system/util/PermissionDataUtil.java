@@ -11,6 +11,7 @@ import cn.jantd.modules.system.entity.SysPermission;
  * @Date: 2019-04-03
  */
 public class PermissionDataUtil {
+	private PermissionDataUtil(){}
 
 	/**
 	 * 智能处理错误数据，简化用户失误操作

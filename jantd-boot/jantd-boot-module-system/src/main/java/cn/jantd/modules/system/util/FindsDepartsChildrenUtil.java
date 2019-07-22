@@ -18,6 +18,8 @@ import java.util.List;
  */
 public class FindsDepartsChildrenUtil {
 
+    private FindsDepartsChildrenUtil(){}
+
 
     private static List<DepartIdModel> idList = new ArrayList<>(4);
 
