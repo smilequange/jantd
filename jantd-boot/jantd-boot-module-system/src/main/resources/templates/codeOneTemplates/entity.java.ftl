@@ -64,7 +64,7 @@ public class ${entity} implements Serializable {
 	@JsonFormat(timezone = "GMT+8",pattern = "yyyy-MM-dd HH:mm:ss")
     @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
     <#else>
-        <#if !"createBy,updateBy,createTime,updateTime"?contains(field.propertyName)>
+        <#if !"createBy,updateBy"?contains(field.propertyName)>
     @Excel(name = "${field.comment}", width = 15)
         </#if>
 	</#if>

@@ -12,7 +12,7 @@
       <a-form :form="form">
       
 <#list table.fields as field><#rt/>
-<#if field.propertyName !='id' && !"createBy,updateBy,createTime,updateTime"?contains(field.propertyName)><#rt/>
+<#if field.propertyName !='id' && !"${cfg.pageFilterFields}"?contains(field.propertyName)><#rt/>
         <a-form-item
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"

@@ -13,10 +13,7 @@ import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 import com.baomidou.mybatisplus.generator.engine.FreemarkerTemplateEngine;
 import org.apache.commons.lang3.StringUtils;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.ResourceBundle;
-import java.util.Scanner;
+import java.util.*;
 
 /**
  * 控制台输入模块表名回车自动生成对应项目目录中
@@ -80,12 +77,17 @@ public class CodeOneGenerator {
      * @return
      */
     private static InjectionConfig injectionConfigSetUp() {
-        return new InjectionConfig() {
+        InjectionConfig injectionConfig = new InjectionConfig() {
+            //自定义属性注入:abc
+            //在.ftl(或者是.vm)模板中，通过${cfg.abc}获取属性
             @Override
             public void initMap() {
-                // to do nothing
+                Map<String, Object> map = new HashMap<>();
+                map.put("pageFilterFields", r.getString("page_filter_fields"));
+                this.setMap(map);
             }
         };
+        return injectionConfig;
     }
 
     /**
