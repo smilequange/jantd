@@ -71,10 +71,6 @@ public class JantdOrderDMainController {
         QueryWrapper<JantdOrderMain> queryWrapper = QueryGenerator.initQueryWrapper(jantdOrderMain, req.getParameterMap());
         Page<JantdOrderMain> page = new Page<JantdOrderMain>(pageNo, pageSize);
         IPage<JantdOrderMain> pageList = jantdOrderMainService.page(page, queryWrapper);
-        //log.debug("查询当前页："+pageList.getCurrent());
-        //log.debug("查询当前页数量："+pageList.getSize());
-        //log.debug("查询结果数量："+pageList.getRecords().size());
-        //log.debug("数据总数："+pageList.getTotal());
         result.setSuccess(true);
         result.setResult(pageList);
         return result;

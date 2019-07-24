@@ -25,7 +25,7 @@ public class JantdDemoServiceImpl extends BaseServiceImpl<JantdDemoMapper, Jantd
 	 * 加上注解：@Transactional，声明的方法就是一个独立的事务（有异常DB操作全部回滚）
 	 */
 	@Override
-	@Transactional
+	@Transactional(rollbackFor = Exception.class)
 	public void testTran() {
 		JantdDemo pp = new JantdDemo();
 		pp.setAge(1111);
@@ -37,7 +37,8 @@ public class JantdDemoServiceImpl extends BaseServiceImpl<JantdDemoMapper, Jantd
 		pp2.setName("测试事务  小白兔 2");
 		jantdDemoMapper.insert(pp2);
 
-		Integer.parseInt("hello");//自定义异常
+		//自定义异常
+		Integer.parseInt("hello");
 
 		JantdDemo pp3 = new JantdDemo();
 		pp3.setAge(3333);

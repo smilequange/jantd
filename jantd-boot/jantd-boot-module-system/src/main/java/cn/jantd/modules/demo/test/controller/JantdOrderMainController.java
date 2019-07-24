@@ -77,10 +77,6 @@ public class JantdOrderMainController {
         QueryWrapper<JantdOrderMain> queryWrapper = QueryGenerator.initQueryWrapper(jantdOrderMain, req.getParameterMap());
         Page<JantdOrderMain> page = new Page<JantdOrderMain>(pageNo, pageSize);
         IPage<JantdOrderMain> pageList = jantdOrderMainService.page(page, queryWrapper);
-        // log.debug("查询当前页："+pageList.getCurrent());
-        // log.debug("查询当前页数量："+pageList.getSize());
-        // log.debug("查询结果数量："+pageList.getRecords().size());
-        // log.debug("数据总数："+pageList.getTotal());
         result.setSuccess(true);
         result.setResult(pageList);
         return result;
@@ -267,7 +263,8 @@ public class JantdOrderMainController {
         MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
         Map<String, MultipartFile> fileMap = multipartRequest.getFileMap();
         for (Map.Entry<String, MultipartFile> entity : fileMap.entrySet()) {
-            MultipartFile file = entity.getValue();// 获取上传文件对象
+            // 获取上传文件对象
+            MultipartFile file = entity.getValue();
             ImportParams params = new ImportParams();
             params.setTitleRows(2);
             params.setHeadRows(2);

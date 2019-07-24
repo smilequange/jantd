@@ -72,43 +72,11 @@ public class JantdDemoController extends BaseController<JantdDemo, IJantdDemoSer
     public Result<IPage<JantdDemo>> list(JantdDemo jantdDemo, @RequestParam(name = "pageNo", defaultValue = "1") Integer pageNo, @RequestParam(name = "pageSize", defaultValue = "10") Integer pageSize,
                                          HttpServletRequest req) {
         Result<IPage<JantdDemo>> result = new Result<IPage<JantdDemo>>();
-        /*
-         * QueryWrapper<JantdDemo> queryWrapper = null;
-         * //===========================================================================
-         * ===== //高级组合查询 try { String superQueryParams =
-         * req.getParameter("superQueryParams");
-         * if(oConvertUtils.isNotEmpty(superQueryParams)) { // 解码 superQueryParams =
-         * URLDecoder.decode(superQueryParams, "UTF-8"); List<QueryRuleVo> userList =
-         * JSON.parseArray(superQueryParams, QueryRuleVo.class);
-         * log.info(superQueryParams); queryWrapper = new QueryWrapper<JantdDemo>(); for
-         * (QueryRuleVo rule : userList) { if(oConvertUtils.isNotEmpty(rule.getField())
-         * && oConvertUtils.isNotEmpty(rule.getRule()) &&
-         * oConvertUtils.isNotEmpty(rule.getVal())){
-         * ObjectParseUtil.addCriteria(queryWrapper, rule.getField(),
-         * QueryRuleEnum.getByValue(rule.getRule()), rule.getVal()); } } } } catch
-         * (UnsupportedEncodingException e) { e.printStackTrace(); }
-         * //===========================================================================
-         * =====
-         *
-         * // 手工转换实体驼峰字段为下划线分隔表字段 queryWrapper = queryWrapper==null?new
-         * QueryWrapper<JantdDemo>(jantdDemo):queryWrapper; Page<JantdDemo> page = new
-         * Page<JantdDemo>(pageNo, pageSize);
-         *
-         * // 排序逻辑 处理 String column = req.getParameter("column"); String order =
-         * req.getParameter("order"); if (oConvertUtils.isNotEmpty(column) &&
-         * oConvertUtils.isNotEmpty(order)) { if ("asc".equals(order)) {
-         * queryWrapper.orderByAsc(oConvertUtils.camelToUnderline(column)); } else {
-         * queryWrapper.orderByDesc(oConvertUtils.camelToUnderline(column)); } }
-         */
 
         QueryWrapper<JantdDemo> queryWrapper = QueryGenerator.initQueryWrapper(jantdDemo, req.getParameterMap());
         Page<JantdDemo> page = new Page<JantdDemo>(pageNo, pageSize);
 
         IPage<JantdDemo> pageList = jantdDemoService.page(page, queryWrapper);
-//		log.info("查询当前页：" + pageList.getCurrent());
-//		log.info("查询当前页数量：" + pageList.getSize());
-//		log.info("查询结果数量：" + pageList.getRecords().size());
-//		log.info("数据总数：" + pageList.getTotal());
         result.setSuccess(true);
         result.setResult(pageList);
         return result;
@@ -315,10 +283,13 @@ public class JantdDemoController extends BaseController<JantdDemo, IJantdDemoSer
         return modelAndView;
     }
 
-    // ================================================================================================================
 
-    // ==========================================动态表单
-    // JSON接收测试===========================================//
+    /**
+     * JSON接收测试
+     *
+     * @param json
+     * @return
+     */
     @PostMapping(value = "/testOnlineAdd")
     public Result<JantdDemo> testOnlineAdd(@RequestBody JSONObject json) {
         Result<JantdDemo> result = new Result<JantdDemo>();

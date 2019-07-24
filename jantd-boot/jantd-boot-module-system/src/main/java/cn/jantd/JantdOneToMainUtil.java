@@ -22,19 +22,27 @@ public class JantdOneToMainUtil {
     public static void main(String[] args) {
         //第一步：设置主表配置
         MainTableVo mainTable = new MainTableVo();
-        mainTable.setTableName("jeecg_order_main");//表名
-        mainTable.setEntityName("TestOrderMain");     //实体名
-        mainTable.setEntityPackage("test2");     //包名
-        mainTable.setFtlDescription("订单");     //描述
+        //表名
+        mainTable.setTableName("jeecg_order_main");
+        //实体名
+        mainTable.setEntityName("TestOrderMain");
+        //包名
+        mainTable.setEntityPackage("test2");
+        //描述
+        mainTable.setFtlDescription("订单");
 
         //第二步：设置子表集合配置
         List<SubTableVo> subTables = new ArrayList<SubTableVo>();
         //[1].子表一
         SubTableVo po = new SubTableVo();
-        po.setTableName("jeecg_order_customer");//表名
-        po.setEntityName("TestOrderCustom");        //实体名
-        po.setEntityPackage("test2");            //包名
-        po.setFtlDescription("客户明细");       //描述
+        //表名
+        po.setTableName("jeecg_order_customer");
+        //实体名
+        po.setEntityName("TestOrderCustom");
+        //包名
+        po.setEntityPackage("test2");
+        //描述
+        po.setFtlDescription("客户明细");
         //子表外键参数配置
         /*说明:
          * a) 子表引用主表主键ID作为外键，外键字段必须以_ID结尾;
@@ -45,10 +53,14 @@ public class JantdOneToMainUtil {
         subTables.add(po);
         //[2].子表二
         SubTableVo po2 = new SubTableVo();
-        po2.setTableName("jeecg_order_ticket");        //表名
-        po2.setEntityName("TestOrderTicket");            //实体名
-        po2.setEntityPackage("test2");                //包名
-        po2.setFtlDescription("产品明细");            //描述
+        //表名
+        po2.setTableName("jeecg_order_ticket");
+        //实体名
+        po2.setEntityName("TestOrderTicket");
+        //包名
+        po2.setEntityPackage("test2");
+        //描述
+        po2.setFtlDescription("产品明细");
         //子表外键参数配置
         /*说明:
          * a) 子表引用主表主键ID作为外键，外键字段必须以_ID结尾;

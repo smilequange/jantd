@@ -34,7 +34,7 @@ public class JantdOrderMainServiceImpl extends ServiceImpl<JantdOrderMainMapper,
     private JantdOrderTicketMapper jantdOrderTicketMapper;
 
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public void saveMain(JantdOrderMain jantdOrderMain, List<JantdOrderCustomer> jantdOrderCustomerList, List<JantdOrderTicket> jantdOrderTicketList) {
         jantdOrderMainMapper.insert(jantdOrderMain);
         if (jantdOrderCustomerList != null) {
@@ -52,7 +52,7 @@ public class JantdOrderMainServiceImpl extends ServiceImpl<JantdOrderMainMapper,
     }
 
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public void updateMain(JantdOrderMain jantdOrderMain, List<JantdOrderCustomer> jantdOrderCustomerList, List<JantdOrderTicket> jantdOrderTicketList) {
         jantdOrderMainMapper.updateById(jantdOrderMain);
 
@@ -76,7 +76,7 @@ public class JantdOrderMainServiceImpl extends ServiceImpl<JantdOrderMainMapper,
     }
 
 	@Override
-	@Transactional
+    @Transactional(rollbackFor = Exception.class)
 	public void delMain(String id) {
 		jantdOrderMainMapper.deleteById(id);
 		jantdOrderTicketMapper.deleteTicketsByMainId(id);
@@ -84,7 +84,7 @@ public class JantdOrderMainServiceImpl extends ServiceImpl<JantdOrderMainMapper,
 	}
 
 	@Override
-	@Transactional
+    @Transactional(rollbackFor = Exception.class)
 	public void delBatchMain(Collection<? extends Serializable> idList) {
 		for(Serializable id:idList) {
 			jantdOrderMainMapper.deleteById(id);

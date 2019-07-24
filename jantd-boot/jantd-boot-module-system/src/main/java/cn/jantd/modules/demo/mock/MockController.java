@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import lombok.extern.slf4j.Slf4j;
+import sun.nio.cs.UTF_32;
 
 @RestController
 @RequestMapping("/api")
@@ -75,10 +76,6 @@ public class MockController {
 		return readJson("classpath:cn/jantd/modules/demo/mock/json/permission.json");
 	}
 
-	@GetMapping(value = "/permission/no-pager")
-	public String permission_no_page() {
-		return readJson("classpath:cn/jantd/modules/demo/mock/json/permission_no_page.json");
-	}
 
 	/**
 	  * 测试报表数据
@@ -121,7 +118,7 @@ public class MockController {
 	        	if(fs[i].getTotalSpace()==0) {
 	        		continue;
 	        	}
-	        	Map<String,Object> map = new HashMap<>();
+	        	Map<String,Object> map = new HashMap<>(16);
 	        	map.put("name", fsv.getSystemDisplayName(fs[i]));
 	        	map.put("max", fs[i].getTotalSpace());
 	        	map.put("rest", fs[i].getFreeSpace());
@@ -166,13 +163,10 @@ public class MockController {
 	public String taskProcess() {
 		return readJson("classpath:cn/jantd/modules/demo/mock/json/task_process.json");
 	}
-	//-------------------------------------------------------------------------------------------
 
-	//author:lvdandan-----date：20190315---for:添加数据日志json----
 	public String sysDataLogJson() {
 		return readJson("classpath:cn/jantd/modules/demo/mock/json/sysdatalog.json");
 	}
-	//author:lvdandan-----date：20190315---for:添加数据日志json----
 
 	/**
 	 * 读取json格式文件
@@ -182,11 +176,9 @@ public class MockController {
 	private String readJson(String jsonSrc) {
 		String json = "";
 		try {
-			//File jsonFile = ResourceUtils.getFile(jsonSrc);
-			//json = FileUtils.re.readFileToString(jsonFile);
-			//换个写法，解决springboot读取jar包中文件的问题
+			// 换个写法，解决springboot读取jar包中文件的问题
 			InputStream stream = getClass().getClassLoader().getResourceAsStream(jsonSrc.replace("classpath:", ""));
-			json = IOUtils.toString(stream);
+			json = IOUtils.toString(stream,"UTF-8");
 		} catch (IOException e) {
 			log.error(e.getMessage(),e);
 		}

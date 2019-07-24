@@ -23,7 +23,7 @@ import java.util.*;
  */
 public class CodeOneGenerator {
 
-    private static final ResourceBundle r = ResourceBundle.getBundle("templates/jantd_config");
+    private static final ResourceBundle JANTD_CONFIG = ResourceBundle.getBundle("templates/jantd_config");
 
     /**
      * <p>
@@ -82,8 +82,8 @@ public class CodeOneGenerator {
             //在.ftl(或者是.vm)模板中，通过${cfg.abc}获取属性
             @Override
             public void initMap() {
-                Map<String, Object> map = new HashMap<>();
-                map.put("pageFilterFields", r.getString("page_filter_fields"));
+                Map<String, Object> map = new HashMap<>(16);
+                map.put("pageFilterFields", JANTD_CONFIG.getString("page_filter_fields"));
                 this.setMap(map);
             }
         };
@@ -107,7 +107,7 @@ public class CodeOneGenerator {
             @Override
             public String outputFile(TableInfo tableInfo) {
                 // 自定义输出文件名
-                return r.getString("project_path") + r.getString("source_root_package") + "/cn/jantd/modules/" + pc.getModuleName() + "/vue"
+                return JANTD_CONFIG.getString("project_path") + JANTD_CONFIG.getString("source_root_package") + "/cn/jantd/modules/" + pc.getModuleName() + "/vue"
                         + "/" + tableInfo.getEntityName() + "List" + ".vue";
             }
         });
@@ -116,7 +116,7 @@ public class CodeOneGenerator {
             @Override
             public String outputFile(TableInfo tableInfo) {
                 // 自定义输出文件名
-                return r.getString("project_path") + r.getString("source_root_package") + "/cn/jantd/modules/" + pc.getModuleName() + "/vue/modules"
+                return JANTD_CONFIG.getString("project_path") + JANTD_CONFIG.getString("source_root_package") + "/cn/jantd/modules/" + pc.getModuleName() + "/vue/modules"
                         + "/" + tableInfo.getEntityName() + "Modal" + ".vue";
             }
         });
@@ -174,7 +174,7 @@ public class CodeOneGenerator {
     private static PackageConfig packageConfigSetUp(AutoGenerator autoGenerator) {
         PackageConfig pc = new PackageConfig();
         pc.setModuleName(scanner("模块名"));
-        pc.setParent(r.getString("bussi_package"));
+        pc.setParent(JANTD_CONFIG.getString("bussi_package"));
         System.out.println(pc.getParent());
         autoGenerator.setPackageInfo(pc);
         return pc;
@@ -200,10 +200,10 @@ public class CodeOneGenerator {
             }
         });
         dsc.setDbType(DbType.MYSQL);
-        dsc.setUrl(r.getString("url"));
-        dsc.setDriverName(r.getString("diver_name"));
-        dsc.setUsername(r.getString("username"));
-        dsc.setPassword(r.getString("password"));
+        dsc.setUrl(JANTD_CONFIG.getString("url"));
+        dsc.setDriverName(JANTD_CONFIG.getString("diver_name"));
+        dsc.setUsername(JANTD_CONFIG.getString("username"));
+        dsc.setPassword(JANTD_CONFIG.getString("password"));
         dsc.setTypeConvert(new MySqlTypeConvert() {
             // 自定义数据库表字段类型转换【可选】
             @Override
@@ -222,9 +222,9 @@ public class CodeOneGenerator {
      */
     private static void globalConfigSetUp(AutoGenerator autoGenerator) {
         GlobalConfig gc = new GlobalConfig();
-        String projectPath = r.getString("project_path");
-        gc.setOutputDir(projectPath + r.getString("source_root_package"));
-        gc.setAuthor(r.getString("author"));
+        String projectPath = JANTD_CONFIG.getString("project_path");
+        gc.setOutputDir(projectPath + JANTD_CONFIG.getString("source_root_package"));
+        gc.setAuthor(JANTD_CONFIG.getString("author"));
         gc.setOpen(false);
         // XML columList
         gc.setBaseColumnList(true);
