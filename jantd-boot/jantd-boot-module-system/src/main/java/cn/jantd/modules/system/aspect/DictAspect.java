@@ -97,7 +97,6 @@ public class DictAspect {
                     }
                     JSONObject item = JSONObject.parseObject(json);
                     //update-begin--Author:scott -- Date:20190603 ----for：解决继承实体字段无法翻译问题------
-                    //for (Field field : record.getClass().getDeclaredFields()) {
                     for (Field field : oConvertUtils.getAllFields(record)) {
                         //update-end--Author:scott  -- Date:20190603 ----for：解决继承实体字段无法翻译问题------
                         if (field.getAnnotation(Dict.class) != null) {
@@ -105,13 +104,8 @@ public class DictAspect {
                             String text = field.getAnnotation(Dict.class).dicText();
                             String table = field.getAnnotation(Dict.class).dictTable();
                             String key = String.valueOf(item.get(field.getName()));
-                            String textValue = null;
                             log.info(" 字典 key : " + key);
-                            if (!StringUtils.isEmpty(table)) {
-                                textValue = dictService.queryTableDictTextByKey(table, text, code, key);
-                            } else {
-                                textValue = dictService.queryDictTextByKey(code, key);
-                            }
+                            String textValue = translateDictValue(code, text, table, key);
                             log.info(" 字典Val : " + textValue);
                             log.info(" __翻译字典字段__ " + field.getName() + "_dictText： " + textValue);
                             item.put(field.getName() + "_dictText", textValue);
@@ -129,5 +123,44 @@ public class DictAspect {
 
         }
     }
+
+    /**
+     * 翻译字典文本
+     *
+     * @param code
+     * @param text
+     * @param table
+     * @param key
+     * @return
+     */
+    private String translateDictValue(String code, String text, String table, String key) {
+        if (oConvertUtils.isEmpty(key)) {
+            return null;
+        }
+        StringBuffer textValue = new StringBuffer();
+        String[] keys = key.split(",");
+        for (String k : keys) {
+            String tmpValue = null;
+            log.debug(" 字典 key : " + k);
+            if (k.trim().length() == 0) {
+                continue; //跳过循环
+            }
+            if (!StringUtils.isEmpty(table)) {
+                tmpValue = dictService.queryTableDictTextByKey(table, text, code, k.trim());
+            } else {
+                tmpValue = dictService.queryDictTextByKey(code, k.trim());
+            }
+
+            if (tmpValue != null) {
+                if (!"".equals(textValue.toString())) {
+                    textValue.append(",");
+                }
+                textValue.append(tmpValue);
+            }
+
+        }
+        return textValue.toString();
+    }
+
 
 }
