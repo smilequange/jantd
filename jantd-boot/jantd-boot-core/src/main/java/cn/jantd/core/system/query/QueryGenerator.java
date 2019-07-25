@@ -18,6 +18,7 @@ import java.util.regex.Pattern;
 import cn.jantd.core.constant.CoreConstant;
 import cn.jantd.core.system.util.DataAutorUtils;
 import cn.jantd.core.system.util.JwtUtil;
+import cn.jantd.core.util.SqlInjectionUtil;
 import cn.jantd.modules.system.entity.SysPermissionDataRule;
 import org.apache.commons.beanutils.PropertyUtils;
 import cn.jantd.core.util.oConvertUtils;
@@ -41,6 +42,10 @@ public class QueryGenerator {
     private static final String STAR = "*";
     private static final String COMMA = ",";
     private static final String NOT_EQUAL = "!";
+	/**
+     * 页面带有规则值查询，空格作为分隔符
+     */
+	private static final String QUERY_SEPARATE_KEYWORD = " ";
     /**
      * 高级查询前端传来的参数名
      */
@@ -162,6 +167,10 @@ public class QueryGenerator {
                     //根据参数值带什么关键字符串判断走什么类型的查询
                     QueryRuleEnum rule = convert2Rule(value);
                     value = replaceValue(rule, value);
+                    if( (rule==null || QueryRuleEnum.EQ.equals(rule)) && "class java.lang.String".equals(type)) {
+                        // 可以设置左右模糊或全模糊，因人而异
+                        rule = QueryRuleEnum.LIKE;
+                    }
                     addEasyQuery(queryWrapper, name, rule, value);
                 }
 
@@ -193,6 +202,8 @@ public class QueryGenerator {
         }
         log.debug("排序规则>>列:" + column + ",排序方式:" + order);
         if (oConvertUtils.isNotEmpty(column) && oConvertUtils.isNotEmpty(order)) {
+            //SQL注入check
+            SqlInjectionUtil.filterContent(column);
             if (order.toUpperCase().indexOf(ORDER_TYPE_ASC) >= 0) {
                 queryWrapper.orderByAsc(oConvertUtils.camelToUnderline(column));
             } else {
@@ -245,12 +256,16 @@ public class QueryGenerator {
         }
         QueryRuleEnum rule = null;
         // step 2 .>= =<
-        if (rule == null && val.length() >= CoreConstant.NUMBER_TWO) {
-            rule = QueryRuleEnum.getByValue(val.substring(0, 2));
+        if (rule == null && val.length() >= CoreConstant.NUMBER_THREE) {
+            if(QUERY_SEPARATE_KEYWORD.equals(val.substring(2, 3))){
+                rule = QueryRuleEnum.getByValue(val.substring(0, 2));
+            }
         }
         // step 1 .> <
-        if (rule == null && val.length() >= 1) {
-            rule = QueryRuleEnum.getByValue(val.substring(0, 1));
+        if (rule == null && val.length() >= CoreConstant.NUMBER_TWO) {
+            if(QUERY_SEPARATE_KEYWORD.equals(val.substring(1, 2))){
+                rule = QueryRuleEnum.getByValue(val.substring(0, 1));
+            }
         }
 
         // step 3 like
@@ -299,7 +314,12 @@ public class QueryGenerator {
         } else if (rule == QueryRuleEnum.IN) {
             value = val.split(",");
         } else {
-            value = val.replace(rule.getValue(), "");
+            if(val.startsWith(rule.getValue())){
+                //TODO 此处逻辑应该注释掉-> 如果查询内容中带有查询匹配规则符号，就会被截取的（比如：>=您好）
+                value = val.replaceFirst(rule.getValue(),"");
+            }else if(val.startsWith(rule.getCondition()+QUERY_SEPARATE_KEYWORD)){
+                value = val.replaceFirst(rule.getCondition()+QUERY_SEPARATE_KEYWORD,"").trim();
+            }
         }
         return value;
     }
