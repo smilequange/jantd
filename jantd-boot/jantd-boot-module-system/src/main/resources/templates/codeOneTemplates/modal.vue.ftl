@@ -84,7 +84,7 @@
         this.model = Object.assign({}, record);
         this.visible = true;
         this.$nextTick(() => {
-          this.form.setFieldsValue(pick(this.model<#list table.fields as field><#if field.propertyName !='id' && field.type?index_of("date")==-1>,'${field.propertyName}'</#if></#list>))
+          this.form.setFieldsValue(pick(this.model<#list table.fields as field><#if field.propertyName !='id' && field.type?index_of("date")==-1 &&!"createBy,updateBy"?contains(field.propertyName)>,'${field.propertyName}'</#if></#list>))
 		  //时间格式化
           <#list table.fields as field>
           <#if field.propertyName !='id' && field.type?index_of("date")!=-1 && !"createTime,updateTime"?contains(field.propertyName)>
