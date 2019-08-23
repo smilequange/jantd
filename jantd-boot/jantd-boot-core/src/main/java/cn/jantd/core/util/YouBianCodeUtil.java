@@ -167,8 +167,6 @@ public class YouBianCodeUtil {
     }
 
     public static void main(String[] args) {
-        // org.jeecgframework.core.util.LogUtil.info(getNextZiMu('C'));
-        // org.jeecgframework.core.util.LogUtil.info(getNextNum(8));
-        // org.jeecgframework.core.util.LogUtil.info(cutYouBianCode("C99A01B01")[2]);
+
     }
 }

@@ -259,7 +259,7 @@ public class JantdDemoController extends BaseController<JantdDemo, IJantdDemoSer
      * redis操作 -- get
      */
     @GetMapping(value = "/redisDemo/{id}")
-    public JantdDemo redisGetJeecgDemo(@PathVariable("id") String id) {
+    public JantdDemo redisGetJantdDemo(@PathVariable("id") String id) {
         JantdDemo t = jantdDemoService.getByIdCacheable(id);
         System.out.println(t);
         return t;

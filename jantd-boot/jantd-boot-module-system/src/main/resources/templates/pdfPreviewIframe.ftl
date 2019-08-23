@@ -12,7 +12,6 @@
 <script type="text/javascript">
 
 function openScanFile(title,token,bizNo,archivesNo){
- 	 //var pdfUrl ="http://127.0.0.1:8080/jeecg-boot/generic/web/viewer.html?file="+encodeURIComponent("http://127.0.0.1:8080/jeecg-boot/test/jeecgDemo/getPdfUrl?title="+encodeURI(title));
  	 var pdfUrl ="${base}/generic/web/viewer.html?file="+encodeURIComponent("http://storage.xuetangx.com/public_assets/xuetangx/PDF/PlayerAPI_v1.0.6.pdf");
  	 
 	 var vm=window.open(pdfUrl);

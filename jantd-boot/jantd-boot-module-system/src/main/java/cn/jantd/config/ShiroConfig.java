@@ -77,9 +77,9 @@ public class ShiroConfig {
         filterChainDefinitionMap.put("/actuator/httptrace/**", "anon");
         filterChainDefinitionMap.put("/actuator/redis/**", "anon");
         // 模板测试
-        filterChainDefinitionMap.put("/test/jeecgDemo/demo3", "anon");
+        filterChainDefinitionMap.put("/test/jantdDemo/demo3", "anon");
         // redis测试
-        filterChainDefinitionMap.put("/test/jeecgDemo/redisDemo/**", "anon");
+        filterChainDefinitionMap.put("/test/jantdDemo/redisDemo/**", "anon");
 
 
         // 添加自己的过滤器并且取名为jwt

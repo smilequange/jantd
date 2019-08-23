@@ -7,7 +7,7 @@ import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.PerformanceInterceptor;
 
 /**
- * 单数据源配置（jeecg.datasource.open = false时生效）
+ * 单数据源配置（jantd.datasource.open = false时生效）
  * @Author 圈哥
  * @date 2019-07-04
  */

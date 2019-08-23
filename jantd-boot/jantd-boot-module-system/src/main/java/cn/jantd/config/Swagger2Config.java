@@ -85,17 +85,12 @@ public class Swagger2Config implements WebMvcConfigurer {
      */
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                // //大标题
+                // 大标题
                 .title("Jantd-Boot 后台服务API接口文档")
                 // 版本号
                 .version("1.0")
-//				.termsOfServiceUrl("NO terms of service")
                 // 描述
                 .description("restful 风格接口")
-                // 作者
-//				.contact(new Contact("scott", "http://jeecg.org", "jeecgos@163.com"))
-//                .license("The Apache License, Version 2.0")
-//                .licenseUrl("http://www.apache.org/licenses/LICENSE-2.0.html")
                 .build();
     }
 

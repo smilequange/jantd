@@ -62,7 +62,7 @@ public class SampleTest {
     @Test
     public void testDataLogSave() {
         System.out.println(("----- datalog xiagf ------"));
-        String tableName = "jeecg_demo";
+        String tableName = "demo";
         String dataId = "4028ef81550c1a7901550c1cd6e70001";
         String dataContent = mock.sysDataLogJson();
         sysDataLogService.addDataLog(tableName, dataId, dataContent);

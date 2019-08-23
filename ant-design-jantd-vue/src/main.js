@@ -12,7 +12,6 @@ import 'ant-design-vue/dist/antd.less';  // or 'ant-design-vue/dist/antd.less'
 
 import '@/permission' // permission control
 import '@/utils/filter' // base filter
-import Print from 'vue-print-nb-jeecg'
 /*import '@babel/polyfill'*/
 import VueApexCharts from 'vue-apexcharts'
 
@@ -45,7 +44,6 @@ Vue.use(VueAxios, router)
 Vue.use(Viser)
 Vue.use(hasPermission)
 Vue.use(JDictSelectTag)
-Vue.use(Print)
 Vue.use(VueApexCharts)
 Vue.component('apexchart', VueApexCharts)
 Vue.use(preview)

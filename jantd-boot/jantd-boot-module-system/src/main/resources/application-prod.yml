@@ -1,7 +1,7 @@
 server:
   port: 8080
   servlet:
-    context-path: /jeecg-boot
+    context-path: /jantd-boot
     compression:
       enabled: true
       mime-types: application/javascript,application/json,application/xml,text/html,text/xml,text/plain,text/css,image/*
@@ -74,13 +74,13 @@ spring:
         connectionProperties: druid.stat.mergeSql\=true;druid.stat.slowSqlMillis\=5000
       datasource:
         master:
-          url: jdbc:mysql://127.0.0.1:3306/jeecg-boot?characterEncoding=UTF-8&useUnicode=true&useSSL=false
+          url: jdbc:mysql://127.0.0.1:3306/jantd-boot?characterEncoding=UTF-8&useUnicode=true&useSSL=false
           username: root
           password: root
           driver-class-name: com.mysql.jdbc.Driver
           # 多数据源配置
           #multi-datasource1:
-          #url: jdbc:mysql://localhost:3306/jeecg-boot2?useUnicode=true&characterEncoding=utf8&autoReconnect=true&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true
+          #url: jdbc:mysql://localhost:3306/jantd-boot2?useUnicode=true&characterEncoding=utf8&autoReconnect=true&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true
           #username: root
           #password: root
           #driver-class-name: com.mysql.jdbc.Driver
@@ -101,10 +101,10 @@ spring:
 mybatis-plus:
   mapper-locations: classpath*:cn/jantd/modules/**/xml/*Mapper.xml
 
-#jeecg专用配置
+#jantd专用配置
 jantd :
   path :
     #文件上传根目录 设置
-    upload: /opt/jeecg-boot/upload
+    upload: /opt/jantd-boot/upload
     #webapp文件路径
-    webapp: /opt/jeecg-boot/webapp
+    webapp: /opt/jantd-boot/webapp

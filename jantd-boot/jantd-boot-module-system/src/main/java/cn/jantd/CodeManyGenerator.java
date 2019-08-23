@@ -109,9 +109,9 @@ public class CodeManyGenerator {
                 // [1].子表一
                 SubTableVo sv = new SubTableVo();
                 // 表名
-                sv.setTableName("jeecg_order_customer");
+                sv.setTableName("jantd_order_customer");
                 // 实体名
-                sv.setEntity("JeecgOrderCustomer");
+                sv.setEntity("JantdOrderCustomer");
                 // 描述
                 sv.setFtlDescription("客户明细");
                 // 获取表columns
@@ -130,9 +130,9 @@ public class CodeManyGenerator {
                 // [2].子表二
                 SubTableVo sv2 = new SubTableVo();
                 // 表名
-                sv2.setTableName("jeecg_order_ticket");
+                sv2.setTableName("jantd_order_ticket");
                 // 实体名 请设置和表明一致且驼峰形式首字母大写
-                sv2.setEntity("JeecgOrderTicket");
+                sv2.setEntity("JantdOrderTicket");
                 // 描述
                 sv2.setFtlDescription("产品明细");
                 try {
@@ -205,7 +205,7 @@ public class CodeManyGenerator {
             }
         });
         // 自定义生成子表文件
-        String[] subTables = new String[]{"JeecgOrderTicket", "JeecgOrderCustomer"};
+        String[] subTables = new String[]{"JantdOrderTicket", "JantdOrderCustomer"};
         Arrays.stream(subTables).forEach(subTable -> {
             String subTableEntity = "/templates/codeManyTemplates/subTableEntity.java.ftl";
             String subTableService = "/templates/codeManyTemplates/subTableService.java.ftl";

@@ -4,7 +4,6 @@ import java.lang.reflect.Field;
 import java.util.Date;
 import java.util.Properties;
 
-import org.apache.ibatis.binding.MapperMethod;
 import org.apache.ibatis.binding.MapperMethod.ParamMap;
 import org.apache.ibatis.executor.Executor;
 import org.apache.ibatis.mapping.MappedStatement;
