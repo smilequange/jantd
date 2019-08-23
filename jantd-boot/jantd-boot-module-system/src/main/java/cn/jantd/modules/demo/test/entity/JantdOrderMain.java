@@ -16,7 +16,7 @@ import org.springframework.format.annotation.DateTimeFormat;
  * @Version: V1.0
  */
 @Data
-@TableName("jeecg_order_main")
+@TableName("jantd_order_main")
 public class JantdOrderMain implements Serializable {
     private static final long serialVersionUID = 1L;
 

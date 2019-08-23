@@ -10,20 +10,21 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 /**
  * @Description: 订单机票
  * @Author xiagf
- * @Date:  2019-02-15
+ * @Date: 2019-02-15
  * @Version: V1.0
  */
 public interface JantdOrderTicketMapper extends BaseMapper<JantdOrderTicket> {
 
-	/**
-	 *  通过主表外键批量删除客户
-	 * @param mainId
-	 * @return
-	 */
-    @Delete("DELETE FROM JEECG_ORDER_TICKET WHERE ORDER_ID = #{mainId}")
-	public boolean deleteTicketsByMainId(String mainId);
+    /**
+     * 通过主表外键批量删除客户
+     *
+     * @param mainId
+     * @return
+     */
+    @Delete("DELETE FROM JANTD_ORDER_TICKET WHERE ORDER_ID = #{mainId}")
+    boolean deleteTicketsByMainId(String mainId);
 
 
-    @Select("SELECT * FROM JEECG_ORDER_TICKET WHERE ORDER_ID = #{mainId}")
-	public List<JantdOrderTicket> selectTicketsByMainId(String mainId);
+    @Select("SELECT * FROM JANTD_ORDER_TICKET WHERE ORDER_ID = #{mainId}")
+    List<JantdOrderTicket> selectTicketsByMainId(String mainId);
 }

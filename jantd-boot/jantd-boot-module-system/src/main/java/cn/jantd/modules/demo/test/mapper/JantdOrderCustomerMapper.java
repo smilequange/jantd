@@ -11,19 +11,20 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 /**
  * @Description: 订单客户
  * @Author xiagf
- * @Date:  2019-02-15
+ * @Date: 2019-02-15
  * @Version: V1.0
  */
 public interface JantdOrderCustomerMapper extends BaseMapper<JantdOrderCustomer> {
 
-	/**
-	 *  通过主表外键批量删除客户
-	 * @param mainId
-	 * @return
-	 */
-    @Delete("DELETE FROM JEECG_ORDER_CUSTOMER WHERE ORDER_ID = #{mainId}")
-	public boolean deleteCustomersByMainId(String mainId);
+    /**
+     * 通过主表外键批量删除客户
+     *
+     * @param mainId
+     * @return
+     */
+    @Delete("DELETE FROM JANTD_ORDER_CUSTOMER WHERE ORDER_ID = #{mainId}")
+    boolean deleteCustomersByMainId(String mainId);
 
-    @Select("SELECT * FROM JEECG_ORDER_CUSTOMER WHERE ORDER_ID = #{mainId}")
-	public List<JantdOrderCustomer> selectCustomersByMainId(String mainId);
+    @Select("SELECT * FROM JANTD_ORDER_CUSTOMER WHERE ORDER_ID = #{mainId}")
+    List<JantdOrderCustomer> selectCustomersByMainId(String mainId);
 }

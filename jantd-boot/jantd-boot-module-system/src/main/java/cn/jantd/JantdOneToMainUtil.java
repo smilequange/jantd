@@ -25,9 +25,9 @@ public class JantdOneToMainUtil {
         //表名
         mainTable.setTableName("jeecg_order_main");
         //实体名
-        mainTable.setEntityName("TestOrderMain");
+        mainTable.setEntityName("JeecgOrderMain");
         //包名
-        mainTable.setEntityPackage("test2");
+        mainTable.setEntityPackage("xiagf");
         //描述
         mainTable.setFtlDescription("订单");
 
@@ -38,9 +38,9 @@ public class JantdOneToMainUtil {
         //表名
         po.setTableName("jeecg_order_customer");
         //实体名
-        po.setEntityName("TestOrderCustom");
+        po.setEntityName("JeecgOrderCustomer");
         //包名
-        po.setEntityPackage("test2");
+        po.setEntityPackage("xiagf");
         //描述
         po.setFtlDescription("客户明细");
         //子表外键参数配置
@@ -56,9 +56,9 @@ public class JantdOneToMainUtil {
         //表名
         po2.setTableName("jeecg_order_ticket");
         //实体名
-        po2.setEntityName("TestOrderTicket");
+        po2.setEntityName("JeecgOrderTicket");
         //包名
-        po2.setEntityPackage("test2");
+        po2.setEntityPackage("xiagf");
         //描述
         po2.setFtlDescription("产品明细");
         //子表外键参数配置

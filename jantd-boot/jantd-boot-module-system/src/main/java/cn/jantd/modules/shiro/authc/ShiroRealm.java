@@ -66,7 +66,7 @@ public class ShiroRealm extends AuthorizingRealm {
         }
         SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
 
-        // 设置用户拥有的角色集合，比如“admin,test”
+        // 设置用户拥有的角色集合，比如“admin,xiagf”
         Set<String> roleSet = sysUserService.getUserRolesSet(username);
         info.setRoles(roleSet);
 

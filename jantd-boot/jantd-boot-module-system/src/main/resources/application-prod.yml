@@ -13,9 +13,9 @@ management:
     include: metrics,httptrace
 
 spring:
-  ## quartz定时任务,采用数据库方式
-  quartz:
-    job-store-type: jdbc
+#  ## quartz定时任务,采用数据库方式
+#  quartz:
+#    job-store-type: jdbc
   #json 时间戳统一转换
   jackson:
     date-format:   yyyy-MM-dd HH:mm:ss
