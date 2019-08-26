@@ -59,7 +59,6 @@
     <!-- 操作按钮区域 -->
     <div class="table-operator" style="margin-top: 5px">
       <a-button @click="handleAdd" type="primary" icon="plus">新增</a-button>
-      <a-button type="primary" icon="plus" @click="jump">创建单据</a-button>
       <a-button type="primary" icon="plus" @click="onetomany">一对多</a-button>
       <a-button type="primary" icon="download" @click="handleExportXls('demo')">导出</a-button>
       <a-upload name="file" :showUploadList="false" :multiple="false" :headers="tokenHeader" :action="importExcelUrl" @change="handleImportExcel">
