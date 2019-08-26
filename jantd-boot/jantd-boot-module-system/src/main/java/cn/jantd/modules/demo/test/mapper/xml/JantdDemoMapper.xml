@@ -21,7 +21,7 @@
 			#{obj.name,jdbcType=VARCHAR},
 			#{obj.sex,jdbcType=VARCHAR},
 			#{obj.age,jdbcType=INTEGER},
-			#{obj.createTime,jdbcType=DATE}
+			#{obj.createTime,jdbcType=TIMESTAMP}
 			)
 		</foreach >
 	</insert>

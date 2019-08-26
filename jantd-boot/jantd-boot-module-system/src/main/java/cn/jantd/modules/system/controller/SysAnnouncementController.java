@@ -366,12 +366,15 @@ public class SysAnnouncementController {
             params.setNeedSave(true);
             try {
                 List<SysAnnouncement> listSysAnnouncements = ExcelImportUtil.importExcel(file.getInputStream(), SysAnnouncement.class, params);
-                for (SysAnnouncement sysAnnouncementExcel : listSysAnnouncements) {
-                    if (sysAnnouncementExcel.getDelFlag() == null) {
-                        sysAnnouncementExcel.setDelFlag("0");
-                    }
-                    sysAnnouncementService.save(sysAnnouncementExcel);
-                }
+//                for (SysAnnouncement sysAnnouncementExcel : listSysAnnouncements) {
+//                    if (sysAnnouncementExcel.getDelFlag() == null) {
+//                        sysAnnouncementExcel.setDelFlag("0");
+//                    }
+//                    sysAnnouncementService.save(sysAnnouncementExcel);
+//
+//                }
+                // 批量导入效率更高  是之前循环插入效率的百倍左右
+                sysAnnouncementService.saveBatch(listSysAnnouncements);
                 return Result.ok("文件导入成功！数据行数：" + listSysAnnouncements.size());
             } catch (Exception e) {
                 log.error(e.getMessage(), e);

@@ -8,11 +8,15 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import cn.jantd.core.constant.CommonConstant;
+import cn.jantd.core.system.vo.LoginUser;
+import cn.jantd.core.util.UUIDGenerator;
 import cn.jantd.modules.system.service.ISysAnnouncementService;
 import cn.jantd.modules.system.entity.SysAnnouncement;
 import cn.jantd.modules.system.entity.SysAnnouncementSend;
 import cn.jantd.modules.system.mapper.SysAnnouncementMapper;
 import cn.jantd.modules.system.mapper.SysAnnouncementSendMapper;
+import org.apache.commons.collections4.ListUtils;
+import org.apache.shiro.SecurityUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -120,6 +124,32 @@ public class SysAnnouncementServiceImpl extends ServiceImpl<SysAnnouncementMappe
     @Override
     public Page<SysAnnouncement> querySysCementPageByUserId(Page<SysAnnouncement> page, String userId, String msgCategory) {
         return page.setRecords(sysAnnouncementMapper.querySysCementListByUserId(page, userId, msgCategory));
+    }
+
+    /**
+     * 批量导入
+     *
+     * @param sysAnnouncementList
+     * @return
+     */
+    @Override
+    public Integer saveBatch(List<SysAnnouncement> sysAnnouncementList) {
+        // 组装数据
+        LoginUser user = (LoginUser) SecurityUtils.getSubject().getPrincipal();
+        sysAnnouncementList.stream().forEach(sysAnnouncement -> {
+            sysAnnouncement.setId(UUIDGenerator.generate());
+            sysAnnouncement.setCreateBy(user.getUsername());
+            sysAnnouncement.setCreateTime(new Date());
+            if (sysAnnouncement.getDelFlag() == null) {
+                sysAnnouncement.setDelFlag("0");
+            }
+        });
+        // 批量插入数据（没一百条插入一次）
+        return ListUtils.partition(sysAnnouncementList, 100)
+                .stream()
+                .map(partition -> sysAnnouncementMapper.saveBatch(partition))
+                .mapToInt(Integer::intValue)
+                .sum();
     }
 
 }

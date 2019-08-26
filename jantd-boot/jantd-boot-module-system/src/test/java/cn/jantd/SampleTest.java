@@ -74,7 +74,6 @@ public class SampleTest {
     @Rollback(false)
     public void testDbInsert() {
         List<JantdDemo> list = new ArrayList<>();
-        Long startTime = System.currentTimeMillis();
         for (int i = 0; i < 5000; i++) {
             JantdDemo jantdDemo = new JantdDemo();
             jantdDemo.setAge(11);
@@ -85,6 +84,7 @@ public class SampleTest {
             jantdDemo.setCreateTime(new Date());
             list.add(jantdDemo);
         }
+        Long startTime = System.currentTimeMillis();
         jantdDemoService.saveBatch(list);
         long endTime = System.currentTimeMillis();
         System.out.println((float) (endTime - startTime) / 1000);

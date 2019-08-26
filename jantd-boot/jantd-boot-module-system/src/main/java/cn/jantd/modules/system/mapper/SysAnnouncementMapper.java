@@ -26,4 +26,12 @@ public interface SysAnnouncementMapper extends BaseMapper<SysAnnouncement> {
      */
     List<SysAnnouncement> querySysCementListByUserId(Page<SysAnnouncement> page, @Param("userId") String userId, @Param("msgCategory") String msgCategory);
 
+    /**
+     * 批量插入
+     *
+     * @param list
+     * @return
+     */
+    Integer saveBatch(@Param("objs") List<SysAnnouncement> list);
+
 }

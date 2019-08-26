@@ -5,6 +5,8 @@ import cn.jantd.modules.system.entity.SysAnnouncement;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 
+import java.util.List;
+
 /**
  * @Description: 系统通告表
  * @Author xiagf
@@ -45,6 +47,14 @@ public interface ISysAnnouncementService extends IService<SysAnnouncement> {
      * @return
      */
     Page<SysAnnouncement> querySysCementPageByUserId(Page<SysAnnouncement> page, String userId, String msgCategory);
+
+    /**
+     * 批量导入
+     *
+     * @param jantdDemoList
+     * @return
+     */
+    Integer saveBatch(List<SysAnnouncement> jantdDemoList);
 
 
 }

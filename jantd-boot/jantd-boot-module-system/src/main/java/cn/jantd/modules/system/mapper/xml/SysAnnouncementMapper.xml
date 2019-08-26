@@ -34,4 +34,45 @@
 	   and sas.read_flag = '0'
 	</select>
 
+	<insert id="saveBatch">
+		insert into sys_announcement (
+		id,
+		titile,
+		msg_content,
+		start_time,
+		end_time,
+		sender,
+		priority,
+		msg_category,
+		msg_type,
+		send_status,
+		send_time,
+		del_flag,
+		cancel_time,
+		create_by,
+		create_time,
+		user_ids
+		) VALUES
+		<foreach collection ="objs" item="obj" separator =",">
+			(
+			#{obj.id,jdbcType=VARCHAR},
+			#{obj.titile,jdbcType=VARCHAR},
+			#{obj.msgContent,jdbcType=VARCHAR},
+			#{obj.startTime,jdbcType=TIMESTAMP},
+			#{obj.endTime,jdbcType=TIMESTAMP},
+			#{obj.sender,jdbcType=VARCHAR},
+			#{obj.priority,jdbcType=VARCHAR},
+			#{obj.msgCategory,jdbcType=VARCHAR},
+			#{obj.msgType,jdbcType=VARCHAR},
+			#{obj.sendStatus,jdbcType=VARCHAR},
+			#{obj.sendTime,jdbcType=TIMESTAMP},
+			#{obj.delFlag,jdbcType=VARCHAR},
+			#{obj.cancelTime,jdbcType=TIMESTAMP},
+			#{obj.createBy,jdbcType=VARCHAR},
+			#{obj.createTime,jdbcType=TIMESTAMP},
+			#{obj.userIds,jdbcType=VARCHAR}
+			)
+		</foreach >
+	</insert>
+
 </mapper>
