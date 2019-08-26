@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import cn.jantd.core.annotation.AutoLog;
 import cn.jantd.core.api.vo.Result;
+import cn.jantd.core.constant.SystemConstant;
 import cn.jantd.core.poi.def.NormalExcelConstants;
 import cn.jantd.core.poi.excel.ExcelImportUtil;
 import cn.jantd.core.poi.excel.entity.ExportParams;
@@ -165,11 +166,15 @@ public class SysDepartController {
     @DeleteMapping(value = "/deleteBatch")
     public Result<SysDepart> deleteBatch(@RequestParam(name = "ids", required = true) String ids) {
 
-        Result<SysDepart> result = new Result<SysDepart>();
+        Result<SysDepart> result = new Result<>();
         if (ids == null || "".equals(ids.trim())) {
             result.error500("参数不识别！");
         } else {
-            this.sysDepartService.removeByIds(Arrays.asList(ids.split(",")));
+            if(Arrays.asList(ids.split(SystemConstant.COMMA)).size() == 1){
+                sysDepartService.delete(ids.replace(SystemConstant.COMMA,""));
+            }else {
+                this.sysDepartService.removeByIds(Arrays.asList(ids.split(SystemConstant.COMMA)));
+            }
             result.success("删除成功!");
         }
         return result;
