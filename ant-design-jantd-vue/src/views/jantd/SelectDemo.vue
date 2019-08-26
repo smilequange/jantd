@@ -45,7 +45,7 @@
         <a-row :gutter="24">
           <a-col :span="12">
             <a-form-item label="性别">
-              <j-dict-select-tag title="性别" dictCode="sex" disabled/>
+              <j-dict-select-tag title="性别" dictCode="sex"/>
             </a-form-item>
           </a-col>
         </a-row>
