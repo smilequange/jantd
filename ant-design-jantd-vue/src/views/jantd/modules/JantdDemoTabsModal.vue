@@ -62,13 +62,13 @@
           <a-tab-pane tab="Tab 1" key="1">
 
             <a-table :columns="columns" :dataSource="data" :pagination="false" size="middle">
-              <template v-for="(col, i) in ['name', 'workId', 'department']" :slot="col" slot-scope="text, record, index">
-                <a-tooltip  title="必填项" :defaultVisible="false" overlayStyle="{ color: 'red' }">
+              <template v-for="(col, i) in ['name', 'workId', 'department']" :slot="col" slot-scope="text, record">
+                <a-tooltip  title="必填项" :defaultVisible="false" :overlayStyle="{ color: 'red' }" :key="col">
                   <a-input :key="col" v-if="record.editable" style="margin: -5px 0"  :value="text" :placeholder="columns[i].title" @change="e => handlerRowChange(e.target.value, record.key, col)"/>
                 <template v-else>{{ text }}</template>
                 </a-tooltip>
               </template>
-              <template slot="operation" slot-scope="text, record, index">
+              <template slot="operation" slot-scope="text, record">
                 <template v-if="record.editable">
                   <span v-if="record.isNew">
                     <a @click="saveRow(record.key)">添加</a>
