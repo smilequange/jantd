@@ -4,10 +4,13 @@ import cn.jantd.modules.demo.test.entity.JantdDemo;
 import cn.jantd.modules.demo.test.mapper.JantdDemoMapper;
 import cn.jantd.core.system.base.service.impl.BaseServiceImpl;
 import cn.jantd.modules.demo.test.service.IJantdDemoService;
+import org.apache.commons.collections4.ListUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 /**
  * @Description: jantd 测试demo
@@ -58,6 +61,15 @@ public class JantdDemoServiceImpl extends BaseServiceImpl<JantdDemoMapper, Jantd
 		System.err.println("---未读缓存，读取数据库---");
 		System.err.println(t);
 		return t;
+	}
+
+	@Override
+	public Integer saveBatch(List<JantdDemo> jantdDemoList) {
+		return ListUtils.partition(jantdDemoList,100)
+				.stream()
+				.map(partition -> jantdDemoMapper.saveBatch(partition))
+				.mapToInt(Integer::intValue)
+				.sum();
 	}
 
 }

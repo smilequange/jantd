@@ -85,6 +85,7 @@ public class SampleTest {
             jantdDemo.setCreateTime(new Date());
             list.add(jantdDemo);
         }
+        jantdDemoService.saveBatch(list);
         long endTime = System.currentTimeMillis();
         System.out.println((float) (endTime - startTime) / 1000);
     }

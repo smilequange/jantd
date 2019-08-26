@@ -2,8 +2,8 @@ package cn.jantd.modules.demo.test.mapper;
 
 import java.util.List;
 import cn.jantd.modules.demo.test.entity.JantdDemo;
-import org.springframework.data.repository.query.Param;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * @Description: jantd 测试demo
@@ -14,5 +14,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 public interface JantdDemoMapper extends BaseMapper<JantdDemo> {
 
 	public List<JantdDemo> getDemoByName(@Param("name") String name);
+
+	Integer saveBatch(@Param("objs") List<JantdDemo> list);
 
 }

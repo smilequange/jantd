@@ -6,4 +6,23 @@
 	<select id="getDemoByName" resultType="cn.jantd.modules.demo.test.entity.JantdDemo">
 		select * from  demo  where name = #{name}
 	</select>
+
+	<insert id="saveBatch">
+		insert into demo (
+		id,
+		name,
+		sex,
+		age,
+		create_time
+		) VALUES
+		<foreach collection ="objs" item="obj" separator =",">
+			(
+			#{obj.id,jdbcType=VARCHAR},
+			#{obj.name,jdbcType=VARCHAR},
+			#{obj.sex,jdbcType=VARCHAR},
+			#{obj.age,jdbcType=INTEGER},
+			#{obj.createTime,jdbcType=DATE}
+			)
+		</foreach >
+	</insert>
 </mapper>
