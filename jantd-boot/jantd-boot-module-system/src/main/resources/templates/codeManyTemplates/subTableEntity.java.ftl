@@ -1,4 +1,5 @@
 <#list cfg.subTables as subTab>
+#segment#${subTab.entity}.java
 package ${package.Entity};
 
 import java.io.Serializable;

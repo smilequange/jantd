@@ -48,7 +48,7 @@ import java.util.*;
 @Slf4j
 @Api(tags = "${table.comment}")
 @RestController
-@RequestMapping("/${entity?uncap_first}/${entity?uncap_first}")
+@RequestMapping("/${cfg.moduleName}/${entity?uncap_first}")
 public class ${entity}Controller {
 	@Autowired
 	private I${entity}Service ${entity?uncap_first}Service;

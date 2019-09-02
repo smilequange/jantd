@@ -15,7 +15,10 @@ import com.baomidou.mybatisplus.generator.config.rules.IColumnType;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 import com.baomidou.mybatisplus.generator.engine.FreemarkerTemplateEngine;
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+import java.io.*;
 import java.sql.SQLException;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -30,6 +33,8 @@ import java.util.stream.Collectors;
  * @date 2019-08-06
  */
 public class CodeManyGenerator {
+
+    private static final Logger a = LoggerFactory.getLogger(CodeManyGenerator.class);
 
     private static final ResourceBundle JANTD_CONFIG = ResourceBundle.getBundle("templates/jantd_config");
 
@@ -79,6 +84,21 @@ public class CodeManyGenerator {
         strategyConfigSetUp(autoGenerator, pc);
         // 代码生成
         autoGenerator.execute();
+
+        // 处理子表文件
+        handleSubTable(pc);
+    }
+
+    private static void handleSubTable(PackageConfig pc) {
+        File subTableEntity = new File(JANTD_CONFIG.getString("project_path") + JANTD_CONFIG.getString("source_root_package") + "/cn/jantd/modules/" + pc.getModuleName() + "/entity"+ "/" + "SubTable.java");
+        File subTableService = new File(JANTD_CONFIG.getString("project_path") + JANTD_CONFIG.getString("source_root_package") + "/cn/jantd/modules/" + pc.getModuleName() + "/service"+ "/" + "ISubTableService" + ".java");
+        File subTableServiceImpl = new File(JANTD_CONFIG.getString("project_path") + JANTD_CONFIG.getString("source_root_package") + "/cn/jantd/modules/" + pc.getModuleName() + "/service/impl/"+ "SubTableServiceImpl" + ".java");
+        File subTableMapper = new File(JANTD_CONFIG.getString("project_path") + JANTD_CONFIG.getString("source_root_package") + "/cn/jantd/modules/" + pc.getModuleName() + "/mapper"+ "/" + "SubTableMapper" + ".java");
+        File subTableMapperXml = new File(JANTD_CONFIG.getString("project_path") + JANTD_CONFIG.getString("source_root_package") + "/cn/jantd/modules/" + pc.getModuleName() + "/mapper/xml/"+ "SubTableMapper" + ".xml");
+        File[] subTableFiles = new File[]{subTableEntity,subTableService,subTableServiceImpl,subTableMapper,subTableMapperXml};
+        Arrays.stream(subTableFiles).forEach(subTableFile -> {
+                generatorSubFile(subTableFile,"#segment#");
+            });
     }
 
     /**
@@ -97,7 +117,16 @@ public class CodeManyGenerator {
                 map.put("primaryKeyField", JANTD_CONFIG.getString("db_table_id"));
                 map.put("bussiPackage", JANTD_CONFIG.getString("bussi_package"));
                 map.put("entityPackage", autoGenerator.getPackageInfo().getModuleName());
+                map.put("moduleName",autoGenerator.getPackageInfo().getModuleName());
+                subTableSet(map);
 
+            }
+
+            /**
+             * 子表設置
+             * @param map
+             */
+            private void subTableSet(Map<String, Object> map) {
                 // 设置子表集合配置
                 // 子表外键参数配置
                 /*说明:
@@ -205,7 +234,7 @@ public class CodeManyGenerator {
             }
         });
         // 自定义生成子表文件
-        String[] subTables = new String[]{"JantdOrderTicket", "JantdOrderCustomer"};
+        String[] subTables = new String[]{"SubTable"};
         Arrays.stream(subTables).forEach(subTable -> {
             String subTableEntity = "/templates/codeManyTemplates/subTableEntity.java.ftl";
             String subTableService = "/templates/codeManyTemplates/subTableService.java.ftl";
@@ -276,7 +305,7 @@ public class CodeManyGenerator {
         strategy.setRestControllerStyle(true);
         // 写于父类中的公共字段
         strategy.setSuperEntityColumns("id");
-        strategy.setInclude(scanner("主表名,子表请在自定义注入设置中配置（64行）"));
+        strategy.setInclude(scanner("主表名,子表请在自定义注入设置中配置（77行）"));
         strategy.setControllerMappingHyphenStyle(true);
         strategy.setTablePrefix(pc.getModuleName() + "_");
         autoGenerator.setStrategy(strategy);
@@ -375,6 +404,160 @@ public class CodeManyGenerator {
         gc.setServiceImplName("%sServiceImpl");
         gc.setControllerName("%sController");
         autoGenerator.setGlobalConfig(gc);
+    }
+
+    private static void generatorSubFile(File var0, String var1) {
+        InputStreamReader var2 = null;
+        BufferedReader var3 = null;
+        ArrayList var4 = new ArrayList();
+        boolean var19 = false;
+
+        int var27;
+        label341: {
+            label342: {
+                try {
+                    var19 = true;
+                    var2 = new InputStreamReader(new FileInputStream(var0), "UTF-8");
+                    var3 = new BufferedReader(var2);
+                    boolean var6 = false;
+                    OutputStreamWriter var7 = null;
+
+                    while(true) {
+                        String var5;
+                        while((var5 = var3.readLine()) != null) {
+                            if (var5.trim().length() > 0 && var5.startsWith(var1)) {
+                                String var8 = var5.substring(var1.length());
+                                String var9 = var0.getParentFile().getAbsolutePath();
+                                var8 = var9 + File.separator + var8;
+                                a.debug("[generate]\t split file:" + var0.getAbsolutePath() + " ==> " + var8);
+                                var7 = new OutputStreamWriter(new FileOutputStream(var8), "UTF-8");
+                                var4.add(var7);
+                                var6 = true;
+                            } else if (var6) {
+                                a.debug("row : " + var5);
+                                var7.append(var5 + "\r\n");
+                            }
+                        }
+
+                        for(int var28 = 0; var28 < var4.size(); ++var28) {
+                            ((Writer)var4.get(var28)).close();
+                        }
+
+                        var3.close();
+                        var2.close();
+                        a.debug("[generate]\t delete file:" + var0.getAbsolutePath());
+                        b(var0);
+                        var19 = false;
+                        break label341;
+                    }
+                } catch (FileNotFoundException var24) {
+                    var24.printStackTrace();
+                    var19 = false;
+                    break label342;
+                } catch (IOException var25) {
+                    var25.printStackTrace();
+                    var19 = false;
+                } finally {
+                    if (var19) {
+                        try {
+                            if (var3 != null) {
+                                var3.close();
+                            }
+
+                            if (var2 != null) {
+                                var2.close();
+                            }
+
+                            if (var4.size() > 0) {
+                                for(int var11 = 0; var11 < var4.size(); ++var11) {
+                                    if (var4.get(var11) != null) {
+                                        ((Writer)var4.get(var11)).close();
+                                    }
+                                }
+                            }
+                        } catch (IOException var20) {
+                            var20.printStackTrace();
+                        }
+
+                    }
+                }
+
+                try {
+                    if (var3 != null) {
+                        var3.close();
+                    }
+
+                    if (var2 != null) {
+                        var2.close();
+                    }
+
+                    if (var4.size() > 0) {
+                        for(var27 = 0; var27 < var4.size(); ++var27) {
+                            if (var4.get(var27) != null) {
+                                ((Writer)var4.get(var27)).close();
+                            }
+                        }
+                    }
+                } catch (IOException var21) {
+                    var21.printStackTrace();
+                }
+
+                return;
+            }
+
+            try {
+                if (var3 != null) {
+                    var3.close();
+                }
+
+                if (var2 != null) {
+                    var2.close();
+                }
+
+                if (var4.size() > 0) {
+                    for(var27 = 0; var27 < var4.size(); ++var27) {
+                        if (var4.get(var27) != null) {
+                            ((Writer)var4.get(var27)).close();
+                        }
+                    }
+                }
+            } catch (IOException var22) {
+                var22.printStackTrace();
+            }
+
+            return;
+        }
+
+        try {
+            if (var3 != null) {
+                var3.close();
+            }
+
+            if (var2 != null) {
+                var2.close();
+            }
+
+            if (var4.size() > 0) {
+                for(var27 = 0; var27 < var4.size(); ++var27) {
+                    if (var4.get(var27) != null) {
+                        ((Writer)var4.get(var27)).close();
+                    }
+                }
+            }
+        } catch (IOException var23) {
+            var23.printStackTrace();
+        }
+
+    }
+
+    protected static boolean b(File var0) {
+        boolean var1 = false;
+
+        for(int var2 = 0; !var1 && var2++ < 10; var1 = var0.delete()) {
+            System.gc();
+        }
+
+        return var1;
     }
 
 }

@@ -134,11 +134,11 @@
         ],
         // 请求参数
     	url: {
-              list: "/${entity?uncap_first}/${entity?uncap_first}/list",
-              delete: "/${entity?uncap_first}/${entity?uncap_first}/delete",
-              deleteBatch: "/${entity?uncap_first}/${entity?uncap_first}/deleteBatch",
-              exportXlsUrl: "${entity?uncap_first}/${entity?uncap_first}/exportXls",
-              importExcelUrl: "${entity?uncap_first}/${entity?uncap_first}/importExcel",
+              list: "/${cfg.moduleName}/${entity?uncap_first}/list",
+              delete: "/${cfg.moduleName}/${entity?uncap_first}/delete",
+              deleteBatch: "/${cfg.moduleName}/${entity?uncap_first}/deleteBatch",
+              exportXlsUrl: "${cfg.moduleName}/${entity?uncap_first}/exportXls",
+              importExcelUrl: "${cfg.moduleName}/${entity?uncap_first}/importExcel",
            },
         }
       },

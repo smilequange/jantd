@@ -105,11 +105,11 @@
             {
               title: '${col.filedComment}',
               key: '${col.fieldName}',
-      <#if col.fieldType =='date'>
+      <#if col.fieldType =='Date'>
               type: FormTypes.date,
-      <#elseif col.fieldType =='datetime'>
+      <#elseif col.fieldType =='DateTime'>
               type: FormTypes.datetime,
-      <#elseif "int,decimal,double,"?contains(col.fieldType)>
+      <#elseif "Integer,BigDecimal,Double,"?contains(col.fieldType)>
               type: FormTypes.inputNumber,
       <#else>
               type: FormTypes.input,
@@ -126,11 +126,11 @@
         },
 </#list>
         url: {
-          add: "/${entity?uncap_first}/${entity?uncap_first}/add",
-          edit: "/${entity?uncap_first}/${entity?uncap_first}/edit",
+          add: "/${cfg.moduleName}/${entity?uncap_first}/add",
+          edit: "/${cfg.moduleName}/${entity?uncap_first}/edit",
 <#list cfg.subTables as sub><#rt/>
           ${sub.entity?uncap_first}: {
-            list: '/${entity?uncap_first}/${entity?uncap_first}/query${sub.entity}ByMainId'
+            list: '/${cfg.moduleName}/${entity?uncap_first}/query${sub.entity}ByMainId'
           },
 </#list>
         }
