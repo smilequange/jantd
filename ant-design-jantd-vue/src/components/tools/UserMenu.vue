@@ -28,6 +28,10 @@
           <a-icon type="setting"/>
           <span>密码修改</span>
         </a-menu-item>
+        <a-menu-item key="5" @click="updateCurrentDepart">
+          <a-icon type="cluster"/>
+          <span>切换部门</span>
+        </a-menu-item>
        <!-- <a-menu-item key="2" disabled>
           <a-icon type="setting"/>
           <span>测试</span>
@@ -48,12 +52,14 @@
       </a>
     </span>
     <user-password ref="userPassword"></user-password>
+    <depart-select ref="departSelect" :closable="true" title="部门切换"></depart-select>
   </div>
 </template>
 
 <script>
   import HeaderNotice from './HeaderNotice'
   import UserPassword from './UserPassword'
+  import DepartSelect from './DepartSelect'
   import { mapActions, mapGetters } from 'vuex'
   import { mixinDevice } from '@/utils/mixin.js'
 
@@ -62,7 +68,8 @@
     mixins: [mixinDevice],
     components: {
       HeaderNotice,
-      UserPassword
+      UserPassword,
+      DepartSelect
     },
     props: {
       theme: {
@@ -102,6 +109,9 @@
       updatePassword(){
         let username = this.userInfo().username
         this.$refs.userPassword.show(username)
+      },
+      updateCurrentDepart(){
+        this.$refs.departSelect.show()
       },
     }
   }

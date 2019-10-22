@@ -2,13 +2,7 @@ package cn.jantd.modules.system.controller;
 
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -24,11 +18,13 @@ import cn.jantd.core.system.query.QueryGenerator;
 import cn.jantd.core.system.vo.LoginUser;
 import cn.jantd.core.util.PasswordUtil;
 import cn.jantd.core.util.oConvertUtils;
+import cn.jantd.modules.system.entity.SysDepart;
 import cn.jantd.modules.system.entity.SysUser;
 import cn.jantd.modules.system.entity.SysUserDepart;
 import cn.jantd.modules.system.entity.SysUserRole;
 import cn.jantd.modules.system.model.DepartIdModel;
 import cn.jantd.modules.system.model.SysUserDepartsVO;
+import cn.jantd.modules.system.service.ISysDepartService;
 import cn.jantd.modules.system.service.ISysUserDepartService;
 import cn.jantd.modules.system.service.ISysUserRoleService;
 import cn.jantd.modules.system.service.ISysUserService;
@@ -78,6 +74,9 @@ public class SysUserController {
 
     @Autowired
     private ISysUserRoleService userRoleService;
+
+    @Autowired
+    private ISysDepartService sysDepartService;
 
     /**
      * 分页列表查询
@@ -850,5 +849,29 @@ public class SysUserController {
         }
         return result;
     }
+
+    /**
+     * 查询当前用户的所有部门/当前部门编码
+     *
+     * @return
+     */
+    @RequestMapping(value = "/getCurrentUserDeparts", method = RequestMethod.GET)
+    public Result<Map<String, Object>> getCurrentUserDeparts() {
+        Result<Map<String, Object>> result = new Result<Map<String, Object>>();
+        try {
+            LoginUser sysUser = (LoginUser) SecurityUtils.getSubject().getPrincipal();
+            List<SysDepart> list = this.sysDepartService.queryUserDeparts(sysUser.getId());
+            Map<String, Object> map = new HashMap<String, Object>();
+            map.put("list", list);
+            map.put("orgCode", sysUser.getOrgCode());
+            result.setSuccess(true);
+            result.setResult(map);
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
+            result.error500("查询失败！");
+        }
+        return result;
+    }
+
 
 }
