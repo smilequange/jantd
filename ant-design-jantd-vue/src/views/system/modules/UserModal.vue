@@ -335,8 +335,9 @@
             let formData = Object.assign(this.model, values);
             formData.avatar = avatar;
             formData.selectedroles = this.selectedRole.length>0?this.selectedRole.join(","):'';
-
-            that.addDepartsToUser(that,formData); // 调用根据当前用户添加部门信息的方法
+            if(that.userDepartModel.userId){
+              that.addDepartsToUser(that,formData); // 调用根据当前用户添加部门信息的方法
+            }
             let obj;
             if(!this.model.id){
               formData.id = this.userId;

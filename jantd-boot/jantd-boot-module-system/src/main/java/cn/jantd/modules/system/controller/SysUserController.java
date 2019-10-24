@@ -176,6 +176,7 @@ public class SysUserController {
         Result<SysUser> result = new Result<>();
         // 定义SysUserDepart实体类的数据库查询LambdaQueryWrapper
         LambdaQueryWrapper<SysUserDepart> query = new LambdaQueryWrapper<>();
+        LambdaQueryWrapper<SysUserRole> sysUserRoleLambdaQueryWrapper = new LambdaQueryWrapper<>();
         SysUser sysUser = sysUserService.getById(id);
         if (sysUser == null) {
             result.error500("未找到对应实体");
@@ -184,6 +185,8 @@ public class SysUserController {
             query.eq(SysUserDepart::getUserId, id);
             boolean ok = sysUserService.removeById(id);
             sysUserDepartService.remove(query);
+            sysUserRoleLambdaQueryWrapper.eq(SysUserRole::getUserId,id);
+            sysUserRoleService.remove(sysUserRoleLambdaQueryWrapper);
             if (ok) {
                 result.success("删除成功!");
             }
@@ -203,7 +206,7 @@ public class SysUserController {
     @DeleteMapping(value = "/deleteBatch")
     public Result<SysUser> deleteBatch(@RequestParam(name = "ids", required = true) String ids) {
         // 定义SysUserDepart实体类的数据库查询对象LambdaQueryWrapper
-        LambdaQueryWrapper<SysUserDepart> query = new LambdaQueryWrapper<>();
+
         String[] idArry = ids.split(",");
         Result<SysUser> result = new Result<>();
         if (StringUtils.isEmpty(ids)) {
@@ -212,7 +215,11 @@ public class SysUserController {
             this.sysUserService.removeByIds(Arrays.asList(ids.split(",")));
             // 当批量删除时,删除在SysUserDepart中对应的所有部门数据
             for (String id : idArry) {
+                LambdaQueryWrapper<SysUserDepart> query = new LambdaQueryWrapper<>();
+                LambdaQueryWrapper<SysUserRole> sysUserRoleLambdaQueryWrapper = new LambdaQueryWrapper<>();
                 query.eq(SysUserDepart::getUserId, id);
+                sysUserRoleLambdaQueryWrapper.eq(SysUserRole::getUserId,id);
+                this.sysUserRoleService.remove(sysUserRoleLambdaQueryWrapper);
                 this.sysUserDepartService.remove(query);
             }
             result.success("删除成功!");
