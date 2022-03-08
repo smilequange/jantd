@@ -39,7 +39,7 @@
         <commons.version>2.6</commons.version>
 
 		<commons-lang.version>3.2.1</commons-lang.version>
-		<poi.version>3.9</poi.version>
+		<poi.version>5.2.1</poi.version>
 		<xerces.version>2.9.1</xerces.version>
 		<guava.version>20.0</guava.version>
     </properties>
